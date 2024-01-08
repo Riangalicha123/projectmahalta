@@ -1,0 +1,199 @@
+CRITICAL - 2023-11-26 01:05:51 --> Undefined variable $users
+in APPPATH\Views\Admin\guest.php on line 100.
+ 1 APPPATH\Views\Admin\guest.php(100): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $users', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\guest.php', 100)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\guest.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/guest', [], true)
+ 5 APPPATH\Controllers\AdminController.php(26): view('Admin/guest')
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->guest()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 05:00:01 --> Trying to access array offset on value of type null
+in APPPATH\Views\Admin\roombooking.php on line 105.
+ 1 APPPATH\Views\Admin\roombooking.php(105): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php', 105)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/roombooking', [], true)
+ 5 APPPATH\Controllers\AdminController.php(40): view('Admin/roombooking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-11-26 05:00:42 --> mysqli_sql_exception: Unknown column 'users.MahaltaId' in 'field list' in C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `room_re...', 0)
+#1 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `room_re...')
+#2 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `room_re...')
+#3 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_re...', Array, false)
+#4 C:\laragon\www\MahaltaCalapanCity\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\MahaltaCalapanCity\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\MahaltaCalapanCity\app\Controllers\AdminController.php(38): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+#8 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\MahaltaCalapanCity\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2023-11-26 05:00:42 --> Unknown column 'users.MahaltaId' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_reservation`.`check_in`, `room_reservation`.`check_out`, `room_reservation`.`status`, `room_reservation`.`fullname`, `room_reservation`.`contact`, `users`.`MahaltaId`, `users`.`Username`, `room`.`room_type`
+FROM `room_reservation`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(38): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 05:12:51 --> Undefined array key "MahaltaId.Username"
+in APPPATH\Views\Admin\roombooking.php on line 110.
+ 1 APPPATH\Views\Admin\roombooking.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "MahaltaId.Username"', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php', 110)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/roombooking', [], true)
+ 5 APPPATH\Controllers\AdminController.php(40): view('Admin/roombooking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 05:13:02 --> Undefined array key "Username"
+in APPPATH\Views\Admin\roombooking.php on line 110.
+ 1 APPPATH\Views\Admin\roombooking.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "Username"', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php', 110)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/roombooking', [], true)
+ 5 APPPATH\Controllers\AdminController.php(40): view('Admin/roombooking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-11-26 05:52:37 --> mysqli_sql_exception: Unknown column 'room.room_id' in 'on clause' in C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `room_re...', 0)
+#1 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `room_re...')
+#2 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `room_re...')
+#3 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_re...', Array, false)
+#4 C:\laragon\www\MahaltaCalapanCity\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\MahaltaCalapanCity\app\Controllers\AdminController.php(42): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+#7 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\MahaltaCalapanCity\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 {main}
+CRITICAL - 2023-11-26 05:52:37 --> Unknown column 'room.room_id' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_reservation`.`reservation_id`, `room_reservation`.`check_in`, `room_reservation`.`check_out`, `room_reservation`.`status`, `room_reservation`.`fullname`, `room_reservation`.`contact`, `room_reservation`.`MahaltaId`, `room_reservation`.`room_id`, `users`.`Username`, `room`.`room_type`
+FROM `room_reservation`
+JOIN `users` ON `room_reservation`.`room_id` = `room`.`room_id`
+JOIN `room` ON `room_reservation`.`room_id` = `room`.`room_id`', [], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(42): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 05:54:34 --> Undefined array key "Username"
+in APPPATH\Views\Admin\roombooking.php on line 110.
+ 1 APPPATH\Views\Admin\roombooking.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "Username"', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php', 110)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/roombooking', [], true)
+ 5 APPPATH\Controllers\AdminController.php(40): view('Admin/roombooking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 05:54:34 --> Undefined array key "Username"
+in APPPATH\Views\Admin\roombooking.php on line 110.
+ 1 APPPATH\Views\Admin\roombooking.php(110): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "Username"', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php', 110)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\roombooking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/roombooking', [], true)
+ 5 APPPATH\Controllers\AdminController.php(40): view('Admin/roombooking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-11-26 05:59:05 --> mysqli_sql_exception: Unknown column 'users.Username' in 'field list' in C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `room_re...', 0)
+#1 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `room_re...')
+#2 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `room_re...')
+#3 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_re...', Array, false)
+#4 C:\laragon\www\MahaltaCalapanCity\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\MahaltaCalapanCity\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\MahaltaCalapanCity\app\Controllers\AdminController.php(38): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+#8 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\MahaltaCalapanCity\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2023-11-26 05:59:05 --> Unknown column 'users.Username' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_reservation`.`reservation_id`, `room_reservation`.`check_in`, `room_reservation`.`check_out`, `room_reservation`.`status`, `room_reservation`.`fullname`, `room_reservation`.`contact`, `room_reservation`.`MahaltaId`, `users`.`Username`, `room_reservation`.`room_id`, `room`.`room_type`
+FROM `room_reservation`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(38): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 06:46:56 --> Call to undefined function set_value()
+in APPPATH\Views\Hotel\include\banner.php on line 39.
+ 1 APPPATH\Views\Hotel\home.php(62): include()
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\home', [], true)
+ 5 APPPATH\Controllers\GuestController.php(35): view('Hotel\\home', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 06:50:22 --> Call to undefined function set_value()
+in APPPATH\Views\Hotel\include\banner.php on line 39.
+ 1 APPPATH\Views\Hotel\home.php(62): include()
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\home', [], true)
+ 5 APPPATH\Controllers\GuestController.php(35): view('Hotel\\home', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 08:25:49 --> Undefined variable $selectedProduct
+in APPPATH\Views\Hotel\include\banner.php on line 39.
+ 1 APPPATH\Views\Hotel\include\banner.php(39): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selectedProduct', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php', 39)
+ 2 APPPATH\Views\Hotel\home.php(62): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php')
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\home', [], true)
+ 6 APPPATH\Controllers\GuestController.php(35): view('Hotel\\home', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 08:26:15 --> Undefined variable $room_types
+in APPPATH\Views\Hotel\include\banner.php on line 62.
+ 1 APPPATH\Views\Hotel\include\banner.php(62): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $room_types', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php', 62)
+ 2 APPPATH\Views\Hotel\home.php(62): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php')
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\home', [], true)
+ 6 APPPATH\Controllers\GuestController.php(35): view('Hotel\\home', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-26 08:31:52 --> Undefined variable $inputUsername
+in APPPATH\Views\Hotel\include\banner.php on line 56.
+ 1 APPPATH\Views\Hotel\include\banner.php(56): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $inputUsername', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php', 56)
+ 2 APPPATH\Views\Hotel\room.php(62): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\include\\banner.php')
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\room.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\room', [], true)
+ 6 APPPATH\Controllers\GuestController.php(47): view('Hotel\\room', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->room()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

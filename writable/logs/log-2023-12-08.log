@@ -1,0 +1,20 @@
+CRITICAL - 2023-12-08 12:39:29 --> syntax error, unexpected end of file
+in APPPATH\Views\Hotel\include\room.php on line 197.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\room', [], true)
+ 4 APPPATH\Controllers\GuestController.php(35): view('Hotel\\room', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->room()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-12-08 12:40:20 --> syntax error, unexpected end of file
+in APPPATH\Views\Hotel\include\room.php on line 133.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\room', [], true)
+ 4 APPPATH\Controllers\GuestController.php(35): view('Hotel\\room', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->room()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
