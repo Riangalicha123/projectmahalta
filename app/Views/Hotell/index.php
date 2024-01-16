@@ -50,16 +50,17 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
-            <div class="heading-wrap text-center element-animate">
-              <h4 class="sub-heading">Stay with our luxury rooms</h4>
+            <div class="heading-wrap text-center element-animate"><!-- 
+              <h4 class="sub-heading">Stay with our luxury rooms</h4> -->
               <h2 class="heading">About Us</h2>
-              <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
+              <p class="mb-5">The term <b>MAHALTA</b> wa coined by Florante Villarica in the book Mindoro that was published in the year 1998. Mahalta from the three things that Mindoreños are proud of: the peaceloving indigenous Mangyans who offers a rich artistic heritage to the history of the pre-colonial Philippines; Mt. Halcon, the fourt highest mountain in the Philippines and earnss the reputation of being the most difficult mountain to climb in the country. Its rich vegetation contains rich fauna and flora including the critically endangered Mindoro bleeding heart. Tamaraw, a fierce Mindoro Dwarf Buffalo, it symbolizes Mindoro since it could only be found in this island and nowhere else in the world.</p>
               <!-- <p><a href="" class="btn btn-primary btn-sm">More About Us</a></p> -->
             </div>
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-7">
-           <!--  <img src="/guest/images/f_img_1.png" alt="Image placeholder" class="img-md-fluid"> -->---lagyan mo ng image for about us nakacomment lang to sa may index tas ayusin mo nalng yung sa may paragraph ng about us----
+          <!-- <h4 class="sub-heading">Stay with our luxury rooms</h4> -->
+            <img src="/guest/images/pool.png" alt="Image placeholder" class="img-md-fluid">
           </div>
         </div>
       </div>

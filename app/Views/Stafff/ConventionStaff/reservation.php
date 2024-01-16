@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta-Admin</title>
+  <title>Mahalta-Staff</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,7 +21,7 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
+  <?php include('include/navbar.php') ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
@@ -33,7 +33,7 @@
     </a>
 
     <!-- Sidebar -->
-    <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
+    <?php include('include/sidebar.php') ?>
     <!-- /.sidebar -->
   </aside>
 
@@ -72,67 +72,21 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Room Number</th>
-                    <th>Room Type</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
-                    <th>Number of Guests</th>
-                    <th>Reference No.</th>
-                    <th>TotalAmount</th>
+                    <th>Event Type</th>
+                    <th>CheckInDate</th>
+                    <th>NumberOfGuests</th>
+                    <th>Note</th>
                     <th>Status</th>
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php foreach ($hotelrevs as $hotelrev): ?>
+                  <?php foreach ($reevents as $reevent): ?>
                   <tr>
-                    <td><?=$hotelrev['ReservationID']?></td>
-                    <td><?=$hotelrev['FirstName']?></td>
-                    <td><?=$hotelrev['LastName']?></td>
-                    <td><?=$hotelrev['RoomNumber']?></td>
-                    <td><?=$hotelrev['RoomType']?></td>
-                    <td><?=$hotelrev['CheckInDate']?></td>
-                    <td><?=$hotelrev['CheckOutDate']?></td>
-                    <td><?=$hotelrev['NumberOfGuests']?></td>
-                    <td><?=$hotelrev['ReferenceNumber']?></td>
-                    <td><?=$hotelrev['TotalAmount']?></td>
-                    <td class="project-state">
-                        <?php
-                        $badgeClass = '';
-
-                        switch ($hotelrev['Status']) {
-                            case 'Confirm':
-                                $badgeClass = 'badge-success';
-                                break;
-                            case 'Pending':
-                                $badgeClass = 'badge-warning';
-                                break;
-                            case 'Cancel':
-                                $badgeClass = 'badge-danger';
-                                break;
-                            default:
-                                $badgeClass = 'badge-secondary'; // Default class for other cases
-                        }
-                        ?>
-                        <span class="badge <?= $badgeClass ?>"><?= $hotelrev['Status'] ?></span>
-                    </td>
-                    <td class="project-state">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!-- Three dots icon -->
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="statusDropdown">
-                            <!-- Inside the dropdown menu in your HTML template -->
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Confirm/{$hotelrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Pending/{$hotelrev['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel</a>
-                            </div>
-                        </div>
-                    </td>
+                    <td><?=$reevent['EventType']?></td>
+                    <td><?=$reevent['CheckInDate']?></td>
+                    <td><?=$reevent['NumberOfGuests']?></td>
+                    <td><?=$reevent['Note']?></td>
+                    <th><a class="btn btn-danger" href="delete/<?= $reevent['EventID']?>">Delete</a> <a class="btn btn-info" href="/update/<?= $reevent['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   
@@ -154,7 +108,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
+  <?php include('include/footer.php') ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
@@ -187,7 +141,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": [""]
+      "buttons": ["pdf"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

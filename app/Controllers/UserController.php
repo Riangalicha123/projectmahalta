@@ -114,6 +114,6 @@ class UserController extends BaseController
     {
         $session = session();
         $session->destroy(); // Destroy the user's session
-        return redirect()->to('/'); // Redirect the user to the login page or any other page after logout
+        return redirect()->to('/login'); // Redirect the user to the login page or any other page after logout
     }
 }

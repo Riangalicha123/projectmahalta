@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta-Admin</title>
+  <title>Mahalta-Staff</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -21,19 +21,19 @@
 <!-- Site wrapper -->
 <div class="wrapper">
   <!-- Navbar -->
-  <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
+  <?php include('include/navbar.php') ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=base_url()?>admin/index3.html" class="brand-link elevation-4">
+    <a href="<?=base_url()?>/staff-hotel" class="brand-link elevation-4">
       <!-- <img src="<?=base_url()?>admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
       <span class="brand-text font-weight-light">Mahalta</span>
     </a>
 
     <!-- Sidebar -->
-    <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
+    <?php include('include/sidebar.php') ?>
     <!-- /.sidebar -->
   </aside>
 
@@ -44,12 +44,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Hotel Reservation</h1>
+            <h1>Hotel Room Services</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Hotel</a></li>
-              <li class="breadcrumb-item active">Reservation</li>
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Room Services</li>
             </ol>
           </div>
         </div>
@@ -65,76 +65,94 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Reservation</h3>
+                <h3 class="card-title">Room Services</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="/addRoom" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                <div class="form-group">
+                                    <label for="RoomNumber">Room Number</label>
+                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="RoomType">Room Type</label>
+                                    <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
+                                        <option>Deluxe Room</option>
+                                        <option>Executive Room</option>
+                                        <option>Premium Room</option>
+                                        <option>Family Room</option>
+                                        <option>Boutique Room</option>
+                                        <option>Presidential Room</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    <input type="text" class="form-control" id="Description" name="Description" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PricePerNight">Price per Night</label>
+                                    <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Image">Upload</label>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" >Status</label>
+                                    <input type="text" class="form-control" id="" name="AvailabilityStatus" required>
+                                </div>
+                                
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Edit Room Modal -->
+                   
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Room Number</th>
-                    <th>Room Type</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
-                    <th>Number of Guests</th>
-                    <th>Reference No.</th>
-                    <th>TotalAmount</th>
-                    <th>Status</th>
+                    <th>Table Number</th>
+                    <th>Capacity</th>
+                    <th>Availability</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php foreach ($hotelrevs as $hotelrev): ?>
+                  <?php foreach ($tables as $table): ?>
                   <tr>
-                    <td><?=$hotelrev['ReservationID']?></td>
-                    <td><?=$hotelrev['FirstName']?></td>
-                    <td><?=$hotelrev['LastName']?></td>
-                    <td><?=$hotelrev['RoomNumber']?></td>
-                    <td><?=$hotelrev['RoomType']?></td>
-                    <td><?=$hotelrev['CheckInDate']?></td>
-                    <td><?=$hotelrev['CheckOutDate']?></td>
-                    <td><?=$hotelrev['NumberOfGuests']?></td>
-                    <td><?=$hotelrev['ReferenceNumber']?></td>
-                    <td><?=$hotelrev['TotalAmount']?></td>
-                    <td class="project-state">
-                        <?php
-                        $badgeClass = '';
+                    <td><?=$table['TableID']?></td>
+                    <td><?=$table['TableNumber']?></td>
+                    <td><?=$table['Capacity']?></td>
+                    <td><?=$table['AvailabilityStatus']?></td>
 
-                        switch ($hotelrev['Status']) {
-                            case 'Confirm':
-                                $badgeClass = 'badge-success';
-                                break;
-                            case 'Pending':
-                                $badgeClass = 'badge-warning';
-                                break;
-                            case 'Cancel':
-                                $badgeClass = 'badge-danger';
-                                break;
-                            default:
-                                $badgeClass = 'badge-secondary'; // Default class for other cases
-                        }
-                        ?>
-                        <span class="badge <?= $badgeClass ?>"><?= $hotelrev['Status'] ?></span>
-                    </td>
-                    <td class="project-state">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!-- Three dots icon -->
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="statusDropdown">
-                            <!-- Inside the dropdown menu in your HTML template -->
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Confirm/{$hotelrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Pending/{$hotelrev['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel</a>
-                            </div>
-                        </div>
-                    </td>
+                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $table['TableID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$table['TableID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
+                  
                   
                   </tbody>
                   
@@ -154,7 +172,7 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
+  <?php include('include/footer.php') ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

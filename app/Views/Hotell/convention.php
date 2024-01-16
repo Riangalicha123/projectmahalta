@@ -123,67 +123,68 @@
         </div>
       </div>
     </section>
-
-    <section class="site-section">
+    <?php if(session()->get('isLoggedIn')): ?>
+    <section class="site-section" >
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="mb-5">Reservation Convention Form</h2>
-                <form action="#" method="post">
-                  <div class="row">
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="">Arrival Date Time</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='arrival_date' />
-                          </div>
-                      </div>
 
-                      <div class="col-sm-6 form-group">
-                          <label for="">Departure Date Time</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='departure_date' />
-                          </div>
-                      </div>
-                      
-                  </div>
-
-
+            <h2 class="mb-5">Event Inquiry</h2>
+                <form action="<?= base_url('eventReservation') ?>" method="post">
                   <div class="row">
                     <div class="col-md-6 form-group">
-                      <label for="room">Room</label>
-                      <select name="" id="room" class="form-control">
-                        <option value="">1 Room</option>
-                        <option value="">2 Rooms</option>
-                        <option value="">3 Rooms</option>
-                        <option value="">4 Rooms</option>
-                        <option value="">5 Rooms</option>
-                      </select>
+                      <label for="FirstName">First Name</label>
+                      <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
                     </div>
-
                     <div class="col-md-6 form-group">
-                      <label for="room">Guests</label>
-                      <select name="" id="room" class="form-control">
-                        <option value="">1 Guest</option>
-                        <option value="">2 Guests</option>
-                        <option value="">3 Guests</option>
-                        <option value="">4 Guests</option>
-                        <option value="">5+ Guests</option>
-                      </select>
+                      <label for="LastName">Last Name</label>
+                      <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="Email">Email</label>
+                      <input type="email" id="Email" name="Email" class="form-control" value="<?= $_SESSION['username'] ?? ''; ?>" required>
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="ContactNumber">Contact Number</label>
+                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" required >
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label for="EventType">Event Type</label>
+                        <select class="form-select form-control" id="EventType" name="EventType">
+                          <option>Wedding</option>
+                          <option>Team Building</option>
+                          <option>Meeting</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group">
+                          <label for="CheckInDate">Preferred Date</label>
+                          <div style="position: relative;">
+                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
+                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
+                          </div>
+                      </div>  
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="NumberOfGuests">Number of Guest</label>
+                      <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests" required>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12 form-group">
-                      <label for="email">Email</label>
-                      <input type="email" id="email" class="form-control ">
+                      <label for="Note">Write a Note</label>
+                      <textarea name="Note" id="Note" class="form-control " cols="30" rows="8" required></textarea>
                     </div>
                   </div>
                   
                   <div class="row">
                     <div class="col-md-6 form-group">
-                      <input type="submit" value="Reserve Now" class="btn btn-primary">
+                    <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
                     </div>
                   </div>
                 </form>
@@ -217,6 +218,102 @@
         </div>
       </div>
     </section>
+    <?php else: ?>
+      <section class="site-section" >
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+
+            <h2 class="mb-5">Event Inquiry</h2>
+                <form action="<?= base_url('login') ?>">
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="FirstName">First Name</label>
+                      <input type="text" id="FirstName" name="FirstName" class="form-control">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="LastName">Last Name</label>
+                      <input type="text" id="LastName" name="LastName" class="form-control">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="Email">Email</label>
+                      <input type="email" id="Email" name="Email" class="form-control" >
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="ContactNumber">Contact Number</label>
+                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control">
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                      <div class="col-md-6 form-group">
+                        <label for="EventType">Event Type</label>
+                        <select class="form-select form-control" id="EventType" name="EventType">
+                          <option>Wedding</option>
+                          <option>Team Building</option>
+                          <option>Meeting</option>
+                        </select>
+                      </div>
+                      <div class="col-sm-6 form-group">
+                          <label for="CheckInDate">Preferred Date</label>
+                          <div style="position: relative;">
+                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
+                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate'/>
+                          </div>
+                      </div>  
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="NumberOfGuests">Number of Guest</label>
+                      <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="Note">Write a Note</label>
+                      <textarea name="Note" id="Note" class="form-control " cols="30" rows="8"></textarea>
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                    <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="col-md-1"></div>
+              <div class="col-md-5">
+                <h3 class="mb-5">Featured Room</h3>
+                <div class="media d-block room mb-0">
+              <figure>
+                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
+                <div class="overlap-text">
+                  <span>
+                    Featured Room 
+                    <span class="ion-ios-star"></span>
+                    <span class="ion-ios-star"></span>
+                    <span class="ion-ios-star"></span>
+                  </span>
+                </div>
+              </figure>
+              <div class="media-body">
+                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
+                <ul class="room-specs">
+                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
+                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
+                </ul>
+                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
+              </div>
+            </div>
+              </div>
+        </div>
+      </div>
+    </section>
+    <?php endif; ?>
 
     <!-- END section -->
    

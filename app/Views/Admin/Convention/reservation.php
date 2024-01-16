@@ -44,12 +44,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Hotel Reservation</h1>
+            <h1>Convention Reservation</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Hotel</a></li>
-              <li class="breadcrumb-item active">Reservation</li>
+              <li class="breadcrumb-item"><a href="#">Convention</a></li>
+              <li class="breadcrumb-item active">Events</li>
             </ol>
           </div>
         </div>
@@ -75,35 +75,33 @@
                     <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Room Number</th>
-                    <th>Room Type</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Event Type</th>
+                    <th>Preferred Date</th>
                     <th>Number of Guests</th>
-                    <th>Reference No.</th>
-                    <th>TotalAmount</th>
+                    <th>Note</th>
                     <th>Status</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php foreach ($hotelrevs as $hotelrev): ?>
+                  <?php foreach ($conrevs as $conrev): ?>
                   <tr>
-                    <td><?=$hotelrev['ReservationID']?></td>
-                    <td><?=$hotelrev['FirstName']?></td>
-                    <td><?=$hotelrev['LastName']?></td>
-                    <td><?=$hotelrev['RoomNumber']?></td>
-                    <td><?=$hotelrev['RoomType']?></td>
-                    <td><?=$hotelrev['CheckInDate']?></td>
-                    <td><?=$hotelrev['CheckOutDate']?></td>
-                    <td><?=$hotelrev['NumberOfGuests']?></td>
-                    <td><?=$hotelrev['ReferenceNumber']?></td>
-                    <td><?=$hotelrev['TotalAmount']?></td>
+                    <td><?=$conrev['ReservationID']?></td>
+                    <td><?=$conrev['FirstName']?></td>
+                    <td><?=$conrev['LastName']?></td>
+                    <td><?=$conrev['Email']?></td>
+                    <td><?=$conrev['ContactNumber']?></td>
+                    <td><?=$conrev['EventType']?></td>
+                    <td><?=$conrev['CheckInDate']?></td>
+                    <td><?=$conrev['NumberOfGuests']?></td>
+                    <td><?=$conrev['Note']?></td>
                     <td class="project-state">
                         <?php
                         $badgeClass = '';
 
-                        switch ($hotelrev['Status']) {
+                        switch ($conrev['Status']) {
                             case 'Confirm':
                                 $badgeClass = 'badge-success';
                                 break;
@@ -117,7 +115,7 @@
                                 $badgeClass = 'badge-secondary'; // Default class for other cases
                         }
                         ?>
-                        <span class="badge <?= $badgeClass ?>"><?= $hotelrev['Status'] ?></span>
+                        <span class="badge <?= $badgeClass ?>"><?= $conrev['Status'] ?></span>
                     </td>
                     <td class="project-state">
                         <div class="dropdown">
@@ -127,9 +125,9 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <!-- Inside the dropdown menu in your HTML template -->
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Confirm/{$hotelrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Pending/{$hotelrev['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Confirm/{$conrev['ReservationID']}") ?>">Confirm</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Pending/{$conrev['ReservationID']}") ?>">Pending</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Cancel/{$conrev['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>
                     </td>

@@ -1,0 +1,8 @@
+CRITICAL - 2024-01-10 10:12:10 --> Undefined property: App\Controllers\GuestController::$tables
+in APPPATH\Controllers\GuestController.php on line 198.
+ 1 APPPATH\Controllers\GuestController.php(198): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: App\\Controllers\\GuestController::$tables', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 198)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->tableReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
