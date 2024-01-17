@@ -51,6 +51,8 @@ $routes->get('/admin/updateresstatus/(:segment)/(:num)', 'AdminController::updat
 $routes->get('/admin-convention/reservation', 'AdminController::conReservation',/* ['filter' => 'authGuard'] */);
 $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2',/* ['filter' => 'authGuard'] */);
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts',/* ['filter' => 'authGuard'] */);
+$routes->post('/admin-addstaffdetails', 'AdminController::addStaffDetails',/* ['filter' => 'authGuard'] */);
+$routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
 
 
 

@@ -72,7 +72,7 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'staffAccounts') ? 'active' : '' ?> " href="<?= route_to('admin-staffaccounts') ?>">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'staffAccount') ? 'active' : '' ?> " href="<?= route_to('admin-staffaccounts') ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Staff Accounts

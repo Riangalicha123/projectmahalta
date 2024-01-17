@@ -1,0 +1,234 @@
+ERROR - 2024-01-17 02:05:40 --> mysqli_sql_exception: Unknown column 'department.DepartmentID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `staff_d...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `staff_d...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `staff_d...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `staff_d...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(146): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-01-17 02:05:40 --> Unknown column 'department.DepartmentID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `staff_details`.`StaffDetailsID`, `department`.`DepartmentID`, `department`.`DepartmentName`, `users`.`UserID`, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `users`.`Address`
+FROM `staff_details`
+JOIN `departments` ON `staff_details`.`DepartmentID` = `departments`.`DepartmentID`
+JOIN `users` ON `staff_details`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(146): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 02:06:09 --> include(C:\laragon\www\projectmahalta\app\Views\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Admin\staffAccount.php on line 24.
+ 1 APPPATH\Views\Admin\staffAccount.php(24): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 24)
+ 2 APPPATH\Views\Admin\staffAccount.php(24): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 6 APPPATH\Controllers\AdminController.php(148): view('Admin\\staffAccount', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 02:11:16 --> include(C:\laragon\www\projectmahalta\app\Views\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Admin\index.php on line 24.
+ 1 APPPATH\Views\Admin\index.php(24): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 24)
+ 2 APPPATH\Views\Admin\index.php(24): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 6 APPPATH\Controllers\AdminController.php(44): view('Admin\\index', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 02:11:51 --> Undefined variable $hotelrevs
+in APPPATH\Views\Admin\index.php on line 90.
+ 1 APPPATH\Views\Admin\index.php(90): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $hotelrevs', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 90)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(44): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 03:12:44 --> Undefined variable $rooms
+in APPPATH\Views\Admin\staffAccount.php on line 131.
+ 1 APPPATH\Views\Admin\staffAccount.php(131): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rooms', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 131)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 5 APPPATH\Controllers\AdminController.php(148): view('Admin\\staffAccount', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 03:18:38 --> Undefined array key "RoomID"
+in APPPATH\Views\Admin\staffAccount.php on line 143.
+ 1 APPPATH\Views\Admin\staffAccount.php(143): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "RoomID"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 143)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 5 APPPATH\Controllers\AdminController.php(148): view('Admin\\staffAccount', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 03:18:49 --> Undefined array key "RoomNumber"
+in APPPATH\Views\Admin\staffAccount.php on line 146.
+ 1 APPPATH\Views\Admin\staffAccount.php(146): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "RoomNumber"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 146)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 5 APPPATH\Controllers\AdminController.php(148): view('Admin\\staffAccount', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 09:55:02 --> Undefined array key "UserID"
+in APPPATH\Controllers\AdminController.php on line 216.
+ 1 APPPATH\Controllers\AdminController.php(216): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "UserID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\AdminController.php', 216)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->addStaffDetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-01-17 10:18:05 --> mysqli_sql_exception: Unknown column 'users.Addresss' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(96): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->resReservation()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-01-17 10:18:05 --> Unknown column 'users.Addresss' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.`ReservationID`, `restaurant_dining_tables`.`TableID`, `restaurant_dining_tables`.`TableNumber`, `reservations`.`CheckInDate`, `reservations`.`CheckOutDate`, `reservations`.`NumberOfGuests`, `reservations`.`Note`, `reservations`.`Status`, `users`.`UserID`, `users`.`FirstName`, `users`.`LastName`, `users`.`ContactNumber`, `users`.`Addresss`, `reservations`.`UserID`
+FROM `reservations`
+JOIN `restaurant_dining_tables` ON `reservations`.`TableID` = `restaurant_dining_tables`.`TableID`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(96): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->resReservation()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 10:41:45 --> Too few arguments to function App\Controllers\AdminController::updateStaffDetails(), 0 passed in C:\laragon\www\projectmahalta\system\CodeIgniter.php on line 942 and exactly 1 expected
+in APPPATH\Controllers\AdminController.php on line 240.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-01-17 10:44:50 --> mysqli_sql_exception: Duplicate entry 'fernandatienza@gmail.com' for key 'users.Email' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `users` ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` ...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` ...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\laragon\www\projectmahalta\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(288): CodeIgniter\Model->update('1', Array)
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('1')
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-01-17 10:44:50 --> Duplicate entry 'fernandatienza@gmail.com' for key 'users.Email'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `FirstName` = :FirstName:, `LastName` = :LastName:, `Email` = :Email:, `ContactNumber` = :ContactNumber:, `Address` = :Address:
+WHERE `users`.`UserID` IN :users.UserID:', [...], false)
+ 2 SYSTEMPATH\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(949): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(776): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\AdminController.php(288): CodeIgniter\Model->update('1', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('1')
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-01-17 10:47:00 --> mysqli_sql_exception: Duplicate entry 'fernandatienza@gmail.com' for key 'users.Email' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `users` ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` ...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` ...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\laragon\www\projectmahalta\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(288): CodeIgniter\Model->update('1', Array)
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('1')
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-01-17 10:47:00 --> Duplicate entry 'fernandatienza@gmail.com' for key 'users.Email'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `FirstName` = :FirstName:, `LastName` = :LastName:, `Email` = :Email:, `ContactNumber` = :ContactNumber:, `Address` = :Address:
+WHERE `users`.`UserID` IN :users.UserID:', [...], false)
+ 2 SYSTEMPATH\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(949): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(776): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\AdminController.php(288): CodeIgniter\Model->update('1', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('1')
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-01-17 10:47:51 --> mysqli_sql_exception: Duplicate entry 'redenmatira@gmail.com' for key 'users.Email' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('UPDATE `users` ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('UPDATE `users` ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('UPDATE `users` ...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` ...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(949): CodeIgniter\Model->doUpdate(Array, Array)
+#6 C:\laragon\www\projectmahalta\system\Model.php(776): CodeIgniter\BaseModel->update(Array, Array)
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(288): CodeIgniter\Model->update('2', Array)
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('2')
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-01-17 10:47:51 --> Duplicate entry 'redenmatira@gmail.com' for key 'users.Email'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2475): CodeIgniter\Database\BaseConnection->query('UPDATE `users` SET `FirstName` = :FirstName:, `LastName` = :LastName:, `Email` = :Email:, `ContactNumber` = :ContactNumber:, `Address` = :Address:
+WHERE `users`.`UserID` IN :users.UserID:', [...], false)
+ 2 SYSTEMPATH\Model.php(385): CodeIgniter\Database\BaseBuilder->update()
+ 3 SYSTEMPATH\BaseModel.php(949): CodeIgniter\Model->doUpdate([...], [...])
+ 4 SYSTEMPATH\Model.php(776): CodeIgniter\BaseModel->update([...], [...])
+ 5 APPPATH\Controllers\AdminController.php(288): CodeIgniter\Model->update('2', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->updateStaffDetails('2')
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

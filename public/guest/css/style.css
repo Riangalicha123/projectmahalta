@@ -1547,9 +1547,9 @@ textarea.form-control {
   border-radius: 16px;
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity .2s ease-out, visibility 0s linear .2s;
-  -o-transition: opacity .2s ease-out, visibility 0s linear .2s;
-  transition: opacity .2s ease-out, visibility 0s linear .2s;
+  -webkit-transition: opacity 2s ease-out, visibility 0s linear 2s;
+  -o-transition: opacity 2s ease-out, visibility 0s linear 2s;
+  transition: opacity 2s ease-out, visibility 0s linear 2s;
   z-index: 1000;
 }
 
@@ -1586,6 +1586,13 @@ textarea.form-control {
   -webkit-transform: rotate(0deg);
   -ms-transform: rotate(0deg);
   transform: rotate(0deg);
+}
+
+#loader img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 #loader .path {
