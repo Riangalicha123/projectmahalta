@@ -30,12 +30,14 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-              <h1>Welcome To Mahalta</h1>
+            <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent;">
+        Welcome to Mahalta Resort and Convention Center
+    </h1>
               <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
               <?php if(session()->get('isLoggedIn')): ?>
-                <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary">Book Now</a></p>
+                <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary"style="border-radius: 20px;">Book Now</a></p>
                 <?php else: ?>
-                  <p><a href="<?= route_to('login') ?>" class="btn btn-primary">Book Now</a></p>
+                  <p><a href="<?= route_to('login') ?>" class="btn btn-primary"style="border-radius: 20px;">Book Now</a></p>
                 <?php endif; ?>
               
             </div>
@@ -52,16 +54,39 @@
           <div class="col-md-4">
             <div class="heading-wrap text-center element-animate"><!-- 
               <h4 class="sub-heading">Stay with our luxury rooms</h4> -->
-              <h2 class="heading">About Us</h2>
-              <p class="mb-5">The term <b>MAHALTA</b> wa coined by Florante Villarica in the book Mindoro that was published in the year 1998. Mahalta from the three things that Mindoreños are proud of: the peaceloving indigenous Mangyans who offers a rich artistic heritage to the history of the pre-colonial Philippines; Mt. Halcon, the fourt highest mountain in the Philippines and earnss the reputation of being the most difficult mountain to climb in the country. Its rich vegetation contains rich fauna and flora including the critically endangered Mindoro bleeding heart. Tamaraw, a fierce Mindoro Dwarf Buffalo, it symbolizes Mindoro since it could only be found in this island and nowhere else in the world.</p>
+              <h2 style="cursor: pointer; animation: bounce 1s infinite;" onclick="playBounceAnimation()">About Us</h2>
+
+              <p class="mb-5">The term <b><span style="color: blue;">MAHALTA</span></b>
+ was coined by Florante Villarica in the book Mindoro that was published in the year 1998. Mahalta from the three things that Mindoreños are proud of: the peaceloving indigenous Mangyans who offers a rich artistic heritage to the history of the pre-colonial Philippines; Mt. Halcon, the fourt highest mountain in the Philippines and earnss the reputation of being the most difficult mountain to climb in the country. Its rich vegetation contains rich fauna and flora including the critically endangered Mindoro bleeding heart. Tamaraw, a fierce Mindoro Dwarf Buffalo, it symbolizes Mindoro since it could only be found in this island and nowhere else in the world.</p>
               <!-- <p><a href="" class="btn btn-primary btn-sm">More About Us</a></p> -->
             </div>
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-7">
-          <!-- <h4 class="sub-heading">Stay with our luxury rooms</h4> -->
-            <img src="/guest/images/pool.png" alt="Image placeholder" class="img-md-fluid">
-          </div>
+    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/guest/images/pool.png" alt="Image 1" class="img-md-fluid">
+            </div>
+            <div class="carousel-item">
+                <img src="/guest/images/center2.jpg" alt="Image 2" class="img-md-fluid">
+            </div>
+            <!-- Add more carousel items with different images as needed -->
+        </div>
+
+        <!-- Add navigation arrows -->
+        <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+
         </div>
       </div>
     </section>

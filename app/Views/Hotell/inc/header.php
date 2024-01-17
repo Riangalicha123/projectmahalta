@@ -2,27 +2,31 @@
      
       <nav class="navbar navbar-expand-md navbar-dark bg-light">
         <div class="container">
-          <a class="navbar-brand" href="<?= route_to('/') ?>">Mahalta Resorts & Convention</a>
+        <a class="navbar-brand" href="<?= route_to('/') ?>">
+    <img src="/guest/images/mahaltalogoo.png"  alt="Logo" class="mr-2">
+</a>
+
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
 
           <div class="collapse navbar-collapse navbar-light" id="navbarsExample05">
             <ul class="navbar-nav ml-auto pl-lg-5 pl-0">
-              <li class="nav-item ">
-                  <a class="nav-link <?= (isset($activePage) && $activePage === 'Home') ? 'active' : '' ?> " href="<?= route_to('/') ?>" >Home</a>
-              </li>
+            <li class="nav-item">
+    <a class="nav-link <?= (isset($activePage) && $activePage === 'Home') ? 'active' : '' ?>" href="<?= route_to('/') ?>" style="color: white; font-size: 20px;">Home</a>
+</li>
+
               <li class="nav-item">
-                <a class="nav-link <?= (isset($activePage) && $activePage === 'Room') ? 'active' : '' ?> " href="<?= route_to('room') ?>" >Room</a>
+                <a class="nav-link <?= (isset($activePage) && $activePage === 'Room') ? 'active' : '' ?> " href="<?= route_to('room') ?>" style="color: white; font-size: 20px;">Room</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link <?= (isset($activePage) && $activePage === 'Blog') ? 'active' : '' ?> " href="<?= route_to('blog') ?>" >Blog</a>
+                <a class="nav-link <?= (isset($activePage) && $activePage === 'Blog') ? 'active' : '' ?> " href="<?= route_to('blog') ?>"style="color: white; font-size: 20px;" >Blog</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link <?= (isset($activePage) && $activePage === 'Restaurant') ? 'active' : '' ?> " href="<?= route_to('restaurant') ?>" >Restaurant</a>
+                <a class="nav-link <?= (isset($activePage) && $activePage === 'Restaurant') ? 'active' : '' ?> " href="<?= route_to('restaurant') ?>"style="color: white; font-size: 20px;" >Restaurant</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link <?= (isset($activePage) && $activePage === 'Convention') ? 'active' : '' ?> " href="<?= route_to('convention') ?>" >Convention</a>
+                <a class="nav-link <?= (isset($activePage) && $activePage === 'Convention') ? 'active' : '' ?> " href="<?= route_to('convention') ?>"style="color: white; font-size: 20px;" >Convention</a>
               </li>
                 <?php if(session()->get('isLoggedIn')): ?>
                     <li class="nav-item dropdown">
@@ -33,10 +37,15 @@
                         </div>
                     </li>
                 <?php else: ?>
-                    <li class="nav-item"><a class="nav-link" href="<?= route_to('login') ?>">Log In</a></li>   
+                    <!-- <li class="nav-item"><a class="nav-link" href="<?= route_to('login') ?>"style="color: white; font-size: 20px;">Log In</a></li> -->   
+                    <li class="nav-item">
+                            <a class="nav-link" href="<?= route_to('login') ?>" style="color: white; font-size: 20px;">
+                                <i class="fas fa-sign-in-alt mr-2"></i>Log In
+                            </a>
+                        </li>
                 <?php endif; ?>
               
-                <?php if(session()->get('isLoggedIn')): ?>
+                <!-- <?php if(session()->get('isLoggedIn')): ?>
                 <li class="nav-item cta">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Reservation') ? 'active' : '' ?> " href="<?= route_to('bookroom') ?>"><span>Book Now</span></a>
                 </li>
@@ -44,7 +53,7 @@
                     <li class="nav-item cta">
                     <a class="nav-link <?= (isset($activePage) && $activePage === 'Login') ? 'active' : '' ?> " href="<?= route_to('login') ?>"><span>Book Now</span></a>
                 </li>
-                <?php endif; ?>
+                <?php endif; ?> -->
             </ul>
             
           </div>

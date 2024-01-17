@@ -44,8 +44,10 @@
 			href="/reglog/vendors/styles/icon-font.min.css"
 		/>
 		<link rel="stylesheet" type="text/css" href="/reglog/vendors/styles/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
 	</head>
-	<body class="login-page">
+	<body class="login-page" style="background-image: url('/guest/images/3.jpg'); background-size: cover; background-position: center;">
 		<div class="login-header box-shadow">
 			<div
 				class="container-fluid d-flex justify-content-between align-items-center"
@@ -55,11 +57,12 @@
 						<img src="/guest/images/mahaltalogoo.png" alt="" />
 					</a>
 				</div>
-				<div class="login-menu">
-					<ul>
-						<li><a href="<?= route_to('login') ?>">Login</a></li>
-					</ul>
-				</div>
+					<div class="login-menu">
+		<ul>
+			<li><a href="<?= route_to('login') ?>"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+		</ul>
+	</div>
+
 			</div>
 		</div>
 		<div
@@ -67,10 +70,10 @@
 		>
 			<div class="container">
 				<div class="row align-items-center">
-					<div class="col-md-6 col-lg-7">
+					<!-- <div class="col-md-6 col-lg-7">
 						<img src="/guest/images/4.jpg" alt="" />
-					</div>
-					<div class="col-md-6 col-lg-5">
+					</div> -->
+					<div class="col-md-12 col-lg-12">
 						<div class="login-box bg-white box-shadow border-radius-10">
 							<div class="login-title">
 								<h2 class="text-center text-primary">Create Account</h2>
@@ -79,6 +82,9 @@
 								<div class="select-role">
 									
 								</div>
+								
+								<div class="row">
+								<div class="col-md-6">
 								<div class="input-group custom">
 									<input
 										type="text"
@@ -91,6 +97,8 @@
 										></span>
 									</div>
 								</div>
+								</div>
+								<div class="col-md-6">
 								<div class="input-group custom">
 									<input
 										type="text"
@@ -103,6 +111,9 @@
 										></span>
 									</div>
 								</div>
+								</div>
+								</div>
+								
 								<div class="input-group custom">
 									<input
 										type="text"
@@ -139,6 +150,8 @@
 										></span>
 									</div>
 								</div>
+								<div class="row">
+								<div class="col-md-6">
 								<div class="input-group custom">
 									<input
 										type="password"
@@ -151,6 +164,8 @@
 										></span>
 									</div>
 								</div>
+								</div>
+								<div class="col-md-6">
 								<div class="input-group custom">
 									<input
 										type="password"
@@ -163,9 +178,11 @@
 										></span>
 									</div>
 								</div>
+								</div>
+								</div>
 								
 								<div class="row">
-									<div class="col-sm-12">
+									<div class="col-lg-12">
 										<div class="input-group mb-0">
 											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign Up">
 										</div>

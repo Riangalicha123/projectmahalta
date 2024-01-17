@@ -44,8 +44,9 @@
 			href="/reglog/vendors/styles/icon-font.min.css"
 		/>
 		<link rel="stylesheet" type="text/css" href="/reglog/vendors/styles/style.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 	</head>
-	<body class="login-page">
+	<body class="login-page" style="background-image: url('/guest/images/3.jpg'); background-size: cover; background-position: center;">
 		<div class="login-header box-shadow">
 			<div
 				class="container-fluid d-flex justify-content-between align-items-center"
@@ -57,7 +58,7 @@
 				</div>
 				<div class="login-menu">
 					<ul>
-						<li><a href="<?= route_to('register') ?>">Register</a></li>
+						<li><a href="<?= route_to('register') ?>"><i class="fas fa-user-plus"></i>  Register</a></li>
 					</ul>
 				</div>
 			</div>
@@ -67,11 +68,11 @@
 		>
 			<div class="container">
 				<div class="row align-items-center">
-					<div class="col-md-6 col-lg-7">
+					<!-- <div class="col-md-6 col-lg-7">
 						<img src="/guest/images/4.jpg" alt="" />
-					</div>
-					<div class="col-md-6 col-lg-5">
-						<div class="login-box bg-white box-shadow border-radius-10">
+					</div> -->
+					<div class="col-md-6 col-lg-12">
+						<div class="login-box bg-white box-shadow border-radius-10" >
 							<div class="login-title">
 								<h2 class="text-center text-primary">Login</h2>
 							</div>
