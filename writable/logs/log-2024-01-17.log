@@ -232,3 +232,37 @@ WHERE `users`.`UserID` IN :users.UserID:', [...], false)
  8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 13:07:36 --> Undefined array key "StaffDetailsID"
+in APPPATH\Controllers\UserController.php on line 111.
+ 1 APPPATH\Controllers\UserController.php(111): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "StaffDetailsID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 111)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 13:08:35 --> Undefined array key "StaffDetailsID"
+in APPPATH\Controllers\UserController.php on line 111.
+ 1 APPPATH\Controllers\UserController.php(111): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "StaffDetailsID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 111)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 13:08:49 --> Undefined array key "AdminID"
+in APPPATH\Controllers\UserController.php on line 111.
+ 1 APPPATH\Controllers\UserController.php(111): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "AdminID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 111)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-17 13:32:03 --> Invalid file: "Inventory\index.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Inventory\\index.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Inventory\\index', [], true)
+ 3 APPPATH\Controllers\InventoryController.php(50): view('Inventory\\index', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\InventoryController->inhome()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

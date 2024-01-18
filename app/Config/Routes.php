@@ -56,3 +56,4 @@ $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails
 
 
 
+$routes->get('/inventory', 'InventoryController::inhome');
