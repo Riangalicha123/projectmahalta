@@ -1304,7 +1304,7 @@ textarea.form-control {
 }
 /* styles.css */
 .site-footer {
-  background-image: url('/guest/images/pool.png'); background-size: cover; background-position: center;
+  background-image: url('/guest/images/dahon.jpg'); background-size: cover; background-position: center;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1329,7 +1329,7 @@ textarea.form-control {
   font-family: "Rubik", arial, sans-serif;
   font-size: 13px;
   letter-spacing: .2em;
-  color: #fff;
+  color:linear-gradient(to right, blue, red);
   text-transform: uppercase;
 }
 
