@@ -126,6 +126,7 @@
                                         <option>Convention</option>
                                         <option>Hotel</option>
                                         <option>Restaurant</option>
+                                        <option>Inventory</option>
                                     </select>
                                 </div>
                                 
@@ -183,6 +184,7 @@
                                                 <option <?= ($staff['DepartmentName'] == 'Convention') ? 'selected' : '' ?>>Convention</option>
                                                 <option <?= ($staff['DepartmentName'] == 'Hotel') ? 'selected' : '' ?>>Hotel</option>
                                                 <option <?= ($staff['DepartmentName'] == 'Restaurant') ? 'selected' : '' ?>>Restaurant</option>
+                                                <option <?= ($staff['DepartmentName'] == 'Inventory') ? 'selected' : '' ?>>Inventory</option>
                                             </select>
                                         </div>
                                     </div>

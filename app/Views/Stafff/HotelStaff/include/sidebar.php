@@ -5,7 +5,7 @@
           <!-- <img src="<?=base_url()?>admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
-          <a href="#" class="d-block">Staff</a>
+          <a href="<?= route_to('staff-hotel') ?>" class="d-block"><?= esc(session()->get('firstname')) ?> <?= esc(session()->get('lastname')) ?></a>
         </div>
       </div>
 

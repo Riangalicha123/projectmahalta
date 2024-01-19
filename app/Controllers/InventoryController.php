@@ -49,4 +49,18 @@ class InventoryController extends BaseController
         ];
         return view('Stafff\Inventory\index', $data);
     }
+    public function inhotel()
+    {
+        $data = [
+            'inventoryRoutes' => 'inhotel',
+        ];
+        return view('Stafff\Inventory\hotel', $data);
+    }
+    public function inrestaurant()
+    {
+        $data = [
+            'inventoryRoutes' => 'inrestaurant',
+        ];
+        return view('Stafff\Inventory\restaurant', $data);
+    }
 }

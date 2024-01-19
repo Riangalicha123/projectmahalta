@@ -42,8 +42,14 @@ $routes->get('/staff-convention', 'StaffController::conhome');
 $routes->get('/staff-convention-reservation', 'StaffController::conReservation',/* ['filter' => 'authGuard'] */);
 $routes->get('/staff-convention-event', 'StaffController::conEvent',/* ['filter' => 'authGuard'] */);
 
+$routes->get('/staff-inventory', 'InventoryController::inhome');
+$routes->get('/staff-inventory/hotel', 'InventoryController::inhotel');
+$routes->get('/staff-inventory/restaurant', 'InventoryController::inrestaurant');
+
 $routes->get('/admin-dashboard', 'AdminController::dashboard',/* ['filter' => 'authGuard'] */);
 $routes->get('/admin-customer', 'AdminController::customer',/* ['filter' => 'authGuard'] */);
+$routes->post('/admin-addCustomer', 'AdminController::addCustomer',/* ['filter' => 'authGuard'] */);
+$routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1');
 $routes->get('/admin-hotel/reservation', 'AdminController::holReservation',/* ['filter' => 'authGuard'] */);
 $routes->get('/admin/updatestatus/(:segment)/(:num)', 'AdminController::updateStatus/$1/$2',/* ['filter' => 'authGuard'] */);
 $routes->get('/admin-restaurant/reservation', 'AdminController::resReservation',/* ['filter' => 'authGuard'] */);
@@ -56,4 +62,3 @@ $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails
 
 
 
-$routes->get('/inventory', 'InventoryController::inhome');

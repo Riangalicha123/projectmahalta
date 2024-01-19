@@ -11,6 +11,7 @@ use App\Models\UserRoleModel;
 use App\Models\StaffDetailModel;
 use App\Models\DepartmentModel;
 use App\Models\AdminModel;
+use App\Models\GuestModel;
 use App\Models\ReservationModel;
 
 class AdminController extends BaseController
@@ -23,6 +24,7 @@ class AdminController extends BaseController
     private $staffDetail;
     private $department;
     private $admin;
+    private $guest;
     
     private $reservation;
 
@@ -36,6 +38,7 @@ class AdminController extends BaseController
         $this->staffDetail = new StaffDetailModel();
         $this->department = new DepartmentModel();
         $this->admin = new AdminModel();
+        $this->guest = new GuestModel();
         $this->reservation = new ReservationModel();
     }
     public function index()
@@ -53,9 +56,128 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'customer',
+            'guests' => $this->guest
+            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, users.Address')
+            ->join ('users', 'guest.UserID = users.UserID')
+            ->findAll()
         ];
         return view('Admin\customer', $data);
     }
+    public function addCustomer()
+    {
+        helper(['form']);
+
+        // Validation Rules
+        $validationRules = [
+            'FirstName' => 'required|min_length[4]|max_length[100]',
+            'LastName' => 'required|min_length[4]|max_length[100]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]',
+            'Password' => 'required|min_length[4]|max_length[50]',
+            'ContactNumber' => 'required|max_length[11]',
+            'Address' => 'required|min_length[4]|max_length[100]',
+            'confirmPassword' => 'matches[Password]',
+        ];
+
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
+        }
+
+        // Use a single query to get the user based on both first name and last name
+        $user = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Address' => $this->request->getVar('Address'),
+            'UserRoleID' => 1,
+        ];
+
+        // Additional checks and modifications
+        if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['Email'])) {
+            // Handle the case where essential user details are missing
+            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Incomplete user details. Please provide all required information.');
+        }
+
+        // Check if the email is unique
+        if (!$this->isEmailUnique($user['Email'])) {
+            // Handle the case where the email is not unique
+            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Email address is already in use. Please choose a different one.');
+        }
+
+        // Insert the user into the database
+        $insertedUserID = $this->users->insert($user);
+
+
+        // Check both conditions for staffData
+        if ($insertedUserID) {
+            // Prepare Staff Data
+            $newGuestData = [
+                'UserID' => $insertedUserID,
+            ];
+
+            // Insert Staff Details
+            $insertedGuestID = $this->guest->insert($newGuestData);
+
+            // Retrieve the inserted staff details
+            $insertedGuestDetails = $this->guest->find($insertedGuestID);
+
+            // Redirect with appropriate message and staff details
+            if ($insertedGuestID) {
+                return redirect()->to(base_url('/admin-customer'))->with('success', 'Reservation added successfully.')->with('staffDetails', $insertedGuestDetails);
+            } else {
+                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add reservation. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+        }
+    }
+    
+    public function updateCustomer($userID)
+    {
+        helper(['form']);
+
+        // Validation Rules
+        $validationRules = [
+            'FirstName' => 'required|min_length[4]|max_length[100]',
+            'LastName' => 'required|min_length[4]|max_length[100]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]',
+            'Address' => 'required|min_length[4]|max_length[100]',
+        ];
+
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
+        }
+
+        // Prepare Updated Staff Data
+        $updatedGuestData = [
+            'UserID' => $userID,
+        ];
+
+        // Update Staff Details
+        $this->guest->update($userID, $updatedGuestData);
+
+        // Prepare Updated User Data
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Address' => $this->request->getVar('Address'),
+        ];
+
+        // Update User Details
+        $this->users->update($userID, $updatedUserData);
+
+        // Redirect with appropriate message
+        return redirect()->to(base_url('/admin-customer'))->with('success', 'Guest details updated successfully.');
+    }
+
     
     public function holReservation()
     {
@@ -238,57 +360,57 @@ class AdminController extends BaseController
         return empty($existingUser);
     }
     public function updateStaffDetails($userID)
-{
-    helper(['form']);
+    {
+        helper(['form']);
 
-    // Validation Rules
-    $validationRules = [
-        'FirstName' => 'required|min_length[4]|max_length[100]',
-        'LastName' => 'required|min_length[4]|max_length[100]',
-        'Email' => 'required|min_length[4]|max_length[100]|valid_email',
-        'ContactNumber' => 'required|max_length[11]',
-        'Address' => 'required|min_length[4]|max_length[100]',
-        'DepartmentName' => 'required',
-    ];
+        // Validation Rules
+        $validationRules = [
+            'FirstName' => 'required|min_length[4]|max_length[100]',
+            'LastName' => 'required|min_length[4]|max_length[100]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]',
+            'Address' => 'required|min_length[4]|max_length[100]',
+            'DepartmentName' => 'required',
+        ];
 
-    // Validate Input
-    if (!$this->validate($validationRules)) {
-        $validationErrors = $this->validator->getErrors();
-        return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
+        }
+
+        // Retrieve Room Data
+        $inputDepartmentName = $this->request->getPost('DepartmentName');
+        $staffDataByType = $this->department->where('DepartmentName', $inputDepartmentName)->first();
+
+        // Check if the department exists
+        if (!$staffDataByType) {
+            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid DepartmentName. Please check your input.');
+        }
+
+        // Prepare Updated Staff Data
+        $updatedStaffData = [
+            'DepartmentID' => $staffDataByType['DepartmentID'],
+            'UserID' => $userID,
+        ];
+
+        // Update Staff Details
+        $this->staffDetail->update($userID, $updatedStaffData);
+
+        // Prepare Updated User Data
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Address' => $this->request->getVar('Address'),
+        ];
+
+        // Update User Details
+        $this->users->update($userID, $updatedUserData);
+
+        // Redirect with appropriate message
+        return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
     }
-
-    // Retrieve Room Data
-    $inputDepartmentName = $this->request->getPost('DepartmentName');
-    $staffDataByType = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-
-    // Check if the department exists
-    if (!$staffDataByType) {
-        return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid DepartmentName. Please check your input.');
-    }
-
-    // Prepare Updated Staff Data
-    $updatedStaffData = [
-        'DepartmentID' => $staffDataByType['DepartmentID'],
-        'UserID' => $userID,
-    ];
-
-    // Update Staff Details
-    $this->staffDetail->update($userID, $updatedStaffData);
-
-    // Prepare Updated User Data
-    $updatedUserData = [
-        'FirstName' => $this->request->getVar('FirstName'),
-        'LastName' => $this->request->getVar('LastName'),
-        'Email' => $this->request->getVar('Email'),
-        'ContactNumber' => $this->request->getVar('ContactNumber'),
-        'Address' => $this->request->getVar('Address'),
-    ];
-
-    // Update User Details
-    $this->users->update($userID, $updatedUserData);
-
-    // Redirect with appropriate message
-    return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
-}
 
 }

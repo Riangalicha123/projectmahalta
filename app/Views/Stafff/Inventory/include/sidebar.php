@@ -5,7 +5,7 @@
           <!-- <img src="<?=base_url()?>admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
         </div>
         <div class="info">
-          <a href="#" class="d-block">Staff</a>
+          <a href="<?= route_to('inventory') ?>" class="d-block"><?= esc(session()->get('firstname')) ?> <?= esc(session()->get('lastname')) ?></a>
         </div>
       </div>
 
@@ -24,15 +24,39 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-header">INVENTORY</li>
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a class="nav-link <?= (isset($inventoryRoutes) && $inventoryRoutes === 'home') ? 'active' : '' ?> " href="<?= route_to('inventory') ?>">
+            <a class="nav-link <?= (isset($inventoryRoutes) && $inventoryRoutes === 'home') ? 'active' : '' ?> " href="<?= route_to('staff-inventory') ?>">
               <i class="nav-icon fas fa-hotel"></i>
               <p>
                 Home
               </p>
             </a>
+          </li>
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Stocks / Products
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a class="nav-link <?= (isset($inventoryRoutes) && $inventoryRoutes === 'inhotel') ? 'active' : '' ?> " href="<?= route_to('staff-inventory/hotel') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hotel</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link <?= (isset($inventoryRoutes) && $inventoryRoutes === 'inrestaurant') ? 'active' : '' ?> " href="<?= route_to('staff-inventory/restaurant') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Restaurant</p>
+                </a>
+              </li>
+            </ul>
           </li>
           
           <br>
