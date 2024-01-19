@@ -2,7 +2,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <!-- <img src="<?=base_url()?>admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
+        <img src="<?=base_url()?>admin/dist/img/user.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Admin</a>
@@ -79,6 +79,23 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'rate') ? 'active' : '' ?> " href="<?= route_to('admin-rate') ?>">
+              <i class="nav-icon fas fa-star"></i>
+              <p>
+                Rate Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
+              <i class="nav-icon fas fa-comment-alt"></i>
+              <p>
+                Feedback Analytics
+              </p>
+            </a>
+          </li>
+          
           <br>
           <li class="nav-item" >
             <a class="nav-link" href="<?= route_to('logout') ?>" >

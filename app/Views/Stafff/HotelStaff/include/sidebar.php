@@ -2,7 +2,7 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <!-- <img src="<?=base_url()?>admin/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> -->
+        <img src="<?=base_url()?>admin/dist/img/user.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="<?= route_to('staff-hotel') ?>" class="d-block"><?= esc(session()->get('firstname')) ?> <?= esc(session()->get('lastname')) ?></a>
@@ -50,23 +50,7 @@
               </p>
             </a>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Inventory
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a class="nav-link <?= (isset($currentRoute) && $currentRoute === '') ? 'active' : '' ?> " href="<?= route_to('staff-hotel') ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Stock / Product</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+          
           <br>
           <br>
           <li class="nav-item" >
