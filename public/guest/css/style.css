@@ -1329,7 +1329,7 @@ textarea.form-control {
   font-family: "Rubik", arial, sans-serif;
   font-size: 13px;
   letter-spacing: .2em;
-  color:linear-gradient(to right, blue, red);
+  color: #fff;
   text-transform: uppercase;
 }
 

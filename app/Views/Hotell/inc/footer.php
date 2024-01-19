@@ -57,7 +57,7 @@
     <div class="col-md-4">
         <!-- <h3>Our Location</h3> -->
         <iframe
-            width="300%"
+            width="100%"
             height="200"
             frameborder="0"
             scrolling="no"
@@ -82,7 +82,11 @@
             <textarea class="form-control" id="feedbackMessage" name="feedbackMessage" rows="4" placeholder="Enter your feedback" required></textarea>
         </div>
         <div class="form-group text-center">
-    <button type="submit" class="btn btn-primary"style="padding: 5px 10px; font-size: 12px;">Submit Feedback</button>
+        <button type="submit" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px; background-color: #007bff; color: #fff; border: 1px solid #fff; cursor: pointer;">
+  Submit Feedback
+</button>
+
+   
 </div>
 
     </form>
@@ -92,8 +96,8 @@
         
         <div class="row justify-content-center">
           <div class="col-md-7 text-center" style="color: black;font-size: 16px;">
-            &copy; 
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a target="_blank">Mahalta Resort and Convention Center</a>
+ <!--            &copy; 
+Copyright --> &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a target="_blank">Mahalta Resort and Convention Center</a>
 
           </div>
         </div>
