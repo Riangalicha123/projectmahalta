@@ -48,15 +48,15 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section"style="background: url('https://aw-d.tripcdn.com/images/200d1b000001bl9dj36CE_R_960_660_R5_D.webp') center center/cover no-repeat;backdrop-filter: blur(35px);">
+    <section class="site-section"style="background-image: url('/guest/images/malabo2.jpg'); background-size: cover; background-position: top;">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
             <div class="heading-wrap text-center element-animate"><!-- 
               <h4 class="sub-heading">Stay with our luxury rooms</h4> -->
-              <h2>About Us</h2>
+              <h1 >About Us</h1>
 
-              <p class="mb-5"style="color: black;">The term <b><span style="color: blue;">MAHALTA</span></b>
+              <p class="mb-5"style="color: #161A30; text-align: justify;font-size:16px;">The term <b><span style="color: blue;font-size:20px;">MAHALTA</span></b>
  was coined by Florante Villarica in the book Mindoro that was published in the year 1998. Mahalta from the three things that Mindoreños are proud of: the peaceloving indigenous Mangyans who offers a rich artistic heritage to the history of the pre-colonial Philippines; Mt. Halcon, the fourt highest mountain in the Philippines and earnss the reputation of being the most difficult mountain to climb in the country. Its rich vegetation contains rich fauna and flora including the critically endangered Mindoro bleeding heart. Tamaraw, a fierce Mindoro Dwarf Buffalo, it symbolizes Mindoro since it could only be found in this island and nowhere else in the world.</p>
               <!-- <p><a href="" class="btn btn-primary btn-sm">More About Us</a></p> -->
             </div>
@@ -283,7 +283,7 @@
     </section>
     <!-- END section -->
     
-    <section class="site-section bg-light">
+    <section class="site-section bg-light"style="background-image: url('/guest/images/blog1.jpg'); background-size: cover; background-position: top;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
