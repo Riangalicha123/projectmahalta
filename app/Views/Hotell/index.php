@@ -48,7 +48,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section"style="background-image: url('/guest/images/malabo2.jpg'); background-size: cover; background-position: top;">
+    <section class="site-section"style="background-image: url('/guest/images/malabo4.png'); background-size: cover; background-position: top;">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
