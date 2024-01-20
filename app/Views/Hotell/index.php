@@ -48,7 +48,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section"style="background-image: url('/guest/images/malabo4.png'); background-size: cover; background-position: top;">
+    <section class="site-section"style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#F2F1EB);">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
@@ -65,11 +65,20 @@
           <div class="col-md-7">
     <div id="imageCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
+        <div class="carousel-item active">
                 <img src="/guest/images/pool.png" alt="Image 1" class="img-md-fluid">
             </div>
             <div class="carousel-item">
-                <img src="/guest/images/center2.jpg" alt="Image 2" class="img-md-fluid">
+                <img src="/guest/images/MahaltaPic/5.jpg" alt="Image 2" class="img-md-fluid">
+            </div>
+            <div class="carousel-item">
+                <img src="/guest/images/MahaltaPic/9.jpg" alt="Image 2" class="img-md-fluid">
+            </div>
+            <div class="carousel-item">
+                <img src="/guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
+            </div>
+            <div class="carousel-item">
+                <img src="/guest/images/MahaltaPic/22.jpg" alt="Image 2" class="img-md-fluid">
             </div>
             <!-- Add more carousel items with different images as needed -->
         </div>
@@ -92,7 +101,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section bg-light">
+    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -163,7 +172,7 @@
       </div>
     </section>
 
-    <section class="site-section bg-light">
+    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);" >
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -215,7 +224,7 @@
       </div>
     </section>
 
-    <section class="site-section bg-light">
+    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -283,7 +292,7 @@
     </section>
     <!-- END section -->
     
-    <section class="site-section bg-light"style="background-image: url('/guest/images/blog1.jpg'); background-size: cover; background-position: top;">
+    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #65647C, #C7BCA1,#ECF9FF);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
