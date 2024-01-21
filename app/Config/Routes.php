@@ -15,6 +15,8 @@ $routes->get('/convention', 'GuestController::convention');
 $routes->post('/addReservation', 'GuestController::addReservation');
 $routes->post('/tableReservation', 'GuestController::tableReservation');
 $routes->post('/eventReservation', 'GuestController::eventReservation');
+$routes->get('/getFeedback', 'GuestController::getFeedback');
+$routes->post('/postFeedback', 'GuestController::postFeedback');
 
 
 $routes->get('/register', 'UserController::register');

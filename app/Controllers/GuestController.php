@@ -8,6 +8,7 @@ use App\Models\RoomModel;
 use App\Models\TableModel;
 use App\Models\EventModel;
 use App\Models\ReservationModel;
+use App\Models\FeedbackModel;
 class GuestController extends BaseController
 {
     private $users;
@@ -16,6 +17,8 @@ class GuestController extends BaseController
     private $events;
     private $reservation;
 
+    private $feedbacks;
+
     function __construct(){
         helper(['form']);
         $this->users = new UserModel();
@@ -23,6 +26,7 @@ class GuestController extends BaseController
         $this->tables = new TableModel();
         $this->events = new EventModel();
         $this->reservation = new ReservationModel();
+        $this->feedbacks = new FeedbackModel();
     }
     public function index()
     {
@@ -298,4 +302,59 @@ class GuestController extends BaseController
     {
         return view('Hotel\contact');
     }
+    public function getFeedback()
+    {
+        return view('Hotell\index');
+    }
+    public function postFeedback()
+{
+    helper(['form']);
+
+    // Validation Rules
+    $validationRules = [
+        'Email' => 'required',
+        'FeedbackMessage' => 'required',
+    ];
+
+    // Validate Input
+    if (!$this->validate($validationRules)) {
+        $validationErrors = $this->validator->getErrors();
+        return view('/', ['validationErrors' => $validationErrors]);
+    }
+
+    // Retrieve Post Data
+    $Email = $this->request->getPost('Email');
+    $feedbackMessage = $this->request->getPost('FeedbackMessage');
+
+    // Use a single query to get the user based on Email
+    $user = $this->users->where('Email', $Email)->first();
+
+    // Check if the user exists
+    if ($user) {
+        // Check if a feedback from the same user already exists
+        $existingFeedback = $this->feedbacks->where('UserID', $user['UserID'])->first();
+
+        if ($existingFeedback) {
+            // If a feedback exists, you can choose to update it
+            $this->feedbacks->update($existingFeedback['FeedbackID'], ['FeedbackMessage' => $feedbackMessage]);
+
+            return redirect()->to(base_url('/'))->with('success', 'Feedback updated successfully.');
+        } else {
+            // If no feedback exists, insert a new one
+            $newFeedbackData = [
+                'FeedbackMessage' => $feedbackMessage,
+                'UserID' => $user['UserID'],
+            ];
+
+            $inserted = $this->feedbacks->insert($newFeedbackData);
+
+            return $inserted
+                ? redirect()->to(base_url('/'))->with('success', 'Feedback added successfully.')
+                : redirect()->to(base_url('/'))->with('error', 'Failed to add Feedback. Please try again.');
+        }
+    } else {
+        return redirect()->to(base_url('/forbidden'))->with('error', 'Invalid Email. Please check your input.');
+    }
+}
+
 }

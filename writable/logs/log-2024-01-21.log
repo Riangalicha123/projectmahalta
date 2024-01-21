@@ -1,0 +1,28 @@
+ERROR - 2024-01-21 01:44:34 --> mysqli_sql_exception: Duplicate entry '4' for key 'feedback.UserID' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `fe...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `fe...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `fe...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `fe...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\projectmahalta\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\projectmahalta\app\Controllers\GuestController.php(340): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\GuestController->postFeedback()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-01-21 01:44:34 --> Duplicate entry '4' for key 'feedback.UserID'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `feedback` (`FeedbackMessage`, `UserID`) VALUES (:FeedbackMessage:, :UserID:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\GuestController.php(340): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->postFeedback()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
