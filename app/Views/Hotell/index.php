@@ -48,7 +48,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section"style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#F2F1EB);">
+    <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869, #3085C3, #FAF2D3,  #5CD2E6);">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
@@ -101,11 +101,11 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);">
+    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading">Our Luxury Rooms</h4>
+            <h4 class="sub-heading"  style="color: darkgrey;">Our Luxury Rooms</h4>
               <h2 class="heading">Featured Rooms</h2>
           </div>
         </div>
@@ -172,11 +172,11 @@
       </div>
     </section>
 
-    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);" >
+    <section class="site-section "style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#3085C3);" >
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading">Our Restaurant</h4>
+            <h4 class="sub-heading"style="color: darkgrey;">Our Restaurant</h4>
               <h2 class="heading">Featured Restaurant</h2>
           </div>
         </div>
@@ -224,11 +224,11 @@
       </div>
     </section>
 
-    <section class="site-section "style="background: linear-gradient(to bottom,  #65647C, #C7BCA1,#B0A695);">
+    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading">Our Conventions</h4>
+            <h4 class="sub-heading"style="color: darkgrey;">Our Conventions</h4>
               <h2 class="heading">Featured Conventions</h2>
           </div>
         </div>
@@ -292,11 +292,11 @@
     </section>
     <!-- END section -->
     
-    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #65647C, #C7BCA1,#ECF9FF);">
+    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading">Our Blog</h4>
+            <h4 class="sub-heading"style="color: darkgrey;">Our Blog</h4>
               <h2 class="heading">Our Recent Blog</h2>
           </div>
         </div>

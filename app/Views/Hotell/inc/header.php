@@ -1,4 +1,4 @@
-<header role="banner" style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom,  #65647C,white);color: white; padding: 20px; text-align: center; z-index: 1000;">
+<header role="banner" style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3);color: white; padding: 20px; text-align: center; z-index: 1000;">
      
       <nav class="navbar navbar-expand-md navbar-dark bg-light">
         <div class="container">
