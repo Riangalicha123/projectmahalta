@@ -67,11 +67,11 @@ header .navbar .nav-link {
 }
 
 header .navbar .nav-link:hover {
-  color: skyblue !important;
+  color: white !important;
 }
 
 header .navbar .nav-link.active {
-  color: skyblue !important;
+  color: white !important;
 }
 
 header .navbar .cta {
