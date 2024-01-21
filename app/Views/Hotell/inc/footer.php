@@ -53,20 +53,6 @@
           <div class="col-md-4">
     <!-- ... Your existing content ... -->
 
-    <!-- Add Google Map -->
-    <div class="col-md-4">
-        <!-- <h3>Our Location</h3> -->
-        <iframe
-            width="100%"
-            height="200"
-            frameborder="0"
-            scrolling="no"
-            marginheight="0"
-            marginwidth="0"
-            src="https://www.google.com/maps/place/Mahalta+Resorts+and+Convention+Center/@13.4156107,121.2095374,17z/data=!4m20!1m10!3m9!1s0x33bce9395c682133:0x2a54eb8df931b1c2!2sMahalta+Resorts+and+Convention+Center!5m2!4m1!1i2!8m2!3d13.4156055!4d121.2121123!16s%2Fg%2F11h79sfsns!3m8!1s0x33bce9395c682133:0x2a54eb8df931b1c2!5m2!4m1!1i2!8m2!3d13.4156055!4d121.2121123!16s%2Fg%2F11h79sfsns?authuser=0&entry=ttu"
-        ></iframe>
-    </div>
-
     <!-- ... Your existing content ... -->
 </div>
         <?php if(session()->get('isLoggedIn')): ?>
