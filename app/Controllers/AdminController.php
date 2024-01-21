@@ -13,6 +13,7 @@ use App\Models\DepartmentModel;
 use App\Models\AdminModel;
 use App\Models\GuestModel;
 use App\Models\ReservationModel;
+use App\Models\FeedbackModel;
 
 class AdminController extends BaseController
 {
@@ -25,8 +26,8 @@ class AdminController extends BaseController
     private $department;
     private $admin;
     private $guest;
-    
     private $reservation;
+    private $feedbacks;
 
     function __construct(){
         helper(['form']);
@@ -40,6 +41,7 @@ class AdminController extends BaseController
         $this->admin = new AdminModel();
         $this->guest = new GuestModel();
         $this->reservation = new ReservationModel();
+        $this->feedbacks = new FeedbackModel();
     }
     public function index()
     {
@@ -411,6 +413,17 @@ class AdminController extends BaseController
 
         // Redirect with appropriate message
         return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
+    }
+    public function feedback()
+    {
+        $data = [
+            'adminRoutes' => 'feedback',
+            'feedbacks' => $this->feedbacks
+            ->select('feedback.FeedbackID,feedback.FeedbackMessage, users.UserID, users.Email')
+            ->join ('users', 'feedback.UserID = users.UserID')
+            ->findAll()
+        ];
+        return view('Admin\feedback', $data);
     }
 
 }

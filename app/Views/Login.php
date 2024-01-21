@@ -58,7 +58,7 @@
 				</div>
 				<div class="login-menu">
 					<ul>
-						<li><a href="<?= route_to('register') ?>"><i class="fas fa-user-plus"></i>  Register</a></li>
+						<li><a href="<?= route_to('register') ?>" style="color: skyblue;"><i class="fas fa-user-plus" style="color: skyblue;"></i>  Register</a></li>
 					</ul>
 				</div>
 			</div>

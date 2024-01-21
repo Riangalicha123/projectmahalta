@@ -9,6 +9,7 @@ $routes->get('/', 'GuestController::home');
 $routes->get('/room', 'GuestController::room');
 $routes->get('/bookroom', 'GuestController::bookroom');
 $routes->get('/blog', 'GuestController::blog');
+$routes->get('/faq', 'GuestController::faq');
 //$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurant', 'GuestController::restaurant');
 $routes->get('/convention', 'GuestController::convention');
@@ -61,6 +62,7 @@ $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updat
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts',/* ['filter' => 'authGuard'] */);
 $routes->post('/admin-addstaffdetails', 'AdminController::addStaffDetails',/* ['filter' => 'authGuard'] */);
 $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
+$routes->get('/admin-feedback', 'AdminController::feedback',/* ['filter' => 'authGuard'] */);
 
 
 
