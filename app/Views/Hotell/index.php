@@ -338,28 +338,7 @@
       </div>
     </section>
 
-    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #65647C, #C7BCA1,#ECF9FF);">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12 heading-wrap text-center">
-              <h2 class="heading">Our Location</h2>
-          </div>
-        </div>
-        <div class="row ">
-          
-          <div class="col-md-12">
-            <div class="post-entry">
-              <div class="map_main">
-                <div class="map-responsive">
-                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7761.750176350001!2d121.20824972542549!3d13.42005806230071!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce9395c682133%3A0x2a54eb8df931b1c2!2sMahalta%20Resorts%20and%20Convention%20Center!5e0!3m2!1sen!2sph!4v1700304323303!5m2!1sen!2sph" width="1100" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="s" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    </section>
+    
     <!-- END section -->
    
     <?php include('inc/footer.php') ?>
