@@ -43,7 +43,7 @@
     <!-- END section -->
 
 
-    <section class="site-section bg-light">
+    <section class="site-section "style="background-image: url('/guest/images/malabo5.jpg'); background-size: cover; background-position: center;  color: #ffffff;">
       <div class="container">
         <div class="row mb-5">
           

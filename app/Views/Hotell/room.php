@@ -32,7 +32,7 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-              <h1>Our Rooms</h1>
+              <h1>Rooms</h1>
               <p>Discover our world's #1 Luxury Room For VIP.</p>
             </div>
 
@@ -74,7 +74,7 @@
       </div>
     </section>  
     <?php else: ?>
-    <section class="site-section">
+    <section class="site-section"style="background-image: url('/guest/images/malabo1.jpg'); background-size: cover; background-position: center;  color: #ffffff;">
       <div class="container">
         <div class="row">
           <div class="col-md-4 mb-4">
