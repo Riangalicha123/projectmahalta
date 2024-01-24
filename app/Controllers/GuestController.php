@@ -89,6 +89,7 @@ class GuestController extends BaseController
     {
         $data = [
             'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
         ];
         return view('Hotell\convention',$data);
     }
@@ -307,54 +308,58 @@ class GuestController extends BaseController
         return view('Hotell\index');
     }
     public function postFeedback()
-{
-    helper(['form']);
+    {
+        helper(['form']);
 
-    // Validation Rules
-    $validationRules = [
-        'Email' => 'required',
-        'FeedbackMessage' => 'required',
-    ];
+        // Validation Rules
+        $validationRules = [
+            'Email' => 'required',
+            'FeedbackMessage' => 'required',
+        ];
 
-    // Validate Input
-    if (!$this->validate($validationRules)) {
-        $validationErrors = $this->validator->getErrors();
-        return view('/', ['validationErrors' => $validationErrors]);
-    }
-
-    // Retrieve Post Data
-    $Email = $this->request->getPost('Email');
-    $feedbackMessage = $this->request->getPost('FeedbackMessage');
-
-    // Use a single query to get the user based on Email
-    $user = $this->users->where('Email', $Email)->first();
-
-    // Check if the user exists
-    if ($user) {
-        // Check if a feedback from the same user already exists
-        $existingFeedback = $this->feedbacks->where('UserID', $user['UserID'])->first();
-
-        if ($existingFeedback) {
-            // If a feedback exists, you can choose to update it
-            $this->feedbacks->update($existingFeedback['FeedbackID'], ['FeedbackMessage' => $feedbackMessage]);
-
-            return redirect()->to(base_url('/'))->with('success', 'Feedback updated successfully.');
-        } else {
-            // If no feedback exists, insert a new one
-            $newFeedbackData = [
-                'FeedbackMessage' => $feedbackMessage,
-                'UserID' => $user['UserID'],
-            ];
-
-            $inserted = $this->feedbacks->insert($newFeedbackData);
-
-            return $inserted
-                ? redirect()->to(base_url('/'))->with('success', 'Feedback added successfully.')
-                : redirect()->to(base_url('/'))->with('error', 'Failed to add Feedback. Please try again.');
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('/', ['validationErrors' => $validationErrors]);
         }
-    } else {
-        return redirect()->to(base_url('/forbidden'))->with('error', 'Invalid Email. Please check your input.');
+
+        // Retrieve Post Data
+        $Email = $this->request->getPost('Email');
+        $feedbackMessage = $this->request->getPost('FeedbackMessage');
+
+        // Use a single query to get the user based on Email
+        $user = $this->users->where('Email', $Email)->first();
+
+        // Check if the user exists
+        if ($user) {
+            // Check if a feedback from the same user already exists
+            $existingFeedback = $this->feedbacks->where('UserID', $user['UserID'])->first();
+
+            if ($existingFeedback) {
+                // If a feedback exists, you can choose to update it
+                $this->feedbacks->update($existingFeedback['FeedbackID'], ['FeedbackMessage' => $feedbackMessage]);
+
+                return redirect()->to(base_url('/'))->with('success', 'Feedback updated successfully.');
+            } else {
+                // If no feedback exists, insert a new one
+                $newFeedbackData = [
+                    'FeedbackMessage' => $feedbackMessage,
+                    'UserID' => $user['UserID'],
+                ];
+
+                $inserted = $this->feedbacks->insert($newFeedbackData);
+
+                return $inserted
+                    ? redirect()->to(base_url('/'))->with('success', 'Feedback added successfully.')
+                    : redirect()->to(base_url('/'))->with('error', 'Failed to add Feedback. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/forbidden'))->with('error', 'Invalid Email. Please check your input.');
+        }
     }
-}
+    public function faq()
+    {
+        return view('Hotell\index');
+    }
 
 }

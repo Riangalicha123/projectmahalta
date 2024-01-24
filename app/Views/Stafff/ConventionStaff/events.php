@@ -84,19 +84,15 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/addRoom" method="post" enctype="multipart/form-data">
+                            <form action="<?= base_url('/addEvent') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
-                                    <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="RoomType">Room Type</label>
-                                    <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                        <option>Deluxe Room</option>
-                                        <option>Jr. Suite Room</option>
-                                        <option>Family Room</option>
-                                        <option>Barkada Room</option>
+                                    <label for="EventType">Event Type</label>
+                                    <select class="custom-select form-control-border" id="EventType" name="EventType" required>
+                                      <option>Wedding</option>
+                                      <option>Team Building</option>
+                                      <option>Meeting</option>
+                                      <option>Proposal</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -104,17 +100,8 @@
                                     <input type="text" class="form-control" id="Description" name="Description" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
-                                    <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" required>
-                                </div>
-                                <div class="form-group">
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" >Status</label>
-                                    <input type="text" class="form-control" id="" name="AvailabilityStatus" required>
                                 </div>
                                 
                                 </div>
@@ -133,43 +120,31 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel<?=$event['EventID']?>">Edit Room</h5>
+                                    <h5 class="modal-title" id="editModalLabel<?=$event['EventID']?>">Edit Event</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="/updateRoom/" method="post" enctype="multipart/form-data">
+                                <form action="<?= base_url('/updateEvent/') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="EventID" id="EventID" value="<?=$event['EventID']?>">
+                                
                                 <div class="form-group">
-                                    <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" value="" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="RoomType">Room Type</label>
-                                    <select class="custom-select form-control-border" id="RoomType" name="RoomType" value=""required>
-                                        <option>Deluxe Room</option>
-                                        <option>Jr. Suite Room</option>
-                                        <option>Family Room</option>
-                                        <option>Barkada Room</option>
+                                    <label for="EventType">Event Type</label>
+                                    <select class="custom-select form-control-border" id="EventType" name="EventType" value="<?=$event['EventType']?>" required>
+                                      <option <?= ($event['EventType'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+                                      <option <?= ($event['EventType'] == 'Team Building') ? 'selected' : '' ?>>Team Building</option>
+                                      <option <?= ($event['EventType'] == 'Meeting') ? 'selected' : '' ?>>Meeting</option>
+                                      <option <?= ($event['EventType'] == 'Proposal') ? 'selected' : '' ?>>Proposal</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Description">Description</label>
-                                    <input type="text" class="form-control" id="Description" name="Description"  value=""required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
-                                    <input type="number" class="form-control" id="PricePerNight" name="PricePerNight"   value=""required>
+                                    <textarea class="form-control" id="Description" name="Description" required  cols="30" rows="10"><?= $event['Description'] ?></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value=""required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1" >Status</label >
-                                    <input type="text" class="form-control" id="" name="AvailabilityStatus"  value=""required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$event['Image']?>"required>
                                 </div>
                                 
                                 </div>
@@ -187,6 +162,7 @@
                     <th>#</th>
                     <th>Event Type</th>
                     <th>Description</th>
+                    <th>Image</th>
                     <th>Action</th>
                   </tr>
                   </thead>
@@ -196,6 +172,7 @@
                     <td><?=$event['EventID']?></td>
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
+                    <td><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
                     <th><a class="btn btn-danger" href="/deleteRoom/<?= $event['EventID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

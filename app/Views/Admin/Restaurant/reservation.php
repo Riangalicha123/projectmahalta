@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta-Admin</title>
+  <title>Mahalta Admin</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -27,7 +27,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=base_url()?>admin/index3.html" class="brand-link">
+    <a href="<?=base_url()?>admin/index3.html" class="brand-link elevation-4">
       <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
       <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
     </a>
@@ -69,33 +69,144 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Staff</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="<?= base_url('/addRestauReservation') ?>" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="FirstName">First Name</label>
+                                          <input type="text" class="form-control" id="FirstName" name="FirstName" required>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="LastName">Last Name</label>
+                                          <input type="text" class="form-control" id="LastName" name="LastName" required>
+                                      </div>
+                                  </div>
+                                <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="ContactNumber">Contact Number</label>
+                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="Address">Address</label>
+                                          <input type="text" class="form-control" id="Address" name="Address" required>
+                                      </div>
+                                </div>
+                                <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="TableNumber">Room No.</label>
+                                            <select class="custom-select form-control-border" id="TableNumber" name="TableNumber" required>
+                                                <option>T1</option>
+                                                <option>T2</option>
+                                                <option>T3</option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="CheckInDate">Arrival</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Note">Note</label>
+                                                <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"></textarea>
+                                            </div>
+                                        </div>
+                                        
+                                
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Edit Room Modal -->
+                    <?php foreach ($restrevs as $restrev): ?>
+                    <div class="modal fade" id="editModal<?=$restrev['ReservationID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$restrev['ReservationID']?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel<?=$restrev['ReservationID']?>">Edit Reservation</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="<?= base_url('/updateRestauReservation/' . $restrev['ReservationID']) ?>" method="post" enctype="multipart/form-data">
+                                    <div class="card-body">
+                                        <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $restrev['ReservationID'] ?>">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                            <label for="TableNumber">Room No.</label>
+                                            <select class="custom-select form-control-border" id="TableNumber" name="TableNumber" required>
+                                                <option <?= ($restrev['TableNumber'] == 'D1') ? 'selected' : '' ?>>T1</option>
+                                                <option <?= ($restrev['TableNumber'] == 'D2') ? 'selected' : '' ?>>T2</option>
+                                                <option <?= ($restrev['TableNumber'] == 'D3') ? 'selected' : '' ?>>T3</option>
+                                            </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="CheckInDate">Arrival</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($restrev['CheckInDate'])) ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label for="Note">Note</label>
+                                                <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"><?= $restrev['Note'] ?></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
+                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Contact Number</th>
+                    <th>Contact No.</th>
                     <th>Address</th>
                     <th>Table</th>
-                    <th>CheckInDate</th>
-                    <th>CheckOutDate</th>
-                    <th>NumberOfGuests</th>
+                    <th>Arrival</th>
                     <th>Note</th>
                     <th>Status</th>
+                    <th>Status Action</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php foreach ($restrevs as $restrev): ?>
                   <tr>
+                    <td><?=$restrev['ReservationID']?></td>
                     <td><?=$restrev['FirstName']?></td>
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
                     <td><?=$restrev['Address']?></td>
                     <td><?=$restrev['TableNumber']?></td>
                     <td><?=$restrev['CheckInDate']?></td>
-                    <td><?=$restrev['CheckOutDate']?></td>
-                    <td><?=$restrev['NumberOfGuests']?></td>
                     <td><?=$restrev['Note']?></td>
                     <td class="project-state">
                         <?php
@@ -125,18 +236,20 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <!-- Inside the dropdown menu in your HTML template -->
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateresstatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateresstatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateresstatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>
                     </td>
+                    <th><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$restrev['ReservationID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   
                   </tbody>
                   
                 </table>
+                
               </div>
               <!-- /.card-body -->
             </div>
@@ -185,7 +298,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": [""]
+      "buttons": ["pdf"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
