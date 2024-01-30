@@ -1,0 +1,27 @@
+CRITICAL - 2024-01-30 01:06:58 --> Too few arguments to function App\Controllers\GuestController::addReservation(), 0 passed in C:\laragon\www\projectmahalta\system\CodeIgniter.php on line 942 and exactly 5 expected
+in APPPATH\Controllers\GuestController.php on line 219.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-30 01:19:19 --> Invalid file: "/bookroom.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/bookroom.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('/bookroom', [], true)
+ 3 APPPATH\Controllers\GuestController.php(241): view('/bookroom', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-30 01:20:17 --> Invalid file: "/bookroom.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('/bookroom.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('/bookroom', [], true)
+ 3 APPPATH\Controllers\GuestController.php(241): view('/bookroom', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

@@ -1,0 +1,12 @@
+CRITICAL - 2024-01-25 04:41:35 --> Undefined variable $hotelrev
+in APPPATH\Views\Stafff\HotelStaff\room.php on line 147.
+ 1 APPPATH\Views\Stafff\HotelStaff\room.php(147): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $hotelrev', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\HotelStaff\\room.php', 147)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\HotelStaff\\room.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\HotelStaff\\room', [], true)
+ 5 APPPATH\Controllers\StaffController.php(198): view('Stafff\\HotelStaff\\room', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\StaffController->room()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StaffController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

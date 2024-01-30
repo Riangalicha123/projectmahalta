@@ -252,7 +252,7 @@
                 <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
                 <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
               </div>
-            </div>
+                </div>
               </div>
         </div>
       </div>

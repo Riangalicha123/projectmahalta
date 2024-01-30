@@ -142,29 +142,44 @@
                                 <div class="card-body">
                                 <input type="hidden" name="RoomID" id="RoomID" value="<?=$room['RoomID']?>">
                                 <div class="form-group">
-                                    <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" value="<?= $room['RoomNumber'] ?>" required>
+                                    <label for="RoomNumber">Room No.</label>
+                                      <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber" required>
+                                        <option <?= ($room['RoomNumber'] == 'D1') ? 'selected' : '' ?>>D1</option>
+                                        <option <?= ($room['RoomNumber'] == 'D2') ? 'selected' : '' ?>>D2</option>
+                                        <option <?= ($room['RoomNumber'] == 'D3') ? 'selected' : '' ?>>D3</option>
+                                        <option <?= ($room['RoomNumber'] == 'D4') ? 'selected' : '' ?>>D4</option>
+                                        <option <?= ($room['RoomNumber'] == 'D5') ? 'selected' : '' ?>>D5</option>
+                                        <option <?= ($room['RoomNumber'] == 'D6') ? 'selected' : '' ?>>D6</option>
+                                        <option <?= ($room['RoomNumber'] == 'D7') ? 'selected' : '' ?>>D7</option>
+                                        <option <?= ($room['RoomNumber'] == 'D8') ? 'selected' : '' ?>>D8</option>
+                                        <option <?= ($room['RoomNumber'] == 'S1') ? 'selected' : '' ?>>S1</option>
+                                        <option <?= ($room['RoomNumber'] == 'S2') ? 'selected' : '' ?>>S2</option>
+                                        <option <?= ($room['RoomNumber'] == 'F1') ? 'selected' : '' ?>>F1</option>
+                                        <option <?= ($room['RoomNumber'] == 'F2') ? 'selected' : '' ?>>F2</option>
+                                        <option <?= ($room['RoomNumber'] == 'B1') ? 'selected' : '' ?>>B1</option>
+                                        <option <?= ($room['RoomNumber'] == 'B2') ? 'selected' : '' ?>>B2</option>
+                                      </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="RoomType">Room Type</label>
                                     <select class="custom-select form-control-border" id="RoomType" name="RoomType" value="<?=$room['RoomType']?>"required>
-                                        <option>Deluxe Room</option>
-                                        <option>Jr. Suite Room</option>
-                                        <option>Family Room</option>
-                                        <option>Barkada Room</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room') ? 'selected' : '' ?>>Deluxe Room</option>
+                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room') ? 'selected' : '' ?>>Jr. Suite Room</option>
+                                      <option <?= ($room['RoomType'] == 'Family Room') ? 'selected' : '' ?>>Family Room</option>
+                                      <option <?= ($room['RoomType'] == 'Barkada Room') ? 'selected' : '' ?>>Barkada Room</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Description">Description</label>
-                                    <input type="text" class="form-control" id="Description" name="Description"  value="<?=$room['Description']?>"required>
+                                    <textarea class="form-control" id="Description" name="Description" required  cols="30" rows="10"><?=$room['Description']?></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="PricePerNight">Price per Night</label>
-                                    <input type="number" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
+                                    <input type="text" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$room['Image']?>"required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$room['Image']?>" required>
                                 </div>
                                 
                                 <div class="form-group">

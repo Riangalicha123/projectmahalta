@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -39,253 +40,155 @@
       </div>
     </section>
     <!-- END section -->
+    <section class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="media d-block room mb-0">
+                    <div class="media-body">
+                    <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                                <div class="row">
+                                    <div class="col-sm-4 form-group">
+                                        <label for="CheckInDate">Arrival Date</label>
+                                        <div style="position: relative;">
+                                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
+                                        </div>
+                                    </div>
 
-    <section class="site-section" >
+                                    <div class="col-sm-4 form-group">
+                                        <label for="CheckOutDate">Departure Date</label>
+                                        <div style="position: relative;">
+                                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 form-group">
+                                        <label for="NumberOfGuests">Number of Guests</label>
+                                        <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests" required>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="row">
+                                    <div class="col-md-12 form-group text-center">
+                                        <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
+                                    </div>
+                                </div>
+                            </form>
+                        <?php if (isset($reservationData)): ?>
+                            <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
+                            <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                            <p>Number of Guests: <?= esc($reservationData['NumberOfGuests'] ?? '') ?></p>
+                        <?php else: ?>
+                            <p>No reservation data found.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="site-section" >
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <h2 class="mb-5">Reservation Room Form</h2>
-                <form action="<?= base_url('addReservation') ?>" method="post">
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="FirstName">First Name</label>
-                      <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="LastName">Last Name</label>
-                      <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="ContactNumber">Contact Number</label>
-                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" required >
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="Address">Address</label>
-                      <input type="text" id="Address" name="Address" class="form-control" value="<?= $_SESSION['address'] ?? ''; ?>" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="ContactNumber">Contact Number</label>
-                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['hello'] ?? ''; ?>" required >
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="Address">Address</label>
-                      <input type="text" id="Address" name="Address" class="form-control" value="<?= $_SESSION['Address'] ?? ''; ?>" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="CheckInDate">Arrival Date</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
-                          </div>
-                      </div>
+            <h2 class="mb-5">Reservation Room</h2>
+            <form action="<?= base_url('getdataRoom') ?>" method="GET">
+                <?php foreach ($rooms as $room): ?>
+                    <?php if (isset($room['AvailabilityStatus']) && $room['AvailabilityStatus'] === 'Available'): ?>
+                        <div class="col-md-8">
+                            <div class="media d-block room mb-0">
+                                <figure>
+                                    <img src="<?= base_url('/uploads/' . $room['Image']) ?>" alt="Generic placeholder image" class="img-fluid">
+                                    <div class="overlap-text">
+                                        <span>
+                                            Room<?= $room['RoomNumber'] ?>
+                                            <H6><b><?= $room['AvailabilityStatus'] ?></b></H6>
+                                        </span>
+                                    </div>
+                                </figure>
+                                <div class="media-body">
+                                    <h3 class="mt-0"><a href="#"><?= $room['RoomType'] ?></a></h3>
+                                    <h5 class="mt-0"><a href="#">PHP <?= $room['PricePerNight'] ?>/ Night</a></h5>
 
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="CheckOutDate">Departure Date</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
-                          </div>
-                      </div>
-                      
-                  </div>
+                                    <!-- Gumamit ng button para mag-submit ng form -->
+                                    <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary">Select</button>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </form>
 
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="RoomNumber">Room No.</label>
-                      <select name="RoomNumber" id="RoomNumber" class="form-control" required>
-                        <option>D1</option>
-                        <option>D2</option>
-                        <option>D3</option>
-                        <option>D4</option>
-                        <option>D5</option>
-                        <option>D6</option>
-                        <option>D7</option>
-                        <option>D8</option>
-                        <option>S1</option>
-                        <option>S2</option>
-                        <option>F1</option>
-                        <option>F2</option>
-                        <option>B1</option>
-                        <option>B2</option>
-                      </select>
-                    </div>
 
-                    <div class="col-md-6 form-group">
-                      <label for="RoomType">Room Type</label>
-                      <select class="form-select form-control" id="RoomType" name="RoomType">
-                        <option>Deluxe Room</option>
-                        <option>Jr. Suite Room</option>
-                        <option>Family Room</option>
-                        <option>Barkada Room</option>
-                      </select>
-                    </div>
 
-                    <div class="col-md-12 form-group">
-                      <label for="NumberOfGuests">Number of Guest</label>
-                      <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests" required>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                  <img src="/guest/images/qr.JPG" alt="Generic placeholder image" class="img-fluid">
-                  <p>Note: The downpayment is 1000 pesos minimum</p>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="TotalAmount">Down Payment or Full Payment</label>
-                      <input type="text" id="TotalAmount" name="TotalAmount" class="form-control" required>
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="ReferenceNumber">Reference Number</label>
-                      <input type="text" id="ReferenceNumber" name="ReferenceNumber" class="form-control" required>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                    <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                </form>
               </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-5">
+              <div class="col-md-2"></div>
+              <div class="col-md-4">
+              <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
                 <h3 class="mb-5">Featured Room</h3>
+                        
+                <?php if (isset($roomSelected)): ?>
                 <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
+                
+                <figure>
+                <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
+                    Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
                   </span>
                 </div>
               </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
-              </div>
-            </div>
+                  <div class="media-body">
+                    <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
+                    <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?>/ Night</a></h5>
+                    <?php if (isset($reservationData)): ?>
+                            <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
+                            <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                            <p>Number of Guests: <?= esc($reservationData['NumberOfGuests'] ?? '') ?></p>
+                        <?php else: ?>
+                            <p>No reservation data found.</p>
+                        <?php endif; ?>
+                        <hr>
+                      <!-- Add this div at the end of your section, right before the closing </section> tag -->
+                      <div class="row additionalDetails" style="display:none;">
+                        <!-- Additional details content goes here -->
+                        <p><?= esc($roomSelected['Description'] ?? '') ?></p>
+                        
+                        <p><b>• ROOM INCLUSIONS</b></p>
+                        <p>-Complimentary Breakfast(Plated Service)</p>
+                        <p>-Free Flow or Brewed Coffee</p>
+                        <p>-Complete Amenities</p>
+                        <p>-Swimming Pool Access</p>
+                        <p>-Stand By Generator Set</p>
+                        <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                      </div>
+
+                      <!-- View More Button -->
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                        <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+                        </div>
+                      </div>
+                    
+                            <button type="submit" value="Reserve Now" class="btn btn-primary">Check</button>
+                  </div>
+                  
+                </div>
+                <?php else: ?>
+                            <p>No reservation data found.</p>
+                        <?php endif; ?>
+              </form>
+                
               </div>
         </div>
       </div>
     </section>
+
     <!-- END section -->
 
-    <section class="site-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h2 class="mb-5">Reservation Restaurant Form</h2>
-                <form action="<?= base_url('tableReservation') ?>" method="post">
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="FirstName">First Name</label>
-                      <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="LastName">Last Name</label>
-                      <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                      <label for="ContactNumber">Contact Number</label>
-                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" required >
-                    </div>
-                    <div class="col-md-6 form-group">
-                      <label for="Address">Address</label>
-                      <input type="text" id="Address" name="Address" class="form-control" value="<?= $_SESSION['address'] ?? ''; ?>" required>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="CheckInDate">Arrival Date</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
-                          </div>
-                      </div>
-
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="CheckOutDate">Departure Date</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
-                          </div>
-                      </div>
-                      
-                  </div>
-                  <div class="row">
-                  <div class="col-md-6 form-group">
-                      <label for="TableNumber">Table</label>
-                      <select class="form-select form-control" id="TableNumber" name="TableNumber">
-                        <option>T1</option>
-                        <option>T2</option>
-                        <option>T3</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 form-group">
-                      <label for="Note">Write a Note</label>
-                      <textarea name="Note" id="Note" class="form-control " cols="30" rows="8" required></textarea>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col-md-6 form-group">
-                    <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <div class="col-md-1"></div>
-              <div class="col-md-5">
-                <h3 class="mb-5">Featured Room</h3>
-                <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
-              </div>
-            </div>
-              </div>
-        </div>
-      </div>
-    </section>
+    
     <!-- END section -->
    
     <!-- END section -->
@@ -300,6 +203,45 @@
     <!-- loader -->
     <?php include('inc/loader.php') ?>
 
+    <script>
+    // Function to add leading zeros to single-digit numbers
+    function padZero(number) {
+        return number < 10 ? '0' + number : number;
+    }
+
+    // Get current date and time in the Philippine timezone (UTC+8)
+    let currentDate = new Date();
+    let philippineTime = new Date(currentDate.getTime());
+
+    // Format the date to match the datetime-local input format
+    let formattedDate = philippineTime.getFullYear() + '-' +
+                        padZero(philippineTime.getMonth() + 1) + '-' +
+                        padZero(philippineTime.getDate()) + 'T' +
+                        padZero(philippineTime.getHours()) + ':' +
+                        padZero(philippineTime.getMinutes());
+
+    // Set the values of Arrival Date and Departure Date fields
+    document.getElementById('CheckInDate').value = formattedDate;
+    document.getElementById('CheckOutDate').value = formattedDate;
+</script>
+    <script>
+  // Use a class for the View More buttons to distinguish between them
+  var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
+
+  // Loop through each button and add a click event listener
+  viewMoreButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      // Find the parent container of the clicked button
+      var parentContainer = button.closest('.room');
+
+      // Find the additional details div inside the parent container
+      var detailsDiv = parentContainer.querySelector('.additionalDetails');
+
+      // Toggle the display of the additional details
+      detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
+    });
+  });
+</script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>

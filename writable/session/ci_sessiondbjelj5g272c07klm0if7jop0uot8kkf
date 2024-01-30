@@ -1,0 +1,7 @@
+__ci_last_regenerate|i:1706575815;roomSelected|a:7:{s:6:"RoomID";s:2:"11";s:10:"RoomNumber";s:2:"F1";s:8:"RoomType";s:11:"Family Room";s:11:"Description";s:96:"• 1 Queen-sized Bed
+• 1 Double Deck
+• 1  Sofa Bed
+• Sauna
+
+• 5 pax
+-Max of 7 pax";s:13:"PricePerNight";s:7:"6499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1706157937_9e2a360bb9af7266d503.jpg";}_ci_previous_url|s:42:"http://localhost:8080/bookroom/formdetails";reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-01-30T08:39";s:12:"CheckOutDate";s:16:"2024-01-30T08:39";s:14:"NumberOfGuests";s:1:"3";}id|s:1:"1";username|s:24:"riangalicha123@gmail.com";firstname|s:4:"Rian";lastname|s:7:"Galicha";contact|s:11:"09074069747";address|s:39:"Sabang, Puerto Galera, Oriental Mindoro";isLoggedIn|b:1;userRole|s:1:"1";

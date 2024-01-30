@@ -43,38 +43,106 @@
     <!-- END section -->
 
     <?php if(session()->get('isLoggedIn')): ?>
-    <section class="site-section">
-      <div class="container">
-        <div class="row">
-        <?php foreach ($rooms as $room): ?>
-          <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                  Room<?=$room['RoomNumber']?> 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
+      
+      <section class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="media d-block room mb-0">
+                        <div class="media-body">
+                            <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                                <div class="row">
+                                    <div class="col-sm-4 form-group">
+                                        <label for="CheckInDate">Arrival Date</label>
+                                        <div style="position: relative;">
+                                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-4 form-group">
+                                        <label for="CheckOutDate">Departure Date</label>
+                                        <div style="position: relative;">
+                                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4 form-group">
+                                        <label for="NumberOfGuests">Number of Guests</label>
+                                        <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests" required>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div class="row">
+                                    <div class="col-md-12 form-group text-center">
+                                        <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#"><?=$room['RoomType']?></a></h3>
-                
-                <p><?=$room['Description']?></p>
-                <p><?=$room['AvailabilityStatus']?></p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now</a></p>
-              </div>
             </div>
-          </div>
-          <?php endforeach; ?>
         </div>
-      </div>
-    </section>  
+    </section>
+ 
+
+      <section class="site-section">
+        <div class="container">
+          <div class="row">
+          <?php foreach ($rooms as $room): ?>
+            <?php if ($room['AvailabilityStatus'] === 'Available'): ?> <!-- Check availability status -->
+              <div class="col-md-4 mb-4">
+                <div class="media d-block room mb-0">
+                  <figure>
+                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid">
+                    <div class="overlap-text">
+                      <span>
+                      Room<?=$room['RoomNumber']?> 
+                        <!-- <span class="ion-ios-star"></span>
+                        <span class="ion-ios-star"></span>
+                        <span class="ion-ios-star"></span> -->
+                      </span>
+                    </div>
+                  </figure>
+                  <div class="media-body">
+                    <h3 class="mt-0"><a href="#"><?=$room['RoomType']?></a></h3>
+                    <h5 class="mt-0"><a href="#">PHP <?=$room['PricePerNight']?>/ Night</a></h5>
+                      <!-- Add this div at the end of your section, right before the closing </section> tag -->
+                      <div class="row additionalDetails" style="display:none;">
+                        <!-- Additional details content goes here -->
+                        <p><?=$room['Description']?></p>
+                        <p><b><?=$room['AvailabilityStatus']?></b></p>
+                        <p><b>• ROOM INCLUSIONS</b></p>
+                        <p>-Complimentary Breakfast(Plated Service)</p>
+                        <p>-Free Flow or Brewed Coffee</p>
+                        <p>-Complete Amenities</p>
+                        <p>-Swimming Pool Access</p>
+                        <p>-Stand By Generator Set</p>
+                        <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                      </div>
+
+                      <!-- View More Button -->
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                        <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+                        </div>
+                      </div>
+                    
+                    
+                    <!-- <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary btn-sm">Book Now</a></p> -->
+                  </div>
+                </div>
+              </div>
+            <?php endif; ?>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </section>  
     <?php else: ?>
-    <section class="site-section"style="background-image: url('/guest/images/malabo1.jpg'); background-size: cover; background-position: center;  color: #ffffff;">
+
+    <section class="site-section"style="background-image: url('/guest/images/malabo1.jpg'); background-size: cover; background-position: center;  color: #000;">
       <div class="container">
         <div class="row">
           <div class="col-md-4 mb-4">
@@ -96,7 +164,19 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <!-- Add this div at the end of your section, right before the closing </section> tag -->
+              <div class="row" id="additionalDetails" style="display:none;">
+                <!-- Additional details content goes here -->
+                <p>This is additional information about the rooms...</p>
+              </div>
+
+              <!-- View More Button -->
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <button id="viewMoreBtn" class="btn btn-primary btn-sm-1"><h6>View More</h6></button>
+                </div>
+              </div>
+
                 <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>
@@ -201,6 +281,26 @@
     
     <!-- loader -->
     <?php include('inc/loader.php') ?>
+    
+    <script>
+  // Use a class for the View More buttons to distinguish between them
+  var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
+
+  // Loop through each button and add a click event listener
+  viewMoreButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      // Find the parent container of the clicked button
+      var parentContainer = button.closest('.room');
+
+      // Find the additional details div inside the parent container
+      var detailsDiv = parentContainer.querySelector('.additionalDetails');
+
+      // Toggle the display of the additional details
+      detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
+    });
+  });
+</script>
+
 
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
@@ -214,6 +314,8 @@
     <script src="/guest/js/magnific-popup-options.js"></script>
 
     <script src="/guest/js/main.js"></script>
+
+
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

@@ -7,13 +7,18 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'GuestController::home');
 $routes->get('/room', 'GuestController::room');
+$routes->get('/bookroom/submit', 'GuestController::getData');
+$routes->get('/getdataRoom', 'GuestController::getdataRoom');
 $routes->get('/bookroom', 'GuestController::bookroom');
+$routes->get('/bookroom/getdataRoom', 'GuestController::getdataRoomReservation');
+$routes->get('/bookroom/formdetails', 'GuestController::formdetails');
+$routes->post('/bookroom/addReservation', 'GuestController::addReservation');
 $routes->get('/blog', 'GuestController::blog');
 $routes->get('/faq', 'GuestController::faq');
 //$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurant', 'GuestController::restaurant');
 $routes->get('/convention', 'GuestController::convention');
-$routes->post('/addReservation', 'GuestController::addReservation');
+
 $routes->post('/tableReservation', 'GuestController::tableReservation');
 $routes->post('/eventReservation', 'GuestController::eventReservation');
 $routes->get('/getFeedback', 'GuestController::getFeedback');
@@ -35,7 +40,7 @@ $routes->get('/staff/updatestatus/(:segment)/(:num)', 'StaffController::updateSt
 $routes->get('/staff-hotelroom', 'StaffController::room');
 $routes->post('/addRoom', 'StaffController::addRoom');
 $routes->get('/deleteRoom/(:any)', 'StaffController::deleteRoom/$1');
-$routes->get('/editRoom/(:any)', 'StaffController::editRoom/$1');
+
 $routes->post('/updateRoom', 'StaffController::updateRoom');
 
 $routes->get('/staff-restaurant', 'StaffController::reshome');
