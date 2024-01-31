@@ -31,7 +31,7 @@
 
             <div class="mb-5 element-animate">
               <h1>News &amp; Events</h1>
-              <p>Read our daily news and events of our luxury hotel.</p>
+              <p>Stay updated with our daily news and events.</p>
             </div>
 
           </div>
@@ -40,7 +40,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section "style="background-image: url('/guest/images/malabo4.png'); background-size: cover; background-position: center;  color: #ffffff;">
+    <section class="site-section "style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
       <div class="container">
         
         <div class="row mb-5">
@@ -78,73 +78,6 @@
             </div>
           </div>
 
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">Rooms</div>
-                <h3 class="mb-3"><a href="blog-single.html">New Rooms</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_6.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">News</div>
-                <h3 class="mb-3"><a href="blog-single.html">New Staff Added</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_5.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">New Rooms</div>
-                <h3 class="mb-3"><a href="blog-single.html">Big Rooms for All</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">Rooms</div>
-                <h3 class="mb-3"><a href="blog-single.html">New Rooms</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_6.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">News</div>
-                <h3 class="mb-3"><a href="blog-single.html">New Staff Added</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <a href="blog-single.html"><img src="/guest/images/img_5.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="body-text">
-                <div class="category">New Rooms</div>
-                <h3 class="mb-3"><a href="blog-single.html">Big Rooms for All</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
 
 
         </div>
@@ -185,5 +118,6 @@
     <script src="/guest/js/magnific-popup-options.js"></script>
 
     <script src="/guest/js/main.js"></script>
+    
   </body>
 </html>

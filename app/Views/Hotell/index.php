@@ -105,7 +105,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"  style="color: darkgrey;">Our Luxury Rooms</h4>
+            <h4 class="sub-heading"  style="color: darkgrey;"> Hotel Rooms</h4>
               <h2 class="heading">Featured Rooms</h2>
           </div>
         </div>
@@ -113,7 +113,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/MahaltaPic/4.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
                     Featured Room 
@@ -124,46 +124,47 @@
                 </div>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
+                <h3 class="mt-0"><a href="#">Jr.Suite Room</a></h3>
                 <ul class="room-specs">
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
+                <p>Picture a special room with a peaceful ambiance and inviting decor, designed for relaxation. </p>
+                <p><a href="#" class="btn btn-primary btn-sm">Book Now </a></p>
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/img_2.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/2.jpg); ">
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Hotel Room 
+                    Family Room 
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                   </span>
                   <span class="pricing-from">
-                    from $22
+                    Php6,499.00
                   </span>
                 </div>
               <!-- </figure> -->
             </a>
 
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/img_4.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/5.jpg); ">
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Hotel Room 
+                    Barkada Room 
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                   </span>
                   <span class="pricing-from">
-                    from $22
+                    Php 1,000.00/head
                   </span>
                 </div>
+                
               <!-- </figure> -->
             </a>
             
@@ -176,7 +177,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Our Restaurant</h4>
+            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Restaurant</h4>
               <h2 class="heading">Featured Restaurant</h2>
           </div>
         </div>
@@ -184,19 +185,19 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
                 
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Dining</a></h3>
+                <h3 class="mt-0"><a href="#">Dine In</a></h3>
                 
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p>Savor exquisite dining at our hotel and resort restaurant with a diverse menu and inviting ambiance. </p>
                 <p><a href="<?= route_to('restaurant') ?>" class="btn btn-primary btn-sm">View Our Restaurant Options</a></p>
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/cafe.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/24.jpg); ">
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
@@ -212,7 +213,7 @@
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Cafe 
+                    Cafe Bar
                     
                   </span>
                 </div>
@@ -228,7 +229,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Our Conventions</h4>
+            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Conventions</h4>
               <h2 class="heading">Featured Conventions</h2>
           </div>
         </div>
@@ -244,7 +245,7 @@
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Events</a></h3>
                 
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p>Enjoy your events at our convention center – modern spaces, great amenities, and expert support for successful gatherings. </p>
                 <p><a href="<?= route_to('convention') ?>" class="btn btn-primary btn-sm">View Our Convetions Options</a></p>
               </div>
             </div>
@@ -284,7 +285,7 @@
         <div class="row justify-content-center align-items-center intro">
           <div class="col-md-9 text-center element-animate">
             <h2>Relax and Enjoy your Holiday</h2>
-            <p class="lead mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quidem tempore expedita facere facilis, dolores!</p>
+            <p class="lead mb-5">Explore a world of comfort and luxury on our resort and hotel website, showcasing inviting accommodations, stunning amenities, and unforgettable experiences for your perfect getaway.</p>
             <div class="btn-play-wrap"><a href="https://vimeo.com/channels/staffpicks/93951774" class="btn-play popup-vimeo "><span class="ion-ios-play"></span></a></div>
           </div>
         </div>
@@ -307,7 +308,7 @@
               <div class="body-text">
                 <div class="category">Rooms</div>
                 <h3 class="mb-3"><a href="#">New Rooms</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <p class="mb-4">Cozy room with modern amenities for a comfortable stay.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>
@@ -318,7 +319,7 @@
               <div class="body-text">
                 <div class="category">News</div>
                 <h3 class="mb-3"><a href="#">New Staff Added</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <p class="mb-4">Professional staff dedicated to ensuring your satisfaction during your stay.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>
@@ -327,9 +328,9 @@
             <div class="post-entry">
               <img src="/guest/images/img_5.jpg" alt="Image placeholder" class="img-fluid">
               <div class="body-text">
-                <div class="category">New Rooms</div>
-                <h3 class="mb-3"><a href="#">Big Rooms for All</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <div class="category">Restaurant</div>
+                <h3 class="mb-3"><a href="#">Restaurant for All</a></h3>
+                <p class="mb-4">Enjoy delicious meals in our restaurant for a delightful dining experience.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>

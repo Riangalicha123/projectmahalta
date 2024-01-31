@@ -33,7 +33,7 @@
 
             <div class="mb-5 element-animate">
               <h1>Rooms</h1>
-              <p>Discover our world's #1 Luxury Room For VIP.</p>
+              <p>Cozy room with modern amenities for a comfortable stay.</p>
             </div>
 
           </div>
@@ -44,8 +44,8 @@
 
     <?php if(session()->get('isLoggedIn')): ?>
       
-      <section class="site-section">
-        <div class="container">
+      <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
+        <div class="container" >
             <div class="row">
                 <div class="col-sm-12">
                     <div class="media d-block room mb-0">
@@ -88,7 +88,7 @@
     </section>
  
 
-      <section class="site-section">
+      <section class="site-section"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
         <div class="container">
           <div class="row">
           <?php foreach ($rooms as $room): ?>
