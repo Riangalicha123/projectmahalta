@@ -200,7 +200,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p>Indulge in comfort and style with our Jr. Suite Rooms. </p>
                 <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>
@@ -224,7 +224,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p>Create lasting family memories in our spacious Family Rooms. </p>
                 <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>
@@ -250,7 +250,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p> Our Barkada Rooms offer the ideal setting for a memorable and shared experience. </p>
                 <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>
@@ -268,7 +268,7 @@
         <div class="row justify-content-center align-items-center intro">
           <div class="col-md-9 text-center element-animate">
             <h2>Relax and Enjoy your Holiday</h2>
-            <p class="lead mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto quidem tempore expedita facere facilis, dolores!</p>
+            <p class="lead mb-5">Explore a world of comfort and luxury on our resort and hotel website, showcasing inviting accommodations, stunning amenities, and unforgettable experiences for your perfect getaway.</p>
             <div class="btn-play-wrap"><a href="https://vimeo.com/channels/staffpicks/93951774" class="btn-play popup-vimeo "><span class="ion-ios-play"></span></a></div>
           </div>
         </div>

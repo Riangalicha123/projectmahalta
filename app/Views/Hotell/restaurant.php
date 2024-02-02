@@ -33,7 +33,7 @@
 
             <div class="mb-5 element-animate">
               <h1>Restaurant</h1>
-              <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
+               <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
 
           </div>
@@ -43,7 +43,7 @@
     <!-- END section -->
 
 
-    <section class="site-section "style="background-image: url('/guest/images/malabo5.jpg'); background-size: cover; background-position: center;  color: #ffffff;">
+    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
       <div class="container">
         <div class="row mb-5">
           
@@ -58,7 +58,7 @@
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Dining</a></h3>
                 
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
+                <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p><a href="<?= route_to('booknow') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>
@@ -92,7 +92,7 @@
       </div>
     </section>
 
-    <section class="site-section">
+    <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -164,13 +164,13 @@
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-5">
-                <h3 class="mb-5">Featured Room</h3>
+                <h3 class="mb-5">Featured Restaurant</h3>
                 <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
-                    Featured Room 
+                    Main Restaurant
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
@@ -178,13 +178,13 @@
                 </div>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
+                <!-- <h3 class="mt-0"><a href="#"></a></h3> -->
                 <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
+                  <li><span class="ion-ios-people-outline"></span> 25 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
+                <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests .</p>
+                <p><a href="#" class="btn btn-primary btn-sm">Book Now </a></p>
               </div>
             </div>
               </div>

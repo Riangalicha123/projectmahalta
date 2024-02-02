@@ -50,7 +50,7 @@
               <div class="body-text">
                 <div class="category">Rooms</div>
                 <h3 class="mb-3"><a href="blog-single.html">New Rooms</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <p class="mb-4">Cozy room with modern amenities for a comfortable stay.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>
@@ -61,7 +61,7 @@
               <div class="body-text">
                 <div class="category">News</div>
                 <h3 class="mb-3"><a href="blog-single.html">New Staff Added</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <p class="mb-4">Professional staff dedicated to ensuring your satisfaction during your stay.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>
@@ -70,9 +70,9 @@
             <div class="post-entry">
               <a href="blog-single.html"><img src="/guest/images/img_5.jpg" alt="Image placeholder" class="img-fluid"></a>
               <div class="body-text">
-                <div class="category">New Rooms</div>
-                <h3 class="mb-3"><a href="blog-single.html">Big Rooms for All</a></h3>
-                <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum deserunt illo quis similique dolore voluptatem culpa voluptas rerum, dolor totam.</p>
+                <div class="category">New Restaurant</div>
+                <h3 class="mb-3"><a href="blog-single.html">Restaurant for All</a></h3>
+                <p class="mb-4">Enjoy delicious meals in our restaurant for a delightful dining experience.</p>
                 <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
               </div>
             </div>

@@ -32,8 +32,11 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-              <h1>Conventions</h1>
-              <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
+            <br>
+            <br>
+            <br>
+              <h1>Convention Center</h1>
+               <p>Welcome to our premier convention center—where sophistication meets innovation. We offer the perfect venue for your events, from corporate conferences to grand expos. </p> 
             </div>
 
           </div>
@@ -45,7 +48,7 @@
     <!-- END section -->
 
 
-    <section class="site-section" style="background-image: url('/guest/images/malabo5.jpg'); background-size: cover; background-position: center;  color: #000;">
+    <section class="site-section" style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
       <div class="container">
         <div class="row">
         <?php foreach ($events as $event): ?>
@@ -68,7 +71,7 @@
       </div>
     </section>
     <?php if(session()->get('isLoggedIn')): ?>
-    <section class="site-section" >
+    <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);" >
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -135,13 +138,13 @@
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-5">
-                <h3 class="mb-5">Featured Room</h3>
+                <h3 class="mb-5">Featured Convention Center</h3>
                 <div class="media d-block room mb-0">
               <figure>
                 <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
-                    Featured Room 
+                    Main Convention
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
@@ -149,13 +152,13 @@
                 </div>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
+                <h3 class="mt-0"><a href="#">Main Convention</a></h3>
                 <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
+                  <li><span class="ion-ios-people-outline"></span> 30 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now From $20</a></p>
+                <p> Elevate your experience in a space designed for seamless gatherings and memorable moments.</p>
+                <p><a href="#" class="btn btn-primary btn-sm">Book Now </a></p>
               </div>
             </div>
               </div>
@@ -163,6 +166,8 @@
       </div>
     </section>
     <?php else: ?>
+
+      
       <section class="site-section" >
       <div class="container">
         <div class="row">
@@ -230,13 +235,13 @@
               </div>
               <div class="col-md-1"></div>
               <div class="col-md-5">
-                <h3 class="mb-5">Featured Room</h3>
+                <h3 class="mb-5">Featured Convention Center</h3>
                 <div class="media d-block room mb-0">
               <figure>
                 <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
-                    Featured Room 
+                    Main Convention 
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
                     <span class="ion-ios-star"></span>
@@ -244,9 +249,9 @@
                 </div>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Presidential Room</a></h3>
+                <h3 class="mt-0"><a href="#">Main Convention</a></h3>
                 <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
+                  <li><span class="ion-ios-people-outline"></span> 30 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
                 <p>Nulla vel metus scelerisque ante sollicitudin. Fusce condimentum nunc ac nisi vulputate fringilla. </p>
