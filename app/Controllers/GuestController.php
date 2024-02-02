@@ -81,6 +81,7 @@ class GuestController extends BaseController
             'CheckOutDate' => $CheckOutDate,
             'NumberOfGuests' => $NumberOfGuests,
         ];
+    
         // Store data in session
         $session->set('reservationData', $reservationData);
     
@@ -116,17 +117,31 @@ class GuestController extends BaseController
     {
         // Load the session library
         $session = \Config\Services::session();
-
+    
         // Retrieve reservation data from session
         $reservationData = $session->get('reservationData');
-
+    
         // Retrieve selected room data from session
         $roomSelected = $session->get('roomSelected');
-
+    
         // Check if both reservation and room data exist
         if (!empty($reservationData) && !empty($roomSelected)) {
-            // You can perform any additional processing or data manipulation here
-
+            // Calculate the total amount based on the number of nights
+            $checkInDate = new \DateTime($reservationData['CheckInDate']);
+            $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
+            $numberOfNights = $checkInDate->diff($checkOutDate)->days;
+    
+            // Calculate the total amount
+            // Modify TotalAmount calculation based on the number of nights
+            $TotalAmount = $numberOfNights == 1 ? $roomSelected['PricePerNight'] : $numberOfNights * $roomSelected['PricePerNight'];
+    
+            // Store the data in the session
+            $session->set('roomReservationData', [
+                'reservationData' => $reservationData,
+                'roomSelected' => $roomSelected,
+                'TotalAmount' => $TotalAmount,
+            ]);
+    
             // Redirect to the /bookroom/formdetails page
             return redirect()->to(base_url('/bookroom/formdetails'));
         } else {
@@ -134,46 +149,8 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/error')); // Adjust the URL accordingly
         }
     }
-    public function calculateTotalAmount()
-    {
-        // Load the session library
-        $session = \Config\Services::session();
-
-        // Retrieve reservation data from session
-        $reservationData = $session->get('reservationData');
-
-        // Retrieve selected room data from session
-        $roomSelected = $session->get('roomSelected');
-
-        // Check if both reservation and room data exist
-        if (!empty($reservationData) && !empty($roomSelected)) {
-            // Extract necessary details from reservation and room data
-            $checkInDate = strtotime($reservationData['CheckInDate']);
-            $checkOutDate = strtotime($reservationData['CheckOutDate']);
-            $numberOfGuests = $reservationData['NumberOfGuests'];
-            $roomPrice = $roomSelected['Price'];
-
-            // Calculate the number of days booked
-            $numberOfDays = ceil(($checkOutDate - $checkInDate) / (60 * 60 * 24));
-
-            // Calculate the base room cost
-            $roomCost = $numberOfDays * $roomPrice;
-
-            // Calculate the guest cost
-            $guestCost = 4999 + (($numberOfGuests - 2) * 500); // 2 guests are already included
-
-            // Calculate the total amount
-            $totalAmount = $roomCost + $guestCost;
-
-            // You can store the totalAmount in the session or use it as needed
-
-            // Redirect to the next page or perform any other actions
-            return redirect()->to(base_url('/bookroom/formdetails'))->with('totalAmount', $totalAmount);
-        } else {
-            // Handle the case where either reservation or room data is missing
-            return redirect()->to(base_url('/error')); // Adjust the URL accordingly
-        }
-    }
+    
+    
 
     
     
@@ -235,106 +212,73 @@ class GuestController extends BaseController
         // Load the session library
         $session = \Config\Services::session();
     
-        // Retrieve reservation data from session
-        $reservationData = $session->get('reservationData');
+        // Retrieve room reservation data from session
+        $roomReservationData = $session->get('roomReservationData');
     
-        // Retrieve selected room data from session
-        $roomSelected = $session->get('roomSelected');
-    
-        // You can now use $reservationData and $roomSelected in your view or any other processing
-        // For example, passing them to the view data array
+        // You can now use $roomReservationData in your view or any other processing
+        // For example, passing it to the view data array
         $data = [
             'activePage' => 'Reservation',
             'rooms' => $this->rooms
                 ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType,rooms.Description,rooms.PricePerNight,rooms.AvailabilityStatus,rooms.Image')
                 ->findAll(),
-            'reservationData' => $reservationData,
-            'roomSelected' => $roomSelected,
+            'roomReservationData' => $roomReservationData,
         ];
     
         return view('Hotell\checkOutReservation', $data);
     }
+    
 
     public function addReservation()
     {
         helper(['form']);
-
-        // Validation Rules (Adjust as needed)
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'ContactNumber' => 'required',
-            'Address' => 'required',
-            'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'RoomNumber' => 'required',
-            'RoomType' => 'required',
-            'NumberOfGuests' => 'required',
-            'ReferenceNumber' => 'required',
-        ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/bookroom', ['validationErrors' => $validationErrors]);
-        }
-
+    
         // Retrieve Post Data
         $FirstName = $this->request->getPost('FirstName');
         $LastName = $this->request->getPost('LastName');
         $ContactNumber = $this->request->getPost('ContactNumber');
         $Address = $this->request->getPost('Address');
-        $NumberOfGuests = $this->request->getPost('NumberOfGuests');
-
+    
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
                             ->where('LastName', $LastName)
                             ->where('ContactNumber', $ContactNumber)
                             ->where('Address', $Address)
                             ->first();
-
+    
         // Retrieve Room Data from Session
         $roomSelected = session()->get('roomSelected');
-
+    
         // Retrieve Reservation Data from Session
         $reservationData = session()->get('reservationData');
-
+    
         // Check if the retrieved sessions are not empty
         if ($roomSelected && $reservationData && $user) {
-            // Calculate TotalAmount based on PricePerNight and add charge for additional guests
-            $pricePerNight = $roomSelected['PricePerNight'];
-            $additionalGuestCharge = 500;
-            $totalGuests = $reservationData['NumberOfGuests'];
-
-            // Calculate TotalAmount
-            $totalAmount = $pricePerNight + ($additionalGuestCharge * max(0, $totalGuests - 2));
-
             // Prepare Reservation Data
             $newReservationData = [
                 'CheckInDate' => $reservationData['CheckInDate'],
                 'CheckOutDate' => $reservationData['CheckOutDate'],
-                'NumberOfGuests' => $totalGuests,
-                'TotalAmount' => $totalAmount,
+                'NumberOfGuests' => $reservationData['NumberOfGuests'],
+                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                 'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                 'Status' => 'Pending',
                 'RoomID' => $roomSelected['RoomID'], // Use the RoomID from roomSelected
                 'UserID' => $user['UserID'],
             ];
-
+    
             // Insert Reservation
             $inserted = $this->reservation->insert($newReservationData);
-
+    
             // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/bookroom'))->with('success', 'Reservation added successfully.');
+                return redirect()->to(base_url('/bookroom/formdetails'))->with('success', 'Reservation added successfully.');
             } else {
-                return redirect()->to(base_url('/bookroom'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/bookroom/formdetails'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-
     
     public function tableReservation(){
         helper(['form']);

@@ -111,7 +111,26 @@
                                 <div class="media-body">
                                     <h3 class="mt-0"><a href="#"><?= $room['RoomType'] ?></a></h3>
                                     <h5 class="mt-0"><a href="#">PHP <?= $room['PricePerNight'] ?>/ Night</a></h5>
+                                    <!-- Add this div at the end of your section, right before the closing </section> tag -->
+                                    <div class="row additionalDetails" style="display:none;">
+                                      <!-- Additional details content goes here -->
+                                      <p><?= $room['Description'] ?></p>
+                                      
+                                      <p><b>• ROOM INCLUSIONS</b></p>
+                                      <p>-Complimentary Breakfast(Plated Service)</p>
+                                      <p>-Free Flow or Brewed Coffee</p>
+                                      <p>-Complete Amenities</p>
+                                      <p>-Swimming Pool Access</p>
+                                      <p>-Stand By Generator Set</p>
+                                      <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                                    </div>
 
+                                    <!-- View More Button -->
+                                    <div class="row">
+                                      <div class="col-md-12 text-center">
+                                      <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+                                      </div>
+                                    </div>
                                     <!-- Gumamit ng button para mag-submit ng form -->
                                     <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary">Select</button>
                                 </div>

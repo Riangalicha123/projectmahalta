@@ -40,7 +40,6 @@ $routes->get('/staff/updatestatus/(:segment)/(:num)', 'StaffController::updateSt
 $routes->get('/staff-hotelroom', 'StaffController::room');
 $routes->post('/addRoom', 'StaffController::addRoom');
 $routes->get('/deleteRoom/(:any)', 'StaffController::deleteRoom/$1');
-
 $routes->post('/updateRoom', 'StaffController::updateRoom');
 
 $routes->get('/staff-restaurant', 'StaffController::reshome');
@@ -61,7 +60,11 @@ $routes->post('/updateEvent', 'StaffController::updateEvent');
 
 $routes->get('/staff-inventory', 'InventoryController::inhome');
 $routes->get('/staff-inventory/hotel', 'InventoryController::inhotel');
+$routes->post('/addinHotel', 'InventoryController::addinHotel');
+$routes->post('/updateinHotel/(:num)', 'InventoryController::updateinHotel/$1');
 $routes->get('/staff-inventory/restaurant', 'InventoryController::inrestaurant');
+$routes->post('/addinRestaurant', 'InventoryController::addinRestaurant');
+$routes->post('/updateinRestaurant/(:num)', 'InventoryController::updateinRestaurant/$1');
 
 //Admin
 $routes->get('/admin-dashboard', 'AdminController::dashboard',/* ['filter' => 'authGuard'] */);
