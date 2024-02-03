@@ -280,13 +280,13 @@
       </div>
     </section>
     
-    <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/img_5.jpg);">
+    <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/MahaltaPic/25.jpg);">
       <div class="container">
         <div class="row justify-content-center align-items-center intro">
           <div class="col-md-9 text-center element-animate">
             <h2>Relax and Enjoy your Holiday</h2>
             <p class="lead mb-5">Explore a world of comfort and luxury on our resort and hotel website, showcasing inviting accommodations, stunning amenities, and unforgettable experiences for your perfect getaway.</p>
-            <div class="btn-play-wrap"><a href="https://vimeo.com/channels/staffpicks/93951774" class="btn-play popup-vimeo "><span class="ion-ios-play"></span></a></div>
+            <div class="btn-play-wrap"><a href="https://www.youtube.com/watch?v=9phZlJodJPA" class="btn-play popup-vimeo "><span class="ion-ios-play"></span></a></div>
           </div>
         </div>
       </div>
@@ -304,7 +304,7 @@
         <div class="row ">
           <div class="col-md-4">
             <div class="post-entry">
-              <img src="/guest/images/img_3.jpg" alt="Image placeholder" class="img-fluid">
+              <img src="/guest/images/MahaltaPic/5.jpg" alt="Image placeholder" class="img-fluid">
               <div class="body-text">
                 <div class="category">Rooms</div>
                 <h3 class="mb-3"><a href="#">New Rooms</a></h3>
@@ -326,7 +326,7 @@
           </div>
           <div class="col-md-4">
             <div class="post-entry">
-              <img src="/guest/images/img_5.jpg" alt="Image placeholder" class="img-fluid">
+              <img src="/guest/images/MahaltaPic/20.jpg" alt="Image placeholder" class="img-fluid">
               <div class="body-text">
                 <div class="category">Restaurant</div>
                 <h3 class="mb-3"><a href="#">Restaurant for All</a></h3>
