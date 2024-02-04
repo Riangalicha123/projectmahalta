@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class TableModel extends Model
 {
     protected $table            = 'restaurant_dining_tables';
-    protected $primaryKey       = 'Table_ID';
+    protected $primaryKey       = 'TableID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['TableNumber', 'Capacity', 'AvailabilityStatus'];
+    protected $allowedFields    = ['TableNumber', 'Capacity', 'Venue', 'Image', 'AvailabilityStatus'];
 
     // Dates
     protected $useTimestamps = false;

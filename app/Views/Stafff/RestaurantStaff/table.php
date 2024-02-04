@@ -44,12 +44,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Hotel Room Services</h1>
+            <h1>Restaurant Services</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Room Services</li>
+              <li class="breadcrumb-item active">Restaurant Services</li>
             </ol>
           </div>
         </div>
@@ -65,7 +65,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Room Services</h3>
+                <h3 class="card-title">Restaurant Services</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -79,35 +79,19 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Table</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/addRoom" method="post" enctype="multipart/form-data">
+                            <form action="/addTable" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
-                                    <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="RoomType">Room Type</label>
-                                    <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                        <option>Deluxe Room</option>
-                                        <option>Executive Room</option>
-                                        <option>Premium Room</option>
-                                        <option>Family Room</option>
-                                        <option>Boutique Room</option>
-                                        <option>Presidential Room</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Description">Description</label>
-                                    <input type="text" class="form-control" id="Description" name="Description" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
-                                    <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" required>
+                                    <label for="Venue">Venue Name</label>
+                                      <select class="custom-select form-control-border" id="Venue" name="Venue" required>
+                                        <option >Venue 1</option>
+                                        <option >Venue 2</option>
+                                      </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
@@ -115,8 +99,8 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" >Status</label>
-                                    <input type="text" class="form-control" id="" name="AvailabilityStatus" required>
+                                    <label for="exampleInputEmail1" >Status</label >
+                                    <input type="text" class="form-control" id="" name="AvailabilityStatus"  required>
                                 </div>
                                 
                                 </div>
@@ -130,13 +114,52 @@
                         </div>
                     </div>
                     <!-- Edit Room Modal -->
-                   
+                    <?php foreach ($tables as $table): ?>
+                    <div class="modal fade" id="editModal<?=$table['TableID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$table['TableID']?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editModalLabel<?=$table['TableID']?>">Edit Table</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="<?= base_url('/updateTable/') ?>" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                <input type="hidden" name="TableID" id="TableID" value="<?=$table['TableID']?>">
+                                
+                                <div class="form-group">
+                                    <label for="Venue">Venue Name</label>
+                                      <select class="custom-select form-control-border" id="Venue" name="Venue" required>
+                                        <option <?= ($table['Venue'] == 'Venue 1') ? 'selected' : '' ?>>Venue 1</option>
+                                        <option <?= ($table['Venue'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
+                                      </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Image">Upload</label>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$table['Image']?>" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1" >Status</label >
+                                    <input type="text" class="form-control" id="" name="AvailabilityStatus"  value="<?=$table['AvailabilityStatus']?>"required>
+                                </div>
+                                
+                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>#</th>
-                    <th>Table Number</th>
-                    <th>Capacity</th>
+                    <th>Venue Name</th>
+                    <th>Venue Image</th>
                     <th>Availability</th>
                     <th>Action</th>
                   </tr>
@@ -145,10 +168,9 @@
                   <?php foreach ($tables as $table): ?>
                   <tr>
                     <td><?=$table['TableID']?></td>
-                    <td><?=$table['TableNumber']?></td>
-                    <td><?=$table['Capacity']?></td>
-                    <td><?=$table['AvailabilityStatus']?></td>
-
+                    <td><?=$table['Venue']?></td>
+                    <td><img src="<?=base_url('/uploads/'.$table['Image'])?>" alt="#"/></td>
+                    <td style="color: red; background-border: #0056b3;" ><?=$table['AvailabilityStatus']?></td>
                     <th><a class="btn btn-danger" href="/deleteRoom/<?= $table['TableID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$table['TableID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

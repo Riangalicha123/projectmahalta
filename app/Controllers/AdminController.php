@@ -51,6 +51,17 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'dashboard',
+            'customers' => $this->guest
+            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, users.Address')
+            ->join ('users', 'guest.UserID = users.UserID')
+            ->findAll(),
+            'hotelrevs' => $this->reservation
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
+            ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join ('users', 'reservations.UserID = users.UserID')
+            ->findAll(),
+
+
         ];
         return view('Admin\index', $data);
     }
@@ -186,7 +197,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'holReservation',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
             ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
@@ -208,6 +219,7 @@ class AdminController extends BaseController
             'RoomNumber' => 'required',
             'RoomType' => 'required',
             'NumberOfGuests' => 'required',
+            'downorfullPayment' => 'required',
             'TotalAmount' => 'required',
             'ReferenceNumber' => 'required',
         ];
@@ -246,6 +258,7 @@ class AdminController extends BaseController
                 'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                 'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
                 'TotalAmount' => $this->request->getPost('TotalAmount'),
+                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                 'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                 'Status' => 'Pending',
                 'RoomID' => $roomDataByType['RoomID'], // Use the RoomID from RoomType
@@ -277,6 +290,7 @@ class AdminController extends BaseController
             'RoomNumber' => 'required',
             'RoomType' => 'required',
             'NumberOfGuests' => 'required|numeric',
+            'downorfullPayment' => 'required|numeric',
             'TotalAmount' => 'required|numeric',
             'ReferenceNumber' => 'required|numeric',
         ];
@@ -303,6 +317,7 @@ class AdminController extends BaseController
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                     'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                     'TotalAmount' => $this->request->getPost('TotalAmount'),
                     'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                     'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
@@ -752,6 +767,14 @@ class AdminController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
     }
+    public function Rate()
+    {
+        $data = [
+            'adminRoutes' => 'rate',
+        ];
+        return view('Admin\rate', $data);
+    }
+
     public function feedback()
     {
         $data = [

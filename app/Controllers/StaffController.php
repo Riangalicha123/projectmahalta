@@ -41,7 +41,7 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'hotel',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
             ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
@@ -63,6 +63,7 @@ class StaffController extends BaseController
             'RoomNumber' => 'required',
             'RoomType' => 'required',
             'NumberOfGuests' => 'required',
+            'downorfullPayment' => 'required',
             'TotalAmount' => 'required',
             'ReferenceNumber' => 'required',
         ];
@@ -100,6 +101,7 @@ class StaffController extends BaseController
                 'CheckInDate' => $this->request->getPost('CheckInDate'),
                 'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                 'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                 'TotalAmount' => $this->request->getPost('TotalAmount'),
                 'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                 'Status' => 'Pending',
@@ -132,6 +134,7 @@ class StaffController extends BaseController
             'RoomNumber' => 'required',
             'RoomType' => 'required',
             'NumberOfGuests' => 'required|numeric',
+            'downorfullPayment' => 'required|numeric',
             'TotalAmount' => 'required|numeric',
             'ReferenceNumber' => 'required|numeric',
         ];
@@ -158,6 +161,7 @@ class StaffController extends BaseController
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                     'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                     'TotalAmount' => $this->request->getPost('TotalAmount'),
                     'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                     'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
@@ -450,6 +454,100 @@ class StaffController extends BaseController
             'tables' => $this->tables->findAll(),
         ]; 
         return view('Stafff\RestaurantStaff\table',$data);
+    }
+    public function addTable(){
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'TableID' => $this->request->getVar('TableID'),
+                'Venue' => $this->request->getVar('Venue'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->tables->save($data);
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+    
+        return redirect()->to('/staff-restaurant-table');
+    }
+    
+
+
+    public function updateTable(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'TableID' => $this->request->getVar('TableID'),
+                'Venue' => $this->request->getVar('Venue'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->tables->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/staff-restaurant-table');
     }
     public function conhome()
     {

@@ -127,24 +127,14 @@
                             <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
                           </div>
                       </div>
-
-                      <div class="col-sm-6 form-group">
-                          
-                          <label for="CheckOutDate">Departure Date</label>
-                          <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
-                          </div>
-                      </div>
                       
                   </div>
                   <div class="row">
                   <div class="col-md-6 form-group">
-                      <label for="TableNumber">Table</label>
-                      <select class="form-select form-control" id="TableNumber" name="TableNumber">
-                        <option>T1</option>
-                        <option>T2</option>
-                        <option>T3</option>
+                      <label for="Venue">Venue</label>
+                      <select class="form-select form-control" id="Venue" name="Venue">
+                        <option>Venue 1</option>
+                        <option>Venue 2</option>
                       </select>
                     </div>
                   </div>

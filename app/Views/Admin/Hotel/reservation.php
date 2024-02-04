@@ -157,6 +157,12 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
+                                                <label for="downorfullPayment">Down or Full Payment</label>
+                                                <input type="number" class="form-control" id="downorfullPayment" name="downorfullPayment" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
                                                 <label for="TotalAmount">Total Amounts</label>
                                                 <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required>
                                             </div>
@@ -238,6 +244,12 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
+                                                <label for="downorfullPayment">Down or Full Payment</label>
+                                                <input type="number" class="form-control" id="downorfullPayment" name="downorfullPayment" required value="<?= $hotelrev['downorfullPayment'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
                                                 <label for="TotalAmount">Total Amounts</label>
                                                 <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required value="<?= $hotelrev['TotalAmount'] ?>">
                                             </div>
@@ -266,6 +278,7 @@
                     <th>Departure</th>
                     <th>Number of Guests</th>
                     <th>Reference No.</th>
+                    <th>Down or Full Payment</th>
                     <th>TotalAmount</th>
                     <th>Status</th>
                     <th>Status Action</th>
@@ -286,6 +299,7 @@
                     <td><?=$hotelrev['CheckOutDate']?></td>
                     <td><?=$hotelrev['NumberOfGuests']?></td>
                     <td><?=$hotelrev['ReferenceNumber']?></td>
+                    <td><?=$hotelrev['downorfullPayment']?></td>
                     <td><?=$hotelrev['TotalAmount']?></td>
                     <td class="project-state">
                         <?php

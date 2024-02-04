@@ -113,6 +113,7 @@ class GuestController extends BaseController
         // Handle the case where no room is selected or the selected room is not available
         return redirect()->to(base_url('/error')); // Adjust the URL accordingly
     }
+
     public function getdataRoomReservation()
     {
         // Load the session library
@@ -130,10 +131,10 @@ class GuestController extends BaseController
             $checkInDate = new \DateTime($reservationData['CheckInDate']);
             $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
             $numberOfNights = $checkInDate->diff($checkOutDate)->days;
-    
-            // Calculate the total amount
-            // Modify TotalAmount calculation based on the number of nights
-            $TotalAmount = $numberOfNights == 1 ? $roomSelected['PricePerNight'] : $numberOfNights * $roomSelected['PricePerNight'];
+
+            // Calculate the total amount based on the number of nights and room price
+            $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+
     
             // Store the data in the session
             $session->set('roomReservationData', [
@@ -252,8 +253,11 @@ class GuestController extends BaseController
         // Retrieve Reservation Data from Session
         $reservationData = session()->get('reservationData');
     
+        // Retrieve TotalAmount from Session
+        $totalAmount = session()->get('roomReservationData')['TotalAmount'];
+    
         // Check if the retrieved sessions are not empty
-        if ($roomSelected && $reservationData && $user) {
+        if ($roomSelected && $reservationData && $user && $totalAmount) {
             // Prepare Reservation Data
             $newReservationData = [
                 'CheckInDate' => $reservationData['CheckInDate'],
@@ -264,6 +268,7 @@ class GuestController extends BaseController
                 'Status' => 'Pending',
                 'RoomID' => $roomSelected['RoomID'], // Use the RoomID from roomSelected
                 'UserID' => $user['UserID'],
+                'TotalAmount' => $totalAmount, // Include TotalAmount
             ];
     
             // Insert Reservation
@@ -280,6 +285,7 @@ class GuestController extends BaseController
         }
     }
     
+    
     public function tableReservation(){
         helper(['form']);
         $validationRules = [
@@ -288,8 +294,7 @@ class GuestController extends BaseController
             'ContactNumber' => 'required',
             'Address' => 'required',
             'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'TableNumber' => 'required',
+            'Venue' => 'required',
             'Note' => 'required',
         ];
 
@@ -311,16 +316,15 @@ class GuestController extends BaseController
                             ->first();
 
         // Retrieve Room Data
-        $inputTable = $this->request->getPost('TableNumber');
+        $inputTable = $this->request->getPost('Venue');
 
-        $restaurantTable = $this->tables->where('TableNumber', $inputTable)->first();
+        $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
 
         // Check both conditions for roomData
         if ($restaurantTable && $user) {
             // Prepare Reservation Data
             $newReservationData = [
                 'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                 'Note' => $this->request->getPost('Note'),
                 'Status' => 'Pending',
                 'TableID' => $restaurantTable['TableID'], // Use the RoomID from RoomType

@@ -48,6 +48,8 @@ $routes->post('/addrestauReservation', 'StaffController::addrestauReservation');
 $routes->post('/updaterestauReservation/(:num)', 'StaffController::updaterestauReservation/$1');
 $routes->get('/staff/updaterestauStatus/(:segment)/(:num)', 'StaffController::updaterestauStatus/$1/$2',/* ['filter' => 'authGuard'] */);
 $routes->get('/staff-restaurant-table', 'StaffController::resTable',/* ['filter' => 'authGuard'] */);
+$routes->post('/addTable', 'StaffController::addTable');
+$routes->post('/updateTable', 'StaffController::updateTable');
 
 $routes->get('/staff-convention', 'StaffController::conhome');
 $routes->get('/staff-convention-reservation', 'StaffController::conReservation',/* ['filter' => 'authGuard'] */);
@@ -88,12 +90,13 @@ $routes->post('/addConReservation', 'AdminController::addConReservation');
 $routes->post('/updateConReservation/(:num)', 'AdminController::updateConReservation/$1');
 $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2',/* ['filter' => 'authGuard'] */);
 
+//Admin-RateManagement
+$routes->get('/admin-rate', 'AdminController::Rate',/* ['filter' => 'authGuard'] */);
 
+//Admin-Feedback
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts',/* ['filter' => 'authGuard'] */);
 $routes->post('/admin-addstaffdetails', 'AdminController::addStaffDetails',/* ['filter' => 'authGuard'] */);
 $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
 $routes->get('/admin-feedback', 'AdminController::feedback',/* ['filter' => 'authGuard'] */);
-
-
 
 
