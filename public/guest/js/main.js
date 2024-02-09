@@ -224,7 +224,7 @@ function sendReceive(msg) {
     $.post("/get_chat_data", { msg: msg })
         .done(function(data) {
             // Append the received response to the chat window
-            $("#chatmsg").append("ChatBot: "+ data + "<br>");
+            $("#chatmsg").append(data + "<br>");
 
             // Trim the chat window content to limit its length
             var len = $("#chatmsg").html().length;

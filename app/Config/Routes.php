@@ -105,4 +105,6 @@ $routes->get('/admin-feedback', 'AdminController::feedback',/* ['filter' => 'aut
 
 //Admin-ChatBot
 $routes->get('/admin-chat', 'AdminController::chat',/* ['filter' => 'authGuard'] */);
+$routes->post('/addChat', 'AdminController::addChat');
+$routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1');
 $routes->post('/get_chat_data', 'AdminController::get_chat_data');

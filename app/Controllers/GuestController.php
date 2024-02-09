@@ -49,6 +49,7 @@ class GuestController extends BaseController
     {
         $data = [
             'activePage' => 'Home',
+            'chats' => $this->chat->findAll()
         ];
         return view('Hotell\index', $data);
     }

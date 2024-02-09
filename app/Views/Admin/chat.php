@@ -84,7 +84,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/admin-addCustomer" method="post" enctype="multipart/form-data">
+                            <form action="/addChat" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
                                             <div class="form-group col-md-12">
@@ -120,7 +120,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateCustomer/' . $chat['ChatID']) ?>" method="post" enctype="multipart/form-data">
+                                <form action="<?= base_url('/updateChat/' . $chat['ChatID']) ?>" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <input type="hidden" name="ChatID" id="ChatID" value="<?= $chat['ChatID'] ?>">
                                         <div class="form-group">

@@ -19,15 +19,23 @@
     </div>
 
     <div class="card-body" style="padding: 15px;">
-        <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px;"></div>
+        <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 120px;"></div>
         <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
-
+        <div class="row" style="overflow-y: auto; max-height: 130x;">
+                <?php foreach ($chats as $chat): ?>
+                    <div class="col-3" >
+                        <button style="cursor: pointer;"><?= $chat['Question'] ?></button>
+                    </div>
+                <?php endforeach;?>
+            </div>
         <form id="chatForm">
             <div class="row">
                 <div class="col-md-12 form-group">
-                    <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="2" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 5px;" required></textarea>
+                    <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="2" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 5px;"></textarea>
                 </div>
             </div>
+
+            
             <div class="row">
                 <div class="col-md-12 form-group text-center">
                     <button type="submit" class="btn" style="background-color: #4e8cff; color: #fff; border: none; padding: 8px 55px; border-radius: 5px; cursor: pointer;">Send</button>

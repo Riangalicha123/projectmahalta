@@ -804,6 +804,68 @@ class AdminController extends BaseController
         // Load the view with the data
         return view('Admin/chat', $data);
     }
+    public function addChat(){
+        helper(['form']);
+
+        // Validation Rules
+        $validationRules = [
+            'Question' => 'required',
+            'Answer' => 'required',
+        ];
+
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('/bookroom', ['validationErrors' => $validationErrors]);
+        }
+
+
+       
+            $newReservationData = [
+                'Question' => $this->request->getPost('Question'),
+                'Answer' => $this->request->getPost('Answer'),
+            ];
+
+            // Insert Reservation
+            $inserted = $this->chat->insert($newReservationData);
+
+            // Redirect with appropriate message
+            if ($inserted) {
+                return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation added successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-chat'))->with('error', 'Failed to add reservation. Please try again.');
+            }
+    }
+    public function updateChat($ChatID)
+    {
+        helper(['form']);
+
+        // Validation Rules (you can customize these based on your requirements)
+        $validationRules = [
+            'Question' => 'required',
+            'Answer' => 'required',
+        ];
+
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            // You might want to handle validation errors here
+            return redirect()->to(base_url("/editReservation/{$ChatID}"))->with('validationErrors', $validationErrors);
+        }
+
+
+                // Prepare Reservation Data
+                $updateReservationData = [
+                    'Question' => $this->request->getPost('Question'),
+                    'Answer' => $this->request->getPost('Answer'),
+                ];
+
+        // Update Reservation
+        $this->chat->update($ChatID, $updateReservationData);
+
+        // Redirect with appropriate message
+        return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation updated successfully.');
+    }
     public function get_chat_data()
     {
         $msg = strtolower(trim($this->request->getPost('msg')));
@@ -839,7 +901,7 @@ class AdminController extends BaseController
 
         // Check if no matching words were found
         if (array_sum($arrCount) == 0) {
-            echo "Sorry, I can't recognize you. Please provide a bit more details.";
+            echo "Sorry, I can't recognize. Please choose one below";
             exit;
         } else {
             // Find the index of the question with the highest count of matching words
