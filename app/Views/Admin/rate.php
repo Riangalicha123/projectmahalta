@@ -44,18 +44,89 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Feedback</h1>
+            <h1>Rate</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/admin-dashboard">Home</a></li>
-              <li class="breadcrumb-item active">Feedback</li>
+              <li class="breadcrumb-item active">Rate</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
 
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Rates</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <label for="month">Select Month:</label>
+                <select id="month">
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <option value="January">January</option>
+                    <!-- Add options for other months -->
+                </select>
+
+                <label for="year">Select Year:</label>
+                <select id="year">
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <!-- Add options for other years -->
+                </select>
+                <table id="example1" class="table table-bordered table-striped">
+                
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>RoomType</th>
+                    <th>Rate</th>
+                    <th>Guest Rate</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                  <tr>
+                    
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  
+                  
+                  
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -93,7 +164,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": [""]
+      "buttons": ["xl"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
@@ -105,6 +176,11 @@
       "responsive": true,
     });
   });
+</script>
+<script>
+    $(function(){
+
+    })
 </script>
 </body>
 </html>

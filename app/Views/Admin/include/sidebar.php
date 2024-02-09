@@ -95,6 +95,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'chat') ? 'active' : '' ?> " href="<?= route_to('admin-chat') ?>">
+              <i class="nav-icon fas fa-comment-alt"></i>
+              <p>
+                Chat Bot
+              </p>
+            </a>
+          </li>
           
           <br>
           <li class="nav-item" >

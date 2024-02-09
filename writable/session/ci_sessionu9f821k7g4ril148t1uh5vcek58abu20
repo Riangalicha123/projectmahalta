@@ -1,5 +1,0 @@
-__ci_last_regenerate|i:1706660078;_ci_previous_url|s:30:"http://localhost:8080/bookroom";id|s:1:"1";username|s:24:"riangalicha123@gmail.com";firstname|s:4:"Rian";lastname|s:7:"Galicha";contact|s:11:"09074069747";address|s:39:"Sabang, Puerto Galera, Oriental Mindoro";isLoggedIn|b:1;userRole|s:1:"1";reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-01-31T08:09";s:12:"CheckOutDate";s:16:"2024-01-31T08:09";s:14:"NumberOfGuests";s:1:"2";}roomSelected|a:7:{s:6:"RoomID";s:1:"2";s:10:"RoomNumber";s:2:"D2";s:8:"RoomType";s:11:"Deluxe Room";s:11:"Description";s:53:"• 2 Double-sized bed
-
-• 2 pax
--*Max of 4 pax
-";s:13:"PricePerNight";s:7:"4499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1706157107_6b7ecb686c4ff4426887.jpg";}

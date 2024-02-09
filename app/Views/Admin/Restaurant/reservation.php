@@ -153,11 +153,10 @@
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $restrev['ReservationID'] ?>">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                            <label for="TableNumber">Room No.</label>
-                                            <select class="custom-select form-control-border" id="TableNumber" name="TableNumber" required>
-                                                <option <?= ($restrev['TableNumber'] == 'D1') ? 'selected' : '' ?>>T1</option>
-                                                <option <?= ($restrev['TableNumber'] == 'D2') ? 'selected' : '' ?>>T2</option>
-                                                <option <?= ($restrev['TableNumber'] == 'D3') ? 'selected' : '' ?>>T3</option>
+                                            <label for="Venue">Venue</label>
+                                            <select class="custom-select form-control-border" id="Venue" name="Venue" required>
+                                                <option <?= ($restrev['Venue'] == 'Venue 1') ? 'selected' : '' ?>>Venue 1</option>
+                                                <option <?= ($restrev['Venue'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
                                             </select>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -189,7 +188,7 @@
                     <th>Last Name</th>
                     <th>Contact No.</th>
                     <th>Address</th>
-                    <th>Table</th>
+                    <th>Venue</th>
                     <th>Arrival</th>
                     <th>Note</th>
                     <th>Status</th>
@@ -205,7 +204,7 @@
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
                     <td><?=$restrev['Address']?></td>
-                    <td><?=$restrev['TableNumber']?></td>
+                    <td><?=$restrev['Venue']?></td>
                     <td><?=$restrev['CheckInDate']?></td>
                     <td><?=$restrev['Note']?></td>
                     <td class="project-state">

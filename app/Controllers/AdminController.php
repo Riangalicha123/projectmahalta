@@ -14,6 +14,7 @@ use App\Models\AdminModel;
 use App\Models\GuestModel;
 use App\Models\ReservationModel;
 use App\Models\FeedbackModel;
+use App\Models\ChatModel;
 
 class AdminController extends BaseController
 {
@@ -28,7 +29,7 @@ class AdminController extends BaseController
     private $guest;
     private $reservation;
     private $feedbacks;
-
+    private $chat;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -42,6 +43,7 @@ class AdminController extends BaseController
         $this->guest = new GuestModel();
         $this->reservation = new ReservationModel();
         $this->feedbacks = new FeedbackModel();
+        $this->chat = new ChatModel();
     }
     public function index()
     {
@@ -353,7 +355,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'restReservation',
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_dining_tables.TableID, restaurant_dining_tables.TableNumber, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
+            ->select('reservations.ReservationID, restaurant_dining_tables.TableID, restaurant_dining_tables.Venue, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
             ->join ('restaurant_dining_tables', 'reservations.TableID = restaurant_dining_tables.TableID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
@@ -368,8 +370,7 @@ class AdminController extends BaseController
             'ContactNumber' => 'required',
             'Address' => 'required',
             'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'TableNumber' => 'required',
+            'Venue' => 'required',
             'Note' => 'required',
         ];
 
@@ -391,16 +392,15 @@ class AdminController extends BaseController
                             ->first();
 
         // Retrieve Room Data
-        $inputTable = $this->request->getPost('TableNumber');
+        $inputTable = $this->request->getPost('Venue');
 
-        $restaurantTable = $this->tables->where('TableNumber', $inputTable)->first();
+        $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
 
         // Check both conditions for roomData
         if ($restaurantTable && $user) {
             // Prepare Reservation Data
             $newReservationData = [
                 'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                 'Note' => $this->request->getPost('Note'),
                 'Status' => 'Pending',
                 'TableID' => $restaurantTable['TableID'], // Use the RoomID from RoomType
@@ -428,7 +428,7 @@ class AdminController extends BaseController
         $validationRules = [
             
             'CheckInDate' => 'required',
-            'TableNumber' => 'required',
+            'Venue' => 'required',
             'Note' => 'required',
         ];
 
@@ -441,9 +441,9 @@ class AdminController extends BaseController
 
 
         
-        $inputTableNumber = $this->request->getPost('TableNumber');
+        $inputTableNumber = $this->request->getPost('Venue');
 
-        $tableData = $this->tables->where('TableNumber', $inputTableNumber)
+        $tableData = $this->tables->where('Venue', $inputTableNumber)
                                 ->first();
 
         // Update Reservation Data
@@ -767,13 +767,19 @@ class AdminController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
     }
-    public function Rate()
+    public function rate()
     {
+        
         $data = [
             'adminRoutes' => 'rate',
+            
         ];
-        return view('Admin\rate', $data);
+    
+        // Load the view with the data
+        return view('Admin/rate', $data);
     }
+    
+       
 
     public function feedback()
     {
@@ -787,4 +793,63 @@ class AdminController extends BaseController
         return view('Admin\feedback', $data);
     }
 
+    public function chat()
+    {
+        
+        $data = [
+            'adminRoutes' => 'chat',
+            'chats' => $this->chat->findAll()
+        ];
+    
+        // Load the view with the data
+        return view('Admin/chat', $data);
+    }
+    public function get_chat_data()
+    {
+        $msg = strtolower(trim($this->request->getPost('msg')));
+
+        // Explode the message into an array of words
+        $arrInput = explode(" ", $msg);
+
+        $arr = $this->chat->getAllChatbot(); // Call the method from ChatModel
+
+        // Initialize an array to store the count of matching words for each question
+        $arrCount = [];
+
+        // Loop through each record in the chatbot table
+        foreach ($arr as $key => $row) {
+            // Convert question to lowercase and explode it into an array of words
+            $question = strtolower($row['Question']);
+            $arrQuestion = explode(" ", $question);
+
+            // Initialize counter for matching words
+            $count = 0;
+
+            // Loop through each word in the input message
+            foreach ($arrInput as $inputWord) {
+                // Check if the input word exists in the question
+                if (in_array($inputWord, $arrQuestion)) {
+                    $count++;
+                }
+            }
+
+            // Store the count for this question
+            $arrCount[$key] = $count;
+        }
+
+        // Check if no matching words were found
+        if (array_sum($arrCount) == 0) {
+            echo "Sorry, I can't recognize you. Please provide a bit more details.";
+            exit;
+        } else {
+            // Find the index of the question with the highest count of matching words
+            $maxIndex = array_search(max($arrCount), $arrCount);
+            // Return the corresponding answer
+            echo $arr[$maxIndex]['Answer'];
+            exit;
+        }
+    }
+     
+    
+    
 }

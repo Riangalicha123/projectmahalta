@@ -30,8 +30,8 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-              <h1>News &amp; Events</h1>
-              <p>Stay updated with our daily news and events.</p>
+              <h1>News <!-- &amp; Events --></h1>
+              <p>Stay updated with our daily news <!-- and events. --></p>
             </div>
 
           </div>
@@ -40,7 +40,7 @@
     </section>
     <!-- END section -->
 
-    <section class="site-section "style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+   <!--  <section class="site-section "style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
       <div class="container">
         
         <div class="row mb-5">
@@ -96,9 +96,9 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- END section -->
-   
+    <?php include('inc/chat.php') ?>
    
     <?php include('inc/footer.php') ?>
     <!-- END footer -->

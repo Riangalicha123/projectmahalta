@@ -18,6 +18,9 @@ $routes->get('/faq', 'GuestController::faq');
 //$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurant', 'GuestController::restaurant');
 $routes->get('/convention', 'GuestController::convention');
+$routes->get('/profile', 'GuestController::profile');
+$routes->get('/chat', 'GuestController::chat');
+$routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1');
 
 $routes->post('/tableReservation', 'GuestController::tableReservation');
 $routes->post('/eventReservation', 'GuestController::eventReservation');
@@ -91,7 +94,8 @@ $routes->post('/updateConReservation/(:num)', 'AdminController::updateConReserva
 $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2',/* ['filter' => 'authGuard'] */);
 
 //Admin-RateManagement
-$routes->get('/admin-rate', 'AdminController::Rate',/* ['filter' => 'authGuard'] */);
+$routes->get('/admin-rate', 'AdminController::rate',/* ['filter' => 'authGuard'] */);
+$routes->post('/submit-rate-form', 'AdminController::submitRateForm',/* ['filter' => 'authGuard'] */);
 
 //Admin-Feedback
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts',/* ['filter' => 'authGuard'] */);
@@ -99,4 +103,6 @@ $routes->post('/admin-addstaffdetails', 'AdminController::addStaffDetails',/* ['
 $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
 $routes->get('/admin-feedback', 'AdminController::feedback',/* ['filter' => 'authGuard'] */);
 
-
+//Admin-ChatBot
+$routes->get('/admin-chat', 'AdminController::chat',/* ['filter' => 'authGuard'] */);
+$routes->post('/get_chat_data', 'AdminController::get_chat_data');

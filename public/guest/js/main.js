@@ -176,6 +176,68 @@
 	};
 	contentWayPoint();
 
+  // Get references to the messenger button and form
+  const messengerBtn = document.getElementById("messenger-btn");
+  const messengerForm = document.getElementById("messenger-form");
+
+  // Toggle function to show/hide the messenger form
+  function toggleMessengerForm() {
+      if (messengerForm.style.display === "block") {
+          messengerForm.style.display = "none";
+      } else {
+          messengerForm.style.display = "block";
+      }
+  }
+
+  // Add event listener to the messenger button
+  messengerBtn.addEventListener("click", function() {
+      toggleMessengerForm();
+  });
+
+  // Add event listener to the close button
+  document.getElementById("close-btn").addEventListener("click", function() {
+      toggleMessengerForm();
+  });
+  
+
+  // Add event listener to the close button
+  $(document).ready(function() {
+    $("#chatForm").submit(function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        var msg = $("#msg").val(); // Get the message from the textarea
+
+        if (msg.trim() !== "") { // Check if the message is not empty
+            // Append the user's message to the chat window
+            $("#chatmsg").append("You: " + msg + "<br>");
+
+            // Call the sendReceive function with the message
+            sendReceive(msg);
+
+            // Clear the textarea after sending the message
+            $("#msg").val("");
+        }
+    });
+});
+
+function sendReceive(msg) {
+    $.post("/get_chat_data", { msg: msg })
+        .done(function(data) {
+            // Append the received response to the chat window
+            $("#chatmsg").append("ChatBot: "+ data + "<br>");
+
+            // Trim the chat window content to limit its length
+            var len = $("#chatmsg").html().length;
+            if (len > 400) {
+                $("#chatmsg").html($("#chatmsg").html().substring(len - 200, len - 1));
+            }
+        })
+        .fail(function(data) {
+            // Handle the failure scenario
+            console.error("Error:", data);
+        });
+}
+
 
 
 })(jQuery);

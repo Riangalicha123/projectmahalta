@@ -9,6 +9,8 @@ use App\Models\TableModel;
 use App\Models\EventModel;
 use App\Models\ReservationModel;
 use App\Models\FeedbackModel;
+use App\Models\GuestModel;
+use App\Models\ChatModel;
 class GuestController extends BaseController
 {
     private $users;
@@ -16,8 +18,9 @@ class GuestController extends BaseController
     private $tables;
     private $events;
     private $reservation;
-
+    private $guest;
     private $feedbacks;
+    private $chat;
 
     function __construct(){
         helper(['form']);
@@ -27,6 +30,8 @@ class GuestController extends BaseController
         $this->events = new EventModel();
         $this->reservation = new ReservationModel();
         $this->feedbacks = new FeedbackModel();
+        $this->guest = new GuestModel();
+        $this->chat = new ChatModel();
     }
     public function index()
     {
@@ -471,5 +476,44 @@ class GuestController extends BaseController
     {
         return view('Hotell\index');
     }
+    public function profile()
+    {
+        return view('Hotell\profile');
+    }
+    public function updateProfile($userID)
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            'FirstName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
+            'LastName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]', // Adjusted max_length from 11 to match typical phone numbers
+            'Address' => 'required|min_length[2]|max_length[255]', // Adjusted max_length from 100 to 255
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->back()->withInput()->with('validationErrors', $validationErrors); // Redirect back with input and validation errors
+        }
+    
+        // Prepare Updated User Data
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Address' => $this->request->getVar('Address'),
+        ];
+    
+        // Update User Details
+        $this->users->update($userID, $updatedUserData);
+    
+        // Redirect with appropriate message
+        return redirect()->to(base_url('/profile'))->with('success', 'Guest details updated successfully.');
+    }
+
 
 }

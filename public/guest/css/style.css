@@ -578,6 +578,41 @@ textarea.form-control {
   color: white;
   background: skyblue;
 }
+/* Style for the floating messenger button */
+.floating-messenger {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+}
+
+/* Style for the messenger icon */
+.floating-messenger img {
+  width: 50px; /* Adjust size as needed */
+  height: auto; /* Maintain aspect ratio */
+  cursor: pointer;
+}
+
+/* Style for the messenger form container */
+#messenger-form {
+  position: fixed;
+  bottom: 80px; /* Adjust position as needed */
+  right: 20px; /* Adjust position as needed */
+  z-index: 998; /* Ensure form appears below the button */
+  background-color: #fff; /* Background color of the form */
+  padding: 20px;
+  border: 1px solid #ccc; /* Border for the form */
+  border-radius: 5px;
+}
+.chatmsg{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+  resize: none;
+  min-height: 100px;
+}
 
 .btn.btn-sm {
   

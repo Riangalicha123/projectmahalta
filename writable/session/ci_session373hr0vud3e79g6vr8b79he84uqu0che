@@ -1,4 +1,0 @@
-__ci_last_regenerate|i:1706428425;id|s:1:"1";username|s:24:"riangalicha123@gmail.com";firstname|s:4:"Rian";lastname|s:7:"Galicha";contact|s:11:"09074069747";address|s:39:"Sabang, Puerto Galera, Oriental Mindoro";isLoggedIn|b:1;userRole|s:1:"1";_ci_previous_url|s:43:"http://localhost:8080/getdataRoom?RoomID=13";reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-01-28T15:48";s:12:"CheckOutDate";s:16:"2024-01-28T15:48";s:14:"NumberOfGuests";s:1:"4";}roomSelected|a:7:{s:6:"RoomID";s:2:"13";s:10:"RoomNumber";s:2:"B1";s:8:"RoomType";s:12:"Barkada Room";s:11:"Description";s:62:"•8 Double Deck Bed
-•*Inclusive of Breakfast
-
-• 16 pax";s:13:"PricePerNight";s:7:"1000.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1706158175_e11e3defee446422bf38.jpg";}

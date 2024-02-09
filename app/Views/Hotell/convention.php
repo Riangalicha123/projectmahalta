@@ -265,7 +265,7 @@
     <?php endif; ?>
 
     <!-- END section -->
-   
+    <?php include('inc/chat.php') ?>
     <?php include('inc/footer.php') ?>
     <!-- END footer -->
     

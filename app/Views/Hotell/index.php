@@ -338,6 +338,9 @@
         </div>
       </div>
     </section>
+    <?php include('inc/chat.php') ?>
+
+
 
     
     <!-- END section -->
@@ -360,6 +363,9 @@
     <script src="/guest/js/magnific-popup-options.js"></script>
 
     <script src="/guest/js/main.js"></script>
+    <script>
+      
+    </script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>
