@@ -10,3 +10,16 @@ in APPPATH\Views\Admin\chat.php on line 113.
  8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-09 11:27:50 --> Undefined variable $chats
+in APPPATH\Views\Hotell\inc\chat.php on line 26.
+ 1 APPPATH\Views\Hotell\inc\chat.php(26): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $chats', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\inc\\chat.php', 26)
+ 2 APPPATH\Views\Hotell\room.php(278): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\inc\\chat.php')
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\room.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\room', [], true)
+ 6 APPPATH\Controllers\GuestController.php(73): view('Hotell\\room', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->room()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

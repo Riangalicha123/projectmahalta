@@ -596,7 +596,6 @@ textarea.form-control {
 /* Style for the messenger form container */
 #messenger-form {
   position: fixed;
-      height: 530px;
   bottom: 80px; /* Adjust position as needed */
   right: 20px; /* Adjust position as needed */
   z-index: 998; /* Ensure form appears below the button */

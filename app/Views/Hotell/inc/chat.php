@@ -1,3 +1,9 @@
+<style>
+    #chatmsgs {
+  border-radius: 20px; /* Half of the height to make it oblong */
+  /* Add any other styling you want */
+}
+</style>
 <?php if(session()->get('isLoggedIn')): ?>
 <div class="floating-messenger">
         <a id="messenger-btn">
@@ -19,15 +25,19 @@
     </div>
 
     <div class="card-body" style="padding: 15px;">
-        <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 120px;"></div>
-        <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
-        <div class="row" style="overflow-y: auto; max-height: 130x;">
-                <?php foreach ($chats as $chat): ?>
-                    <div class="col-3" >
-                        <button style="cursor: pointer;"><?= $chat['Question'] ?></button>
-                    </div>
-                <?php endforeach;?>
+        <div class="text-center" style="font-size: 10px;">
+            <p>Choose one, type it and click send</p>
+        </div>
+        <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px;">
+        <?php foreach ($chats as $chat): ?>
+            <div class="row" style="overflow-y: auto; max-height: 130x;">
+                        <div class="col-md-12 text-center" >
+                            <button id="chatmsgs"><?= $chat['Question'] ?></button>
+                        </div>
             </div>
+        <?php endforeach;?>
+        </div>
+        <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
         <form id="chatForm">
             <div class="row">
                 <div class="col-md-12 form-group">

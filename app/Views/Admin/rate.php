@@ -95,9 +95,8 @@
                 
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>RoomType</th>
-                    <th>Rate</th>
+                    <th>Rate RoomType</th>
                     <th>Guest Rate</th>
                   </tr>
                   </thead>
@@ -105,7 +104,7 @@
                   
                   <tr>
                     
-                    <td></td>
+                    <td>Room</td>
                     <td></td>
                     <td></td>
                     <td></td>

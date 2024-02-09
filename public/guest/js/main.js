@@ -209,7 +209,7 @@
 
         if (msg.trim() !== "") { // Check if the message is not empty
             // Append the user's message to the chat window
-            $("#chatmsg").append("You: " + msg + "<br>");
+            $("#chatmsg").append("<br>" + "You: " + msg + "<br>");
 
             // Call the sendReceive function with the message
             sendReceive(msg);

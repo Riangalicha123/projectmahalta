@@ -69,6 +69,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Room',
             'rooms' => $this->rooms->findAll(),
+            'chats' => $this->chat->findAll(),
         ];
         return view('Hotell\room', $data);
     }
@@ -172,6 +173,7 @@ class GuestController extends BaseController
     {
         $data = [
             'activePage' => 'Blog',
+            'chats' => $this->chat->findAll()
         ];
         return view('Hotell\blog',$data);
     }
@@ -179,6 +181,7 @@ class GuestController extends BaseController
     {
         $data = [
             'activePage' => 'Restaurant',
+            'chats' => $this->chat->findAll()
         ];
         return view('Hotell\restaurant',$data);
     }
@@ -187,6 +190,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Convention',
             'events' => $this->events->findAll(),
+            'chats' => $this->chat->findAll()
         ];
         return view('Hotell\convention',$data);
     }
