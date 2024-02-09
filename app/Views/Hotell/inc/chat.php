@@ -15,7 +15,7 @@
 <div class="card" style="border: none;">
 
     <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
-        Message
+        MESSAGE
     </div>
 
     <div class="card-body" style="padding: 15px;">
@@ -65,7 +65,7 @@
     <!-- Your form content goes here -->
     <div class="card">
     <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
-        Message
+        MESSAGE
     </div>
         <div class="card-body">
             <a class="nav-link" href="<?= route_to('login') ?>" style="color: blue; font-size: 18px; text-decoration: none;">
