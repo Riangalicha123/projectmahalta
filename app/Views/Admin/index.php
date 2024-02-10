@@ -28,7 +28,7 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4" >
     <!-- Brand Logo -->
     <a href="<?=base_url()?>admin/index3.html" class="brand-link">
-      <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <img src="<?=base_url()?>guest/images/logomahalta.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-4" style="opacity: 10">
       <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
     </a>
 
@@ -80,7 +80,21 @@
               <div class="inner">
                 <h3>53<sup style="font-size: 20px">%</sup></h3>
 
-                <p>Bounce Rate</p>
+                <p>Sales Report</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+                <p>Reservation Report</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -111,7 +125,7 @@
             <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Service Catalog</h3>
+                <h3 class="card-title">Room Sales</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">

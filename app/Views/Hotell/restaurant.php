@@ -91,6 +91,18 @@
         </div>
       </div>
     </section>
+    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+      <div class="container">
+        <div class="row mb-5">
+          
+        </div>
+        <div class="row ">
+          <table>
+            
+          </table>
+        </div>
+      </div>
+    </section>
 
     <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">

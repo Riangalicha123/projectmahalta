@@ -911,6 +911,317 @@ class AdminController extends BaseController
             exit;
         }
     }
+    public function holService()
+    {
+        $data = [
+            'adminRoutes' => 'holService',
+            'rooms' => $this->rooms->findAll(),
+        ];
+    
+        // Load the view with the data
+        return view('Admin/Hotel/service', $data);
+    }
+    public function addserviceRoom(){
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'RoomNumber' => $this->request->getVar('RoomNumber'),
+                'RoomType' => $this->request->getVar('RoomType'),
+                'Description' => $this->request->getVar('Description'),
+                'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->rooms->save($data);
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+    
+        return redirect()->to('/admin-hotel/service');
+    }
+    public function updateserviceRoom(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'RoomID' => $this->request->getVar('RoomID'),
+                'RoomNumber' => $this->request->getVar('RoomNumber'),
+                'RoomType' => $this->request->getVar('RoomType'),
+                'Description' => $this->request->getVar('Description'),
+                'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->rooms->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-hotel/service');
+    }
+    public function restService()
+    {
+        $data = [
+            'adminRoutes' => 'restService',
+            'tables' => $this->tables->findAll(),
+        ];
+    
+        // Load the view with the data
+        return view('Admin/Restaurant/service', $data);
+    }
+    public function addserviceTable(){
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'TableID' => $this->request->getVar('TableID'),
+                'Venue' => $this->request->getVar('Venue'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->tables->save($data);
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+    
+        return redirect()->to('/admin-restaurant/service');
+    }
+    
+
+
+    public function updateserviceTable(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'TableID' => $this->request->getVar('TableID'),
+                'Venue' => $this->request->getVar('Venue'),
+                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->tables->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function conService()
+    {
+        $data = [
+            'adminRoutes' => 'conService',
+            'events' => $this->events->findAll(),
+        ];
+    
+        // Load the view with the data
+        return view('Admin/Convention/service', $data);
+    }
+    public function addserviceEvent(){
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'RoomNumber' => $this->request->getVar('RoomNumber'),
+                'EventType' => $this->request->getVar('EventType'),
+                'Description' => $this->request->getVar('Description'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->events->save($data);
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+    
+        return redirect()->to('/admin-convention/service');
+    }
+    public function updateserviceEvent(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'EventID' => $this->request->getVar('EventID'),
+                'EventType' => $this->request->getVar('EventType'),
+                'Description' => $this->request->getVar('Description'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                        // Save product data to the database
+                        $this->events->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-convention/service');
+    }
      
     
     

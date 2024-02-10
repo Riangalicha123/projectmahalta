@@ -5,7 +5,7 @@
         <img src="<?=base_url()?>admin/dist/img/user.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin</a>
+          <a href="<?= route_to('admin-dashboard') ?>" class="d-block"><?= esc(session()->get('firstname')) ?> <?= esc(session()->get('lastname')) ?></a>
         </div>
       </div>
 
@@ -20,6 +20,7 @@
           </div>
         </div>
       </div>
+      
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -41,6 +42,35 @@
                 Customer Management
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Service Management
+                <i class="fas fa-angle-left right "></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'holService') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/service') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hotel</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'restService') ? 'active' : '' ?> " href="<?= route_to('admin-restaurant/service') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Restaurant</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'conService') ? 'active' : '' ?> " href="<?= route_to('admin-convention/service') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Convention</p>
+                </a>
+            </li>
+            </ul>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
@@ -103,8 +133,9 @@
               </p>
             </a>
           </li>
-          
-          <br>
+
+          <hr>
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
           <li class="nav-item" >
             <a class="nav-link" href="<?= route_to('logout') ?>">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -113,6 +144,9 @@
               </p>
             </a>
           </li>
+        </ul>
+        <ul>
+          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

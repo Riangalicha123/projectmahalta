@@ -71,23 +71,23 @@ $routes->get('/staff-inventory/restaurant', 'InventoryController::inrestaurant')
 $routes->post('/addinRestaurant', 'InventoryController::addinRestaurant');
 $routes->post('/updateinRestaurant/(:num)', 'InventoryController::updateinRestaurant/$1');
 
-//Admin
+//Admin-Dashboard
 $routes->get('/admin-dashboard', 'AdminController::dashboard',/* ['filter' => 'authGuard'] */);
 
 $routes->get('/admin-customer', 'AdminController::customer',/* ['filter' => 'authGuard'] */);
 $routes->post('/admin-addCustomer', 'AdminController::addCustomer',/* ['filter' => 'authGuard'] */);
 $routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1');
-//Admin-Hotel
+//Admin-Hotel-Reservation
 $routes->get('/admin-hotel/reservation', 'AdminController::holReservation',/* ['filter' => 'authGuard'] */);
 $routes->post('/addHotelReservation', 'AdminController::addHotelReservation');
 $routes->post('/updateHotelReservation/(:num)', 'AdminController::updateHotelReservation/$1');
 $routes->get('/admin/updatestatus/(:segment)/(:num)', 'AdminController::updateStatus/$1/$2',/* ['filter' => 'authGuard'] */);
-//Admin-Restaurant
+//Admin-Restaurant-Reservation
 $routes->get('/admin-restaurant/reservation', 'AdminController::resReservation',/* ['filter' => 'authGuard'] */);
 $routes->post('/addRestauReservation', 'AdminController::addRestauReservation');
 $routes->post('/updateRestauReservation/(:num)', 'AdminController::updateRestauReservation/$1');
 $routes->get('/admin/updateRestauStatus/(:segment)/(:num)', 'AdminController::updateResStatus/$1/$2',/* ['filter' => 'authGuard'] */);
-//Admin-Convention
+//Admin-Convention-Reservation
 $routes->get('/admin-convention/reservation', 'AdminController::conReservation',/* ['filter' => 'authGuard'] */);
 $routes->post('/addConReservation', 'AdminController::addConReservation');
 $routes->post('/updateConReservation/(:num)', 'AdminController::updateConReservation/$1');
@@ -108,3 +108,18 @@ $routes->get('/admin-chat', 'AdminController::chat',/* ['filter' => 'authGuard']
 $routes->post('/addChat', 'AdminController::addChat');
 $routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1');
 $routes->post('/get_chat_data', 'AdminController::get_chat_data');
+
+//Admin-Service Catalog Management
+//Hotel
+$routes->get('/admin-hotel/service', 'AdminController::holService',/* ['filter' => 'authGuard'] */);
+$routes->post('/addserviceRoom', 'AdminController::addserviceRoom');
+$routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom');
+//Restaurant
+$routes->get('/admin-restaurant/service', 'AdminController::restService',/* ['filter' => 'authGuard'] */);
+$routes->post('/addserviceTable', 'AdminController::addserviceTable');
+$routes->post('/updateserviceTable', 'AdminController::updateserviceTable');
+//Convention
+$routes->get('/admin-convention/service', 'AdminController::conService',/* ['filter' => 'authGuard'] */);
+$routes->post('/addserviceEvent', 'AdminController::addserviceEvent');
+$routes->post('/updateserviceEvent', 'AdminController::updateserviceEvent');
+
