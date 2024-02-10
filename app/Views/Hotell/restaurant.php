@@ -91,18 +91,54 @@
         </div>
       </div>
     </section>
-    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
-      <div class="container">
-        <div class="row mb-5">
-          
-        </div>
-        <div class="row ">
-          <table>
-            
-          </table>
-        </div>
+    
+  <div class="container" >
+    <div class="row mb-5">
+      <!-- Add any additional content or elements for the row if needed -->
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-md-12 text-center">
+        <h2 class="section-heading text-white">Delightful Dining Experience</h2>
+        <p class="text-white">Join us for an exquisite culinary journey.</p>
       </div>
-    </section>
+    </div> -->
+
+    <div class="row mt-4">
+    <div class="col-md-6">
+  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+  <div class="card-header text-center">À la Carte Service</div>
+    <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
+      </div>
+  </div>
+</div>
+
+
+<div class="col-md-6">
+  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="card-header text-center">Buffet Service</div>
+    <div style="display: flex; flex-wrap: wrap;">
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Friday-Saturday</p>
+      </div>
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Breakfast: 7:00 AM - 10:00 AM</p>
+      </div>
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Lunch: 12:00 PM - 3:00 PM</p>
+      </div>
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Dinner: 6:30 PM - 9:00 PM</p>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+</div>
+
+
+
 
     <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">
