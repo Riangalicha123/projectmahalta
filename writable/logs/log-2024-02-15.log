@@ -6,3 +6,15 @@ in APPPATH\Controllers\GuestController.php on line 212.
  4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-15 12:20:28 --> Undefined array key "ImageUrl"
+in APPPATH\Views\Hotell\index.php on line 355.
+ 1 APPPATH\Views\Hotell\index.php(355): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ImageUrl"', 'C:\\Users\\TECHKNOWLODI\\projectmahalta\\app\\Views\\Hotell\\index.php', 355)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\Users\\TECHKNOWLODI\\projectmahalta\\app\\Views\\Hotell\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\index', [], true)
+ 5 APPPATH\Controllers\GuestController.php(58): view('Hotell\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\Users\\TECHKNOWLODI\\projectmahalta\\public\\index.php')

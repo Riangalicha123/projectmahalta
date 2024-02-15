@@ -338,28 +338,41 @@
         </div>
       </div>
     </section> -->
-    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Feedbacks</h4>
-              <h2 class="heading">Feedbacks</h2>
+    <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+  <div class="container">
+    <div class="row mb-5">
+    <div class="col-md-12 heading-wrap text-center">
+    <br>
+            <h4 class="sub-heading"style="color: darkgrey;">Guest Feedback</h4>
+              <h2 class="heading">Feedback</h2>
           </div>
-        </div>
-        <div class="row ">
-        <?php foreach ($feedbacks as $feedback): ?>
-          <div class="col-md-6">
-            <div class="post-entry">
-              <div class="body-text">
-                <h3 class="mb-3"><?=$feedback['Email']?></h3>
-                <p class="mb-4">"<?=$feedback['FeedbackMessage']?>"</p>
-              </div>
+    </div>
+    <div class="row">
+      <?php foreach ($feedbacks as $feedback): ?>
+        <div class="col-md-6">
+          <div class="testimonial" style="background-color: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; position: relative;">
+            <div class="testimonial-content">
+              <h3 class="testimonial-email" style="color: #333; font-size: 18px; margin-bottom: 10px;"><?=$feedback['Email']?></h3>
+              <p class="testimonial-message" style="font-style: italic; font-size: 16px; color: #555;">"<?=$feedback['FeedbackMessage']?>"</p>
+              <!-- Like button and count inline -->
+              <button class="like-btn" onclick="likeFeedback(this)" style="background-color: #3498db; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">&#x1F44D;</button>
+              <span class="like-count" style="margin-left: 5px;">0</span>
             </div>
           </div>
-        <?php endforeach; ?>
         </div>
-      </div>
-    </section>
+      <?php endforeach; ?>
+    </div>
+  </div>
+  <script>
+    function likeFeedback(button) {
+      var likeCountElement = button.nextElementSibling;
+      var currentLikes = parseInt(likeCountElement.innerText);
+      likeCountElement.innerText = currentLikes + 1;
+    }
+  </script>
+</section>
+
+
 
 
 
