@@ -79,12 +79,12 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Product</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="/addinRestaurant" method="post" enctype="multipart/form-data">
+                            <form action="/addinHotel" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
                                     <label for="ProductName">Product Name</label>
@@ -93,6 +93,14 @@
                                 <div class="form-group">
                                     <label for="Quantity">Quantity</label>
                                     <input type="number" class="form-control" id="Quantity" name="Quantity" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Price">Price</label>
+                                    <input type="number" class="form-control" id="Price" name="Price" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="TotalPrice">Total Price</label>
+                                    <input type="number" class="form-control" id="TotalPrice" name="TotalPrice" required>
                                 </div>
                                 
                                 </div>
@@ -126,6 +134,14 @@
                                               <label for="Quantity">Quantity</label>
                                               <input type="number" class="form-control" id="Quantity" name="Quantity" value="<?=$roinvent['Quantity']?>" required>
                                           </div>
+                                          <div class="form-group">
+                                              <label for="Price">Price</label>
+                                              <input type="number" class="form-control" id="Price" name="Price" value="<?=$roinvent['Price']?>" required>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="TotalPrice">TotalPrice</label>
+                                              <input type="number" class="form-control" id="TotalPrice" name="TotalPrice" value="<?=$roinvent['TotalPrice']?>" required>
+                                          </div>
                                       </div>
                                       <div class="card-footer">
                                           <button type="submit" class="btn btn-primary">Update</button>
@@ -141,6 +157,8 @@
                     <th>#</th>
                     <th>Product Name</th>
                     <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total Price</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -149,6 +167,8 @@
                     <td><?=$roinvent['roomInventoryID']?></td>
                     <td><?=$roinvent['ProductName']?></td>
                     <td><?=$roinvent['Quantity']?></td>
+                    <td><?=$roinvent['Price']?></td>
+                    <td><?=$roinvent['TotalPrice']?></td>
                     <th><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

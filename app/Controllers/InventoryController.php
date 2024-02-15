@@ -71,12 +71,16 @@ class InventoryController extends BaseController
         $rules = [
             'ProductName' => 'required|min_length[4]|max_length[100]',
             'Quantity' => 'required',
+            'Price' => 'required',
+            'TotalPrice' => 'required',
         ];
 
         if ($this->validate($rules)){
             $data = [
                 'ProductName' => $this->request->getVar('ProductName'),
                 'Quantity' => $this->request->getVar('Quantity'),
+                'Price' => $this->request->getVar('Price'),
+                'TotalPrice' => $this->request->getVar('TotalPrice'),
                 
             ];
             $this->roominventory->insert($data);
@@ -95,6 +99,8 @@ class InventoryController extends BaseController
             
             'ProductName' => 'required',
             'Quantity' => 'required|numeric',
+            'Price' => 'required',
+            'TotalPrice' => 'required',
         ];
 
         // Validate Input
@@ -108,6 +114,8 @@ class InventoryController extends BaseController
                 $updateReservationData = [
                     'ProductName' => $this->request->getPost('ProductName'),
                     'Quantity' => $this->request->getPost('Quantity'),
+                    'Price' => $this->request->getPost('Price'),
+                    'TotalPrice' => $this->request->getPost('TotalPrice'),
                 ];
 
         // Update Reservation
@@ -130,15 +138,19 @@ class InventoryController extends BaseController
         $rules = [
             'ProductName' => 'required|min_length[4]|max_length[100]',
             'Quantity' => 'required',
+            'Price' => 'required',
+            'TotalPrice' => 'required',
         ];
 
         if ($this->validate($rules)){
             $data = [
                 'ProductName' => $this->request->getVar('ProductName'),
                 'Quantity' => $this->request->getVar('Quantity'),
+                'Price' => $this->request->getVar('Price'),
+                'TotalPrice' => $this->request->getVar('TotalPrice'),
                 
             ];
-            $this->roominventory->insert($data);
+            $this->restaurantinventory->insert($data);
             return redirect()->to('staff-inventory/restaurant');
         }else{
             $data['validation'] = $this->validator;
@@ -154,6 +166,8 @@ class InventoryController extends BaseController
             
             'ProductName' => 'required',
             'Quantity' => 'required|numeric',
+            'Price' => 'required',
+            'TotalPrice' => 'required',
         ];
 
         // Validate Input
@@ -167,6 +181,8 @@ class InventoryController extends BaseController
                 $updateReservationData = [
                     'ProductName' => $this->request->getPost('ProductName'),
                     'Quantity' => $this->request->getPost('Quantity'),
+                    'Price' => $this->request->getPost('Price'),
+                    'TotalPrice' => $this->request->getPost('TotalPrice'),
                 ];
 
         // Update Reservation

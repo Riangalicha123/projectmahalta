@@ -18,7 +18,7 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
   
 <div class="wrapper">
-  <!-- <?php include('include/loader.php') ?> -->
+  <?php include('include/loader.php') ?>
   <!-- Navbar -->
   
   <?php include('include/navbar.php') ?>
@@ -27,10 +27,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4" >
     <!-- Brand Logo -->
-    <a href="<?=base_url()?>admin/index3.html" class="brand-link">
-      <img src="<?=base_url()?>guest/images/logomahalta.jpg" alt="AdminLTE Logo" class="brand-image img-circle elevation-4" style="opacity: 10">
-      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
-    </a>
+    <?php include('include/logo.php') ?>
 
     <!-- Sidebar -->
     

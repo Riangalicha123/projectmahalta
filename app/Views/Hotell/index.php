@@ -293,7 +293,7 @@
     </section>
     <!-- END section -->
     
-    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+<!--     <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -337,12 +337,33 @@
           </div>
         </div>
       </div>
+    </section> -->
+    <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12 heading-wrap text-center">
+            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Feedbacks</h4>
+              <h2 class="heading">Feedbacks</h2>
+          </div>
+        </div>
+        <div class="row ">
+        <?php foreach ($feedbacks as $feedback): ?>
+          <div class="col-md-6">
+            <div class="post-entry">
+              <div class="body-text">
+                <h3 class="mb-3"><?=$feedback['Email']?></h3>
+                <p class="mb-4">"<?=$feedback['FeedbackMessage']?>"</p>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+        </div>
+      </div>
     </section>
+
+
+
     <?php include('inc/chat.php') ?>
-
-
-
-    
     <!-- END section -->
    
     <?php include('inc/footer.php') ?>

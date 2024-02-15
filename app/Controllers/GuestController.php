@@ -49,7 +49,11 @@ class GuestController extends BaseController
     {
         $data = [
             'activePage' => 'Home',
-            'chats' => $this->chat->findAll()
+            'chats' => $this->chat->findAll(),
+            'feedbacks' => $this->feedbacks
+            ->select('feedback.FeedbackID,feedback.FeedbackMessage, users.UserID, users.Email')
+            ->join ('users', 'feedback.UserID = users.UserID')
+            ->findAll()
         ];
         return view('Hotell\index', $data);
     }
@@ -205,6 +209,7 @@ class GuestController extends BaseController
         // Retrieve selected room data from session
         $roomSelected = $session->get('roomSelected');
     
+        
         // You can now use $reservationData and $roomSelected in your view or any other processing
         // For example, passing them to the view data array
         $data = [
@@ -346,9 +351,9 @@ class GuestController extends BaseController
 
             // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/bookroom'))->with('success', 'Reservation added successfully.');
+                return redirect()->to(base_url('/restaurant'))->with('success', 'Reservation added successfully.');
             } else {
-                return redirect()->to(base_url('/bookroom'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/restaurant'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
@@ -410,9 +415,9 @@ class GuestController extends BaseController
 
             // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/bookroom'))->with('success', 'Reservation added successfully.');
+                return redirect()->to(base_url('/convention'))->with('success', 'Reservation added successfully.');
             } else {
-                return redirect()->to(base_url('/bookroom'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/convention'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
@@ -518,6 +523,51 @@ class GuestController extends BaseController
     
         // Redirect with appropriate message
         return redirect()->to(base_url('/profile'))->with('success', 'Guest details updated successfully.');
+    }
+    public function get_chat_data()
+    {
+        $msg = strtolower(trim($this->request->getPost('msg')));
+
+        // Explode the message into an array of words
+        $arrInput = explode(" ", $msg);
+
+        $arr = $this->chat->getAllChatbot(); // Call the method from ChatModel
+
+        // Initialize an array to store the count of matching words for each question
+        $arrCount = [];
+
+        // Loop through each record in the chatbot table
+        foreach ($arr as $key => $row) {
+            // Convert question to lowercase and explode it into an array of words
+            $question = strtolower($row['Question']);
+            $arrQuestion = explode(" ", $question);
+
+            // Initialize counter for matching words
+            $count = 0;
+
+            // Loop through each word in the input message
+            foreach ($arrInput as $inputWord) {
+                // Check if the input word exists in the question
+                if (in_array($inputWord, $arrQuestion)) {
+                    $count++;
+                }
+            }
+
+            // Store the count for this question
+            $arrCount[$key] = $count;
+        }
+
+        // Check if no matching words were found
+        if (array_sum($arrCount) == 0) {
+            echo "Sorry, I can't recognize. Please choose one below";
+            exit;
+        } else {
+            // Find the index of the question with the highest count of matching words
+            $maxIndex = array_search(max($arrCount), $arrCount);
+            // Return the corresponding answer
+            echo $arr[$maxIndex]['Answer'];
+            exit;
+        }
     }
 
 

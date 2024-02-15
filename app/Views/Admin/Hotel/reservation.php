@@ -16,10 +16,30 @@
   <link rel="stylesheet" href="<?=base_url()?>admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
+  <style>
+    #messageContainer {
+    display: none; /* Initially hide the message container */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda; /* Green background for success message */
+    color: #155724; /* Dark green text color */
+}
+
+.error {
+    background-color: #f8d7da; /* Red background for error message */
+    color: #721c24; /* Dark red text color */
+}
+
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
+<?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
   <!-- Navbar -->
   <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
   <!-- /.navbar -->
@@ -27,10 +47,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="<?=base_url()?>admin/index3.html" class="brand-link elevation-4">
-      <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
-    </a>
+    <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
 
     <!-- Sidebar -->
     <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
@@ -61,7 +78,18 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
+          <?php
+            // Retrieve flash messages from session
+            $session = session();
+            $successMessage = $session->getFlashdata('success');
+            ?>
+
+            <!-- Check if there's a success message and display it -->
+            <?php if($successMessage): ?>
+                <div class="alert alert-success">
+                    <?= $successMessage ?>
+                </div>
+            <?php endif; ?>
 
             <div class="card">
               <div class="card-header">
@@ -367,7 +395,30 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script>
+  // Function to show a message in the message container
+function showMessage(message, type) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.className = type;
+    messageContainer.style.display = 'block';
+    // Automatically hide the message after 5 seconds (adjust as needed)
+    setTimeout(function() {
+        messageContainer.style.display = 'none';
+    }, 5000);
+}
 
+// Check if a success message exists in the session and display it
+if (sessionStorage.getItem('success')) {
+    showMessage(sessionStorage.getItem('success'), 'success');
+}
+
+// Check if an error message exists in the session and display it
+if (sessionStorage.getItem('error')) {
+    showMessage(sessionStorage.getItem('error'), 'error');
+}
+
+</script>
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

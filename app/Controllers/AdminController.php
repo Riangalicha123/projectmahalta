@@ -336,6 +336,7 @@ class AdminController extends BaseController
     }
     public function updateStatus($status, $reservationID)
     {
+        $session = session();
         // Get the ReservationID from the request, assuming it's sent via POST
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
         if (!in_array($status, $allowedStatuses)) {
@@ -348,7 +349,8 @@ class AdminController extends BaseController
         $this->reservation->update($reservationID, $updateData);
 
         // Redirect to the reservation page or wherever appropriate
-        return redirect()->to('/admin-hotel/reservation')->with('success', 'Reservation status updated successfully');
+        $session->setFlashdata('success', 'Reservation status updated successfully');
+        return redirect()->to('/admin-hotel/reservation');
     }
     public function resReservation()
     {
@@ -775,7 +777,6 @@ class AdminController extends BaseController
             
         ];
     
-        // Load the view with the data
         return view('Admin/rate', $data);
     }
     
@@ -866,51 +867,8 @@ class AdminController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation updated successfully.');
     }
-    public function get_chat_data()
-    {
-        $msg = strtolower(trim($this->request->getPost('msg')));
 
-        // Explode the message into an array of words
-        $arrInput = explode(" ", $msg);
-
-        $arr = $this->chat->getAllChatbot(); // Call the method from ChatModel
-
-        // Initialize an array to store the count of matching words for each question
-        $arrCount = [];
-
-        // Loop through each record in the chatbot table
-        foreach ($arr as $key => $row) {
-            // Convert question to lowercase and explode it into an array of words
-            $question = strtolower($row['Question']);
-            $arrQuestion = explode(" ", $question);
-
-            // Initialize counter for matching words
-            $count = 0;
-
-            // Loop through each word in the input message
-            foreach ($arrInput as $inputWord) {
-                // Check if the input word exists in the question
-                if (in_array($inputWord, $arrQuestion)) {
-                    $count++;
-                }
-            }
-
-            // Store the count for this question
-            $arrCount[$key] = $count;
-        }
-
-        // Check if no matching words were found
-        if (array_sum($arrCount) == 0) {
-            echo "Sorry, I can't recognize. Please choose one below";
-            exit;
-        } else {
-            // Find the index of the question with the highest count of matching words
-            $maxIndex = array_search(max($arrCount), $arrCount);
-            // Return the corresponding answer
-            echo $arr[$maxIndex]['Answer'];
-            exit;
-        }
-    }
+    
     public function holService()
     {
         $data = [

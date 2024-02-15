@@ -196,8 +196,8 @@
                   
                 </div>
                 <?php else: ?>
-                            <p>No reservation data found.</p>
-                        <?php endif; ?>
+                  <p>No reservation data found.</p>
+                <?php endif; ?>
               </form>
                 
               </div>

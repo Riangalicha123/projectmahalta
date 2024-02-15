@@ -12,7 +12,7 @@ class RestaurantInventoryModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['ProductName','Quantity'];
+    protected $allowedFields    = ['ProductName','Quantity','Price','TotalPrice'];
 
     // Dates
     protected $useTimestamps = false;

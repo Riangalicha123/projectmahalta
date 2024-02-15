@@ -13,15 +13,15 @@
           <div class="collapse navbar-collapse " id="navbarsExample05">
             <ul class="navbar-nav ml-auto pl-lg-5 pl-0">
             <li class="nav-item">
-    <a class="nav-link <?= (isset($activePage) && $activePage === 'Home') ? 'active' : '' ?>" href="<?= route_to('/') ?>" style="color: black; font-size: 20px;">Home</a>
-</li>
+                <a class="nav-link <?= (isset($activePage) && $activePage === 'Home') ? 'active' : '' ?>" href="<?= route_to('/') ?>" style="color: black; font-size: 20px;">Home</a>
+            </li>
 
               <li class="nav-item">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Room') ? 'active' : '' ?> " href="<?= route_to('room') ?>" style="color: black; font-size: 20px;">Room</a>
               </li>
-              <li class="nav-item ">
+              <!-- <li class="nav-item ">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Blog') ? 'active' : '' ?> " href="<?= route_to('blog') ?>"style="color: black; font-size: 20px;" >Blog</a>
-              </li>
+              </li> -->
               <li class="nav-item ">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Restaurant') ? 'active' : '' ?> " href="<?= route_to('restaurant') ?>"style="color: black; font-size: 20px;" >Restaurant</a>
               </li>
