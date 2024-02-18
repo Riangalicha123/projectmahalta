@@ -152,7 +152,7 @@
                   </div>
                 </div>
               </div>
-
+              
             </div>
           <?php else: ?>
             <p>No reservation data found.</p>

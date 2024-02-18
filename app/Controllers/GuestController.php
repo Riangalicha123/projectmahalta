@@ -289,16 +289,22 @@ class GuestController extends BaseController
             // Insert Reservation
             $inserted = $this->reservation->insert($newReservationData);
     
+            // Update Room AvailabilityStatus if the RoomType is available
+            if ($inserted && $roomSelected['AvailabilityStatus'] === 'Available') {
+                $this->rooms->update($roomSelected['RoomID'], ['AvailabilityStatus' => 'Not Available']);
+            }
+    
             // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/bookroom/formdetails'))->with('success', 'Reservation added successfully.');
+                return redirect()->to(base_url('/bookroom'))->with('success', 'Reservation added successfully.');
             } else {
-                return redirect()->to(base_url('/bookroom/formdetails'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/bookroom'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
+    
     
     
     public function tableReservation(){
