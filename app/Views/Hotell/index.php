@@ -63,16 +63,16 @@
           </div>
           <div class="col-md-1"></div>
           <div class="col-md-7">
-    <div id="imageCarousel" class="carousel slide" data-ride="carousel">
+      <div id="imageCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
-        <div class="carousel-item active">
+            <div class="carousel-item active">
                 <img src="/guest/images/pool.png" alt="Image 1" class="img-md-fluid">
             </div>
             <div class="carousel-item">
-                <img src="/guest/images/MahaltaPic/5.jpg" alt="Image 2" class="img-md-fluid">
+                <img src="/guest/images/Pic/9.jpg" alt="Image 2" class="img-md-fluid">
             </div>
             <div class="carousel-item">
-                <img src="/guest/images/MahaltaPic/9.jpg" alt="Image 2" class="img-md-fluid">
+                <img src="/guest/images/Pic/5.jpg" alt="Image 2" class="img-md-fluid">
             </div>
             <div class="carousel-item">
                 <img src="/guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
@@ -113,7 +113,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/4.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/Pic/10.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
                     Featured Room 
@@ -135,7 +135,7 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/2.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/Pic/13.jpg); ">
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
@@ -151,7 +151,7 @@
               <!-- </figure> -->
             </a>
 
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/5.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/9.jpg); ">
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>

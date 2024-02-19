@@ -1591,7 +1591,10 @@ textarea.form-control {
   height: 200px;
   width: 300px;
 }
-
+.carousel-item img {
+  width: 710px;
+  height: 543px;
+}
 #loader.fullscreen {
   padding: 0;
   left: 0;
