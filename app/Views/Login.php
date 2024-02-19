@@ -77,9 +77,16 @@
 								<h2 class="text-center text-primary">Login</h2>
 							</div>
 							<form action="/loginAuth" method="post">
-								<div class="select-role">
-									
+							<?php if(session()->has('success')): ?>
+								<div class="alert alert-success">
+									<?php echo session()->get('success'); ?>
 								</div>
+							<?php endif; ?>
+							<?php if(session()->getFlashdata('msg')):?>
+								<div class="alert alert-warning">
+									<?=session()->getFlashdata('msg');?>
+								</div>
+							<?php endif;?>
 								<div class="input-group custom">
 									<input
 										type="email"

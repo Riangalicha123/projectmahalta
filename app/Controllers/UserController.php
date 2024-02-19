@@ -55,12 +55,12 @@ class UserController extends BaseController
         $rules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
-            'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]',
-            'Password' => 'required|min_length[4]|max_length[50]',
-            'ContactNumber' => 'required|max_length[11]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]|regex_match[/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/]',
+            'Password' => 'required|min_length[8]|max_length[50]|regex_match[/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^\w\d\s:])([^\s]){8,}$/]',
+            'ContactNumber' => 'required|max_length[11]|numeric',
             'Address' => 'required|min_length[4]|max_length[100]',
             'confirmPassword' => 'matches[Password]'
-        ];
+        ];        
 
         if ($this->validate($rules)){
             $data = [
@@ -74,6 +74,7 @@ class UserController extends BaseController
                 
             ];
             $this->users->insert($data);
+            session()->setFlashdata('success', 'Successfully Registered');
             return redirect()->to('/login');
         }else{
             $data['validation'] = $this->validator;

@@ -79,10 +79,11 @@
 								<h2 class="text-center text-primary">Create Account</h2>
 							</div>
 							<form action="/registerAuth" method="post">
-								<div class="select-role">
-									
-								</div>
-								
+								<?php if(isset($validation)):?>
+                                        <div class="alert alert-warning">
+                                            <?=$validation->listErrors()?>
+                                        </div>
+                                    <?php endif;?>
 								<div class="row">
 								<div class="col-md-6">
 								<div class="input-group custom">
@@ -126,7 +127,7 @@
 										></span>
 									</div>
 								</div>
-								<div class="input-group custom">
+<!-- 								<div class="input-group custom">
 									<input
 										type="text"
 										class="form-control form-control-lg" name="Address" 
@@ -137,7 +138,7 @@
 											><i class="icon-copy dw dw-pin-1"></i
 										></span>
 									</div>
-								</div>
+								</div> -->
 								<div class="input-group custom">
 									<input
 										type="email"

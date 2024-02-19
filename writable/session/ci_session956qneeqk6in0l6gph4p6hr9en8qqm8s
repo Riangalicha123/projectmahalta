@@ -1,7 +1,0 @@
-__ci_last_regenerate|i:1707980472;_ci_previous_url|s:30:"http://localhost:8080/bookroom";id|s:2:"13";username|s:21:"rhigenabaca@gmail.com";firstname|s:6:"Rhigen";lastname|s:5:"Abaca";contact|s:11:"09123123983";address|s:29:"San Teodoro, Oriental Mindoro";isLoggedIn|b:1;userRole|s:1:"1";reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-02-16T14:59";s:12:"CheckOutDate";s:16:"2024-02-17T14:59";s:14:"NumberOfGuests";s:1:"2";}roomSelected|a:7:{s:6:"RoomID";s:2:"11";s:10:"RoomNumber";s:2:"F1";s:8:"RoomType";s:11:"Family Room";s:11:"Description";s:96:"• 1 Queen-sized Bed
-• 1 Double Deck
-• 1  Sofa Bed
-• Sauna
-
-• 5 pax
--Max of 7 pax";s:13:"PricePerNight";s:7:"6499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1706157937_9e2a360bb9af7266d503.jpg";}
