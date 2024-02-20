@@ -79,13 +79,8 @@
 								<h2 class="text-center text-primary">Create Account</h2>
 							</div>
 							<form action="/registerAuth" method="post">
-								<?php if(isset($validation)):?>
-                                        <div class="alert alert-warning">
-                                            <?=$validation->listErrors()?>
-                                        </div>
-                                    <?php endif;?>
-								<div class="row">
-								<div class="col-md-6">
+
+
 								<div class="input-group custom">
 									<input
 										type="text"
@@ -98,8 +93,10 @@
 										></span>
 									</div>
 								</div>
-								</div>
-								<div class="col-md-6">
+								<?php if(isset($validation) && $validation->getError('FirstName')): ?>
+									<div class="text-danger"><?= $validation->getError('FirstName') ?></div>
+								<?php endif; ?>
+
 								<div class="input-group custom">
 									<input
 										type="text"
@@ -112,8 +109,9 @@
 										></span>
 									</div>
 								</div>
-								</div>
-								</div>
+								<?php if(isset($validation) && $validation->getError('LastName')): ?>
+									<div class="text-danger"><?= $validation->getError('LastName') ?></div>
+								<?php endif; ?>
 								
 								<div class="input-group custom">
 									<input
@@ -127,18 +125,42 @@
 										></span>
 									</div>
 								</div>
-<!-- 								<div class="input-group custom">
-									<input
-										type="text"
-										class="form-control form-control-lg" name="Address" 
-										placeholder="Address" value="<?= set_value('Address')?>"
-									/>
-									<div class="input-group-append custom">
-										<span class="input-group-text"
-											><i class="icon-copy dw dw-pin-1"></i
-										></span>
-									</div>
-								</div> -->
+								<?php if(isset($validation) && $validation->getError('ContactNumber')): ?>
+									<div class="text-danger"><?= $validation->getError('ContactNumber') ?></div>
+								<?php endif; ?>
+								<hr><h4 class="text-center text-primary">Address</h4>
+								<!-- Add dropdowns for region, province, city, and barangay -->
+								<select id="Region" class="form-control form-control-lg" name="Region">
+									<option value="">Select Region</option>
+									<?php foreach ($regions as $region): ?>
+										<option value="<?= $region['regCode'] ?>" <?= set_select('Region', $region['regCode']); ?>><?= $region['regDesc'] ?></option>
+									<?php endforeach?>
+								</select>
+								<?php if(isset($validation) && $validation->getError('Region')): ?>
+									<div class="text-danger"><?= $validation->getError('Region') ?></div>
+								<?php endif; ?>
+
+								<select id="province_id" class="form-control form-control-lg" name="Province">
+									<!-- Options will be filled dynamically using AJAX -->
+								</select>
+								<?php if(isset($validation) && $validation->getError('Province')): ?>
+									<div class="text-danger"><?= $validation->getError('Province') ?></div>
+								<?php endif; ?>
+
+								<select id="cities_id" class="form-control form-control-lg" name="City">
+									<!-- Options will be filled dynamically using AJAX -->
+								</select>
+								<?php if(isset($validation) && $validation->getError('City')): ?>
+									<div class="text-danger"><?= $validation->getError('City') ?></div>
+								<?php endif; ?>
+
+								<select id="barangay_id" class="form-control form-control-lg" name="Barangay">
+									<!-- Options will be filled dynamically using AJAX -->
+								</select>
+								<?php if(isset($validation) && $validation->getError('Barangay')): ?>
+									<div class="text-danger"><?= $validation->getError('Barangay') ?></div>
+								<?php endif; ?>
+								<hr>
 								<div class="input-group custom">
 									<input
 										type="email"
@@ -151,6 +173,9 @@
 										></span>
 									</div>
 								</div>
+								<?php if(isset($validation) && $validation->getError('Email')): ?>
+									<div class="text-danger"><?= $validation->getError('Email') ?></div>
+								<?php endif; ?>
 								<div class="row">
 								<div class="col-md-6">
 								<div class="input-group custom">
@@ -165,6 +190,9 @@
 										></span>
 									</div>
 								</div>
+								<?php if(isset($validation) && $validation->getError('Password')): ?>
+									<div class="text-danger"><?= $validation->getError('Password') ?></div>
+								<?php endif; ?>
 								</div>
 								<div class="col-md-6">
 								<div class="input-group custom">
@@ -179,6 +207,9 @@
 										></span>
 									</div>
 								</div>
+								<?php if(isset($validation) && $validation->getError('confirmPassword')): ?>
+									<div class="text-danger"><?= $validation->getError('confirmPassword') ?></div>
+								<?php endif; ?>
 								</div>
 								</div>
 								
@@ -201,6 +232,65 @@
 		<script src="/reglog/vendors/scripts/script.min.js"></script>
 		<script src="/reglog/vendors/scripts/process.js"></script>
 		<script src="/reglog/vendors/scripts/layout-settings.js"></script>
-		
+		<script>
+			$(document).ready(function(){
+			$('#Region').change(function(event){
+				var idRegion = this.value; // Change variable name to idRegion
+				$('#province_id').html(''); // Clear province dropdown
+
+				$.ajax({
+					url: "/api/fetch-province",
+					type: 'POST',
+					dataType: 'json',
+					data: {regCode: idRegion}, // Pass idRegion
+					success:function(response){
+						$('#province_id').html('<option value="">Select Province</option>'); // Change to 'Select Province'
+						$.each(response.provinces,function(index, val){
+							$('#province_id').append('<option value="'+val.provCode+'">'+val.provDesc+'</option>'); // Correct variable names
+						});
+
+					}
+				});
+			});
+
+			$('#province_id').change(function(event){
+				var idProvince = this.value; // Change variable name to idProvince
+				$('#cities_id').html(''); // Clear city dropdown
+
+				$.ajax({
+					url: "/api/fetch-city",
+					type: 'POST',
+					dataType: 'json',
+					data: {provCode: idProvince}, // Pass idProvince
+					success:function(response){
+						$('#cities_id').html('<option value="">Select City/Municipality</option>'); // Change to 'Select City/Municipality'
+						$.each(response.cities,function(index, val){
+							$('#cities_id').append('<option value="'+val.citymunCode+'">'+val.citymunDesc+'</option>'); // Correct variable names
+						});
+					}
+				});
+			});
+
+			$('#cities_id').change(function(event){
+				var idCity = this.value; 
+				$('#barangay_id').html(''); 
+
+				$.ajax({
+					url: "/api/fetch-barangay",
+					type: 'POST',
+					dataType: 'json',
+					data: {citymunCode: idCity}, 
+					success:function(response){
+						$('#barangay_id').html('<option value="">Select Barangay</option>'); // Change to 'Select City/Municipality'
+						$.each(response.barangay,function(index, val){
+							$('#barangay_id').append('<option value="'+val.brgyCode+'">'+val.brgyDesc+'</option>'); // Correct variable names
+						});
+						
+					}
+				});
+			});
+		});
+
+		</script>
 	</body>
 </html>

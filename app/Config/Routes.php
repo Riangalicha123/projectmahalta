@@ -31,6 +31,9 @@ $routes->post('/get_chat_data', 'GuestController::get_chat_data',['filter' => 'n
 
 
 $routes->get('/register', 'UserController::register',['filter' => 'noAuth']);
+$routes->post('/api/fetch-province', 'UserController::fetchProvince',['filter' => 'noAuth']);
+$routes->post('/api/fetch-city', 'UserController::fetchCity',['filter' => 'noAuth']);
+$routes->post('/api/fetch-barangay', 'UserController::fetchBarangay',['filter' => 'noAuth']);
 $routes->match(['get', 'post'],'/registerAuth', 'UserController::registerAuth',['filter' => 'noAuth']);
 $routes->get('/login', 'UserController::login');
 $routes->post('/loginAuth', 'UserController::loginAuth');

@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class RegionModel extends Model
 {
-    protected $table            = 'users';
-    protected $primaryKey       = 'UserID';
+    protected $table            = 'refregion';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['FirstName', 'LastName', 'Password', 'Email', 'UserRoleID', 'ContactNumber', 'Region', 'Province', 'City', 'Barangay'];
+    protected $allowedFields    = ['psgcCode', 'regDesc', 'regCode'];
 
     // Dates
     protected $useTimestamps = false;

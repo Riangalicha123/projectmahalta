@@ -1,0 +1,220 @@
+CRITICAL - 2024-02-20 01:47:05 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 78
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(78): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 01:47:10 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 78
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(78): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 01:51:52 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 78
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(78): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 01:58:01 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 84
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(84): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 01:59:02 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 84
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(84): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:39 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:42 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:46 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:48 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:50 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:54 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:55 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 02:00:57 --> CodeIgniter\BaseModel::findAll(): Argument #1 ($limit) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\UserController.php on line 83
+in SYSTEMPATH\BaseModel.php on line 607.
+ 1 APPPATH\Controllers\UserController.php(83): CodeIgniter\BaseModel->findAll('provDesc', 'id')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->fetchProvince()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 10:38:04 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 134.
+ 1 APPPATH\Views\Register.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(159): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 10:38:12 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 134.
+ 1 APPPATH\Views\Register.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(159): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 10:59:41 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 133.
+ 1 APPPATH\Views\Register.php(133): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 133)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(147): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 11:00:47 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 133.
+ 1 APPPATH\Views\Register.php(133): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 133)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(147): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 11:32:53 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 134.
+ 1 APPPATH\Views\Register.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(144): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 11:33:28 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 134.
+ 1 APPPATH\Views\Register.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(144): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 11:36:40 --> Undefined variable $regions
+in APPPATH\Views\Register.php on line 134.
+ 1 APPPATH\Views\Register.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $regions', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php', 134)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Register.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Register', [], true)
+ 5 APPPATH\Controllers\UserController.php(149): view('Register', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 12:38:01 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\UserController.php on line 182.
+ 1 APPPATH\Controllers\UserController.php(182): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 182)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 12:54:36 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\UserController.php on line 182.
+ 1 APPPATH\Controllers\UserController.php(182): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 182)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 13:06:36 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\UserController.php on line 182.
+ 1 APPPATH\Controllers\UserController.php(182): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 182)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-20 13:07:46 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\UserController.php on line 190.
+ 1 APPPATH\Controllers\UserController.php(190): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\UserController.php', 190)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->registerAuth()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
