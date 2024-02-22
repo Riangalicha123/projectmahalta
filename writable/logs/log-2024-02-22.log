@@ -1,1 +1,58 @@
 ERROR - 2024-02-22 02:16:40 --> Mailer Error: SMTP Error: Could not connect to SMTP host. Failed to connect to serverSMTP server error: Failed to connect to server Additional SMTP info: php_network_getaddresses: getaddrinfo for smtp.gmail.com failed: No such host is known. 
+ERROR - 2024-02-22 06:57:38 --> mysqli_sql_exception: Unknown column 'users.Address' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `guest`....', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `guest`....')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `guest`....')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `guest`....', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(80): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->customer()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-02-22 06:57:38 --> Unknown column 'users.Address' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `guest`.`GuestID`, `guest`.`Status`, `users`.`UserID`, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `users`.`Address`
+FROM `guest`
+JOIN `users` ON `guest`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(80): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->customer()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-22 06:57:44 --> mysqli_sql_exception: Unknown column 'users.Address' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(570): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->conReservation()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-02-22 06:57:44 --> Unknown column 'users.Address' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.`ReservationID`, `events`.`EventID`, `events`.`EventName`, `events`.`EventType`, `reservations`.`CheckInDate`, `reservations`.`CheckOutDate`, `reservations`.`NumberOfGuests`, `reservations`.`Note`, `reservations`.`Status`, `users`.`UserID`, `users`.`FirstName`, `users`.`LastName`, `users`.`ContactNumber`, `users`.`Email`, `users`.`Address`, `reservations`.`UserID`
+FROM `reservations`
+JOIN `events` ON `reservations`.`EventID` = `events`.`EventID`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(570): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->conReservation()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
