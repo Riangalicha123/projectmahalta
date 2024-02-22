@@ -315,7 +315,21 @@
 
     <script src="/guest/js/main.js"></script>
 
+    <script>
+    // Get today's date
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
+    today = yyyy + '-' + mm + '-' + dd + 'T00:00'; // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+
+    // Set the min attribute for CheckInDate input
+    document.getElementById('CheckInDate').setAttribute('min', today);
+
+    // Set the min attribute for CheckOutDate input
+    document.getElementById('CheckOutDate').setAttribute('min', today);
+</script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

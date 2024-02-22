@@ -15,9 +15,11 @@ use App\Models\GuestModel;
 use App\Models\ReservationModel;
 use App\Models\FeedbackModel;
 use App\Models\ChatModel;
+use App\Traits\EmailTrait;
 
 class AdminController extends BaseController
 {
+    use EmailTrait;
     private $rooms;
     private $tables;
     private $events;
@@ -54,14 +56,15 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'dashboard',
             'customers' => $this->guest
-            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, users.Address')
+            ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
             ->join ('users', 'guest.UserID = users.UserID')
             ->findAll(),
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
-            ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->findAll(),
+    ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID', false)
+    ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+    ->join('users', 'reservations.UserID = users.UserID')
+    ->findAll(),
+
 
 
         ];
@@ -199,10 +202,11 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'holReservation',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
-            ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join ('users', 'reservations.UserID = users.UserID')
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID', false)
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
             ->findAll()
+        
         ]; 
         return view('Admin\Hotel\reservation', $data);
     }
@@ -337,21 +341,94 @@ class AdminController extends BaseController
     public function updateStatus($status, $reservationID)
     {
         $session = session();
-        // Get the ReservationID from the request, assuming it's sent via POST
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
+    
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status (you may redirect or show an error message)
-            return redirect()->back('/admin-dashboard')->with('error', 'Invalid status');
+            // Handle invalid status
+            return redirect()->back()->with('error', 'Invalid status');
         }
-
+    
+        // Retrieve the reservation and associated user's email address
+        $reservation = $this->reservation
+                             ->where('ReservationID', $reservationID)
+                             ->first();
+    
+        if (!$reservation) {
+            // Handle case where reservation doesn't exist
+            return redirect()->back()->with('error', 'Reservation not found');
+        }
+    
+        // Retrieve user data based on UserID from the reservation
+        $user = $this->users
+                     ->where('UserID', $reservation['UserID'])
+                     ->first();
+    
+        if (!$user) {
+            // Handle case where user doesn't exist
+            return redirect()->back()->with('error', 'User not found for the reservation');
+        }
+    
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
-        $this->reservation->update($reservationID, $updateData);
+        $updated = $this->reservation->update($reservationID, $updateData);
+    
+        if ($updated) {
+         // Prepare the email message with reservation details
+$emailMessage = "Dear customer,<br><br>";
+$emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+$emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+$emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+$emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+$emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+$emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+$emailMessage .= "If you have any questions, please contact us.<br>";
 
-        // Redirect to the reservation page or wherever appropriate
-        $session->setFlashdata('success', 'Reservation status updated successfully');
-        return redirect()->to('/admin-hotel/reservation');
+    
+            // Send the email to the user
+            $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
+            $fcmToken = $user['fcm_token'];
+            if (!empty($fcmToken)) {
+                $notifTitle = 'Reservation Status Updated';
+                $notifBody = "Your reservation status has been updated to {$status}.";
+                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+            }
+            // Redirect to the reservation page with a success message
+            $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
+            return redirect()->to('/admin-hotel/reservation');
+        } else {
+            // Handle case where update fails
+            return redirect()->back()->with('error', 'Failed to update reservation status');
+        }
     }
+    protected function sendPushNotification($fcmToken, $title, $body) {
+        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
+    
+        $postData = [
+            'to' => $fcmToken,
+            'notification' => [
+                'title' => $title,
+                'body' => $body,
+            ],
+        ];
+    
+        $headers = [
+            'Authorization: key=' . $firebaseServerKey,
+            'Content-Type: application/json',
+        ];
+    
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        $result = curl_exec($ch);
+        curl_close($ch);
+    
+        // Log or handle the response as needed
+    }
+    
     public function resReservation()
     {
         $data = [

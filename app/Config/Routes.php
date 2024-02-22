@@ -38,6 +38,10 @@ $routes->match(['get', 'post'],'/registerAuth', 'UserController::registerAuth',[
 $routes->get('/login', 'UserController::login');
 $routes->post('/loginAuth', 'UserController::loginAuth');
 $routes->get('/logout', 'UserController::logout');
+$routes->get('/verify/(:any)', 'UserController::verifyEmail/$1');
+$routes->post('/saveToken', 'UserController::saveToken');
+
+
 
 
 $routes->get('/staff-hotel', 'StaffController::home',['filter' => 'staffGuard']);

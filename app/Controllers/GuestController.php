@@ -11,8 +11,10 @@ use App\Models\ReservationModel;
 use App\Models\FeedbackModel;
 use App\Models\GuestModel;
 use App\Models\ChatModel;
+use App\Traits\EmailTrait;
 class GuestController extends BaseController
 {
+    use EmailTrait;
     private $users;
     private $rooms;
     private $tables;
@@ -248,18 +250,17 @@ class GuestController extends BaseController
     public function addReservation()
     {
         helper(['form']);
-    
+        $session = session();
         // Retrieve Post Data
         $FirstName = $this->request->getPost('FirstName');
         $LastName = $this->request->getPost('LastName');
         $ContactNumber = $this->request->getPost('ContactNumber');
         $Address = $this->request->getPost('Address');
-    
+        $email = $session->get('username'); // Assuming 'username' is the email in the session
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
                             ->where('LastName', $LastName)
                             ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
                             ->first();
     
         // Retrieve Room Data from Session
@@ -296,15 +297,33 @@ class GuestController extends BaseController
     
             // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/bookroom'))->with('success', 'Reservation added successfully.');
+
+                $emailMessage = $this->prepareEmailMessage($newReservationData);
+                $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                
+                $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                return redirect()->to('/bookroom/formdetails');
             } else {
-                return redirect()->to(base_url('/bookroom'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
-            return redirect()->to(base_url('/'))->with('error', 'Invalid data in sessions. Please check your input.');
+            return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
+    private function prepareEmailMessage(array $reservationData): string
+{
+    // Customize this message with the actual reservation details
+    $message = "Dear customer,<br><br>";
+    $message .= "Your reservation has been successfully made with the following details:<br>";
+    $message .= "Check-in Date: {$reservationData['CheckInDate']}<br>";
+    $message .= "Check-out Date: {$reservationData['CheckOutDate']}<br>";
+    $message .= "Number of Guests: {$reservationData['NumberOfGuests']}<br>";
+    $message .= "Total Amount: {$reservationData['TotalAmount']}<br>";
+    $message .= "Reference Number: {$reservationData['ReferenceNumber']}<br>";
+    $message .= "<br>We look forward to hosting you.<br>";
     
+    return $message;
+}
     
     
     public function tableReservation(){

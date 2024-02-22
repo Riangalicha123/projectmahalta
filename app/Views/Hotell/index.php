@@ -373,7 +373,74 @@
 </section>
 
 
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
+  import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
+  
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyALSiPzYneokQ4vA8eQNkbcuuud8lPzNpg",
+    authDomain: "push-notif-16cb3.firebaseapp.com",
+    projectId: "push-notif-16cb3",
+    storageBucket: "push-notif-16cb3.appspot.com",
+    messagingSenderId: "182663808079",
+    appId: "1:182663808079:web:1e41d21168a7073c58d63a",
+    measurementId: "G-JXC6YLCSYQ"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+
+  const messaging = getMessaging(app);
+
+// Request permission to receive notifications
+Notification.requestPermission().then((permission) => {
+  if (permission === 'granted') {
+    console.log('Notification permission granted.');
+
+    // Get registration token
+getToken(messaging, { vapidKey: 'BKHl5MWDw3tkJ9UkZxJX7Z6nUpqzyon0VKP1V512J1z-SY_ljeLc9UF78pumnFHAeq6TEohLwtO3QNjrM9jZano' }).then((currentToken) => {
+    if (currentToken) {
+        console.log('Token retrieved:', currentToken);
+
+        // Here's the new part: Send the token to your server
+        fetch('/saveToken', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // Add any other headers your endpoint might require for security, like CSRF tokens
+            },
+            body: JSON.stringify({
+              fcm_token: currentToken
+            })
+        }).then(response => response.json())
+          .then(data => console.log('Token successfully sent to server:', data))
+          .catch((error) => console.error('Error sending token to server:', error));
+    } else {
+        console.log('No registration token available. Request permission to generate one.');
+    }
+}).catch((err) => {
+    console.error('An error occurred while retrieving token. ', err);
+});
+
+  } else {
+    console.log('Unable to get permission to notify.');
+  }
+});
+
+// Listen to messages when the web app is open
+onMessage(messaging, (payload) => {
+  console.log('Message received. ', payload);
+  // Process your message as required
+});
+</script>
 
 
     <?php include('inc/chat.php') ?>

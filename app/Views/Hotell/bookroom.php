@@ -274,10 +274,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
 
     <script>
-      
-      $('#arrival_date, #departure_date').datepicker({});
+    // Get today's date
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
-    </script>
+    today = yyyy + '-' + mm + '-' + dd + 'T00:00'; // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
+
+    // Set the min attribute for CheckInDate input
+    document.getElementById('CheckInDate').setAttribute('min', today);
+
+    // Set the min attribute for CheckOutDate input
+    document.getElementById('CheckOutDate').setAttribute('min', today);
+</script>
+
 
     
 

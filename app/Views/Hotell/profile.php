@@ -56,7 +56,9 @@
                         <label for="ContactNumber">Contact Number</label>
                         <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>">
                     </div>
-                    <div class="col-md-6 form-group">
+                </div>
+                <div class="row">
+                    <div class="col-md-12 form-group">
                         <label for="Address">Address</label>
                         <input type="text" id="Address" name="Address" class="form-control" value="<?= $_SESSION['address'] ?? ''; ?>">
                     </div>

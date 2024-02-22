@@ -1,0 +1,9 @@
+__ci_last_regenerate|i:1708566604;_ci_previous_url|s:30:"http://localhost:8080/bookroom";id|s:2:"23";username|s:24:"riangalicha123@gmail.com";firstname|s:4:"Rian";lastname|s:7:"Galicha";contact|s:11:"09995368235";region|s:22:"REGION IV-B (MIMAROPA)";province|s:16:"ORIENTAL MINDORO";city|s:13:"PUERTO GALERA";barangay|s:6:"Sabang";isLoggedIn|b:1;userRole|s:1:"1";reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-02-22T08:08";s:12:"CheckOutDate";s:16:"2024-02-23T08:08";s:14:"NumberOfGuests";s:1:"2";}roomSelected|a:7:{s:6:"RoomID";s:1:"7";s:10:"RoomNumber";s:2:"D7";s:8:"RoomType";s:11:"Deluxe Room";s:11:"Description";s:53:"• 2 Double-sized bed
+
+• 2 pax
+-*Max of 4 pax
+";s:13:"PricePerNight";s:7:"4499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1707983167_34b8a057de08ba0e7e80.jpg";}roomReservationData|a:3:{s:15:"reservationData";a:3:{s:11:"CheckInDate";s:16:"2024-02-22T08:08";s:12:"CheckOutDate";s:16:"2024-02-23T08:08";s:14:"NumberOfGuests";s:1:"2";}s:12:"roomSelected";a:7:{s:6:"RoomID";s:1:"7";s:10:"RoomNumber";s:2:"D7";s:8:"RoomType";s:11:"Deluxe Room";s:11:"Description";s:53:"• 2 Double-sized bed
+
+• 2 pax
+-*Max of 4 pax
+";s:13:"PricePerNight";s:7:"4499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1707983167_34b8a057de08ba0e7e80.jpg";}s:11:"TotalAmount";d:4499;}

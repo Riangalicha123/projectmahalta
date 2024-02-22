@@ -133,7 +133,7 @@
 								<select id="Region" class="form-control form-control-lg" name="Region">
 									<option value="">Select Region</option>
 									<?php foreach ($regions as $region): ?>
-										<option value="<?= $region['regCode'] ?>" <?= set_select('Region', $region['regCode']); ?>><?= $region['regDesc'] ?></option>
+										<option value="<?= $region['regCode'] ?>"><?= $region['regDesc'] ?></option>
 									<?php endforeach?>
 								</select>
 								<?php if(isset($validation) && $validation->getError('Region')): ?>

@@ -1,0 +1,9 @@
+__ci_last_regenerate|i:1708509890;_ci_previous_url|s:30:"http://localhost:8080/bookroom";id|s:2:"20";username|s:21:"alluasan599@gmail.com";firstname|s:4:"Mark";lastname|s:3:"Lua";contact|s:11:"09678009908";isLoggedIn|b:1;userRole|s:1:"1";address|s:27:"01, 0128, 012801, 012801001";roomSelected|a:7:{s:6:"RoomID";s:1:"6";s:10:"RoomNumber";s:2:"D6";s:8:"RoomType";s:11:"Deluxe Room";s:11:"Description";s:53:"• 2 Double-sized bed
+
+• 2 pax
+-*Max of 4 pax
+";s:13:"PricePerNight";s:7:"4499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1707983150_cc617baefebc7bbb5356.jpg";}reservationData|a:3:{s:11:"CheckInDate";s:16:"2024-02-22T17:57";s:12:"CheckOutDate";s:16:"2024-02-24T17:57";s:14:"NumberOfGuests";s:1:"4";}roomReservationData|a:3:{s:15:"reservationData";a:3:{s:11:"CheckInDate";s:16:"2024-02-22T17:57";s:12:"CheckOutDate";s:16:"2024-02-24T17:57";s:14:"NumberOfGuests";s:1:"4";}s:12:"roomSelected";a:7:{s:6:"RoomID";s:1:"6";s:10:"RoomNumber";s:2:"D6";s:8:"RoomType";s:11:"Deluxe Room";s:11:"Description";s:53:"• 2 Double-sized bed
+
+• 2 pax
+-*Max of 4 pax
+";s:13:"PricePerNight";s:7:"4499.00";s:18:"AvailabilityStatus";s:9:"Available";s:5:"Image";s:35:"1707983150_cc617baefebc7bbb5356.jpg";}s:11:"TotalAmount";d:8998;}success|s:31:"Reservation added successfully.";__ci_vars|a:1:{s:7:"success";s:3:"old";}

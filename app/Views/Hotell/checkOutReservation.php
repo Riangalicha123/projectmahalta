@@ -43,10 +43,23 @@
     </div>
   </section>
   <!-- END section -->
+  <?php
+            // Retrieve flash messages from session
+            $session = session();
+            $successMessage = $session->getFlashdata('success');
+            ?>
+
+            <!-- Check if there's a success message and display it -->
+            <?php if($successMessage): ?>
+                <div class="alert alert-success">
+                    <?= $successMessage ?>
+                </div>
+            <?php endif; ?>
   <section class="site-section">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
+          
           <h2 class="mb-5">Reservation Room Form</h2>
           <form action="<?= base_url('/bookroom/addReservation') ?>" method="post">
             <h3 class="mb-5">Guest Details</h3>
@@ -179,7 +192,30 @@
 
   <!-- loader -->
   <?php include('inc/loader.php') ?>
+  <script>
+  // Function to show a message in the message container
+function showMessage(message, type) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.className = type;
+    messageContainer.style.display = 'block';
+    // Automatically hide the message after 5 seconds (adjust as needed)
+    setTimeout(function() {
+        messageContainer.style.display = 'none';
+    }, 5000);
+}
 
+// Check if a success message exists in the session and display it
+if (sessionStorage.getItem('success')) {
+    showMessage(sessionStorage.getItem('success'), 'success');
+}
+
+// Check if an error message exists in the session and display it
+if (sessionStorage.getItem('error')) {
+    showMessage(sessionStorage.getItem('error'), 'error');
+}
+
+</script>
   <script>
     // Function to add leading zeros to single-digit numbers
     function padZero(number) {
