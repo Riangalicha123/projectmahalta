@@ -137,7 +137,7 @@
           <hr>
           <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
           <li class="nav-item" >
-            <a class="nav-link" href="<?= route_to('logout') ?>">
+            <a class="nav-link" href="<?= route_to('admin-logout') ?>">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 LOG OUT

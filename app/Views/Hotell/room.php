@@ -25,7 +25,7 @@
     <!-- END header -->
 
 
-
+    
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
@@ -43,37 +43,48 @@
     <!-- END section -->
 
     <?php if(session()->get('isLoggedIn')): ?>
-      
+      <?php
+            // Retrieve flash messages from session
+            $session = session();
+            $successMessage = $session->getFlashdata('success');
+            ?>
+
+            <!-- Check if there's a success message and display it -->
+            <?php if($successMessage): ?>
+                <div class="alert alert-success">
+                    <?= $successMessage ?>
+                </div>
+            <?php endif; ?>
       <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
         <div class="container" >
             <div class="row">
                 <div class="col-sm-12">
                     <div class="media d-block room mb-0">
                         <div class="media-body">
-                            <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                        <form action="<?= base_url('/bookroom/submit') ?>" method="get">
                                 <div class="row">
-                                    <div class="col-sm-4 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label for="CheckInDate">Arrival Date</label>
                                         <div style="position: relative;">
-                                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
+                                            <input type='date' class="form-control" id='CheckInDate' name='CheckInDate'/>
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-4 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label for="CheckOutDate">Departure Date</label>
                                         <div style="position: relative;">
-                                            <input type='datetime-local' class="form-control" id='CheckOutDate' name='CheckOutDate' required/>
+                                            <input type='date' class="form-control" id='CheckOutDate' name='CheckOutDate'/>
                                         </div>
                                     </div>
-
-                                    <div class="col-md-4 form-group">
-                                        <label for="NumberOfGuests">Number of Guests</label>
-                                        <input type="number" class="form-control" id="NumberOfGuests" min="2" name="NumberOfGuests" required>
+                                    <div class="col-md-3 form-group">
+                                        <label for="Adult">Adult</label>
+                                        <input type="number" class="form-control" id="Adult"   name="Adult">
+                                    </div>
+                                    <div class="col-md-3 form-group">
+                                        <label for="Child">Child</label>
+                                        <input type="number" class="form-control" id="Child"  name="Child">
                                     </div>
                                 </div>
-
-                                
-
                                 <div class="row">
                                     <div class="col-md-12 form-group text-center">
                                         <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
@@ -300,7 +311,20 @@
     });
   });
 </script>
+<script>
+// Get current date
+var today = new Date();
 
+// Set Arrival Date to today
+var arrivalDateInput = document.getElementById('CheckInDate');
+arrivalDateInput.valueAsDate = today;
+
+// Set Departure Date to tomorrow
+var tomorrow = new Date(today);
+tomorrow.setDate(today.getDate() + 1);
+var departureDateInput = document.getElementById('CheckOutDate');
+departureDateInput.valueAsDate = tomorrow;
+</script>
 
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
@@ -316,19 +340,7 @@
     <script src="/guest/js/main.js"></script>
 
     <script>
-    // Get today's date
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, '0');
-    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    var yyyy = today.getFullYear();
-
-    today = yyyy + '-' + mm + '-' + dd + 'T00:00'; // Format: YYYY-MM-DDTHH:MM (for datetime-local input)
-
-    // Set the min attribute for CheckInDate input
-    document.getElementById('CheckInDate').setAttribute('min', today);
-
-    // Set the min attribute for CheckOutDate input
-    document.getElementById('CheckOutDate').setAttribute('min', today);
+    $('#arrival_date, #departure_date').datepicker({});
 </script>
     <?= $this->renderSection('scripts') ?>
   </body>

@@ -80,7 +80,7 @@
 							</div>
 							<form action="/registerAuth" method="post">
 
-
+								
 								<div class="input-group custom">
 									<input
 										type="text"

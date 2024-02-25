@@ -51,6 +51,111 @@ class AdminController extends BaseController
     {
         //
     }
+    public function login(){
+        helper(['form']);
+        $data = [
+            'activePage' => 'AdminLogin',
+        ];
+        return view('AdminLogin',$data);
+    }
+    public function LoginAuth()
+    {
+        $session = session();
+        $email = $this->request->getVar('Email');
+        $password = $this->request->getVar('Password');
+
+        // Retrieve user data from the database based on the provided email
+        $data = $this->users->where('Email', $email)->first();
+
+        if ($data) {
+            // Verify the provided password against the hashed password in the database
+            $pass = $data['Password'];
+            $authenticatedPassword = password_verify($password, $pass);
+    
+            if ($authenticatedPassword) {
+                // Check if user is verified
+                if ($data['is_verified'] == 0) {
+                    // User is not verified, set flash data and redirect to login with error message
+                    $session->setFlashdata('msg', 'Account is not verified. Please check your email.');
+                    return redirect()->to('/login');
+                }
+    
+                // User is verified, proceed with setting session data
+                $ses_data = [
+                    'id' => $data['UserID'],
+                    'username' => $data['Email'],
+                    'firstname' => $data['FirstName'],
+                    'lastname' => $data['LastName'],
+                    'contact' => $data['ContactNumber'],
+                    'isLoggedIn' => true,
+                    'userRole' => $data['UserRoleID'],
+                    'address' => $data['Region'] . ', ' . $data['Province'] . ', ' . $data['City'] . ', ' . $data['Barangay'],
+                ];
+    
+                $session->set($ses_data);
+
+                // Redirect based on user role, staff details, and admin
+                if ($data['UserRoleID'] == 1) {
+                    // Guest role, redirect to home
+                    return redirect()->to('/');
+                } elseif ($data['UserRoleID'] == 2) {
+                    // Staff role, redirect to the appropriate portal
+                    $staffDetails = $this->staffDetail->where('UserID', $data['UserID'])->first();
+
+                    if ($staffDetails) {
+                        // Redirect to the corresponding staff portal based on DepartmentID
+                        switch ($staffDetails['DepartmentID']) {
+                            case 1:
+                                return redirect()->to('/staff-convention');
+                            case 2:
+                                return redirect()->to('/staff-hotel');
+                            case 3:
+                                return redirect()->to('/staff-restaurant');
+                            case 4:
+                                return redirect()->to('/staff-inventory');
+                            default:
+                                // Handle unexpected DepartmentID
+                                return redirect()->to('/');
+                        }
+                    } else {
+                        // Handle missing staff details
+                        return redirect()->to('/');
+                    }
+                } elseif ($data['UserRoleID'] == 3) {
+                    // Admin role, redirect to admin dashboard
+                    $adminDetails = $this->admin->where('UserID', $data['UserID'])->first();
+
+                    if ($adminDetails) {
+                        // Redirect to the corresponding admin portal based on AdminID
+                        switch ($adminDetails['AdminID']) {
+                            case 1:
+                                return redirect()->to('/admin-dashboard');
+                            default:
+                                // Handle unexpected AdminID
+                                return redirect()->to('/');
+                        }
+                    } else {
+                        // Handle missing admin details
+                        return redirect()->to('/adminlogin');
+                    }
+                }
+            } else {
+                // Incorrect password
+                $session->setFlashdata('msg', 'Password is incorrect');
+                return redirect()->to('/adminlogin');
+            }
+        } else {
+            // Email not found
+            $session->setFlashdata('msg', 'Email does not exist');
+            return redirect()->to('/admin-login');
+        }
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy(); // Destroy the user's session
+        return redirect()->to('/admin-login'); // Redirect the user to the login page or any other page after logout
+    }
     public function dashboard()
     {
         $data = [
@@ -374,14 +479,14 @@ class AdminController extends BaseController
     
         if ($updated) {
          // Prepare the email message with reservation details
-$emailMessage = "Dear customer,<br><br>";
-$emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-$emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-$emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-$emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-$emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
-$emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-$emailMessage .= "If you have any questions, please contact us.<br>";
+        $emailMessage = "Dear customer,<br><br>";
+        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+        $emailMessage .= "If you have any questions, please contact us.<br>";
 
     
             // Send the email to the user

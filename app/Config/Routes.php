@@ -41,7 +41,13 @@ $routes->get('/logout', 'UserController::logout');
 $routes->get('/verify/(:any)', 'UserController::verifyEmail/$1');
 $routes->post('/saveToken', 'UserController::saveToken');
 
+$routes->get('/admin-login', 'AdminController::login');
+$routes->post('/adminloginAuth', 'AdminController::loginAuth');
+$routes->get('/admin-logout', 'AdminController::logout');
 
+$routes->get('/staff-login', 'StaffController::login');
+$routes->post('/staffloginAuth', 'StaffController::loginAuth');
+$routes->get('/staff-logout', 'StaffController::logout');
 
 
 $routes->get('/staff-hotel', 'StaffController::home',['filter' => 'staffGuard']);

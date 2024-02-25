@@ -12,7 +12,7 @@ class RoomModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = [ 'RoomNumber', 'RoomType', 'Description', 'PricePerNight', 'AvailabilityStatus', 'Image' ];
+    protected $allowedFields    = [ 'RoomNumber', 'RoomType', 'Description', 'PricePerNight','minPerson','maxPerson', 'AvailabilityStatus', 'Image' ];
 
     // Dates
     protected $useTimestamps = false;

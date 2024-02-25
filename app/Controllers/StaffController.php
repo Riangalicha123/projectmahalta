@@ -3,27 +3,160 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\UserModel;
 use App\Models\RoomModel;
 use App\Models\TableModel;
 use App\Models\EventModel;
+use App\Models\UserModel;
+use App\Models\UserRoleModel;
+use App\Models\StaffDetailModel;
+use App\Models\DepartmentModel;
+use App\Models\AdminModel;
 use App\Models\ReservationModel;
+use App\Models\RegionModel;
+use App\Models\ProvinceModel;
+use App\Models\CityModel;
+use App\Models\BarangayModel;
+use App\Traits\EmailTrait;
+use CodeIgniter\API\ResponseTrait;
 
 class StaffController extends BaseController
 {
-    private $users;
+    use ResponseTrait;
+    use EmailTrait;
     private $rooms;
     private $tables;
     private $events;
+    private $users;
+    private $usersrole;
+    private $staffDetail;
+    private $department;
+    private $admin;
     private $reservation;
+    private $regions;
+    private $province;
+    private $cities;
+    private $barangay;
 
     function __construct(){
         helper(['form']);
-        $this->users = new UserModel();
         $this->rooms = new RoomModel();
         $this->tables = new TableModel();
         $this->events = new EventModel();
+        $this->users = new UserModel();
+        $this->usersrole = new UserRoleModel();
+        $this->staffDetail = new StaffDetailModel();
+        $this->department = new DepartmentModel();
+        $this->admin = new AdminModel();
         $this->reservation = new ReservationModel();
+        $this->regions = new RegionModel();
+        $this->province = new ProvinceModel();
+        $this->cities = new CityModel();
+        $this->barangay = new BarangayModel();
+    }
+    public function login(){
+        helper(['form']);
+        $data = [
+            'activePage' => 'StaffLogin',
+        ];
+        return view('StaffLogin',$data);
+    }
+    public function LoginAuth()
+    {
+        $session = session();
+        $email = $this->request->getVar('Email');
+        $password = $this->request->getVar('Password');
+
+        // Retrieve user data from the database based on the provided email
+        $data = $this->users->where('Email', $email)->first();
+
+        if ($data) {
+            // Verify the provided password against the hashed password in the database
+            $pass = $data['Password'];
+            $authenticatedPassword = password_verify($password, $pass);
+    
+            if ($authenticatedPassword) {
+                // Check if user is verified
+                if ($data['is_verified'] == 0) {
+                    // User is not verified, set flash data and redirect to login with error message
+                    $session->setFlashdata('msg', 'Account is not verified. Please check your email.');
+                    return redirect()->to('/login');
+                }
+    
+                // User is verified, proceed with setting session data
+                $ses_data = [
+                    'id' => $data['UserID'],
+                    'username' => $data['Email'],
+                    'firstname' => $data['FirstName'],
+                    'lastname' => $data['LastName'],
+                    'contact' => $data['ContactNumber'],
+                    'isLoggedIn' => true,
+                    'userRole' => $data['UserRoleID'],
+                    'address' => $data['Region'] . ', ' . $data['Province'] . ', ' . $data['City'] . ', ' . $data['Barangay'],
+                ];
+    
+                $session->set($ses_data);
+
+                // Redirect based on user role, staff details, and admin
+                if ($data['UserRoleID'] == 1) {
+                    // Guest role, redirect to home
+                    return redirect()->to('/');
+                } elseif ($data['UserRoleID'] == 2) {
+                    // Staff role, redirect to the appropriate portal
+                    $staffDetails = $this->staffDetail->where('UserID', $data['UserID'])->first();
+
+                    if ($staffDetails) {
+                        // Redirect to the corresponding staff portal based on DepartmentID
+                        switch ($staffDetails['DepartmentID']) {
+                            case 1:
+                                return redirect()->to('/staff-convention');
+                            case 2:
+                                return redirect()->to('/staff-hotel');
+                            case 3:
+                                return redirect()->to('/staff-restaurant');
+                            case 4:
+                                return redirect()->to('/staff-inventory');
+                            default:
+                                // Handle unexpected DepartmentID
+                                return redirect()->to('/stafflogin');
+                        }
+                    } else {
+                        // Handle missing staff details
+                        return redirect()->to('/stafflogin');
+                    }
+                } elseif ($data['UserRoleID'] == 3) {
+                    // Admin role, redirect to admin dashboard
+                    $adminDetails = $this->admin->where('UserID', $data['UserID'])->first();
+
+                    if ($adminDetails) {
+                        // Redirect to the corresponding admin portal based on AdminID
+                        switch ($adminDetails['AdminID']) {
+                            case 1:
+                                return redirect()->to('/admin-dashboard');
+                            default:
+                                // Handle unexpected AdminID
+                                return redirect()->to('/');
+                        }
+                    } else {
+                        // Handle missing admin details
+                        return redirect()->to('/adminlogin');
+                    }
+                }
+            } else {
+                // Incorrect password
+                $session->setFlashdata('msg', 'Password is incorrect');
+                return redirect()->to('/adminlogin');
+            }
+        } else {
+            // Email not found
+            $session->setFlashdata('msg', 'Email does not exist');
+            return redirect()->to('/adminlogin');
+        }
+    }
+    public function logout()
+    {
+        $session = session();
+        $session->destroy(); // Destroy the user's session
+        return redirect()->to('/staff-login'); // Redirect the user to the login page or any other page after logout
     }
     public function index()
     {

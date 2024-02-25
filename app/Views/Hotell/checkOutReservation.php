@@ -43,36 +43,30 @@
     </div>
   </section>
   <!-- END section -->
-  <?php
-            // Retrieve flash messages from session
-            $session = session();
-            $successMessage = $session->getFlashdata('success');
-            ?>
-
-            <!-- Check if there's a success message and display it -->
-            <?php if($successMessage): ?>
-                <div class="alert alert-success">
-                    <?= $successMessage ?>
-                </div>
-            <?php endif; ?>
+  
   <section class="site-section">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
           
           <h2 class="mb-5">Reservation Room Form</h2>
+          <?php if(isset($validation)):?>
+                                        <div class="alert alert-warning">
+                                            <?=$validation->listErrors()?>
+                                        </div>
+                                    <?php endif;?>
           <form action="<?= base_url('/bookroom/addReservation') ?>" method="post">
             <h3 class="mb-5">Guest Details</h3>
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="FirstName">First Name</label>
-                <input type="text" id="FirstName" name="FirstName" class="form-control" required
-                  value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                <input type="text" id="FirstName" name="FirstName" class="form-control"
+                  value="<?= $_SESSION['firstname'] ?? ''; ?>" required>
               </div>
               <div class="col-md-6 form-group">
                 <label for="LastName">Last Name</label>
-                <input type="text" id="LastName" name="LastName" class="form-control" required
-                  value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                <input type="text" id="LastName" name="LastName" class="form-control"
+                  value="<?= $_SESSION['lastname'] ?? ''; ?>" required>
               </div>
             </div>
             <div class="row">
@@ -82,26 +76,64 @@
                   value="<?= $_SESSION['contact'] ?? ''; ?>" required>
               </div>
               <div class="col-md-6 form-group">
-                <label for="Address">Address</label>
-                <input type="text" id="Address" name="Address" class="form-control"
-                  value="<?= $_SESSION['address'] ?? ''; ?>" required>
+                <label for="Region">Region</label>
+                <input type="text" id="Region" name="Region" class="form-control"
+                  value="<?= $_SESSION['region'] ?? ''; ?>" required>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="Province">Province</label>
+                <input type="text" id="Province" name="Province" class="form-control"
+                  value="<?= $_SESSION['province'] ?? ''; ?>" required>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="City">City/Municipality</label>
+                <input type="text" id="City" name="City" class="form-control"
+                  value="<?= $_SESSION['city'] ?? ''; ?>" required>
+              </div>
+              <div class="col-md-6 form-group">
+                <label for="Barangay">Barangay</label>
+                <input type="text" id="Barangay" name="Barangay" class="form-control"
+                  value="<?= $_SESSION['barangay'] ?? ''; ?>" required>
               </div>
             </div>
             <hr>
-            <h3 class="mb-5">Payment Details</h3>
+            <h3 class="mb-3">Payment Details</h3>
+            <p><b>*Note: 20% down payment is required upon reservation.</b></p>
             <div class="row">
-              <img src="/guest/images/qr.JPG" alt="Generic placeholder image" class="img-fluid">
-              <p>Note: The downpayment is 1000 pesos minimum</p>
+              <div class="col-md-6 form-group">
+                <label for=""><h4>Gcash</h4></label>
+                <img src="/guest/images/qr.JPG" alt="Generic placeholder image" class="img-fluid">
+              </div>
+              <div class="col-md-6 form-group">
+                <label for=""><h4>Paymaya</h4></label>
+                <img src="/guest/images/qr.JPG" alt="Generic placeholder image" class="img-fluid">
+              </div>
             </div>
             <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="downorfullPayment">Down Payment or Full Payment</label>
-                <input type="text" id="downorfullPayment" name="downorfullPayment" class="form-control" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="ReferenceNumber">Reference Number</label>
+
+              <div class="col-md-12 form-group">
+              <label for="ReferenceNumber">Reference Number</label>
                 <input type="text" id="ReferenceNumber" name="ReferenceNumber" class="form-control" required>
               </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <label for="downorfullPayment">Down Payment or Full Payment</label>
+                    <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
+                    <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
+        <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+    <?php endif; ?>
+    <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+        <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+    <?php endif; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 form-group">
+              <div class="form-control" id="paymentInputContainer"></div>
+              </div>
+            
             </div>
 
             <div class="row">
@@ -124,6 +156,7 @@
                   <span>
                     Room
                     <?= esc($roomReservationData['roomSelected']['RoomNumber'] ?? '') ?>
+                    <h6><b><?= esc($roomReservationData['roomSelected']['AvailabilityStatus'] ?? '') ?></b></h6>
                   </span>
                 </div>
               </figure>
@@ -136,8 +169,9 @@
                   </a></h5>
                   <p><b>Check-in Date:</b> <?= esc($roomReservationData['reservationData']['CheckInDate'] ?? '') ?></p>
                   <p><b>Check-out Date:</b> <?= esc($roomReservationData['reservationData']['CheckOutDate'] ?? '') ?></p>
-                  <p><b>Number of Guests:</b> <?= esc($roomReservationData['reservationData']['NumberOfGuests'] ?? '') ?></p>
-                  <h5><b>Total Amount: PHP:</b> <?= number_format($roomReservationData['TotalAmount'], 2) ?></h5>
+                  <p>Number of Adults: <?= esc($roomReservationData['reservationData']['Adult'] ?? '') ?></p>
+                  <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
+                  <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
                 <hr>
                 
                 <!-- Add this div at the end of your section, right before the closing </section> tag -->
@@ -192,6 +226,22 @@
 
   <!-- loader -->
   <?php include('inc/loader.php') ?>
+  <script>
+    // Function to update payment input container
+    function updatePaymentInputContainer() {
+        // Get the selected option
+        var selectedOption = document.getElementById("downorfullPayment").value;
+        
+        // Update the paymentInputContainer with the selected value
+        document.getElementById("paymentInputContainer").innerHTML = selectedOption;
+    }
+    
+    // Add event listener to the dropdown
+    document.getElementById("downorfullPayment").addEventListener("change", updatePaymentInputContainer);
+    
+    // Initially call the function to populate the container with the default selected value
+    updatePaymentInputContainer();
+</script>
   <script>
   // Function to show a message in the message container
 function showMessage(message, type) {
