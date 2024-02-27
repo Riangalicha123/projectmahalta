@@ -111,6 +111,7 @@
                     <div class="overlap-text">
                       <span>
                       Room<?=$room['RoomNumber']?> 
+                      <h6><b><?= $room['AvailabilityStatus'] ?></b></h6>
                         <!-- <span class="ion-ios-star"></span>
                         <span class="ion-ios-star"></span>
                         <span class="ion-ios-star"></span> -->
@@ -120,11 +121,15 @@
                   <div class="media-body">
                     <h3 class="mt-0"><a href="#"><?=$room['RoomType']?></a></h3>
                     <h5 class="mt-0"><a href="#">PHP <?=$room['PricePerNight']?>/ Night</a></h5>
+                    <ul class="room-specs">
+                                      <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
+                                      <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
+                                    </ul>
                       <!-- Add this div at the end of your section, right before the closing </section> tag -->
                       <div class="row additionalDetails" style="display:none;">
                         <!-- Additional details content goes here -->
                         <p><?=$room['Description']?></p>
-                        <p><b><?=$room['AvailabilityStatus']?></b></p>
+                        
                         <p><b>• ROOM INCLUSIONS</b></p>
                         <p>-Complimentary Breakfast(Plated Service)</p>
                         <p>-Free Flow or Brewed Coffee</p>
