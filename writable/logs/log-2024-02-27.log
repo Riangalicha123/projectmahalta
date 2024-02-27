@@ -85,3 +85,38 @@ in APPPATH\Controllers\GuestController.php on line 476.
  5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-27 22:01:12 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 333.
+ 1 APPPATH\Controllers\GuestController.php(333): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 333)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-27 22:01:15 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 133.
+ 1 APPPATH\Controllers\GuestController.php(133): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 133)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-27 22:37:25 --> Too few arguments to function App\Controllers\GuestController::prepareEmailMessage(), 1 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 426 and exactly 2 expected
+in APPPATH\Controllers\GuestController.php on line 453.
+ 1 APPPATH\Controllers\GuestController.php(426): App\Controllers\GuestController->prepareEmailMessage([...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-27 22:52:19 --> Cannot access offset of type string on string
+in APPPATH\Controllers\GuestController.php on line 477.
+ 1 APPPATH\Controllers\GuestController.php(426): App\Controllers\GuestController->prepareEmailMessage([...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-27 23:09:56 --> Maximum execution time of 60 seconds exceeded
+in SYSTEMPATH\Debug\Exceptions.php on line 194.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()

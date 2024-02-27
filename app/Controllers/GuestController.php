@@ -351,138 +351,136 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
     }
     
     
-
     public function addReservation()
     {
         helper(['form']);
         $session = session();
+        $validationRules = [
+            'PaymentOption' => 'required|in_list[gcash,paymaya]',
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+        $validationMessages = [
+            'PaymentOption' => [
+                'required' => 'Please select a payment option.',
+                'in_list' => 'Invalid payment option selected.'
+            ],
+            'Image' => [
+                'uploaded' => 'Please upload an image for proof.',
+                'max_size' => 'The image size exceeds the maximum allowed size of 10MB.',
+                'ext_in' => 'Only PNG, JPG, and GIF files are allowed for proof.'
+            ],
+            'ReferenceNumberPaymaya' => [
+                'required' => 'The Paymaya reference number is required.',
+                'regex_match' => 'The Paymaya must start with "CA" followed by 12 alphanumeric characters.'
+            ],
+            'ReferenceNumberGcash' => [
+                'required' => 'The Gcash reference number is required.',
+                'numeric' => 'The Gcash reference number must be numeric.',
+                'exact_length[13]' => 'The Gcash reference number must be exactly 13 characters long.'
+            ],
+        ];
     
-// Validation Rules
-$validationRules = [
-    'PaymentOption' => 'required|in_list[gcash,paymaya]',
-];
-
-// Set Custom Error Messages
-$validationMessages = [
-    'PaymentOption' => [
-        'required' => 'Please select a payment option.',
-        'in_list' => 'Invalid payment option selected.'
-    ],
-    // Custom error message for Paymaya reference number
-    'ReferenceNumberPaymaya' => [
-        'required' => 'The Paymaya reference number is required.',
-        'regex_match' => 'The Paymaya must start with "CA" followed by 12 alphanumeric characters.'
-    ],
-    // Custom error message for Gcash reference number
-    'ReferenceNumberGcash' => [
-        'required' => 'The Gcash reference number is required.',
-        'numeric' => 'The Gcash reference number must be numeric.',
-        'exact_length[13]' => 'The Gcash reference number must be exactly 13 characters long.'
-    ],
-];
-
-// Dynamically add validation rules for reference numbers based on the selected payment option
-$paymentOption = $this->request->getPost('PaymentOption');
-if ($paymentOption === 'paymaya') {
-    $validationRules['ReferenceNumberPaymaya'] = 'required|regex_match[/^CA\d{12}$/]';
-    unset($validationRules['ReferenceNumberGcash']); // Remove Gcash validation rule
-} elseif ($paymentOption === 'gcash') {
-    $validationRules['ReferenceNumberGcash'] = 'required|numeric|exact_length[13]';
-    unset($validationRules['ReferenceNumberPaymaya']); // Remove Paymaya validation rule
-}
-
-        // Applying Validation Rules and Messages
         if ($this->validate($validationRules, $validationMessages)) {
-            // Retrieve Post Data
             $FirstName = $this->request->getPost('FirstName');
             $LastName = $this->request->getPost('LastName');
             $ContactNumber = $this->request->getPost('ContactNumber');
             $Address = $this->request->getPost('Address');
-            $email = $session->get('username'); // Assuming 'username' is the email in the session
-    
-            // Use a single query to get the user based on both first name and last name
+            $email = $session->get('username');
             $user = $this->users->where('FirstName', $FirstName)
                                 ->where('LastName', $LastName)
                                 ->where('ContactNumber', $ContactNumber)
                                 ->first();
-    
-            // Retrieve Room Data from Session
             $roomSelected = session()->get('roomSelected');
-    
-            // Retrieve Reservation Data from Session
             $reservationData = session()->get('reservationData');
-    
-            // Retrieve TotalAmount from Session
             $TotalAmount = session()->get('roomReservationData')['TotalAmount'];
-    
             $paymentOption = $this->request->getPost('PaymentOption');
             $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
-    
-            // Check if the retrieved sessions are not empty
             if ($roomSelected && $reservationData && $user && $TotalAmount) {
-                // Prepare Reservation Data
-                $newReservationData = [
-                    'CheckInDate' => $reservationData['CheckInDate'],
-                    'CheckOutDate' => $reservationData['CheckOutDate'],
-                    'Adult' => $reservationData['Adult'],
-                    'Child' => $reservationData['Child'],
-                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                    'ReferenceNumber' => $referenceNumber,
-                    'PaymentOption' => $paymentOption,
-                    'Status' => 'Pending',
-                    'RoomID' => $roomSelected['RoomID'], // Use the RoomID from roomSelected
-                    'UserID' => $user['UserID'],
-                    'TotalAmount' => $TotalAmount, 
-                ];
+                if ($image = $this->request->getFile('Image')) {
+                    $newFileName = $image->getRandomName();
+                    if ($image->isValid() && !$image->hasMoved()) {
+                        $image->move(FCPATH .'proof/', $newFileName);
+                        $newReservationData = [
+                            'CheckInDate' => $reservationData['CheckInDate'],
+                            'CheckOutDate' => $reservationData['CheckOutDate'],
+                            'Adult' => $reservationData['Adult'],
+                            'Child' => $reservationData['Child'],
+                            'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                            'ReferenceNumber' => $referenceNumber,
+                            'PaymentOption' => $paymentOption,
+                            'Status' => 'Pending',
+                            'RoomID' => $roomSelected['RoomID'],
+                            'UserID' => $user['UserID'],
+                            'TotalAmount' => $TotalAmount,
+                            'Image' => $newFileName
+                        ];
     
-                // Insert Reservation
-                $inserted = $this->reservation->insert($newReservationData);
+                        // Insert reservation data into database
+                        $inserted = $this->reservation->insert($newReservationData);
     
-                // Update Room AvailabilityStatus if the RoomType is available
-                if ($inserted && $roomSelected['AvailabilityStatus'] === 'Available') {
-                    $this->rooms->update($roomSelected['RoomID'], ['AvailabilityStatus' => 'Not Available']);
-                }
+                        if ($inserted && $roomSelected['AvailabilityStatus'] === 'Available') {
+                            $this->rooms->update($roomSelected['RoomID'], ['AvailabilityStatus' => 'Not Available']);
+                        }
     
-                // Redirect with appropriate message
-                if ($inserted) {
-                    $emailMessage = $this->prepareEmailMessage($newReservationData);
-                    $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
-                    $fcmToken = $user['fcm_token'];
-                    if (!empty($fcmToken)) {
-                        $notifTitle = 'Reservation Confirmation';
-                        $notifBody = 'Your reservation has been successfully added.';
-                        $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                        if ($inserted) {
+                            $emailMessage = $this->prepareEmailMessage($newReservationData);
+                            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                            $fcmToken = $user['fcm_token'];
+                            if (!empty($fcmToken)) {
+                                $notifTitle = 'Reservation Confirmation';
+                                $notifBody = 'Your reservation has been successfully added.';
+                                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                            }
+                            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                            return redirect()->to('/room');
+                        } else {
+                            return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                        }
+                    } else {
+                        return redirect()->to(base_url('/u'))->with('error', 'Failed to upload image. Please try again.');
                     }
-                    $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                    return redirect()->to('/room');
                 } else {
-                    return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                    return redirect()->to(base_url('/u'))->with('error', 'Please upload an image.');
                 }
             } else {
                 return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
             }
         } else {
-            // If validation fails, pass the validation errors to the view
             $newReservationData['validation'] = $this->validator;
             return view('Hotell/checkOutReservation', $newReservationData);
         }
     }
-    
     private function prepareEmailMessage(array $reservationData): string
-{
-    // Customize this message with the actual reservation details
-    $message = "Dear customer,<br><br>";
-    $message .= "Your reservation has been successfully made with the following details:<br>";
-    $message .= "Check-in Date: {$reservationData['CheckInDate']}<br>";
-    $message .= "Check-out Date: {$reservationData['CheckOutDate']}<br>";
-    $message .= "Number of Adults: {$reservationData['Adult']}<br>";
-    $message .= "Number of Childs: {$reservationData['Child']}<br>";
-    $message .= "Total Amount: {$reservationData['TotalAmount']}<br>";
-    $message .= "<br>We look forward to hosting you.<br>";
+    {
+        // Extract reservation details from the $reservationData array
+        $checkInDate = $reservationData['CheckInDate'];
+        $checkOutDate = $reservationData['CheckOutDate'];
+        $adults = $reservationData['Adult'];
+        $children = $reservationData['Child'];
+        $newFileName = $reservationData['Image'];
+        $downorfullPayment = $reservationData['downorfullPayment'];
+        $paymentOption = $reservationData['PaymentOption'];
+        $referenceNumber = $reservationData['ReferenceNumber'];
+        $totalAmount = $reservationData['TotalAmount'];
     
+        // Customize this message with the actual reservation details
+        $message = "Dear customer,<br><br>";
+        $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Check-in Date: {$checkInDate}<br>";
+        $message .= "Check-out Date: {$checkOutDate}<br>";
+        $message .= "Number of Adults: {$adults}<br>";
+        $message .= "Number of Children: {$children}<br>";
+        $message .= "Payment Option: {$paymentOption}<br>";
+        $message .= "Down or Full Payment: {$downorfullPayment}<br>";
+        $message .= "Reference Number: {$referenceNumber}<br>";
+        $message .= "Rate Amount: {$totalAmount}<br>";
+        $message .= "Proof of Payment: <img src='" . base_url('/proof/' . $newFileName) . "' alt='Proof of Payment'><br>"; // Assuming the images are stored in the 'proof' directory
     
-    return $message;
-}
+        $message .= "<br>We look forward to hosting you.<br>";
+    
+        return $message;
+    }
+    
 protected function sendPushNotification($fcmToken, $title, $body) {
     $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
 

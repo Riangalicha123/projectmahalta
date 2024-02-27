@@ -55,7 +55,7 @@
                                             <?=$validation->listErrors()?>
                                         </div>
                                     <?php endif;?>
-          <form action="<?= base_url('/bookroom/addReservation') ?>" method="post">
+          <form action="<?= base_url('/bookroom/addReservation') ?>" method="post" enctype="multipart/form-data">
             <h3 class="mb-5">Guest Details</h3>
             <div class="row">
               <div class="col-md-6 form-group">
@@ -139,11 +139,11 @@
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
                     <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
                     <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
-        <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
-    <?php endif; ?>
-    <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
-        <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
-    <?php endif; ?>
+                        <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+                    <?php endif; ?>
+                    <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+                        <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+                    <?php endif; ?>
                     </select>
                 </div>
             </div>
@@ -151,9 +151,13 @@
               <div class="col-md-12 form-group">
               <div class="form-control" id="paymentInputContainer"></div>
               </div>
-            
             </div>
-
+            <div class="row">
+            <div class="col-md-12 form-group">
+                <label for="Image">Proof</label>
+                <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+            </div>
+            </div>
             <div class="row">
               <div class="col-md-6 form-group">
                 <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
