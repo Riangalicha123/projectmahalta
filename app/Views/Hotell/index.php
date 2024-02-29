@@ -31,15 +31,8 @@
 
             <div class="mb-5 element-animate">
             <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent;">
-        Welcome to Mahalta Resort and Convention Center
-    </h1>
-              <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
-              <?php if(session()->get('isLoggedIn')): ?>
-                <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary"style="border-radius: 20px;">Book Now</a></p>
-                <?php else: ?>
-                  <p><a href="<?= route_to('login') ?>" class="btn btn-primary"style="border-radius: 20px;">Book Now</a></p>
-                <?php endif; ?>
-              
+            Welcome to Mahalta Resort and Convention Center
+            </h1>
             </div>
 
           </div>

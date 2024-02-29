@@ -349,8 +349,6 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
     
         return view('Hotell\checkOutReservation', $data);
     }
-    
-    
     public function addReservation()
     {
         helper(['form']);
@@ -379,7 +377,6 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
                 'exact_length[13]' => 'The Gcash reference number must be exactly 13 characters long.'
             ],
         ];
-    
         if ($this->validate($validationRules, $validationMessages)) {
             $FirstName = $this->request->getPost('FirstName');
             $LastName = $this->request->getPost('LastName');
@@ -400,9 +397,17 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
                     $newFileName = $image->getRandomName();
                     if ($image->isValid() && !$image->hasMoved()) {
                         $image->move(FCPATH .'proof/', $newFileName);
+                        // Define the desired times for CheckInDate and CheckOutDate
+                        $checkInTime = '14:00:00'; // 2:00 PM
+                        $checkOutTime = '12:00:00'; // 12:00 PM
+                        
+                        // Concatenate the times with the date strings
+                        $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
+                        $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
+                        
                         $newReservationData = [
-                            'CheckInDate' => $reservationData['CheckInDate'],
-                            'CheckOutDate' => $reservationData['CheckOutDate'],
+                            'CheckInDate' => $checkInDateTime,
+                            'CheckOutDate' => $checkOutDateTime,
                             'Adult' => $reservationData['Adult'],
                             'Child' => $reservationData['Child'],
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
@@ -414,14 +419,11 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
                             'TotalAmount' => $TotalAmount,
                             'Image' => $newFileName
                         ];
-    
-                        // Insert reservation data into database
                         $inserted = $this->reservation->insert($newReservationData);
-    
+        
                         if ($inserted && $roomSelected['AvailabilityStatus'] === 'Available') {
                             $this->rooms->update($roomSelected['RoomID'], ['AvailabilityStatus' => 'Not Available']);
                         }
-    
                         if ($inserted) {
                             $emailMessage = $this->prepareEmailMessage($newReservationData);
                             $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
@@ -450,9 +452,9 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
             return view('Hotell/checkOutReservation', $newReservationData);
         }
     }
+    
     private function prepareEmailMessage(array $reservationData): string
     {
-        // Extract reservation details from the $reservationData array
         $checkInDate = $reservationData['CheckInDate'];
         $checkOutDate = $reservationData['CheckOutDate'];
         $adults = $reservationData['Adult'];
@@ -463,7 +465,6 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $referenceNumber = $reservationData['ReferenceNumber'];
         $totalAmount = $reservationData['TotalAmount'];
     
-        // Customize this message with the actual reservation details
         $message = "Dear customer,<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
         $message .= "Check-in Date: {$checkInDate}<br>";
@@ -474,16 +475,13 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= "Proof of Payment: <img src='" . base_url('/proof/' . $newFileName) . "' alt='Proof of Payment'><br>"; // Assuming the images are stored in the 'proof' directory
-    
+        $message .= "Proof of Payment: <img src='" . base_url('/proof/' . $newFileName) . "' alt='Proof of Payment'><br>"; 
         $message .= "<br>We look forward to hosting you.<br>";
     
         return $message;
     }
-    
 protected function sendPushNotification($fcmToken, $title, $body) {
     $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-
     $postData = [
         'to' => $fcmToken,
         'notification' => [
@@ -491,12 +489,10 @@ protected function sendPushNotification($fcmToken, $title, $body) {
             'body' => $body,
         ],
     ];
-
     $headers = [
         'Authorization: key=' . $firebaseServerKey,
         'Content-Type: application/json',
     ];
-
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
     curl_setopt($ch, CURLOPT_POST, true);
@@ -506,11 +502,7 @@ protected function sendPushNotification($fcmToken, $title, $body) {
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
     $result = curl_exec($ch);
     curl_close($ch);
-
-    // Log or handle the response as needed
 }
-    
-    
     public function tableReservation(){
         helper(['form']);
         $validationRules = [

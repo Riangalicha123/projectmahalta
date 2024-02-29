@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="/guest/css/style.css">
   </head>
   <body>
-    
+  
   <?php include('include/header.php') ?>
     <!-- END header -->
     
@@ -31,8 +31,7 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-              <h1>Reservation</h1>
-              <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
+              <h1>Room Reservation</h1>
             </div>
 
           </div>

@@ -58,6 +58,19 @@
       <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
         <div class="container" >
             <div class="row">
+            <div class="col-md-12">
+  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+    <div class="card-header text-center">Estimated Check In and Out Time</div>
+    <div style="display: flex; flex-wrap: wrap;">
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Check In Time: 2:00 PM</p>
+      </div>
+      <div style="flex: 0 0 50%; margin-bottom: 10px;">
+        <p style="font-size: 1.2em;">Check Out Time: 12:00 PM</p>
+      </div>
+    </div>
+  </div>
+</div>
                 <div class="col-sm-12">
                     <div class="media d-block room mb-0">
                         <div class="media-body">
@@ -317,18 +330,35 @@
   });
 </script>
 <script>
-// Get current date
-var today = new Date();
+document.addEventListener('DOMContentLoaded', function() {
+    // Get current date
+    var today = new Date();
 
-// Set Arrival Date to today
-var arrivalDateInput = document.getElementById('CheckInDate');
-arrivalDateInput.valueAsDate = today;
+    // Set Arrival Date to today
+    var arrivalDateInput = document.getElementById('CheckInDate');
+    arrivalDateInput.valueAsDate = today;
 
-// Set Departure Date to tomorrow
-var tomorrow = new Date(today);
-tomorrow.setDate(today.getDate() + 1);
-var departureDateInput = document.getElementById('CheckOutDate');
-departureDateInput.valueAsDate = tomorrow;
+    // Set Departure Date to tomorrow
+    var tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    var departureDateInput = document.getElementById('CheckOutDate');
+    departureDateInput.valueAsDate = tomorrow;
+
+    // Disable past dates in date picker
+    var currentDate = new Date().toISOString().split('T')[0];
+    document.getElementById("CheckInDate").setAttribute("min", currentDate);
+    document.getElementById("CheckOutDate").setAttribute("min", currentDate);
+
+    // Add event listener to check-in date picker
+    arrivalDateInput.addEventListener('change', function() {
+        // Disable past dates in check-out date picker based on selected check-in date
+        var selectedDate = new Date(arrivalDateInput.value);
+        var nextDay = new Date(selectedDate);
+        nextDay.setDate(selectedDate.getDate() + 1);
+        var minDate = nextDay.toISOString().split('T')[0];
+        document.getElementById("CheckOutDate").setAttribute("min", minDate);
+    });
+});
 </script>
 
     <script src="/guest/js/jquery-3.2.1.min.js"></script>

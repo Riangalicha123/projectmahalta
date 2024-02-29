@@ -24,7 +24,7 @@
 
 <body>
 
-  <?php include('inc/header.php') ?>
+  <?php include('include/header.php') ?>
   <!-- END header -->
 
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
@@ -34,7 +34,7 @@
         <div class="col-md-12 text-center">
 
           <div class="mb-5 element-animate">
-            <h1>Reservation</h1>
+            <h1>Room Reservation</h1>
             <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
           </div>
 
@@ -243,11 +243,11 @@
 
   <!-- END section -->
 
-  <?php include('inc/footer.php') ?>
+  <?php include('include/footer.php') ?>
   <!-- END footer -->
 
   <!-- loader -->
-  <?php include('inc/loader.php') ?>
+  <?php include('include/loader.php') ?>
   <script>
 function showQR(option) {
   if (option === 'gcash') {
