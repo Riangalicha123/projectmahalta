@@ -114,7 +114,6 @@
   </div>
 </div>
 
-
 <div class="col-md-6">
   <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div class="card-header text-center">Buffet Service</div>
@@ -136,6 +135,7 @@
 </div>
  </div>
 </div>
+
 
 
 
@@ -229,7 +229,113 @@
         </div>
       </div>
     </section>
-   
+
+    
+    <section style="max-width: 1450px;  background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <div class="menu-title">
+      <h1>Restaurant Menu</h1>
+    </div>
+
+    <div class="category-buttons" style="margin-top: 20px; text-align: center;">
+    <button onclick="showCategory('desserts')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Desserts</button>
+    <button onclick="showCategory('breakfast')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
+    <button onclick="showCategory('lunch')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Lunch</button>
+    <button onclick="showCategory('dinner')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Dinner</button>
+    <button onclick="showCategory('drinks')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Drinks</button>
+</div>
+
+    <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
+    <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Desserts</h2>
+
+    <div class="row">
+        <!-- Dessert 1 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+            <img src="dessert1.jpg" alt="Dessert 1" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Chocolate Cake</h3>
+                <p>Decadent chocolate cake served with a scoop of vanilla ice cream.</p>
+                <p>Price: $8.99</p>
+            </div>
+        </div>
+
+        <!-- Dessert 2 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+            <img src="dessert2.jpg" alt="Dessert 2" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Strawberry Cheesecake</h3>
+                <p>Delicious strawberry cheesecake topped with fresh strawberries.</p>
+                <p>Price: $9.99</p>
+            </div>
+        </div>
+
+        <!-- Dessert 3 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+            <img src="dessert3.jpg" alt="Dessert 3" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Vanilla Cupcake</h3>
+                <p>Classic vanilla cupcake topped with buttercream frosting.</p>
+                <p>Price: $5.99</p>
+            </div>
+        </div>
+
+        <!-- Add more dessert items as needed -->
+
+    </div>
+
+    <!-- Repeat the structure for other rows if you have more items -->
+
+</div>
+
+
+    <!-- Add more dessert items as needed -->
+</div>
+
+<div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
+    <h2 style="color: #333; margin-bottom: 10px;">Breakfast</h2>
+
+    <div class="row">
+        <!-- Breakfast Item 1 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+            <img src="breakfast1.jpg" alt="Breakfast 1" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Classic Pancakes</h3>
+                <p>Fluffy pancakes served with maple syrup and fresh berries.</p>
+                <p>Price: $6.99</p>
+            </div>
+        </div>
+
+        <!-- Breakfast Item 2 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+            <img src="breakfast2.jpg" alt="Breakfast 2" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Blueberry Waffles</h3>
+                <p>Waffles topped with fresh blueberries and whipped cream.</p>
+                <p>Price: $8.99</p>
+            </div>
+        </div>
+
+        <!-- Breakfast Item 3 -->
+        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+            <img src="breakfast3.jpg" alt="Breakfast 3" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
+            <div style="flex-grow: 1;">
+                <h3 style="margin-top: 0;">Avocado Toast</h3>
+                <p>Avocado spread on toasted bread with poached eggs.</p>
+                <p>Price: $7.99</p>
+            </div>
+        </div>
+
+        <!-- Add more breakfast items as needed -->
+
+    </div>
+
+    <!-- Repeat the structure for other rows if you have more items -->
+
+</div>
+
+
+    <!-- Repeat the structure for lunch, drinks, and dinner categories -->
+
+  </section>
    
 
     <?php include('inc/chat.php') ?>
