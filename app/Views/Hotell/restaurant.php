@@ -35,14 +35,19 @@
               <h1>Restaurant</h1>
                <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
-            <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            
+            <div class="row mt-4">
+    <div class="col-md-6">
+  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
   <div class="card-header text-center">À la Carte Service</div>
     <div style="flex: 0 0 50%; margin-bottom: 10px;">
         <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
       </div>
   </div>
 </div>
-<div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+<div class="col-md-6">
+  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
     <div class="card-header text-center">Buffet Service</div>
     <div style="display: flex; flex-wrap: wrap;">
       <div style="flex: 0 0 50%; margin-bottom: 10px;">
@@ -59,6 +64,9 @@
       </div>
     </div>
   </div>
+</div>
+ </div>
+</div>
           </div>
         </div>
       </div>
@@ -115,10 +123,10 @@
       </div>
     </section>
     
-  <div class="container" >
+ <!--  <div class="container" >
     <div class="row mb-5">
-      <!-- Add any additional content or elements for the row if needed -->
-    </div>
+      
+    </div> -->
 
     <!-- <div class="row">
       <div class="col-md-12 text-center">
