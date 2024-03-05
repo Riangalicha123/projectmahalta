@@ -20,75 +20,62 @@
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
-    
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-
             <div class="mb-5 element-animate">
               <h1>Restaurant</h1>
                <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
-            
             <div class="row mt-4">
-    <div class="col-md-6">
-  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-  <div class="card-header text-center">À la Carte Service</div>
-    <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
-      </div>
-  </div>
-</div>
+                <div class="col-md-6">
+              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card-header text-center">À la Carte Service</div>
+                <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                    <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
+                  </div>
+              </div>
+            </div>
 
-<div class="col-md-6">
-  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <div class="card-header text-center">Buffet Service</div>
-    <div style="display: flex; flex-wrap: wrap;">
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Friday-Saturday</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Breakfast: 7:00 AM - 10:00 AM</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Lunch: 12:00 PM - 3:00 PM</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Dinner: 6:30 PM - 9:00 PM</p>
-      </div>
-    </div>
-  </div>
-</div>
- </div>
-</div>
+            <div class="col-md-6">
+              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <div class="card-header text-center">Buffet Service</div>
+                <div style="display: flex; flex-wrap: wrap;">
+                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                    <p style="font-size: 1.2em;">Friday-Saturday</p>
+                  </div>
+                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                    <p style="font-size: 1.2em;">Breakfast: 7:00 AM - 10:00 AM</p>
+                  </div>
+                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                    <p style="font-size: 1.2em;">Lunch: 12:00 PM - 3:00 PM</p>
+                  </div>
+                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                    <p style="font-size: 1.2em;">Dinner: 6:30 PM - 9:00 PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <!-- END section -->
-
-
     <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
       <div class="container">
         <div class="row mb-5">
-          
         </div>
         <div class="row ">
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
                 <img src="/guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
-                
               </figure>
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Dining</a></h3>
-                
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p><a href="<?= route_to('booknow') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
@@ -96,80 +83,23 @@
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/cafe.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Cafe 
-                    
+                    Cafe
                   </span>
-                  
                 </div>
-              <!-- </figure> -->
             </a>
-
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Cafe 
-                    
+                    Cafe
                   </span>
                 </div>
-              <!-- </figure> -->
             </a>
-            
           </div>
         </div>
       </div>
     </section>
-    
- <!--  <div class="container" >
-    <div class="row mb-5">
-      
-    </div> -->
-
-    <!-- <div class="row">
-      <div class="col-md-12 text-center">
-        <h2 class="section-heading text-white">Delightful Dining Experience</h2>
-        <p class="text-white">Join us for an exquisite culinary journey.</p>
-      </div>
-    </div> -->
-
-<!--     <div class="row mt-4">
-    <div class="col-md-6">
-  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-  <div class="card-header text-center">À la Carte Service</div>
-    <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
-      </div>
-  </div>
-</div>
-
-<div class="col-md-6">
-  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <div class="card-header text-center">Buffet Service</div>
-    <div style="display: flex; flex-wrap: wrap;">
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Friday-Saturday</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Breakfast: 7:00 AM - 10:00 AM</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Lunch: 12:00 PM - 3:00 PM</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Dinner: 6:30 PM - 9:00 PM</p>
-      </div>
-    </div>
-  </div>
-</div>
- </div>
-</div> -->
-
-
-
-
 
     <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">
@@ -262,109 +192,205 @@
     </section>
 
     
-    <section style="max-width: 1450px;  background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <section  class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
 
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-    <button onclick="showCategory('desserts')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Desserts</button>
-    <button onclick="showCategory('breakfast')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
-    <button onclick="showCategory('lunch')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Lunch</button>
-    <button onclick="showCategory('dinner')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Dinner</button>
-    <button onclick="showCategory('drinks')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Drinks</button>
-</div>
-
-    <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-    <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Desserts</h2>
-
-    <div class="row">
-        <!-- Dessert 1 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-            <img src="dessert1.jpg" alt="Dessert 1" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Chocolate Cake</h3>
-                <p>Decadent chocolate cake served with a scoop of vanilla ice cream.</p>
-                <p>Price: $8.99</p>
+      <button onclick="showCategory('barmenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">BAR MENU</button>
+      <button onclick="showCategory('cafemenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">CAFE MENU</button>
+    </div>
+      <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
+        <h1 style="color: #333; margin-bottom: 10px;">BAR MENU</h1>
+        
+        <div class="row">
+        
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Cocktails</h2>
+            <?php foreach ($cocktails as $cocktail): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$cocktail['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$cocktail['CocktailsName']?></h3>
+                    <p>Php<?=$cocktail['CocktailsPrice']?></p>
+                </div>
             </div>
+          <!-- Repeat the structure for other rows if you have more items -->
+          <?php endforeach; ?>
         </div>
-
-        <!-- Dessert 2 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-            <img src="dessert2.jpg" alt="Dessert 2" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Strawberry Cheesecake</h3>
-                <p>Delicious strawberry cheesecake topped with fresh strawberries.</p>
-                <p>Price: $9.99</p>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Mocktails</h2>
+            <?php foreach ($mocktails as $mocktail): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$mocktail['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$mocktail['MocktailsName']?></h3>
+                    <p>Php<?=$mocktail['MocktailsPrice']?></p>
+                </div>
             </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
         </div>
-
-        <!-- Dessert 3 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-            <img src="dessert3.jpg" alt="Dessert 3" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Vanilla Cupcake</h3>
-                <p>Classic vanilla cupcake topped with buttercream frosting.</p>
-                <p>Price: $5.99</p>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Shooters</h2>
+            <?php foreach ($shooters as $shooter): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$shooter['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$shooter['ShootersName']?></h3>
+                    <p>Php<?=$shooter['ShootersPrice']?></p>
+                </div>
             </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
         </div>
-
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Towers (3L)</h2>
+            <?php foreach ($towers as $tower): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$tower['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$tower['TowerName']?></h3>
+                    <p>Php<?=$tower['TowerPrice']?></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Juices</h2>
+            <?php foreach ($juices as $juice): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$juice['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$juice['JuicesName']?></h3>
+                    <p>Php<?=$juice['JuicesPrice']?></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Shakes</h2>
+            <?php foreach ($shakes as $shake): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$shake['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$shake['ShakesName']?></h3>
+                    <p>Php<?=$shake['ShakesPrice']?></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Liquors</h2>
+            <?php foreach ($liquors as $liquor): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$liquor['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$liquor['LiquorsName']?></h3>
+                    <p>Php<?=$liquor['LiquorsPrice']?></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Red Wine</h2>
+            <?php foreach ($redwines as $redwine): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$redwine['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$redwine['RedwineName']?></h3>
+                    <p>Php<?=$redwine['RedwinePrice']?></p>
+                </div>
+            </div>
+            <?php endforeach; ?>
+          <!-- Repeat the structure for other rows if you have more items -->
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Beers</h2>
+            <?php foreach ($beers as $beer): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$beer['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$beer['BeerName']?></h3>
+                    <p>Php<?=$beer['BeerPrice']?></p>
+                </div>
+            </div>
+          <!-- Repeat the structure for other rows if you have more items -->
+          <?php endforeach; ?>
+        </div>
+        <div class="row">
+            <!-- Dessert 1 -->
+            
+            <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Bucket</h2>
+            <?php foreach ($buckets as $bucket): ?>
+            <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                <img src="<?=base_url('/restaurant/'.$bucket['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?=$bucket['BucketName']?></h3>
+                    <p>Php<?=$bucket['BucketPrice']?></p>
+                </div>
+            </div>
+          <!-- Repeat the structure for other rows if you have more items -->
+          <?php endforeach; ?>
+        </div>
+        
+        
         <!-- Add more dessert items as needed -->
-
-    </div>
-
-    <!-- Repeat the structure for other rows if you have more items -->
-
-</div>
-
-
-    <!-- Add more dessert items as needed -->
-</div>
-
-<div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-    <h2 style="color: #333; margin-bottom: 10px;">Breakfast</h2>
-
-    <div class="row">
-        <!-- Breakfast Item 1 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
-            <img src="breakfast1.jpg" alt="Breakfast 1" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Classic Pancakes</h3>
-                <p>Fluffy pancakes served with maple syrup and fresh berries.</p>
-                <p>Price: $6.99</p>
-            </div>
+      </div>
+      <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
+        <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1>
+        <div class="row">
+                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Iced Coffee</h2>
+                <?php foreach ($iced as $ice): ?>
+                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                    <img src="<?=base_url('/restaurant/'.$ice['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                    <div style="flex-grow: 1;">
+                        <h3 style="margin-top: 0;"><?=$ice['IcedName']?></h3>
+                        <p>Tall: Php<?=$ice['IcedPriceTall']?></p>
+                        <p>Grande: Php<?=$ice['IcedPriceGrande']?></p>
+                    </div>
+                </div>
+              <?php endforeach; ?>
         </div>
-
-        <!-- Breakfast Item 2 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
-            <img src="breakfast2.jpg" alt="Breakfast 2" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Blueberry Waffles</h3>
-                <p>Waffles topped with fresh blueberries and whipped cream.</p>
-                <p>Price: $8.99</p>
-            </div>
+        <div class="row">
+                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Hots Coffee</h2>
+                <?php foreach ($hots as $hot): ?>
+                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                    <img src="<?=base_url('/restaurant/'.$hot['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                    <div style="flex-grow: 1;">
+                        <h3 style="margin-top: 0;"><?=$hot['HotName']?></h3>
+                        <p>Php<?=$hot['HotPrice']?></p>
+                    </div>
+                </div>
+              <?php endforeach; ?>
         </div>
-
-        <!-- Breakfast Item 3 -->
-        <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
-            <img src="breakfast3.jpg" alt="Breakfast 3" style="max-width: 100px; max-height: 100px; border-radius: 8px; margin-right: 10px;">
-            <div style="flex-grow: 1;">
-                <h3 style="margin-top: 0;">Avocado Toast</h3>
-                <p>Avocado spread on toasted bread with poached eggs.</p>
-                <p>Price: $7.99</p>
-            </div>
+        <div class="row">
+                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Colds Coffee</h2>
+                <?php foreach ($colds as $cold): ?>
+                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
+                    <img src="<?=base_url('/restaurant/'.$cold['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                    <div style="flex-grow: 1;">
+                        <h3 style="margin-top: 0;"><?=$cold['ColdName']?></h3>
+                        <p>Php<?=$cold['ColdPrice']?></p>
+                    </div>
+                </div>
+              <?php endforeach; ?>
         </div>
-
-        <!-- Add more breakfast items as needed -->
-
-    </div>
-
-    <!-- Repeat the structure for other rows if you have more items -->
-
-</div>
-
-
-    <!-- Repeat the structure for lunch, drinks, and dinner categories -->
+      </div>
 
   </section>
    

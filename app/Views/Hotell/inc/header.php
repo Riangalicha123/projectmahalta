@@ -22,9 +22,14 @@
               <!-- <li class="nav-item ">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Blog') ? 'active' : '' ?> " href="<?= route_to('blog') ?>"style="color: black; font-size: 20px;" >Blog</a>
               </li> -->
-              <li class="nav-item ">
-                <a class="nav-link <?= (isset($activePage) && $activePage === 'Restaurant') ? 'active' : '' ?> " href="<?= route_to('restaurant') ?>"style="color: black; font-size: 20px;" >Restaurant</a>
-              </li>
+              <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Restaurant</a>
+                        <div class="dropdown-menu" aria-labelledbqy="dropdown04">
+                        <a class="dropdown-item" href="<?= route_to('mainmenu') ?>">Main Menu</a>
+                        <a class="dropdown-item" href="<?= route_to('barmenu') ?>">Bar Menu</a>
+                        <a class="dropdown-item" href="<?= route_to('cafemenu') ?>">Cafe Menu</a>
+                        </div>
+                    </li>
               <li class="nav-item ">
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Convention') ? 'active' : '' ?> " href="<?= route_to('convention') ?>"style="color: black; font-size: 20px;" >Convention</a>
               </li>

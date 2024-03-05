@@ -99,27 +99,23 @@
             <hr>
             <h3 class="mb-3">Payment Details</h3>
             <p><b>*Note: 20% down payment is required upon reservation.</b></p>
-            <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="paymentOptionGcash">
-                <h4>Gcash</h4>
-            </label>
-            <input type="radio" id="paymentOptionGcash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" checked>
-        </div>
-        <div class="col-md-6 form-group">
-            <label for="paymentOptionPaymaya">
-                <h4>Paymaya</h4>
-            </label>
-            <input type="radio" id="paymentOptionPaymaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')">
-        </div>
-    </div>
-
-    <!-- QR Code Image -->
+            <?php foreach ($qrcodes as $qr): ?>
     <div class="row">
-        <div class="col-md-12 form-group">
-            <img id="qrImage" src="/guest/images/gcash_qr.jpg" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
+        <div class="col-md-6 form-group">
+            <label for="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>">
+                <h4><?php echo ucfirst($qr['PaymentOption']); ?></h4>
+            </label>
+            <input type="radio" id="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>" name="PaymentOption" value="<?php echo $qr['PaymentOption']; ?>" onclick="showQR('<?php echo $qr['PaymentOption']; ?>')" <?php if ($qr['PaymentOption'] === 'gcash') echo 'checked'; ?>>
         </div>
     </div>
+<?php endforeach; ?>
+
+<!-- QR Code Image -->
+<div class="row">
+    <div class="col-md-12 form-group">
+        <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
+    </div>
+</div>
 
     <!-- Reference Number Fields -->
     <div class="row">
@@ -250,19 +246,22 @@
   <?php include('include/loader.php') ?>
   <script>
 function showQR(option) {
-  if (option === 'gcash') {
-    document.getElementById('qrImage').src = "/guest/images/gcash_qr.jpg";
-    document.getElementById('gcashReferenceDiv').style.display = 'block';
-    document.getElementById('paymayaReferenceDiv').style.display = 'none';
-    document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
-    document.getElementById('paymayaReferenceNumber').removeAttribute('name');
-  } else if (option === 'paymaya') {
-    document.getElementById('qrImage').src = "/guest/images/paymaya_qr.jpg";
-    document.getElementById('gcashReferenceDiv').style.display = 'none';
-    document.getElementById('paymayaReferenceDiv').style.display = 'block';
-    document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
-    document.getElementById('gcashReferenceNumber').removeAttribute('name');
-  }
+    <?php foreach ($qrcodes as $qr): ?>
+        if (option === '<?php echo $qr['PaymentOption']; ?>') {
+            document.getElementById('qrImage').src = "<?=base_url('/qrimage/'.$qr['Image'])?>";
+            <?php if ($qr['PaymentOption'] === 'gcash'): ?>
+                document.getElementById('gcashReferenceDiv').style.display = 'block';
+                document.getElementById('paymayaReferenceDiv').style.display = 'none';
+                document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
+                document.getElementById('paymayaReferenceNumber').removeAttribute('name');
+            <?php elseif ($qr['PaymentOption'] === 'paymaya'): ?>
+                document.getElementById('gcashReferenceDiv').style.display = 'none';
+                document.getElementById('paymayaReferenceDiv').style.display = 'block';
+                document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
+                document.getElementById('gcashReferenceNumber').removeAttribute('name');
+            <?php endif; ?>
+        }
+    <?php endforeach; ?>
 }
 </script>
 

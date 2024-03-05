@@ -133,6 +133,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'qrcode') ? 'active' : '' ?> " href="<?= route_to('admin-qrcode') ?>">
+              <i class=""></i>
+              <p>
+                Manage Qr Code
+              </p>
+            </a>
+          </li>
 
           <hr>
           <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
