@@ -1301,4 +1301,925 @@ class RestaurantController extends BaseController
         return redirect()->to('/admin-restaurant/service');
     }
 
+    public function addBreakfast(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'BreakfastID' => $this->request->getVar('BreakfastID'),
+                'BreakfastName' => $this->request->getVar('BreakfastName'),
+                'BreakfastPrice' => $this->request->getVar('BreakfastPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->breakfasts->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateBreakfast(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'BreakfastID' => $this->request->getVar('BreakfastID'),
+                'BreakfastName' => $this->request->getVar('BreakfastName'),
+                'BreakfastPrice' => $this->request->getVar('BreakfastPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->breakfasts->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addChicken(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'ChickenID' => $this->request->getVar('ChickenID'),
+                'ChickenName' => $this->request->getVar('ChickenName'),
+                'ChickenPrice' => $this->request->getVar('ChickenPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->chickens->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateChicken(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'ChickenID' => $this->request->getVar('ChickenID'),
+                'ChickenName' => $this->request->getVar('ChickenName'),
+                'ChickenPrice' => $this->request->getVar('ChickenPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->chickens->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addPasta(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'PastaID' => $this->request->getVar('PastaID'),
+                'PastaName' => $this->request->getVar('PastaName'),
+                'PastaPrice' => $this->request->getVar('PastaPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->pastas->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updatePasta(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'PastaID' => $this->request->getVar('PastaID'),
+                'PastaName' => $this->request->getVar('PastaName'),
+                'PastaPrice' => $this->request->getVar('PastaPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->pastas->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addSizzling(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SizzlingID' => $this->request->getVar('SizzlingID'),
+                'SizzlingName' => $this->request->getVar('SizzlingName'),
+                'SizzlingPrice' => $this->request->getVar('SizzlingPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->sizzlings->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateSizzling(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SizzlingID' => $this->request->getVar('SizzlingID'),
+                'SizzlingName' => $this->request->getVar('SizzlingName'),
+                'SizzlingPrice' => $this->request->getVar('SizzlingPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->sizzlings->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addPork(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'PorkID' => $this->request->getVar('PorkID'),
+                'PorkName' => $this->request->getVar('PorkName'),
+                'PorkPrice' => $this->request->getVar('PorkPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->porks->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updatePork(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'PorkID' => $this->request->getVar('PorkID'),
+                'PorkName' => $this->request->getVar('PorkName'),
+                'PorkPrice' => $this->request->getVar('PorkPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->porks->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addSoup(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SoupID' => $this->request->getVar('SoupID'),
+                'SoupName' => $this->request->getVar('SoupName'),
+                'SoupPrice' => $this->request->getVar('SoupPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->soups->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateSoup(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SoupID' => $this->request->getVar('SoupID'),
+                'SoupName' => $this->request->getVar('SoupName'),
+                'SoupPrice' => $this->request->getVar('SoupPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->soups->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addVeggies(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'VeggiesID' => $this->request->getVar('VeggiesID'),
+                'VeggiesName' => $this->request->getVar('VeggiesName'),
+                'VeggiesPrice' => $this->request->getVar('VeggiesPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->veggies->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateVeggies(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'VeggiesID' => $this->request->getVar('VeggiesID'),
+                'VeggiesName' => $this->request->getVar('VeggiesName'),
+                'VeggiesPrice' => $this->request->getVar('VeggiesPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->veggies->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addSolomeal(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SolomealID' => $this->request->getVar('SolomealID'),
+                'SolomealName' => $this->request->getVar('SolomealName'),
+                'SolomealPrice' => $this->request->getVar('SolomealPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->solomeals->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateSolomeal(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SolomealID' => $this->request->getVar('SolomealID'),
+                'SolomealName' => $this->request->getVar('SolomealName'),
+                'SolomealPrice' => $this->request->getVar('SolomealPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->solomeals->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addSnack(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SnackID' => $this->request->getVar('SnackID'),
+                'SnackName' => $this->request->getVar('SnackName'),
+                'SnackPrice' => $this->request->getVar('SnackPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->snacks->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateSnack(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SnackID' => $this->request->getVar('SnackID'),
+                'SnackName' => $this->request->getVar('SnackName'),
+                'SnackPrice' => $this->request->getVar('SnackPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->snacks->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function addSeafood(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SeafoodID' => $this->request->getVar('SeafoodID'),
+                'SeafoodName' => $this->request->getVar('SeafoodName'),
+                'SeafoodPrice' => $this->request->getVar('SeafoodPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->seafoods->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+    public function updateSeafood(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'SeafoodID' => $this->request->getVar('SeafoodID'),
+                'SeafoodName' => $this->request->getVar('SeafoodName'),
+                'SeafoodPrice' => $this->request->getVar('SeafoodPrice'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'restaurant/', $newFileName)) {
+                        // Save product data to the database
+                        $this->seafoods->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/admin-restaurant/service');
+    }
+
 }

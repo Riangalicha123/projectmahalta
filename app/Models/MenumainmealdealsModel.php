@@ -7,12 +7,12 @@ use CodeIgniter\Model;
 class MenumainmealdealsModel extends Model
 {
     protected $table            = 'menumainmealdeals';
-    protected $primaryKey       = 'id';
+    protected $primaryKey       = 'MealdealID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['MealdealsName', 'MealdealsPrice', 'Image'];
+    protected $allowedFields    = ['MealdealName', 'MealdealPrice', 'Image'];
 
     // Dates
     protected $useTimestamps = false;
