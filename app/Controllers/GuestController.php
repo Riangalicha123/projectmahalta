@@ -12,34 +12,9 @@ use App\Models\FeedbackModel;
 use App\Models\GuestModel;
 use App\Models\ChatModel;
 use App\Models\QrcodeModel;
-use App\Models\MenubarbeerModel;
-use App\Models\MenubarbucketModel;
-use App\Models\MenubarcocktailModel;
-use App\Models\MenubarjuiceModel;
-use App\Models\MenubarmocktailModel;
-use App\Models\MenubarModel;
-use App\Models\MenubarredwineModel;
-use App\Models\MenubarshakeModel;
-use App\Models\MenubarshooterModel;
-use App\Models\MenubartowerModel;
-use App\Models\MenubarliquorModel;
-use App\Models\MenucafeModel;
-use App\Models\MenucafecoldModel;
-use App\Models\MenucafehotModel;
-use App\Models\MenucafeicedModel;
-
-use App\Models\MenumainbreakfastModel;
-use App\Models\MenumainveggiesModel;
-use App\Models\MenumainsoupModel;
-use App\Models\MenumainsolomealModel;
-use App\Models\MenumainchickenModel;
-use App\Models\MenumainsnackModel;
-use App\Models\MenumainsizzlingModel;
-use App\Models\MenumainseafoodModel;
-use App\Models\MenumainporkModel;
-use App\Models\MenumainpastaModel;
-use App\Models\MenumainModel;
-use App\Models\MenumainmealdealsModel;
+use App\Models\MenuModel;
+use App\Models\MenuProductModel;
+use App\Models\MenuCategoryModel;
 
 use App\Traits\EmailTrait;
 class GuestController extends BaseController
@@ -54,34 +29,9 @@ class GuestController extends BaseController
     private $feedbacks;
     private $chat;
     private $qr;
-    private $beers;
-    private $buckets;
-    private $cocktails;
-    private $mocktails;
-    private $juices;
-    private $liquors;
-    private $redwines;
-    private $shakes;
-    private $shooters;
-    private $towers;
-    private $bars;
-    private $cafes;
-    private $colds;
-    private $hots;
-    private $iced;
-
-    private $mains;
-    private $breakfasts;
-    private $chickens;
-    private $mealdeals;
-    private $pastas;
-    private $porks;
-    private $seafoods;
-    private $sizzlings;
-    private $snacks;
-    private $solomeals;
-    private $soups;
-    private $veggies;
+    private $menus;
+    private $products;
+    private $categories;
 
     function __construct(){
         helper(['form']);
@@ -94,34 +44,9 @@ class GuestController extends BaseController
         $this->guest = new GuestModel();
         $this->chat = new ChatModel();
         $this->qr = new QrcodeModel();
-        $this->bar = new MenubarModel();
-        $this->beers = new MenubarbeerModel();
-        $this->buckets = new MenubarbucketModel();
-        $this->cocktails = new MenubarcocktailModel();
-        $this->juices = new MenubarjuiceModel();
-        $this->liquors = new MenubarliquorModel();
-        $this->mocktails = new MenubarmocktailModel();
-        $this->redwines = new MenubarredwineModel();
-        $this->shakes = new MenubarshakeModel();
-        $this->shooters = new MenubarshooterModel();
-        $this->towers = new MenubartowerModel();
-        $this->cafes = new MenucafeModel();
-        $this->colds = new MenucafecoldModel();
-        $this->hots = new MenucafehotModel();
-        $this->iced = new MenucafeicedModel();
-
-        $this->mains = new MenumainModel();
-        $this->breakfasts = new MenumainbreakfastModel();
-        $this->chickens = new MenumainchickenModel();
-        $this->mealdeals = new MenumainmealdealsModel();
-        $this->pastas = new MenumainpastaModel();
-        $this->porks = new MenumainporkModel();
-        $this->seafoods = new MenumainseafoodModel();
-        $this->sizzlings = new MenumainsizzlingModel();
-        $this->snacks = new MenumainsnackModel();
-        $this->solomeals = new MenumainsolomealModel();
-        $this->soups = new MenumainsoupModel();
-        $this->veggies = new MenumainveggiesModel();
+        $this->menus = new MenuModel();
+        $this->products = new MenuProductModel();
+        $this->categories = new MenuCategoryModel();
     }
     public function index()
     {
@@ -334,20 +259,6 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $data = [
             'activePage' => 'Restaurant',
             'chats' => $this->chat->findAll(),
-            'cocktails' => $this->cocktails->findAll(),
-            'mocktails' => $this->mocktails->findAll(),
-            'shooters' => $this->shooters->findAll(),
-            'towers' => $this->towers->findAll(),
-            'juices' => $this->juices->findAll(),
-            'shakes' => $this->shakes->findAll(),
-            'liquors' => $this->liquors->findAll(),
-            'redwines' => $this->redwines->findAll(),
-            'beers' => $this->beers->findAll(),
-            'buckets' => $this->buckets->findAll(),
-            'cafes' => $this->cafes->findAll(),
-            'colds' => $this->colds->findAll(),
-            'hots' => $this->hots->findAll(),
-            'iced' => $this->iced->findAll(),
             
         ];
         return view('Hotell\restaurant',$data);
@@ -357,19 +268,13 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $data = [
             'activePage' => 'Main Menu',
             'chats' => $this->chat->findAll(),
-            'mains' => $this->mains->findAll(),
-            'breakfasts' => $this->breakfasts->findAll(),
-            'chickens' => $this->chickens->findAll(),
-            'mealdeals' => $this->mealdeals->findAll(),
-            'pastas' => $this->pastas->findAll(),
-            'porks' => $this->porks->findAll(),
-            'seafoods' => $this->seafoods->findAll(),
-            'sizzlings' => $this->sizzlings->findAll(),
-            'snacks' => $this->snacks->findAll(),
-            'solomeals' => $this->solomeals->findAll(),
-            'soups' => $this->soups->findAll(),
-            'veggies' => $this->veggies->findAll(),
-            
+            'menumains' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(1, 11))
+            ->where('menu.MenuType', 'Main Menu')
+            ->findAll(),
         ];
         return view('Hotell\mainmenu',$data);
     }
@@ -378,16 +283,13 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $data = [
             'activePage' => 'Bar Menu',
             'chats' => $this->chat->findAll(),
-            'cocktails' => $this->cocktails->findAll(),
-            'mocktails' => $this->mocktails->findAll(),
-            'shooters' => $this->shooters->findAll(),
-            'towers' => $this->towers->findAll(),
-            'juices' => $this->juices->findAll(),
-            'shakes' => $this->shakes->findAll(),
-            'liquors' => $this->liquors->findAll(),
-            'redwines' => $this->redwines->findAll(),
-            'beers' => $this->beers->findAll(),
-            'buckets' => $this->buckets->findAll(),
+            'menubars' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(12, 21))
+            ->where('menu.MenuType', 'Bar Menu')
+            ->findAll(),
             
         ];
         return view('Hotell\barmenu',$data);
@@ -397,10 +299,13 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $data = [
             'activePage' => 'Cafe Menu',
             'chats' => $this->chat->findAll(),
-            'cafes' => $this->cafes->findAll(),
-            'colds' => $this->colds->findAll(),
-            'hots' => $this->hots->findAll(),
-            'iced' => $this->iced->findAll(),
+            'menucafes' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(21, 24))
+            ->where('menu.MenuType', 'Cafe Menu')
+            ->findAll(),
         ];
         return view('Hotell\cafemenu',$data);
     }
@@ -660,13 +565,14 @@ protected function sendPushNotification($fcmToken, $title, $body) {
     curl_close($ch);
 }
     public function tableReservation(){
+        $session = session();
         helper(['form']);
         $validationRules = [
             'FirstName' => 'required',
             'LastName' => 'required',
             'ContactNumber' => 'required',
-            'Address' => 'required',
             'CheckInDate' => 'required',
+            'NumberOfGuests' => 'required',
             'Venue' => 'required',
             'Note' => 'required',
         ];
@@ -674,48 +580,71 @@ protected function sendPushNotification($fcmToken, $title, $body) {
         if (!$this->validate($validationRules)) {
             // Validation failed, return with validation errors
             $validationErrors = $this->validator->getErrors();
-            return view('/room', ['validationErrors' => $validationErrors]);
+            return view('/mainmenu', ['validationErrors' => $validationErrors]);
         }
         $FirstName = $this->request->getPost('FirstName');
         $LastName = $this->request->getPost('LastName');
         $ContactNumber = $this->request->getPost('ContactNumber');
-        $Address = $this->request->getPost('Address');
 
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
                             ->where('LastName', $LastName)
                             ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
                             ->first();
-
-        // Retrieve Room Data
         $inputTable = $this->request->getPost('Venue');
-
         $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
-
-        // Check both conditions for roomData
         if ($restaurantTable && $user) {
-            // Prepare Reservation Data
             $newReservationData = [
+                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
                 'CheckInDate' => $this->request->getPost('CheckInDate'),
                 'Note' => $this->request->getPost('Note'),
                 'Status' => 'Pending',
-                'TableID' => $restaurantTable['TableID'], // Use the RoomID from RoomType
+                'TableID' => $restaurantTable['TableID'],
                 'UserID' => $user['UserID'],
             ];
-
-            // Insert Reservation
             $inserted = $this->reservation->insert($newReservationData);
-
-            // Redirect with appropriate message
             if ($inserted) {
-                return redirect()->to(base_url('/restaurant'))->with('success', 'Reservation added successfully.');
+                $emailMessage = $this->prepareEmaillMessage($newReservationData);
+                $this->sendEmail($user, 'Your Reservation Confirmation', $emailMessage);
+                $fcmToken = $user['fcm_token'];
+                if (!empty($fcmToken)) {
+                    $notifTitle = 'Reservation Confirmation';
+                    $notifBody = 'Your reservation has been successfully added.';
+                    $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                }
+                $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                return redirect()->to('/mainmenu');
             } else {
-                return redirect()->to(base_url('/restaurant'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
             }
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
         }
+    }
+    private function prepareEmaillMessage(array $reservationData): string
+    {
+        $checkInDate = $reservationData['CheckInDate'];
+        $checkOutDate = $reservationData['CheckOutDate'];
+        $adults = $reservationData['Adult'];
+        $children = $reservationData['Child'];
+        $downorfullPayment = $reservationData['downorfullPayment'];
+        $paymentOption = $reservationData['PaymentOption'];
+        $referenceNumber = $reservationData['ReferenceNumber'];
+        $totalAmount = $reservationData['TotalAmount'];
+    
+        $message = "Dear customer,<br><br>";
+        $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Check-in Date: {$checkInDate}<br>";
+        $message .= "Check-out Date: {$checkOutDate}<br>";
+        $message .= "Number of Adults: {$adults}<br>";
+        $message .= "Number of Children: {$children}<br>";
+        $message .= "Payment Option: {$paymentOption}<br>";
+        $message .= "Down or Full Payment: {$downorfullPayment}<br>";
+        $message .= "Reference Number: {$referenceNumber}<br>";
+        $message .= "Rate Amount: {$totalAmount}<br>"; 
+        $message .= "<br>We look forward to hosting you.<br>";
+    
+        return $message;
     }
     public function eventReservation()
     {

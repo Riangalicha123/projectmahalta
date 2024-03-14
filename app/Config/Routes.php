@@ -144,76 +144,11 @@ $routes->post('/updateserviceEvent', 'AdminController::updateserviceEvent',['fil
 $routes->get('/admin-qrcode', 'AdminController::Qrcode',['filter' => 'adminGuard']);
 $routes->post('/updateQrcode', 'AdminController::updateQrcode',['filter' => 'adminGuard']);
 
+$routes->post('/addMainMenu', 'RestaurantController::addMainMenu',['filter' => 'adminGuard']);
+$routes->post('/updateMainMenu', 'RestaurantController::updateMainMenu',['filter' => 'adminGuard']);
 
+$routes->post('/addBarMenu', 'RestaurantController::addBarMenu',['filter' => 'adminGuard']);
+$routes->post('/updateBarMenu', 'RestaurantController::updateBarMenu',['filter' => 'adminGuard']);
 
-$routes->post('/addCocktails', 'RestaurantController::addCocktails',['filter' => 'adminGuard']);
-$routes->post('/updateCocktails', 'RestaurantController::updateCocktails',['filter' => 'adminGuard']);
-
-$routes->post('/addMocktails', 'RestaurantController::addMocktails',['filter' => 'adminGuard']);
-$routes->post('/updateMocktails', 'RestaurantController::updateMocktails',['filter' => 'adminGuard']);
-
-$routes->post('/addShooters', 'RestaurantController::addShooters',['filter' => 'adminGuard']);
-$routes->post('/updateShooters', 'RestaurantController::updateShooters',['filter' => 'adminGuard']);
-
-$routes->post('/addTower', 'RestaurantController::addTower',['filter' => 'adminGuard']);
-$routes->post('/updateTower', 'RestaurantController::updateTower',['filter' => 'adminGuard']);
-
-$routes->post('/addJuices', 'RestaurantController::addJuices',['filter' => 'adminGuard']);
-$routes->post('/updateJuices', 'RestaurantController::updateJuices',['filter' => 'adminGuard']);
-
-$routes->post('/addShakes', 'RestaurantController::addShakes',['filter' => 'adminGuard']);
-$routes->post('/updateShakes', 'RestaurantController::updateShakes',['filter' => 'adminGuard']);
-
-$routes->post('/addLiquors', 'RestaurantController::addLiquors',['filter' => 'adminGuard']);
-$routes->post('/updateLiquors', 'RestaurantController::updateLiquors',['filter' => 'adminGuard']);
-
-$routes->post('/addRedwine', 'RestaurantController::addRedwine',['filter' => 'adminGuard']);
-$routes->post('/updateRedwine', 'RestaurantController::updateRedwine',['filter' => 'adminGuard']);
-
-$routes->post('/addBeer', 'RestaurantController::addBeer',['filter' => 'adminGuard']);
-$routes->post('/updateBeer', 'RestaurantController::updateBeer',['filter' => 'adminGuard']);
-
-$routes->post('/addBucket', 'RestaurantController::addBucket',['filter' => 'adminGuard']);
-$routes->post('/updateBucket', 'RestaurantController::updateBucket',['filter' => 'adminGuard']);
-
-$routes->post('/addIced', 'RestaurantController::addIced',['filter' => 'adminGuard']);
-$routes->post('/updateIced', 'RestaurantController::updateIced',['filter' => 'adminGuard']);
-
-$routes->post('/addHot', 'RestaurantController::addHot',['filter' => 'adminGuard']);
-$routes->post('/updateHot', 'RestaurantController::updateHot',['filter' => 'adminGuard']);
-
-$routes->post('/addCold', 'RestaurantController::addCold',['filter' => 'adminGuard']);
-$routes->post('/updateCold', 'RestaurantController::updateCold',['filter' => 'adminGuard']);
-
-$routes->post('/addBreakfast', 'RestaurantController::addBreakfast',['filter' => 'adminGuard']);
-$routes->post('/updateBreakfast', 'RestaurantController::updateBreakfast',['filter' => 'adminGuard']);
-
-$routes->post('/addChicken', 'RestaurantController::addChicken',['filter' => 'adminGuard']);
-$routes->post('/updateChicken', 'RestaurantController::updateChicken',['filter' => 'adminGuard']);
-
-$routes->post('/addPasta', 'RestaurantController::addPasta',['filter' => 'adminGuard']);
-$routes->post('/updatePasta', 'RestaurantController::updatePasta',['filter' => 'adminGuard']);
-
-$routes->post('/addSizzling', 'RestaurantController::addSizzling',['filter' => 'adminGuard']);
-$routes->post('/updateSizzling', 'RestaurantController::updateSizzling',['filter' => 'adminGuard']);
-
-$routes->post('/addPork', 'RestaurantController::addPork',['filter' => 'adminGuard']);
-$routes->post('/updatePork', 'RestaurantController::updatePork',['filter' => 'adminGuard']);
-
-$routes->post('/addSoup', 'RestaurantController::addSoup',['filter' => 'adminGuard']);
-$routes->post('/updateSoup', 'RestaurantController::updateSoup',['filter' => 'adminGuard']);
-
-$routes->post('/addMealdeal', 'RestaurantController::addMealdeal',['filter' => 'adminGuard']);
-$routes->post('/updateMealdeal', 'RestaurantController::updateMealdeal',['filter' => 'adminGuard']);
-
-$routes->post('/addVeggies', 'RestaurantController::addVeggies',['filter' => 'adminGuard']);
-$routes->post('/updateVeggies', 'RestaurantController::updateVeggies',['filter' => 'adminGuard']);
-
-$routes->post('/addSolomeal', 'RestaurantController::addSolomeal',['filter' => 'adminGuard']);
-$routes->post('/updateSolomeal', 'RestaurantController::updateSolomeal',['filter' => 'adminGuard']);
-
-$routes->post('/addSeafood', 'RestaurantController::addSeafood',['filter' => 'adminGuard']);
-$routes->post('/updateSeafood', 'RestaurantController::updateSeafood',['filter' => 'adminGuard']);
-
-$routes->post('/addSnack', 'RestaurantController::addSnack',['filter' => 'adminGuard']);
-$routes->post('/updateSnack', 'RestaurantController::updateSnack',['filter' => 'adminGuard']);
+$routes->post('/addCafeMenu', 'RestaurantController::addCafeMenu',['filter' => 'adminGuard']);
+$routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu',['filter' => 'adminGuard']);

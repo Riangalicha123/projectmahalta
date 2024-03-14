@@ -16,35 +16,10 @@ use App\Models\ReservationModel;
 use App\Models\FeedbackModel;
 use App\Models\ChatModel;
 use App\Models\QrcodeModel;
-use App\Models\MenubarbeerModel;
-use App\Models\MenubarbucketModel;
-use App\Models\MenubarcocktailModel;
-use App\Models\MenubarjuiceModel;
-use App\Models\MenubarmocktailModel;
-use App\Models\MenubarModel;
-use App\Models\MenubarredwineModel;
-use App\Models\MenubarshakeModel;
-use App\Models\MenubarshooterModel;
-use App\Models\MenubartowerModel;
-use App\Models\MenubarliquorModel;
-
-use App\Models\MenucafeModel;
-use App\Models\MenucafecoldModel;
-use App\Models\MenucafehotModel;
-use App\Models\MenucafeicedModel;
-
-use App\Models\MenumainbreakfastModel;
-use App\Models\MenumainveggiesModel;
-use App\Models\MenumainsoupModel;
-use App\Models\MenumainsolomealModel;
-use App\Models\MenumainchickenModel;
-use App\Models\MenumainsnackModel;
-use App\Models\MenumainsizzlingModel;
-use App\Models\MenumainseafoodModel;
-use App\Models\MenumainporkModel;
-use App\Models\MenumainpastaModel;
-use App\Models\MenumainModel;
-use App\Models\MenumainmealdealsModel;
+use App\Models\MenuModel;
+use App\Models\MenuProductModel;
+use App\Models\MenuCategoryModel;
+use App\Models\VenueModel;
 use App\Traits\EmailTrait;
 
 class AdminController extends BaseController
@@ -63,34 +38,10 @@ class AdminController extends BaseController
     private $feedbacks;
     private $chat;
     private $qr;
-    private $beers;
-    private $buckets;
-    private $cocktails;
-    private $mocktails;
-    private $juices;
-    private $liquors;
-    private $redwines;
-    private $shakes;
-    private $shooters;
-    private $towers;
-    private $bars;
-    private $cafes;
-    private $colds;
-    private $hots;
-    private $iced;
-
-    private $mains;
-    private $breakfasts;
-    private $chickens;
-    private $mealdeals;
-    private $pastas;
-    private $porks;
-    private $seafoods;
-    private $sizzlings;
-    private $snacks;
-    private $solomeals;
-    private $soups;
-    private $veggies;
+    private $menus;
+    private $products;
+    private $categories;
+    private $venues;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -106,34 +57,10 @@ class AdminController extends BaseController
         $this->feedbacks = new FeedbackModel();
         $this->chat = new ChatModel();
         $this->qr = new QrcodeModel();
-        $this->bar = new MenubarModel();
-        $this->beers = new MenubarbeerModel();
-        $this->buckets = new MenubarbucketModel();
-        $this->cocktails = new MenubarcocktailModel();
-        $this->juices = new MenubarjuiceModel();
-        $this->liquors = new MenubarliquorModel();
-        $this->mocktails = new MenubarmocktailModel();
-        $this->redwines = new MenubarredwineModel();
-        $this->shakes = new MenubarshakeModel();
-        $this->shooters = new MenubarshooterModel();
-        $this->towers = new MenubartowerModel();
-        $this->cafes = new MenucafeModel();
-        $this->colds = new MenucafecoldModel();
-        $this->hots = new MenucafehotModel();
-        $this->iced = new MenucafeicedModel();
-
-        $this->mains = new MenumainModel();
-        $this->breakfasts = new MenumainbreakfastModel();
-        $this->chickens = new MenumainchickenModel();
-        $this->mealdeals = new MenumainmealdealsModel();
-        $this->pastas = new MenumainpastaModel();
-        $this->porks = new MenumainporkModel();
-        $this->seafoods = new MenumainseafoodModel();
-        $this->sizzlings = new MenumainsizzlingModel();
-        $this->snacks = new MenumainsnackModel();
-        $this->solomeals = new MenumainsolomealModel();
-        $this->soups = new MenumainsoupModel();
-        $this->veggies = new MenumainveggiesModel();
+        $this->menus = new MenuModel();
+        $this->products = new MenuProductModel();
+        $this->categories = new MenuCategoryModel();
+        $this->venues = new VenueModel();
     }
     public function index()
     {
@@ -1249,34 +1176,29 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'restService',
-            'tables' => $this->tables->findAll(),
-            'cocktails' => $this->cocktails->findAll(),
-            'mocktails' => $this->mocktails->findAll(),
-            'shooters' => $this->shooters->findAll(),
-            'towers' => $this->towers->findAll(),
-            'juices' => $this->juices->findAll(),
-            'shakes' => $this->shakes->findAll(),
-            'liquors' => $this->liquors->findAll(),
-            'redwines' => $this->redwines->findAll(),
-            'beers' => $this->beers->findAll(),
-            'buckets' => $this->buckets->findAll(),
-            'cafes' => $this->cafes->findAll(),
-            'colds' => $this->colds->findAll(),
-            'hots' => $this->hots->findAll(),
-            'iced' => $this->iced->findAll(),
+            'venues' => $this->venues->findAll(),
+            'menumains' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(1, 11))
+            ->where('menu.MenuType', 'Main Menu')
+            ->findAll(),
+            'menubars' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(12, 21))
+            ->where('menu.MenuType', 'Bar Menu')
+            ->findAll(),
+            'menucafes' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(21, 24))
+            ->where('menu.MenuType', 'Cafe Menu')
+            ->findAll(),
 
-            'mains' => $this->mains->findAll(),
-            'breakfasts' => $this->breakfasts->findAll(),
-            'chickens' => $this->chickens->findAll(),
-            'mealdeals' => $this->mealdeals->findAll(),
-            'pastas' => $this->pastas->findAll(),
-            'porks' => $this->porks->findAll(),
-            'seafoods' => $this->seafoods->findAll(),
-            'sizzlings' => $this->sizzlings->findAll(),
-            'snacks' => $this->snacks->findAll(),
-            'solomeals' => $this->solomeals->findAll(),
-            'soups' => $this->soups->findAll(),
-            'veggies' => $this->veggies->findAll(),
         ];
     
         // Load the view with the data
@@ -1290,9 +1212,10 @@ class AdminController extends BaseController
             $newFileName = $file->getRandomName();
     
             $data = [
-                'TableID' => $this->request->getVar('TableID'),
-                'Venue' => $this->request->getVar('Venue'),
-                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'VenueID' => $this->request->getVar('VenueID'),
+                'VenueName' => $this->request->getVar('VenueName'),
+                'VenueCapacity' => $this->request->getVar('VenueCapacity'),
+                'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
     
@@ -1311,7 +1234,7 @@ class AdminController extends BaseController
                     // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
-                        $this->tables->save($data);
+                        $this->venues->save($data);
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1339,9 +1262,10 @@ class AdminController extends BaseController
             $newFileName = $file->getRandomName();
     
             $data = [
-                'TableID' => $this->request->getVar('TableID'),
-                'Venue' => $this->request->getVar('Venue'),
-                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'VenueID' => $this->request->getVar('VenueID'),
+                'VenueName' => $this->request->getVar('VenueName'),
+                'VenueCapacity' => $this->request->getVar('VenueCapacity'),
+                'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
     
@@ -1360,7 +1284,7 @@ class AdminController extends BaseController
                     // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
-                        $this->tables->save($data);
+                        $this->venues->save($data);
                         
                     } else {
                         // Handle file move error

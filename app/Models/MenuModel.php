@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ReservationModel extends Model
+class MenuModel extends Model
 {
-    protected $table            = 'reservations';
-    protected $primaryKey       = 'ReservationID';
+    protected $table            = 'menu';
+    protected $primaryKey       = 'MenuID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['UserID', 'RoomID', 'VenueID', 'EventID', 'CheckInDate', 'CheckOutDate', 'NumberOfGuests', 'Adult','Child', 'ReferenceNumber', 'PaymentOption', 'downorfullPayment', 'TotalAmount','Image', 'Note','Status'];
+    protected $allowedFields    = ['MenuType'];
 
     // Dates
     protected $useTimestamps = false;

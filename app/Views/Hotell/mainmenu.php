@@ -77,7 +77,9 @@
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Dining</a></h3>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
-                <p><a href="<?= route_to('booknow') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
+                <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
+        Make Online Reservation
+    </button></p>
               </div>
             </div>
           </div>
@@ -100,6 +102,89 @@
         </div>
       </div>
     </section>
+    <!-- Add Form Modal -->
+    <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your form here -->
+                <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
+                  <div class="col-6">
+                  <label for="Date">Arrival Date</label>
+                          <div style="position: relative;">
+                            <input type='date' class="form-control" id='Date' name='Date' required/>
+                          </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-sm-6 form-group">
+                          
+                      </div>
+                      <div class="col-md-6 form-group">
+                      <label for="NumberOfGuests">Number Of Guest</label>
+                      <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                  <div class="col-md-6 form-group">
+                      <label for="VenueName">VenueName</label>
+                      <select class="form-select form-control" id="VenueName" name="VenueName">
+                        <option>Main Restaurant</option>
+                        <option>Venue 2</option>
+                        <option>Venue 3</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 form-group">
+                      <label for="Note">Write a Note</label>
+                      <textarea name="Note" id="Note" class="form-control " cols="30" rows="8" required></textarea>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="FirstName">First Name</label>
+                      <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                    </div>
+                    <div class="col-md-6 form-group">
+                      <label for="LastName">Last Name</label>
+                      <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                      <label for="ContactNumber">Contact Number</label>
+                      <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" required >
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 form-group">
+                    <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--     <section class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">
         <div class="row">
@@ -193,7 +278,7 @@
     
     <section  class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
     <div class="menu-title">
-      <h1>Restaurant Menu</h1>
+      <h1>Main Menu</h1>
     </div>
 
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
@@ -203,127 +288,22 @@
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <!-- <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1> -->
         <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Breakfast</h2>
-                <?php foreach ($breakfasts as $breakfast): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$breakfast['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$breakfast['BreakfastName']?></h3>
-                        <p>Php<?=$breakfast['BreakfastPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Pasta</h2>
-                <?php foreach ($pastas as $pasta): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$pasta['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$pasta['PastaName']?></h3>
-                        <p>Php<?=$pasta['PastaPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Sizzling</h2>
-                <?php foreach ($sizzlings as $sizzling): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$sizzling['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$sizzling['SizzlingName']?></h3>
-                        <p>Php<?=$sizzling['SizzlingPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Chicken</h2>
-                <?php foreach ($chickens as $chicken): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$chicken['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$chicken['ChickenName']?></h3>
-                        <p>Php<?=$chicken['ChickenPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Pork</h2>
-                <?php foreach ($porks as $pork): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$pork['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$pork['PorkName']?></h3>
-                        <p>Php<?=$pork['PorkPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Pork</h2>
-                <?php foreach ($soups as $soup): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$soup['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$soup['SoupName']?></h3>
-                        <p>Php<?=$soup['SoupPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Veggies</h2>
-                <?php foreach ($veggies as $veggie): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$veggie['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$veggie['VeggiesName']?></h3>
-                        <p>Php<?=$veggie['VeggiesPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Veggies</h2>
-                <?php foreach ($solomeals as $solomeal): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$solomeal['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$solomeal['SolomealName']?></h3>
-                        <p>Php<?=$solomeal['SolomealPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Veggies</h2>
-                <?php foreach ($seafoods as $seafood): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$seafood['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$seafood['SeafoodName']?></h3>
-                        <p>Php<?=$seafood['SeafoodPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
-        </div>
-        <div class="row">
-                <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Veggies</h2>
-                <?php foreach ($snacks as $snack): ?>
-                <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
-                    <img src="<?=base_url('/restaurant/'.$snack['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?=$snack['SnackName']?></h3>
-                        <p>Php<?=$snack['SnackPrice']?></p>
-                    </div>
-                </div>
-              <?php endforeach; ?>
+          <?php foreach ($menumains as $menumain): ?>
+              <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
+                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+                      <h2 style="color: #333; margin-bottom: 10px;"><?=$menumain['CategoryName']?></h2>
+                      <div style="display: flex; justify-content: space-between; align-items: center;">
+                          <img src="<?=base_url('/restaurant/'.$menumain['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                          <div style="flex-grow: 1;">
+                              <h3 style="margin-top: 0;"><?=$menumain['ProductName']?></h3>
+                              <p>Php<?=$menumain['ProductPrice']?></p>
+                          </div>
+                      </div>
+                  </div>
+              <?php endif; ?>
+          <?php endforeach; ?>
         </div>
       </div>
-
   </section>
    
 
