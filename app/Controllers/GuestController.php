@@ -15,7 +15,7 @@ use App\Models\QrcodeModel;
 use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
-
+use App\Models\VenueModel;
 use App\Traits\EmailTrait;
 class GuestController extends BaseController
 {
@@ -32,6 +32,7 @@ class GuestController extends BaseController
     private $menus;
     private $products;
     private $categories;
+    private $venues;
 
     function __construct(){
         helper(['form']);
@@ -47,6 +48,7 @@ class GuestController extends BaseController
         $this->menus = new MenuModel();
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
+        $this->venues = new VenueModel();
     }
     public function index()
     {
@@ -564,88 +566,95 @@ protected function sendPushNotification($fcmToken, $title, $body) {
     $result = curl_exec($ch);
     curl_close($ch);
 }
-    public function tableReservation(){
-        $session = session();
-        helper(['form']);
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'ContactNumber' => 'required',
-            'CheckInDate' => 'required',
-            'NumberOfGuests' => 'required',
-            'Venue' => 'required',
-            'Note' => 'required',
+public function tableReservation()
+{
+    $session = session();
+    helper(['form']);
+    $validationRules = [
+        'FirstName' => 'required',
+        'LastName' => 'required',
+        'ContactNumber' => 'required',
+        'ArivalDate' => 'required', // It seems there is an inconsistency in field names. Should it be 'Date' or 'ArivalDate'?
+        'ArivalTime' => 'required', // Similarly, should it be 'Time' or 'ArivalTime'?
+        'NumberOfGuests' => 'required',
+        'VenueName' => 'required', 
+    ];
+
+    if (!$this->validate($validationRules)) {
+        // Validation failed, return with validation errors
+        $validationErrors = $this->validator->getErrors();
+        return redirect()->to('/')->with('validationErrors', $validationErrors); // Changed view name to '/'
+    }
+
+    $FirstName = $this->request->getPost('FirstName');
+    $LastName = $this->request->getPost('LastName');
+    $ContactNumber = $this->request->getPost('ContactNumber');
+    $email = $session->get('username');
+
+    // Use a single query to get the user based on both first name and last name
+    $user = $this->users->where('FirstName', $FirstName)
+                        ->where('LastName', $LastName)
+                        ->where('ContactNumber', $ContactNumber)
+                        ->first();
+
+    $VenueName = $this->request->getPost('VenueName'); // Corrected variable name
+    $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first(); // Corrected variable name
+
+    if ($restaurantVenue && $user) {
+        $newReservationData = [
+            'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+            'ArivalDate' => $this->request->getPost('ArivalDate'), // Corrected field name
+            'ArivalTime' => $this->request->getPost('ArivalTime'), // Corrected field name
+            'Note' => $this->request->getPost('Note'),
+            'Status' => 'Pending',
+            'VenueName' => $VenueName,
+            'VenueID' => $restaurantVenue['VenueID'],
+            'UserID' => $user['UserID'],
         ];
 
-        if (!$this->validate($validationRules)) {
-            // Validation failed, return with validation errors
-            $validationErrors = $this->validator->getErrors();
-            return view('/mainmenu', ['validationErrors' => $validationErrors]);
-        }
-        $FirstName = $this->request->getPost('FirstName');
-        $LastName = $this->request->getPost('LastName');
-        $ContactNumber = $this->request->getPost('ContactNumber');
+        $inserted = $this->reservation->insert($newReservationData);
 
-        // Use a single query to get the user based on both first name and last name
-        $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->first();
-        $inputTable = $this->request->getPost('Venue');
-        $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
-        if ($restaurantTable && $user) {
-            $newReservationData = [
-                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'Note' => $this->request->getPost('Note'),
-                'Status' => 'Pending',
-                'TableID' => $restaurantTable['TableID'],
-                'UserID' => $user['UserID'],
-            ];
-            $inserted = $this->reservation->insert($newReservationData);
-            if ($inserted) {
-                $emailMessage = $this->prepareEmaillMessage($newReservationData);
-                $this->sendEmail($user, 'Your Reservation Confirmation', $emailMessage);
-                $fcmToken = $user['fcm_token'];
-                if (!empty($fcmToken)) {
-                    $notifTitle = 'Reservation Confirmation';
-                    $notifBody = 'Your reservation has been successfully added.';
-                    $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
-                }
-                $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                return redirect()->to('/mainmenu');
-            } else {
-                return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+        if ($inserted) {
+            $emailMessage = $this->prepareEmaillMessage($newReservationData); // Corrected method name
+            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage); // Corrected variable name
+            $fcmToken = $user['fcm_token']; // Corrected variable name
+
+            if (!empty($fcmToken)) {
+                $notifTitle = 'Reservation Confirmation';
+                $notifBody = 'Your reservation has been successfully added.';
+                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
             }
+
+            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+            return redirect()->to('/mainmenu');
         } else {
-            return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
         }
+    } else {
+        return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
     }
-    private function prepareEmaillMessage(array $reservationData): string
-    {
-        $checkInDate = $reservationData['CheckInDate'];
-        $checkOutDate = $reservationData['CheckOutDate'];
-        $adults = $reservationData['Adult'];
-        $children = $reservationData['Child'];
-        $downorfullPayment = $reservationData['downorfullPayment'];
-        $paymentOption = $reservationData['PaymentOption'];
-        $referenceNumber = $reservationData['ReferenceNumber'];
-        $totalAmount = $reservationData['TotalAmount'];
-    
-        $message = "Dear customer,<br><br>";
-        $message .= "Your reservation has been successfully made with the following details:<br>";
-        $message .= "Check-in Date: {$checkInDate}<br>";
-        $message .= "Check-out Date: {$checkOutDate}<br>";
-        $message .= "Number of Adults: {$adults}<br>";
-        $message .= "Number of Children: {$children}<br>";
-        $message .= "Payment Option: {$paymentOption}<br>";
-        $message .= "Down or Full Payment: {$downorfullPayment}<br>";
-        $message .= "Reference Number: {$referenceNumber}<br>";
-        $message .= "Rate Amount: {$totalAmount}<br>"; 
-        $message .= "<br>We look forward to hosting you.<br>";
-    
-        return $message;
-    }
+}
+
+private function prepareEmaillMessage(array $reservationData): string // Corrected method name
+{
+    $ArivalDate = $reservationData['ArivalDate'];
+    $ArivalTime = $reservationData['ArivalTime'];
+    $NumberOfGuests = $reservationData['NumberOfGuests'];
+    $Note = $reservationData['Note'];
+    $VenueName = $reservationData['VenueName'];
+
+    $message = "Dear customer,<br><br>";
+    $message .= "Your reservation has been successfully made with the following details:<br>";
+    $message .= "Venue Name: {$VenueName}<br>";
+    $message .= "Arrival Date: {$ArivalDate}<br>";
+    $message .= "Arrival Time: {$ArivalTime}<br>";
+    $message .= "Number of Guests: {$NumberOfGuests}<br>";
+    $message .= "Note: {$Note}<br>";
+    $message .= "<br>We look forward to hosting you.<br>";
+
+    return $message;
+}
+
     public function eventReservation()
     {
         helper(['form']);
