@@ -106,7 +106,7 @@
     <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background:skyblue;">
                 <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -144,26 +144,29 @@
                     </select>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Enter your details</button>
+            <div style="text-align: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
+</div>
         </div>
 
         <div id="page2" style="display: none;">
             
             <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="FirstName">First Name</label>
                     <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="LastName">Last Name</label>
                     <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="ContactNumber">Contact Number</label>
                     <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
                 </div>
+            </div>
+            <div class="row">
+                
             </div>
             <div class="row">
                 <div class="col-md-12 form-group">
@@ -171,8 +174,11 @@
                     <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button>
-            <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+            <div style="display: flex; justify-content: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+    <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+</div>
+
         </div>
 
         <div id="page3" style="display: none;">
@@ -219,8 +225,11 @@
                     <span id="displayNote"></span>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <div style="display: flex; justify-content: center; align-items: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
         </div>
                 </form>
             </div>
