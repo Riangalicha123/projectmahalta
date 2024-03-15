@@ -152,3 +152,5 @@ $routes->post('/updateBarMenu', 'RestaurantController::updateBarMenu',['filter' 
 
 $routes->post('/addCafeMenu', 'RestaurantController::addCafeMenu',['filter' => 'adminGuard']);
 $routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu',['filter' => 'adminGuard']);
+$routes->post('/addCafeMenuIced', 'RestaurantController::addCafeMenuIced',['filter' => 'adminGuard']);
+$routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced',['filter' => 'adminGuard']);

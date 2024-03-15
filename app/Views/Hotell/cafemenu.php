@@ -239,6 +239,21 @@
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <!-- <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1> -->
         <div class="row">
+        <?php foreach ($menuices as $menuice): ?>
+    <?php if ($menuice['MenuType'] === 'Cafe Menu' && $menuice['CategoryID'] == 22): ?> <!-- Fix the comparison operator -->
+        <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+            <h2 style="color: #333; margin-bottom: 10px;"><?= $menuice['CategoryName'] ?></h2>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <img src="<?= base_url('restaurant/' . $menuice['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                <div style="flex-grow: 1;">
+                    <h3 style="margin-top: 0;"><?= $menuice['IcedName'] ?></h3> <!-- Correct the variable name -->
+                    <p>Tall: Php<?= $menuice['PriceTall'] ?></p>
+                    <p>Grande: Php<?= $menuice['PriceGrande'] ?></p>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endforeach; ?>
         <?php foreach ($menucafes as $menucafe): ?>
               <?php if ($menucafe['MenuType'] === 'Cafe Menu' && $menucafe['CategoryID'] >= 22 && $menucafe['CategoryID'] <= 24): ?>
                   <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">

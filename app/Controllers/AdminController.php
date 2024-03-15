@@ -20,6 +20,7 @@ use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
 use App\Models\VenueModel;
+use App\Models\MenuProductIcedModel;
 use App\Traits\EmailTrait;
 
 class AdminController extends BaseController
@@ -42,6 +43,7 @@ class AdminController extends BaseController
     private $products;
     private $categories;
     private $venues;
+    private $iced;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -61,6 +63,7 @@ class AdminController extends BaseController
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
         $this->venues = new VenueModel();
+        $this->iced = new MenuProductIcedModel();
     }
     public function index()
     {
@@ -1196,6 +1199,13 @@ class AdminController extends BaseController
             ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
             ->join('menu', 'menu_product.MenuID = menu.MenuID')
             ->whereIn('menu_category.CategoryID', range(21, 24))
+            ->where('menu.MenuType', 'Cafe Menu')
+            ->findAll(),
+            'menuices' => $this->iced
+            ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
+            ->where('menu_category.CategoryID', 22)
             ->where('menu.MenuType', 'Cafe Menu')
             ->findAll(),
 

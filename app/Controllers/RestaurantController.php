@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
+use App\Models\MenuProductIcedModel;
 use App\Traits\EmailTrait;
 
 class RestaurantController extends BaseController
@@ -14,12 +15,14 @@ class RestaurantController extends BaseController
     private $menus;
     private $products;
     private $categories;
+    private $iced;
     
     function __construct(){
         helper(['form']);
         $this->menus = new MenuModel();
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
+        $this->iced = new MenuProductIcedModel();
     }
     public function addMainMenu()
     {
@@ -399,6 +402,135 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
+    public function addCafeMenuIced()
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            
+            'IcedName' => 'required',
+            'PriceTall' => 'required',
+            'PriceGrande' => 'required',
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
+        }
+    
+        // Retrieve Category ID
+        $inputCategoryName = 'Iced Coffee';
+        $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
+    
+        // Retrieve Menu ID for Cafe Menu
+        $inputCafeMenu = 'Cafe Menu';
+        $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
+    
+        // Check if both category and Cafe menu exist
+        if ($menuCategory && $menuCafe) {
+            // Upload and process image
+            if ($image = $this->request->getFile('Image')) {
+                if ($image->isValid() && !$image->hasMoved()) {
+                    $newFileName = $image->getRandomName();
+                    $image->move(FCPATH . 'restaurant/', $newFileName);
+                } else {
+                    return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Please upload an image.');
+            }
+    
+            // Insert new menu item
+            $newMenuData = [
+                'CategoryName' => $this->request->getPost('CategoryName'),
+                'IcedName' => $this->request->getPost('IcedName'),
+                'PriceTall' => $this->request->getPost('PriceTall'),
+                'PriceGrande' => $this->request->getPost('PriceGrande'),
+                'CategoryID' => $menuCategory['CategoryID'],
+                'MenuID' => $menuCafe['MenuID'],
+                'Image' => $newFileName
+            ];
+    
+            // Insert menu item
+            $inserted = $this->iced->insert($newMenuData);
+            if ($inserted) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item added successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to add menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
+        }
+    }
+    public function updateCafeMenuIced()
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            'IcedName' => 'required',
+            'PriceTall' => 'required',
+            'PriceGrande' => 'required',
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
+        }
+    
+        // Retrieve Product ID
+        $productID = $this->request->getPost('IcedID'); // Corrected to retrieve IcedID instead of ProductID
+    
+        // Retrieve Category ID
+        $inputCategoryName = 'Iced Coffee';
+        $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
+    
+        // Retrieve Menu ID for Cafe Menu
+        $inputCafeMenu = 'Cafe Menu';
+        $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
+    
+        // Check if both category and Cafe menu exist
+        if ($menuCategory && $menuCafe) {
+            // Upload and process image
+            if ($image = $this->request->getFile('Image')) {
+                if ($image->isValid() && !$image->hasMoved()) {
+                    $newFileName = $image->getRandomName();
+                    $image->move(FCPATH . 'restaurant/', $newFileName);
+                } else {
+                    return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
+                }
+            } else {
+                // If no new image is uploaded, retain the existing image filename
+                $newFileName = $this->request->getPost('Image');
+            }
+    
+            // Update menu item data
+            $updatedMenuData = [
+                'IcedName' => $this->request->getPost('IcedName'),
+                'PriceTall' => $this->request->getPost('PriceTall'),
+                'PriceGrande' => $this->request->getPost('PriceGrande'),
+                'CategoryID' => $menuCategory['CategoryID'],
+                'MenuID' => $menuCafe['MenuID'],
+                'Image' => $newFileName
+            ];
+    
+            // Update menu item
+            $updated = $this->iced->update($productID, $updatedMenuData);
+            if ($updated) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to update menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
+        }
+    }
+    
     
 
     
