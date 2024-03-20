@@ -150,16 +150,23 @@
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $restrev['ReservationID'] ?>">
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="Venue">Venue</label>
-                                            <select class="custom-select form-control-border" id="Venue" name="Venue" required>
-                                                <option <?= ($restrev['Venue'] == 'Venue 1') ? 'selected' : '' ?>>Venue 1</option>
-                                                <option <?= ($restrev['Venue'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
+                                        <div class="form-group col-md-6">
+                                            <label for="arrivalDate">Arrival Date</label>
+                                            <input type="date" class="form-control" id="arrivalDate" name="arrivalDate" required value="<?= date('Y-m-d', strtotime($restrev['ArivalDate'])) ?>">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="arrivalTime">Arrival Time</label>
+                                            <input type="time" class="form-control" id="arrivalTime" name="arrivalTime" required value="<?= date('H:i', strtotime($restrev['ArivalTime'])) ?>">
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                            <label for="VenueName">VenueName</label>
+                                            <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
+                                                <option <?= ($restrev['VenueName'] == 'Main Restaurant') ? 'selected' : '' ?>>Main Restaurant</option>
+                                                <option <?= ($restrev['VenueName'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
+                                                <option <?= ($restrev['VenueName'] == 'Venue 3') ? 'selected' : '' ?>>Venue 3</option>
                                             </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="CheckInDate">Arrival</label>
-                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($restrev['CheckInDate'])) ?>">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -188,6 +195,7 @@
                     <th>Address</th>
                     <th>Venue</th>
                     <th>Arrival</th>
+                    <th>Arrival Time</th>
                     <th>Note</th>
                     <th>Status</th>
                     <th>Status Action</th>
@@ -202,8 +210,9 @@
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
                     <td><?=$restrev['Address']?></td>
-                    <td><?=$restrev['Venue']?></td>
-                    <td><?=$restrev['CheckInDate']?></td>
+                    <td><?=$restrev['VenueName']?></td>
+                    <td><?=$restrev['ArivalDate']?></td>
+                    <td><?=$restrev['ArivalTime']?></td>
                     <td><?=$restrev['Note']?></td>
                     <td class="project-state">
                         <?php

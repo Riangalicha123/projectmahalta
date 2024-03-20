@@ -231,17 +231,24 @@
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
-
-    <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-      <button onclick="showCategory('barmenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">BAR MENU</button>
-    </div>
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-        <!-- <h1 style="color: #333; margin-bottom: 10px;">BAR MENU</h1> -->
+      <div class="category-buttons" style="margin-top: 20px; text-align: center;">
+        <button onclick="showCategory('12')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Cocktails</button>
+        <button onclick="showCategory('13')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Mocktails</button>
+        <button onclick="showCategory('14')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Shooter</button>
+        <button onclick="showCategory('15')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Tower(3L)</button>
+        <button onclick="showCategory('16')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Juices</button>
+        <button onclick="showCategory('17')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Shakes</button>
+        <button onclick="showCategory('18')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Liquors</button>
+        <button onclick="showCategory('19')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Red Wines</button>
+        <button onclick="showCategory('20')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Bear</button>
+        <button onclick="showCategory('21')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Bucket Beers</button>
+      </div>
         
         <div class="row">
         <?php foreach ($menubars as $menubar): ?>
               <?php if ($menubar['MenuType'] === 'Bar Menu' && $menubar['CategoryID'] >= 12 && $menubar['CategoryID'] <= 21): ?>
-                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menubar['CategoryID'] ?>">
                       <h2 style="color: #333; margin-bottom: 10px;"><?=$menubar['CategoryName']?></h2>
                       <div style="display: flex; justify-content: space-between; align-items: center;">
                           <img src="<?=base_url('/restaurant/'.$menubar['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
@@ -293,6 +300,12 @@
         document.getElementById('displayFirstName').innerText = document.getElementById('FirstName').value;
         document.getElementById('displayLastName').innerText = document.getElementById('LastName').value;
         document.getElementById('displayContactNumber').innerText = document.getElementById('ContactNumber').value;
+    }
+</script>
+<script>
+    function showCategory(categoryID) {
+        $('.col-md-3').hide(); // Hide all products initially
+        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
     }
 </script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>

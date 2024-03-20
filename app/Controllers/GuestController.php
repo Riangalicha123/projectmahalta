@@ -273,6 +273,7 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $data = [
             'activePage' => 'Main Menu',
             'chats' => $this->chat->findAll(),
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'menumains' => $this->products
             ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
             ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
@@ -576,16 +577,25 @@ protected function sendPushNotification($fcmToken, $title, $body) {
     $result = curl_exec($ch);
     curl_close($ch);
 }
+public function updateVenueOptions()
+{
+    $NumberOfGuests = $this->request->getVar('NumberOfGuests');
+
+    $venues = $this->venues->where('AvailableCapacity >=', $NumberOfGuests)->findAll();
+
+    return $this->response->setJSON($venues); // Return venues as JSON
+}
 public function tableReservation()
 {
     $session = session();
     helper(['form']);
+
     $validationRules = [
         'FirstName' => 'required',
         'LastName' => 'required',
         'ContactNumber' => 'required',
-        'ArivalDate' => 'required', // It seems there is an inconsistency in field names. Should it be 'Date' or 'ArivalDate'?
-        'ArivalTime' => 'required', // Similarly, should it be 'Time' or 'ArivalTime'?
+        'ArivalDate' => 'required',
+        'ArivalTime' => 'required',
         'NumberOfGuests' => 'required',
         'VenueName' => 'required', 
     ];
@@ -593,7 +603,7 @@ public function tableReservation()
     if (!$this->validate($validationRules)) {
         // Validation failed, return with validation errors
         $validationErrors = $this->validator->getErrors();
-        return redirect()->to('/')->with('validationErrors', $validationErrors); // Changed view name to '/'
+        return redirect()->to('/')->with('validationErrors', $validationErrors);
     }
 
     $FirstName = $this->request->getPost('FirstName');
@@ -601,57 +611,66 @@ public function tableReservation()
     $ContactNumber = $this->request->getPost('ContactNumber');
     $email = $session->get('username');
 
-    // Use a single query to get the user based on both first name and last name
     $user = $this->users->where('FirstName', $FirstName)
                         ->where('LastName', $LastName)
                         ->where('ContactNumber', $ContactNumber)
                         ->first();
 
-    $VenueName = $this->request->getPost('VenueName'); // Corrected variable name
-    $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first(); // Corrected variable name
+    $VenueName = $this->request->getPost('VenueName');
+    $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
 
     if ($restaurantVenue && $user) {
-        $newReservationData = [
-            'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-            'ArivalDate' => $this->request->getPost('ArivalDate'), // Corrected field name
-            'ArivalTime' => $this->request->getPost('ArivalTime'), // Corrected field name
-            'Note' => $this->request->getPost('Note'),
-            'Status' => 'Pending',
-            'VenueName' => $VenueName,
-            'VenueID' => $restaurantVenue['VenueID'],
-            'UserID' => $user['UserID'],
-        ];
+        $availableCapacity = $restaurantVenue['AvailableCapacity'];
+        $numberOfGuests = $this->request->getPost('NumberOfGuests');
 
-        $inserted = $this->reservation->insert($newReservationData);
+        if ($availableCapacity >= $numberOfGuests) {
+            $newAvailableCapacity = $availableCapacity - $numberOfGuests;
+            $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
 
-        if ($inserted) {
-            $emailMessage = $this->prepareEmaillMessage($newReservationData); // Corrected method name
-            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage); // Corrected variable name
-            $fcmToken = $user['fcm_token']; // Corrected variable name
+            $restaurantReservation = [
+                'NumberOfGuests' => $numberOfGuests,
+                'ArivalDate' => $this->request->getPost('ArivalDate'),
+                'ArivalTime' => $this->request->getPost('ArivalTime'),
+                'Note' => $this->request->getPost('Note'),
+                'Status' => 'Pending',
+                'VenueName' => $VenueName,
+                'VenueID' => $restaurantVenue['VenueID'],
+                'UserID' => $user['UserID'],
+            ];
 
-            if (!empty($fcmToken)) {
-                $notifTitle = 'Reservation Confirmation';
-                $notifBody = 'Your reservation has been successfully added.';
-                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+            $inserted = $this->reservation->insert($restaurantReservation);
+
+            if ($inserted) {
+                $emailMessage = $this->prepareEmail($restaurantReservation);
+                $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                $fcmToken = $user['fcm_token'];
+
+                if (!empty($fcmToken)) {
+                    $notifTitle = 'Reservation Confirmation';
+                    $notifBody = 'Your reservation has been successfully added.';
+                    $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                }
+
+                $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                return redirect()->to('/mainmenu');
+            } else {
+                return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
             }
-
-            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-            return redirect()->to('/mainmenu');
         } else {
-            return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
+            return redirect()->to(base_url('/'))->with('error', 'Not enough available capacity. Please select a different venue or reduce the number of guests.');
         }
     } else {
-        return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+        return redirect()->to(base_url('/'))->with('error', 'Invalid user or venue information. Please check your input.');
     }
 }
 
-private function prepareEmaillMessage(array $reservationData): string // Corrected method name
+private function prepareEmail(array $reservationDataa): string // Corrected method name
 {
-    $ArivalDate = $reservationData['ArivalDate'];
-    $ArivalTime = $reservationData['ArivalTime'];
-    $NumberOfGuests = $reservationData['NumberOfGuests'];
-    $Note = $reservationData['Note'];
-    $VenueName = $reservationData['VenueName'];
+    $ArivalDate = $reservationDataa['ArivalDate'];
+    $ArivalTime = $reservationDataa['ArivalTime'];
+    $NumberOfGuests = $reservationDataa['NumberOfGuests'];
+    $Note = $reservationDataa['Note'];
+    $VenueName = $reservationDataa['VenueName'];
 
     $message = "Dear customer,<br><br>";
     $message .= "Your reservation has been successfully made with the following details:<br>";

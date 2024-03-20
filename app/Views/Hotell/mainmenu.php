@@ -127,22 +127,19 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 form-group">
-                    <label for="NumberOfGuests">Number Of Guest</label>
-                    <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests">
-                        <?php for ($i = 1; $i <= 10; $i++): ?>
-                            <option><?= $i ?></option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="VenueName">VenueName</label>
-                    <select class="form-select form-control" id="VenueName" name="VenueName">
-                        <option>Main Restaurant</option>
-                        <option>Venue 2</option>
-                        <option>Venue 3</option>
-                    </select>
-                </div>
+            <div class="col-md-6 form-group">
+                <label for="NumberOfGuests">Number Of Guests</label>
+                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
+                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                        <option><?= $i ?></option>
+                    <?php endfor; ?>
+                </select>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="VenueName">Venue Name</label>
+                <select class="form-select form-control" id="VenueName" name="VenueName">
+                </select>
+            </div>
             </div>
             <div style="text-align: center;">
     <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
@@ -242,27 +239,38 @@
     </div>
 
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-<!--       <button onclick="showCategory('barmenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">BAR MENU</button>
-      <button onclick="showCategory('cafemenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">CAFE MENU</button> -->
+      <button onclick="showCategory('1')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Pasta</button>
+      <button onclick="showCategory('2')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
+      <button onclick="showCategory('3')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Sizzling</button>
+      <button onclick="showCategory('4')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Chicken</button>
+      <button onclick="showCategory('5')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Pork</button>
+      <button onclick="showCategory('6')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Soup</button>
+      <button onclick="showCategory('7')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Meal Deals</button>
+      <button onclick="showCategory('8')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Veggies</button>
+      <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
+      <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
+      <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
     </div>
+    
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <!-- <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1> -->
         <div class="row">
-          <?php foreach ($menumains as $menumain): ?>
-              <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
-                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
-                      <h2 style="color: #333; margin-bottom: 10px;"><?=$menumain['CategoryName']?></h2>
-                      <div style="display: flex; justify-content: space-between; align-items: center;">
-                          <img src="<?=base_url('/restaurant/'.$menumain['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                          <div style="flex-grow: 1;">
-                              <h3 style="margin-top: 0;"><?=$menumain['ProductName']?></h3>
-                              <p>Php<?=$menumain['ProductPrice']?></p>
-                          </div>
-                      </div>
-                  </div>
-              <?php endif; ?>
-          <?php endforeach; ?>
-        </div>
+    <?php foreach ($menumains as $menumain): ?>
+        <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
+            <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menumain['CategoryID'] ?>">
+                <h2 style="color: #333; margin-bottom: 10px;"><?= $menumain['CategoryName'] ?></h2>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                    <div style="flex-grow: 1;">
+                        <h3 style="margin-top: 0;"><?= $menumain['ProductName'] ?></h3>
+                        <p>Php<?= $menumain['ProductPrice'] ?></p>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</div>
+
       </div>
   </section>
    
@@ -275,6 +283,32 @@
     
     <!-- loader -->
     <?php include('inc/loader.php') ?>
+    <script>
+    // Get the current date
+    var today = new Date().toISOString().split('T')[0];
+    // Set the minimum date for the input field
+    document.getElementById('ArivalDate').setAttribute('min', today);
+</script>
+<script>
+    function updateVenueOptions() {
+        var NumberOfGuests = document.getElementById('NumberOfGuests').value;
+
+        // Send AJAX request to updateVenueOptions method in TableReservation controller
+        $.ajax({
+            url: "<?= base_url('updateVenueOptions') ?>",
+            type: 'GET',
+            data: { NumberOfGuests: NumberOfGuests },
+            dataType: 'json',
+            success: function(response) {
+                var venueSelect = document.getElementById('VenueName');
+                venueSelect.innerHTML = '<option>Select Venue</option>'; // Clear existing options
+                response.forEach(function(venue) {
+                    venueSelect.innerHTML += '<option value="' + venue.VenueName + '">' + venue.VenueName + '</option>';
+                });
+            }
+        });
+    }
+</script>
     <script>
     function nextPage(page) {
         document.getElementById('page1').style.display = 'none';
@@ -298,6 +332,53 @@
         document.getElementById('displayContactNumber').innerText = document.getElementById('ContactNumber').value;
     }
 </script>
+<script>
+    function showCategory(categoryID) {
+        $('.col-md-3').hide(); // Hide all products initially
+        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
+    }
+</script>
+<script>
+    // Function to enable/disable buttons on page 1
+    function enablePage1Button() {
+        var arrivalDate = document.getElementById('ArivalDate').value;
+        var arrivalTime = document.getElementById('ArivalTime').value;
+        var venueName = document.getElementById('VenueName').value;
+        var button = document.querySelector('#page1 button');
+        if (arrivalDate && arrivalTime && venueName !== 'Select Venue') {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+
+    // Function to enable/disable buttons on page 2
+    function enablePage2Button() {
+        var firstName = document.getElementById('FirstName').value;
+        var lastName = document.getElementById('LastName').value;
+        var contactNumber = document.getElementById('ContactNumber').value;
+        var button = document.querySelector('#page2 button[type="button"]');
+        if (firstName && lastName && contactNumber) {
+            button.disabled = false;
+        } else {
+            button.disabled = true;
+        }
+    }
+
+    // Call enablePage1Button and enablePage2Button initially
+    enablePage1Button();
+    enablePage2Button();
+
+    // Event listeners to call enable/disable functions on input/change
+    document.getElementById('ArivalDate').addEventListener('change', enablePage1Button);
+    document.getElementById('ArivalTime').addEventListener('change', enablePage1Button);
+    document.getElementById('VenueName').addEventListener('change', enablePage1Button);
+    document.getElementById('FirstName').addEventListener('input', enablePage2Button);
+    document.getElementById('LastName').addEventListener('input', enablePage2Button);
+    document.getElementById('ContactNumber').addEventListener('input', enablePage2Button);
+</script>
+
+
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>

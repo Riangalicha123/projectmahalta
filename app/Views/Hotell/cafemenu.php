@@ -231,17 +231,16 @@
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
-
-    <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-      <button onclick="showCategory('cafemenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">CAFE MENU</button>
-    </div>
-
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-        <!-- <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1> -->
+      <div class="category-buttons" style="margin-top: 20px; text-align: center;">
+        <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
+        <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
+        <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
+      </div>
         <div class="row">
         <?php foreach ($menuices as $menuice): ?>
     <?php if ($menuice['MenuType'] === 'Cafe Menu' && $menuice['CategoryID'] == 22): ?> <!-- Fix the comparison operator -->
-        <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+        <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menuice['CategoryID'] ?>">
             <h2 style="color: #333; margin-bottom: 10px;"><?= $menuice['CategoryName'] ?></h2>
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <img src="<?= base_url('restaurant/' . $menuice['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
@@ -256,7 +255,7 @@
 <?php endforeach; ?>
         <?php foreach ($menucafes as $menucafe): ?>
               <?php if ($menucafe['MenuType'] === 'Cafe Menu' && $menucafe['CategoryID'] >= 22 && $menucafe['CategoryID'] <= 24): ?>
-                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;">
+                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menucafe['CategoryID'] ?>">
                       <h2 style="color: #333; margin-bottom: 10px;"><?=$menucafe['CategoryName']?></h2>
                       <div style="display: flex; justify-content: space-between; align-items: center;">
                           <img src="<?=base_url('/restaurant/'.$menucafe['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
@@ -304,6 +303,12 @@
         document.getElementById('displayFirstName').innerText = document.getElementById('FirstName').value;
         document.getElementById('displayLastName').innerText = document.getElementById('LastName').value;
         document.getElementById('displayContactNumber').innerText = document.getElementById('ContactNumber').value;
+    }
+</script>
+<script>
+    function showCategory(categoryID) {
+        $('.col-md-3').hide(); // Hide all products initially
+        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
     }
 </script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>

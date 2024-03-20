@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="<?=base_url()?>admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <!-- Site wrapper -->
@@ -114,9 +115,25 @@
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="Address">Address</label>
-                                          <input type="text" class="form-control" id="Address" name="Address" required>
-                                      </div>
+                                      <h5 class="text-center text-primary">Address</h5>
+                                      <select id="Region" class="form-control form-control-lg" name="Region">
+                                          <option value="">Select Region</option>
+                                          <?php foreach ($regions as $region): ?>
+                                              <option value="<?= $region['regCode'] ?>"><?= $region['regDesc'] ?></option>
+                                          <?php endforeach ?>
+                                      </select>
+
+                                      <select id="province_id" class="form-control form-control-lg" name="Province">
+                                          <option value="">Select Province</option>
+                                      </select>
+                                      <select id="cities_id" class="form-control form-control-lg" name="City">
+                                          <option value="">Select City/Municipality</option>
+                                      </select>
+                                      <select id="barangay_id" class="form-control form-control-lg" name="Barangay">
+                                          <option value="">Select Barangay</option>
+                                      </select>
+                                  </div>
+
                                 </div>
                                 <div class="form-group">
                                     <label for="DepartmentName">Department</label>
@@ -257,6 +274,7 @@
 <script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?=base_url()?>admin/dist/js/adminlte.min.js"></script>
+
 <!-- DataTables  & Plugins -->
 <script src="<?=base_url()?>admin/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -287,5 +305,65 @@
     });
   });
 </script>
+<script>
+    $(document).ready(function(){
+        $('#Region').change(function(event){
+            var idRegion = this.value; // Change variable name to idRegion
+            $('#province_id').html(''); // Clear province dropdown
+
+            $.ajax({
+                url: "/fetch-province",
+                type: 'POST',
+                dataType: 'json',
+                data: {regCode: idRegion}, // Pass idRegion
+                success:function(response){
+                    $('#province_id').html('<option value="">Select Province</option>'); // Change to 'Select Province'
+                    $.each(response.provinces,function(index, val){
+                        $('#province_id').append('<option value="'+val.provCode+'">'+val.provDesc+'</option>'); // Correct variable names
+                    });
+
+                }
+            });
+        });
+
+        $('#province_id').change(function(event){
+            var idProvince = this.value; // Change variable name to idProvince
+            $('#cities_id').html(''); // Clear city dropdown
+
+            $.ajax({
+                url: "/fetch-city",
+                type: 'POST',
+                dataType: 'json',
+                data: {provCode: idProvince}, // Pass idProvince
+                success:function(response){
+                    $('#cities_id').html('<option value="">Select City/Municipality</option>'); // Change to 'Select City/Municipality'
+                    $.each(response.cities,function(index, val){
+                        $('#cities_id').append('<option value="'+val.citymunCode+'">'+val.citymunDesc+'</option>'); // Correct variable names
+                    });
+                }
+            });
+        });
+
+        $('#cities_id').change(function(event){
+            var idCity = this.value; 
+            $('#barangay_id').html(''); 
+
+            $.ajax({
+                url: "/fetch-barangay",
+                type: 'POST',
+                dataType: 'json',
+                data: {citymunCode: idCity}, 
+                success:function(response){
+                    $('#barangay_id').html('<option value="">Select Barangay</option>'); // Change to 'Select Barangay'
+                    $.each(response.barangays,function(index, val){
+                        $('#barangay_id').append('<option value="'+val.brgyCode+'">'+val.brgyDesc+'</option>'); // Correct variable names
+                    });
+                    
+                }
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

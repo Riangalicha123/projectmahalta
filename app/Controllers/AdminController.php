@@ -21,11 +21,17 @@ use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
 use App\Models\VenueModel;
 use App\Models\MenuProductIcedModel;
+use App\Models\RegionModel;
+use App\Models\ProvinceModel;
+use App\Models\CityModel;
+use App\Models\BarangayModel;
 use App\Traits\EmailTrait;
+use CodeIgniter\API\ResponseTrait;
 
 class AdminController extends BaseController
 {
     use EmailTrait;
+    use ResponseTrait;
     private $rooms;
     private $tables;
     private $events;
@@ -44,6 +50,10 @@ class AdminController extends BaseController
     private $categories;
     private $venues;
     private $iced;
+    private $regions;
+    private $province;
+    private $cities;
+    private $barangay;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -64,6 +74,10 @@ class AdminController extends BaseController
         $this->categories = new MenuCategoryModel();
         $this->venues = new VenueModel();
         $this->iced = new MenuProductIcedModel();
+        $this->regions = new RegionModel();
+        $this->province = new ProvinceModel();
+        $this->cities = new CityModel();
+        $this->barangay = new BarangayModel();
     }
     public function index()
     {
@@ -176,8 +190,10 @@ class AdminController extends BaseController
     }
     public function dashboard()
     {
+        $regions = $this->regions->findAll();
         $data = [
             'adminRoutes' => 'dashboard',
+            'regions' => $regions,
             'customers' => $this->guest
             ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
             ->join ('users', 'guest.UserID = users.UserID')
@@ -557,8 +573,8 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'restReservation',
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_dining_tables.TableID, restaurant_dining_tables.Venue, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
-            ->join ('restaurant_dining_tables', 'reservations.TableID = restaurant_dining_tables.TableID')
+            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+            ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
         ]; 
@@ -824,89 +840,204 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'staffAccount',
+            'regions' => $this->regions->findAll(),
             'staffs' => $this->staffDetail
-            ->select('staff_details.StaffDetailsID, departments.DepartmentID, departments.DepartmentName, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, users.Address')
-            ->join ('departments', 'staff_details.DepartmentID = departments.DepartmentID')
-            ->join ('users', 'staff_details.UserID = users.UserID')
-            ->findAll()
+                ->select('staff_details.StaffDetailsID, departments.DepartmentID, departments.DepartmentName, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
+                ->join ('departments', 'staff_details.DepartmentID = departments.DepartmentID')
+                ->join ('users', 'staff_details.UserID = users.UserID')
+                ->findAll()
         ]; 
         return view('Admin\staffAccount',$data);
     }
+    
+    public function fetchProvince()
+    {
+        $request = service('request');
+        
+        // Ensure regCode is set in the request
+        $regCode = $request->getPost('regCode');
+        
+        // Load the model or service responsible for fetching provinces
+        $provinces = $this->province->where('regCode', $regCode)->findAll();
+        
+        $data['provinces'] = $provinces;
+        
+        return $this->response->setJSON($data);
+    }
+    
+    public function fetchCity()
+    {
+        $request = service('request');
+        
+        // Ensure provCode is set in the request
+        $provCode = $request->getPost('provCode');
+        
+        // Load the model or service responsible for fetching cities
+        $cities = $this->cities->where('provCode', $provCode)->findAll();
+        
+        $data['cities'] = $cities;
+        
+        return $this->response->setJSON($data);
+    }
+    
+    public function fetchBarangay()
+    {
+        $request = service('request');
+        
+        // Ensure citymunCode is set in the request
+        $citymunCode = $request->getPost('citymunCode');
+        
+        // Load the model or service responsible for fetching barangays
+        $barangays = $this->barangay->where('citymunCode', $citymunCode)->findAll();
+        
+        $data['barangays'] = $barangays;
+        
+        return $this->response->setJSON($data);
+    }
+    
     public function addStaffDetails()
     {
         helper(['form']);
-
-        // Validation Rules
+    
+        // Validation Rules and Messages
         $validationRules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
             'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]',
             'Password' => 'required|min_length[4]|max_length[50]',
-            'ContactNumber' => 'required|max_length[11]',
-            'Address' => 'required|min_length[4]|max_length[100]',
             'confirmPassword' => 'matches[Password]',
-            'DepartmentName'=> 'required',
+            'ContactNumber' => 'required|max_length[11]',
+            'Region' => 'required',
+            'Province' => 'required',
+            'City' => 'required',
+            'Barangay' => 'required',
+            'DepartmentName' => 'required',
         ];
-
+    
+        $validationMessages = [
+            'FirstName' => [
+                'required' => 'The first name field is required.',
+                'min_length' => 'The first name must be at least 4 characters long.',
+                'max_length' => 'The first name must not exceed 100 characters.',
+            ],
+            'LastName' => [
+                'required' => 'The last name field is required.',
+                'min_length' => 'The last name must be at least 4 characters long.',
+                'max_length' => 'The last name must not exceed 100 characters.',
+            ],
+            'Email' => [
+                'required' => 'The email field is required.',
+                'min_length' => 'The email must be at least 4 characters long.',
+                'max_length' => 'The email must not exceed 100 characters.',
+                'valid_email' => 'Please enter a valid email address.',
+                'is_unique' => 'This email address is already registered.',
+            ],
+            'Password' => [
+                'required' => 'The password field is required.',
+                'min_length' => 'The password must be at least 4 characters long.',
+                'max_length' => 'The password must not exceed 50 characters.',
+            ],
+            'ContactNumber' => [
+                'required' => 'The contact number field is required.',
+                'max_length' => 'The contact number must not exceed 11 characters.',
+            ],
+            'confirmPassword' => [
+                'matches' => 'The confirm password field must match the password field.',
+            ],
+            'DepartmentName' => [
+                'required' => 'The department name field is required.',
+            ],
+            'Region' => [
+                'required' => 'The region field is required.',
+            ],
+            'Province' => [
+                'required' => 'The province field is required.',
+            ],
+            'City' => [
+                'required' => 'The city field is required.',
+            ],
+            'Barangay' => [
+                'required' => 'The barangay field is required.',
+            ],
+        ];
+    
         // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
-        }
+        if ($this->validate($validationRules, $validationMessages)) {
 
-        // Use a single query to get the user based on both first name and last name
-        $user = [
-            'FirstName' => $this->request->getVar('FirstName'),
-            'LastName' => $this->request->getVar('LastName'),
-            'Email' => $this->request->getVar('Email'),
-            'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
-            'ContactNumber' => $this->request->getVar('ContactNumber'),
-            'Address' => $this->request->getVar('Address'),
-            'UserRoleID' => 2,
-        ];
-
-        // Additional checks and modifications
-        if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['Email'])) {
-            // Handle the case where essential user details are missing
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Incomplete user details. Please provide all required information.');
-        }
-
-        // Check if the email is unique
-        if (!$this->isEmailUnique($user['Email'])) {
-            // Handle the case where the email is not unique
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Email address is already in use. Please choose a different one.');
-        }
-
-        // Insert the user into the database
-        $insertedUserID = $this->users->insert($user);
-
-        // Retrieve Room Data
-        $inputDepartmentName = $this->request->getPost('DepartmentName');
-
-        $staffDataByType = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-
-        // Check both conditions for staffData
-        if ($staffDataByType && $insertedUserID) {
-            // Prepare Staff Data
-            $newStaffData = [
-                'DepartmentID' => $staffDataByType['DepartmentID'],
+    
+            $regionCode = $this->request->getVar('Region');
+            $provinceCode = $this->request->getVar('Province');
+            $cityCode = $this->request->getVar('City');
+            $barangayCode = $this->request->getVar('Barangay');
+    
+            $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'];
+            $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'];
+            $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'];
+            $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'];
+    
+            // Construct user data
+            $userData = [
+                'FirstName' => $this->request->getVar('FirstName'),
+                'LastName' => $this->request->getVar('LastName'),
+                'Email' => $this->request->getVar('Email'),
+                'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
+                'ContactNumber' =>  $this->request->getVar('ContactNumber'),
+                'Region' => $regionDesc,
+                'Province' => $provinceDesc,
+                'City' => $cityDesc,
+                'Barangay' => $barangayDesc,
+                'UserRoleID' => 2, // Assuming 2 is the role ID for staff
+            ];
+            $verificationToken = bin2hex(random_bytes(16));
+            $userData['verification_token'] = $verificationToken;
+            $userData['is_verified'] = 1;
+    
+            // Insert user data into the database
+            $insertedUserID = $this->users->insert($userData);
+    
+            // Handle database insertion errors
+            if (!$insertedUserID) {
+                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
+            }
+    
+            // Retrieve department ID based on department name
+            $inputDepartmentName =$this->request->getPost('DepartmentName');
+            $departmentData = $this->department->where('DepartmentName', $inputDepartmentName)->first();
+    
+            if (!$departmentData) {
+                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid department selected.');
+            }
+    
+            // Construct staff data
+            $staffData = [
+                'DepartmentID' => $departmentData['DepartmentID'],
                 'UserID' => $insertedUserID,
             ];
-
-            // Insert Staff Details
-            $insertedStaffID = $this->staffDetail->insert($newStaffData);
-
-            // Retrieve the inserted staff details
-            $insertedStaffDetails = $this->staffDetail->find($insertedStaffID);
-
-            // Redirect with appropriate message and staff details
-            if ($insertedStaffID) {
-                return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Reservation added successfully.')->with('staffDetails', $insertedStaffDetails);
-            } else {
-                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add reservation. Please try again.');
+    
+            // Insert staff data into the database
+            $insertedStaffID = $this->staffDetail->insert($staffData);
+    
+            // Handle staff insertion errors
+            if (!$insertedStaffID) {
+                // Rollback user insertion
+                $this->users->delete($insertedUserID);
+                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
             }
+    
+            // Redirect with success message
+            return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff added successfully.');
         } else {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+            // If validation fails, return to the registration form with errors
+            $data['validation'] = $this->validator;
+            $data['activePage'] = 'Register';
+            $data['regions'] = $this->regions->findAll();
+            $data['staffs'] = $this->staffDetail
+                ->select('staff_details.StaffDetailsID, departments.DepartmentID, departments.DepartmentName, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
+                ->join('departments', 'staff_details.DepartmentID = departments.DepartmentID')
+                ->join('users', 'staff_details.UserID = users.UserID')
+                ->findAll();
+    
+            return view('Admin\staffAccount', $data);
         }
     }
 
@@ -1179,7 +1310,7 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'restService',
-            'venues' => $this->venues->findAll(),
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'menumains' => $this->products
             ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
             ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')

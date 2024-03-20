@@ -18,6 +18,7 @@ $routes->get('/faq', 'GuestController::faq',['filter' => 'noAuth']);
 //$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurantt', 'GuestController::restaurantt',['filter' => 'noAuth']);
 $routes->get('/mainmenu', 'GuestController::mainmenu',['filter' => 'noAuth']);
+$routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions',['filter' => 'noAuth']);
 $routes->get('/barmenu', 'GuestController::barmenu',['filter' => 'noAuth']);
 $routes->get('/cafemenu', 'GuestController::cafemenu',['filter' => 'noAuth']);
 $routes->get('/convention', 'GuestController::convention',['filter' => 'noAuth']);
@@ -115,10 +116,15 @@ $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updat
 $routes->get('/admin-rate', 'AdminController::rate',['filter' => 'adminGuard']);
 $routes->post('/submit-rate-form', 'AdminController::submitRateForm',['filter' => 'adminGuard']);
 
-//Admin-Feedback
+//Admin-Staff Accounts
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts',['filter' => 'adminGuard']);
-$routes->post('/admin-addstaffdetails', 'AdminController::addStaffDetails',['filter' => 'adminGuard']);
+// routes.php
+$routes->post('/fetch-province', 'AdminController::fetchProvince');
+$routes->post('/fetch-city', 'AdminController::fetchCity');
+$routes->post('/fetch-barangay', 'AdminController::fetchBarangay');
+$routes->match(['get', 'post'],'/admin-addstaffdetails', 'AdminController::addStaffDetails',['filter' => 'adminGuard']);
 $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
+//Admin-Feedback
 $routes->get('/admin-feedback', 'AdminController::feedback',['filter' => 'adminGuard']);
 
 //Admin-ChatBot
