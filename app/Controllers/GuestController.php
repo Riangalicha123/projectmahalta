@@ -393,7 +393,32 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
     
         return view('Hotell\bookroom', $data);
     }
+    public function amenities()
+    {
+         // Load the session library
+         $session = \Config\Services::session();
     
+         // Retrieve room reservation data from session
+         $roomReservationData = $session->get('roomReservationData');
+     
+         // Calculate down payment and full payment amounts (assuming down payment is 50% of total amount)
+         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
+         $fullPaymentAmount = $roomReservationData['TotalAmount'];
+     
+         // Add down payment and full payment amounts to room reservation data
+         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
+         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
+        $data = [
+            'activePage' => 'Reservation',
+            'rooms' => $this->rooms
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType,rooms.Description,rooms.PricePerNight,rooms.AvailabilityStatus,rooms.Image')
+                ->findAll(),
+            'qrcodes' => $this->qr->findAll(),
+            'roomReservationData' => $roomReservationData,
+        ];
+    
+        return view('Hotell\amenities', $data);
+    }
     public function formdetails()
     {
         // Load the session library
@@ -403,7 +428,7 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         $roomReservationData = $session->get('roomReservationData');
     
         // Calculate down payment and full payment amounts (assuming down payment is 50% of total amount)
-        $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.2;
+        $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
     
         // Add down payment and full payment amounts to room reservation data
@@ -650,7 +675,6 @@ public function tableReservation()
                     $notifBody = 'Your reservation has been successfully added.';
                     $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                 }
-
                 $session->setFlashdata('success', 'Reservation added successfully and email sent.');
                 return redirect()->to('/mainmenu');
             } else {

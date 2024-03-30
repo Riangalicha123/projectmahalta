@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta Admin</title>
+  <title>Mahalta-Staff</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -20,188 +20,26 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
-<?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
   <!-- Navbar -->
-  <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
+  <?php include('include/navbar.php') ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
+    <a href="<?=base_url()?>/staff-hotel" class="brand-link elevation-4">
+      <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
+    </a>
 
     <!-- Sidebar -->
-    <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
+    <?php include('include/sidebar.php') ?>
     <!-- /.sidebar -->
   </aside>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Restaurant Services</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Restaurant Services</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-12">
-            
-
-            <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Restaurant Services</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Add
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Table</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <form action="/addserviceTable" method="post" enctype="multipart/form-data">
-                                <div class="card-body">
-                                <div class="form-group">
-                                    <label for="VenueName">Venue Name</label>
-                                      <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option >Main Restaurant</option>
-                                        <option >Venue 2</option>
-                                        <option >Venue 3</option>
-                                      </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="VenueCapacity" >Status</label >
-                                    <input type="number" class="form-control" id="VenueCapacity" name="VenueCapacity"  required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="AvailableCapacity" >Status</label >
-                                    <input type="number" class="form-control" id="AvailableCapacity" name="AvailableCapacity"  required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
-                                </div>
-                                
-                                
-                                
-                                </div>
-                                <!-- /.card-body -->
-
-                                <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Edit Room Modal -->
-                    <?php foreach ($venues as $venue): ?>
-                    <div class="modal fade" id="editModal<?=$venue['VenueID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$venue['VenueID']?>" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel<?=$venue['VenueID']?>">Edit Table</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="<?= base_url('/updateserviceTable/') ?>" method="post" enctype="multipart/form-data">
-                                <div class="card-body">
-                                <input type="hidden" name="VenueID" id="VenueID" value="<?=$venue['VenueID']?>">
-                                
-                                <div class="form-group">
-                                    <label for="VenueName">Venue Name</label>
-                                      <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option <?= ($venue['VenueName'] == 'Main Restaurant') ? 'selected' : '' ?>>Main Restaurant</option>
-                                        <option <?= ($venue['VenueName'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
-                                        <option <?= ($venue['VenueName'] == 'Venue 3') ? 'selected' : '' ?>>Venue 3</option>
-                                      </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="VenueCapacity" >Status</label >
-                                    <input type="number" class="form-control" id="VenueCapacity" name="VenueCapacity"  required value="<?=$venue['VenueCapacity']?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="AvailableCapacity" >Status</label >
-                                    <input type="number" class="form-control" id="AvailableCapacity" name="AvailableCapacity"  required value="<?=$venue['AvailableCapacity']?>">
-                                </div>
-                                <div class="form-group">
-                                    <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$venue['Image']?>" required>
-                                </div>
-                                
-                              
-                                
-                                </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endforeach; ?>
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Venue Name</th>
-                    <th>Venue Capacity</th>
-                    <th>Available Capacity</th>
-                    <th>Venue Image</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($venues as $venue): ?>
-                  <tr>
-                    <td><?=$venue['VenueID']?></td>
-                    <td><?=$venue['VenueName']?></td>
-                    <td><?=$venue['VenueCapacity']?></td>
-                    <td><?=$venue['AvailableCapacity']?></td>
-                    <td><img  style="width: 300px; height: 250px;" src="<?=base_url('/uploads/'.$venue['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $venue['VenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
-                  </tr>
-                  <?php endforeach; ?>
-                  
-                  
-                  </tbody>
-                  
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-      </div>
-      <!-- /.container-fluid -->
-    </section>
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -264,7 +102,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('addMainMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
+                        <form action="<?= base_url('addMainMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
                             <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name" >
@@ -321,7 +159,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('/updateMainMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="<?= base_url('/updateMainMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                           <input type="hidden" name="ProductID" id="ProductID" value="<?=$menumain['ProductID']?>">
                           <div class="form-group">
@@ -416,7 +254,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('addBarMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
+                        <form action="<?= base_url('addBarMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
                             <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name" >
@@ -472,7 +310,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('/updateBarMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="<?= base_url('/updateBarMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menubar['ProductID']?>">
                         <div class="form-group">
@@ -569,7 +407,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('addCafeMenuIced/') ?>" method="post" enctype="multipart/form-data" id="addForm">
+                        <form action="<?= base_url('addCafeMenuIcedd/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name" >
@@ -613,7 +451,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('/updateCafeMenuIced/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
+                <form action="<?= base_url('/updateCafeMenuIcedd/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
                     <div class="card-body">
                         <input type="hidden" name="IcedID" id="IcedID" value="<?=$menuice['IcedID']?>">
                         <div class="form-group">
@@ -691,7 +529,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('addCafeMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
+                        <form action="<?= base_url('addCafeMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                         <div class="form-group">
                             <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name" >
@@ -738,7 +576,7 @@
                       </div>
                       <div class="modal-body">
                         <!-- Add your form inputs here -->
-                        <form action="<?= base_url('/updateCafeMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="<?= base_url('/updateCafeMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menucafe['ProductID']?>">
                         <div class="form-group">
@@ -797,11 +635,10 @@
       <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
-    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
-  <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
+  <?php include('include/footer.php') ?>
 
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">

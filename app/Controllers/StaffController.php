@@ -16,6 +16,11 @@ use App\Models\RegionModel;
 use App\Models\ProvinceModel;
 use App\Models\CityModel;
 use App\Models\BarangayModel;
+use App\Models\MenuModel;
+use App\Models\MenuProductModel;
+use App\Models\MenuCategoryModel;
+use App\Models\MenuProductIcedModel;
+use App\Models\VenueModel;
 use App\Traits\EmailTrait;
 use CodeIgniter\API\ResponseTrait;
 
@@ -23,6 +28,11 @@ class StaffController extends BaseController
 {
     use ResponseTrait;
     use EmailTrait;
+    private $venues;
+    private $menus;
+    private $products;
+    private $categories;
+    private $iced;
     private $rooms;
     private $tables;
     private $events;
@@ -52,6 +62,11 @@ class StaffController extends BaseController
         $this->province = new ProvinceModel();
         $this->cities = new CityModel();
         $this->barangay = new BarangayModel();
+        $this->menus = new MenuModel();
+        $this->venues = new VenueModel();
+        $this->products = new MenuProductModel();
+        $this->categories = new MenuCategoryModel();
+        $this->iced = new MenuProductIcedModel();
     }
     public function login(){
         helper(['form']);
@@ -174,9 +189,9 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'hotel',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
-            ->join ('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join ('users', 'reservations.UserID = users.UserID')
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false )
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
             ->findAll()
         ]; 
         return view('Stafff\HotelStaff\reservation', $data);
@@ -347,6 +362,8 @@ class StaffController extends BaseController
                 'RoomType' => $this->request->getVar('RoomType'),
                 'Description' => $this->request->getVar('Description'),
                 'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'minPerson' => $this->request->getVar('minPerson'),
+                'maxPerson' => $this->request->getVar('maxPerson'),
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
@@ -404,6 +421,8 @@ class StaffController extends BaseController
                 'RoomType' => $this->request->getVar('RoomType'),
                 'Description' => $this->request->getVar('Description'),
                 'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'minPerson' => $this->request->getVar('minPerson'),
+                'maxPerson' => $this->request->getVar('maxPerson'),
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
@@ -451,8 +470,8 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'restaurant',
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_dining_tables.TableID, restaurant_dining_tables.TableNumber, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Address, reservations.UserID ')
-            ->join ('restaurant_dining_tables', 'reservations.TableID = restaurant_dining_tables.TableID')
+            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+            ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
         ]; 
@@ -466,8 +485,7 @@ class StaffController extends BaseController
             'ContactNumber' => 'required',
             'Address' => 'required',
             'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'TableNumber' => 'required',
+            'Venue' => 'required',
             'Note' => 'required',
         ];
 
@@ -489,16 +507,15 @@ class StaffController extends BaseController
                             ->first();
 
         // Retrieve Room Data
-        $inputTable = $this->request->getPost('TableNumber');
+        $inputTable = $this->request->getPost('Venue');
 
-        $restaurantTable = $this->tables->where('TableNumber', $inputTable)->first();
+        $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
 
         // Check both conditions for roomData
         if ($restaurantTable && $user) {
             // Prepare Reservation Data
             $newReservationData = [
                 'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
                 'Note' => $this->request->getPost('Note'),
                 'Status' => 'Pending',
                 'TableID' => $restaurantTable['TableID'], // Use the RoomID from RoomType
@@ -526,7 +543,7 @@ class StaffController extends BaseController
         $validationRules = [
             
             'CheckInDate' => 'required',
-            'TableNumber' => 'required',
+            'Venue' => 'required',
             'Note' => 'required',
         ];
 
@@ -539,9 +556,9 @@ class StaffController extends BaseController
 
 
         
-        $inputTableNumber = $this->request->getPost('TableNumber');
+        $inputTableNumber = $this->request->getPost('Venue');
 
-        $tableData = $this->tables->where('TableNumber', $inputTableNumber)
+        $tableData = $this->tables->where('Venue', $inputTableNumber)
                                 ->first();
 
         // Update Reservation Data
@@ -579,26 +596,25 @@ class StaffController extends BaseController
         // Redirect to the reservation page or wherever appropriate
         return redirect()->to('/staff-restaurant-reservation')->with('success', 'Reservation status updated successfully');
     }
-    public function resTable()
+    public function resVenue()
     {
 
         $data = [
-            'currenttRoute' => 'table',
-            'tables' => $this->tables->findAll(),
+            'currenttRoute' => 'venue',
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
         ]; 
-        return view('Stafff\RestaurantStaff\table',$data);
+        return view('Stafff\RestaurantStaff\venue',$data);
     }
-    public function addTable(){
+    public function addVenue(){
         $file = $this->request->getFile('Image');
-    
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
     
             $data = [
-                'TableID' => $this->request->getVar('TableID'),
-                'Venue' => $this->request->getVar('Venue'),
-                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'VenueID' => $this->request->getVar('VenueID'),
+                'VenueName' => $this->request->getVar('VenueName'),
+                'VenueCapacity' => $this->request->getVar('VenueCapacity'),
+                'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
     
@@ -617,7 +633,7 @@ class StaffController extends BaseController
                     // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
-                        $this->tables->save($data);
+                        $this->venues->save($data);
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -631,12 +647,12 @@ class StaffController extends BaseController
             echo('error');
         }
     
-        return redirect()->to('/staff-restaurant-table');
+        return redirect()->to('/staff-restaurant-venue');
     }
     
 
 
-    public function updateTable(){
+    public function updateVenue(){
 
         $file = $this->request->getFile('Image');
     
@@ -645,9 +661,10 @@ class StaffController extends BaseController
             $newFileName = $file->getRandomName();
     
             $data = [
-                'TableID' => $this->request->getVar('TableID'),
-                'Venue' => $this->request->getVar('Venue'),
-                'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
+                'VenueID' => $this->request->getVar('VenueID'),
+                'VenueName' => $this->request->getVar('VenueName'),
+                'VenueCapacity' => $this->request->getVar('VenueCapacity'),
+                'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
     
@@ -666,7 +683,7 @@ class StaffController extends BaseController
                     // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
-                        $this->tables->save($data);
+                        $this->venues->save($data);
                         
                     } else {
                         // Handle file move error
@@ -680,8 +697,44 @@ class StaffController extends BaseController
         } else {
             echo('error');
         }
-        return redirect()->to('/staff-restaurant-table');
+        return redirect()->to('/staff-restaurant-venue');
     }
+    public function resMenu(){
+        $data = [
+            'currenttRoute' => 'menu',
+            'menumains' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(1, 11))
+            ->where('menu.MenuType', 'Main Menu')
+            ->findAll(),
+            'menubars' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(12, 21))
+            ->where('menu.MenuType', 'Bar Menu')
+            ->findAll(),
+            'menucafes' => $this->products
+            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_product.MenuID = menu.MenuID')
+            ->whereIn('menu_category.CategoryID', range(21, 24))
+            ->where('menu.MenuType', 'Cafe Menu')
+            ->findAll(),
+            'menuices' => $this->iced
+            ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+            ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
+            ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
+            ->where('menu_category.CategoryID', 22)
+            ->where('menu.MenuType', 'Cafe Menu')
+            ->findAll(),
+
+        ];
+        return view('Stafff/RestaurantStaff/menu', $data);
+    }
+    
     public function conhome()
     {
         $data = [

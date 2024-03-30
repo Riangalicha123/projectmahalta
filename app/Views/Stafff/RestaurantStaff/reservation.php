@@ -95,10 +95,6 @@
                                           <input type="text" class="form-control" id="LastName" name="LastName" required>
                                       </div>
                                   </div>
-                                <div class="form-group">
-                                    <label for="Email">Email</label>
-                                    <input type="email" class="form-control" id="Email" name="Email" required>
-                                </div>
                                 <div class="form-row">
                                       <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
@@ -156,17 +152,23 @@
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $restrev['ReservationID'] ?>">
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="TableNumber">Room No.</label>
-                                            <select class="custom-select form-control-border" id="TableNumber" name="TableNumber" required>
-                                                <option <?= ($restrev['TableNumber'] == 'D1') ? 'selected' : '' ?>>T1</option>
-                                                <option <?= ($restrev['TableNumber'] == 'D2') ? 'selected' : '' ?>>T2</option>
-                                                <option <?= ($restrev['TableNumber'] == 'D3') ? 'selected' : '' ?>>T3</option>
+                                        <div class="form-group col-md-6">
+                                            <label for="arrivalDate">Arrival Date</label>
+                                            <input type="date" class="form-control" id="arrivalDate" name="arrivalDate" required value="<?= date('Y-m-d', strtotime($restrev['ArivalDate'])) ?>">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label for="arrivalTime">Arrival Time</label>
+                                            <input type="time" class="form-control" id="arrivalTime" name="arrivalTime" required value="<?= date('H:i', strtotime($restrev['ArivalTime'])) ?>">
+                                        </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                            <label for="VenueName">VenueName</label>
+                                            <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
+                                                <option <?= ($restrev['VenueName'] == 'Main Restaurant') ? 'selected' : '' ?>>Main Restaurant</option>
+                                                <option <?= ($restrev['VenueName'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
+                                                <option <?= ($restrev['VenueName'] == 'Venue 3') ? 'selected' : '' ?>>Venue 3</option>
                                             </select>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="CheckInDate">Arrival</label>
-                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($restrev['CheckInDate'])) ?>">
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -193,8 +195,9 @@
                     <th>Last Name</th>
                     <th>Contact No.</th>
                     <th>Address</th>
-                    <th>Table</th>
+                    <th>Venue</th>
                     <th>Arrival</th>
+                    <th>Arrival Time</th>
                     <th>Note</th>
                     <th>Status</th>
                     <th>Status Action</th>
@@ -209,8 +212,9 @@
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
                     <td><?=$restrev['Address']?></td>
-                    <td><?=$restrev['TableNumber']?></td>
-                    <td><?=$restrev['CheckInDate']?></td>
+                    <td><?=$restrev['VenueName']?></td>
+                    <td><?=$restrev['ArivalDate']?></td>
+                    <td><?=$restrev['ArivalTime']?></td>
                     <td><?=$restrev['Note']?></td>
                     <td class="project-state">
                         <?php
@@ -240,9 +244,9 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <!-- Inside the dropdown menu in your HTML template -->
-                            <a class="dropdown-item" href="<?= base_url("/staff/updaterestauStatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/staff/updaterestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/staff/updaterestauStatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
+                            <a class="dropdown-item" href="<?= base_url("staff/updaterestauStatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
+                            <a class="dropdown-item" href="<?= base_url("staff/updaterestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
+                            <a class="dropdown-item" href="<?= base_url("staff/updaterestauStatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>
                     </td>

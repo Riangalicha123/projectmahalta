@@ -265,7 +265,7 @@
                     </div>
                     <?php endforeach; ?>
                 <table id="example1" class="table table-bordered table-striped">
-                  <thead>
+                <thead>
                   <tr>
                     <th>#</th>
                     <th>First Name</th>
@@ -276,10 +276,13 @@
                     <th>Room Type</th>
                     <th>Arrival</th>
                     <th>Departure</th>
-                    <th>Number of Guests</th>
+                    <th>Adult</th>
+                    <th>Child</th>
+                    <th>Payment Option</th>
                     <th>Reference No.</th>
                     <th>Down or Full Payment</th>
                     <th>TotalAmount</th>
+                    <th>Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
                     <th>Action</th>
@@ -297,10 +300,13 @@
                     <td><?=$hotelrev['RoomType']?></td>
                     <td><?=$hotelrev['CheckInDate']?></td>
                     <td><?=$hotelrev['CheckOutDate']?></td>
-                    <td><?=$hotelrev['NumberOfGuests']?></td>
+                    <td><?=$hotelrev['Adult']?></td>
+                    <td><?=$hotelrev['Child']?></td>
+                    <td><?=$hotelrev['PaymentOption']?></td>
                     <td><?=$hotelrev['ReferenceNumber']?></td>
                     <td><?=$hotelrev['downorfullPayment']?></td>
                     <td><?=$hotelrev['TotalAmount']?></td>
+                    <td><img src="<?=base_url('/proof/'.$hotelrev['Image'])?>" alt="#"/></td>
                     <td class="project-state">
                         <?php
                         $badgeClass = '';

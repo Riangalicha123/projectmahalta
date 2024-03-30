@@ -1222,6 +1222,8 @@ class AdminController extends BaseController
                 'RoomType' => $this->request->getVar('RoomType'),
                 'Description' => $this->request->getVar('Description'),
                 'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'minPerson' => $this->request->getVar('minPerson'),
+                'maxPerson' => $this->request->getVar('maxPerson'),
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
@@ -1271,6 +1273,8 @@ class AdminController extends BaseController
                 'RoomType' => $this->request->getVar('RoomType'),
                 'Description' => $this->request->getVar('Description'),
                 'PricePerNight' => $this->request->getVar('PricePerNight'),
+                'minPerson' => $this->request->getVar('minPerson'),
+                'maxPerson' => $this->request->getVar('maxPerson'),
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
@@ -1341,8 +1345,6 @@ class AdminController extends BaseController
             ->findAll(),
 
         ];
-    
-        // Load the view with the data
         return view('Admin/Restaurant/service', $data);
     }
     public function addserviceTable(){

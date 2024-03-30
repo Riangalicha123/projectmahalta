@@ -43,10 +43,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= (isset($currenttRoute) && $currenttRoute === 'table') ? 'active' : '' ?> " href="<?= route_to('staff-restaurant-table') ?>">
+            <a class="nav-link <?= (isset($currenttRoute) && $currenttRoute === 'venue') ? 'active' : '' ?> " href="<?= route_to('staff-restaurant-venue') ?>">
               <i class="nav-icon fas fa-table"></i>
               <p>
-                Tables
+                Venue
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <?= (isset($currenttRoute) && $currenttRoute === 'menu') ? 'active' : '' ?> " href="<?= route_to('staff-restaurant-menu') ?>">
+              <i class="nav-icon fas fa-table"></i>
+              <p>
+                Menu
               </p>
             </a>
           </li>

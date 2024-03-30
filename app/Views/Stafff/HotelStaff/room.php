@@ -178,6 +178,14 @@
                                     <input type="text" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="minPerson">Min Person</label>
+                                    <input type="text" class="form-control" id="minPerson" name="minPerson"   value="<?=$room['minPerson']?>"required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxPerson">Max Person</label>
+                                    <input type="text" class="form-control" id="maxPerson" name="maxPerson"   value="<?=$room['maxPerson']?>"required>
+                                </div>
+                                <div class="form-group">
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$room['Image']?>" required>
                                 </div>
@@ -204,6 +212,8 @@
                     <th>RoomTypes</th>
                     <th>Description</th>
                     <th>Price per Night</th>
+                    <th>Min Person</th>
+                    <th>Max Person</th>
                     <th>Image</th>
                     <th>Status</th>
                     <th>Action</th>
@@ -217,6 +227,8 @@
                     <td><?=$room['RoomType']?></td>
                     <td><?=$room['Description']?></td>
                     <td><?=$room['PricePerNight']?></td>
+                    <td><?=$room['minPerson']?></td>
+                    <td><?=$room['maxPerson']?></td>
                     <td><img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>
                     <td style="color: red; background-border: #0056b3;" ><?=$room['AvailabilityStatus']?></td>
                     <th><a class="btn btn-danger" href="/deleteRoom/<?= $room['RoomID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
