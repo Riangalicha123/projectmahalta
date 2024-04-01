@@ -25,7 +25,6 @@
 <body>
 
   <?php include('include/header.php') ?>
-  <!-- END header -->
 
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(/guest/images/3.jpg);">
@@ -35,20 +34,15 @@
 
           <div class="mb-5 element-animate">
             <h1>Room Reservation</h1>
-            <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
           </div>
-
         </div>
       </div>
     </div>
   </section>
-  <!-- END section -->
-  
   <section class="site-section">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          
           <h2 class="mb-5">Reservation Room Form</h2>
           <?php if(isset($validation)):?>
                                         <div class="alert alert-warning">
@@ -98,7 +92,7 @@
             </div>
             <hr>
             <h3 class="mb-3">Payment Details</h3>
-            <p><b>*Note: 20% down payment is required upon reservation.</b></p>
+            <p><b>*Note: 50% down payment is required upon reservation.</b></p>
             <?php foreach ($qrcodes as $qr): ?>
     <div class="row">
         <div class="col-md-6 form-group">

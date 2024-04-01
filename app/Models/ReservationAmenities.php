@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class InventoryModel extends Model
+class ReservationAmenities extends Model
 {
-    protected $table            = 'inventory';
-    protected $primaryKey       = 'InventoryID';
+    protected $table            = 'reservation_amenities';
+    protected $primaryKey       = 'AmenitiesID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['roomInventoryID','restaurantInventoryID'];
+    protected $allowedFields    = ['roomInventoryID','insertQuantity'];
 
     // Dates
     protected $useTimestamps = false;

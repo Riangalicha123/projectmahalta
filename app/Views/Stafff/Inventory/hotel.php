@@ -98,10 +98,7 @@
                                     <label for="Price">Price</label>
                                     <input type="number" class="form-control" id="Price" name="Price" required>
                                 </div>
-                                <div class="form-group">
-                                    <label for="TotalPrice">Total Price</label>
-                                    <input type="number" class="form-control" id="TotalPrice" name="TotalPrice" required>
-                                </div>
+                                
                                 
                                 </div>
                                 <!-- /.card-body -->
@@ -138,10 +135,6 @@
                                               <label for="Price">Price</label>
                                               <input type="number" class="form-control" id="Price" name="Price" value="<?=$roinvent['Price']?>" required>
                                           </div>
-                                          <div class="form-group">
-                                              <label for="TotalPrice">TotalPrice</label>
-                                              <input type="number" class="form-control" id="TotalPrice" name="TotalPrice" value="<?=$roinvent['TotalPrice']?>" required>
-                                          </div>
                                       </div>
                                       <div class="card-footer">
                                           <button type="submit" class="btn btn-primary">Update</button>
@@ -158,7 +151,6 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
-                    <th>Total Price</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -168,7 +160,6 @@
                     <td><?=$roinvent['ProductName']?></td>
                     <td><?=$roinvent['Quantity']?></td>
                     <td><?=$roinvent['Price']?></td>
-                    <td><?=$roinvent['TotalPrice']?></td>
                     <th><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

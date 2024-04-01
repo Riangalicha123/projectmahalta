@@ -50,12 +50,6 @@
                   <p>Hotel</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link <?= (isset($inventoryRoutes) && $inventoryRoutes === 'inrestaurant') ? 'active' : '' ?> " href="<?= route_to('staff-inventory/restaurant') ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Restaurant</p>
-                </a>
-              </li>
             </ul>
           </li>
           

@@ -12,6 +12,7 @@ $routes->get('/getdataRoom', 'GuestController::getdataRoom',['filter' => 'noAuth
 $routes->get('/bookroom', 'GuestController::bookroom',['filter' => 'noAuth']);
 $routes->get('/bookroom/getdataRoom', 'GuestController::getdataRoomReservation',['filter' => 'noAuth']);
 $routes->get('/bookroom/amenities', 'GuestController::amenities',['filter' => 'noAuth']);
+$routes->post('/addAmenities', 'GuestController::addAmenities',['filter' => 'noAuth']);
 $routes->get('/bookroom/formdetails', 'GuestController::formdetails',['filter' => 'noAuth']);
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation',['filter' => 'noAuth']);
 $routes->get('/blog', 'GuestController::blog',['filter' => 'noAuth']);

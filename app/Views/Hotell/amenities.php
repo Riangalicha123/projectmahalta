@@ -61,60 +61,19 @@
                     <th>Price</th>
                     <th>Quantity</th>
                 </thead>
-            <form method="post" action="">
-                <tbody>
-                    <input type="hidden" value="15068" name="booking_id"></input>
-                    <tr>
-                        <td><input type="checkbox" value="Bath Towel" name="amenities_id[]"></td>
-                        <td>Bath Towel</td>
-                        <td>50<input type="hidden" class="form-control" value="Bath Towel" name="amenities_name[]">
-                        <input type="hidden" class="form-control" value="50" name="charge_per_item[]" id="charge_per_item7"></td>
-                        <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity7"></td>  
-                    </tr>
-                                                                        <tr>
-                                            <td><input type="checkbox" value="Pillow" name="amenities_id[]"></td>
-                                            <td>Pillow</td>
-                                            <td>50                                        <input type="hidden" class="form-control" value="Pillow" name="amenities_name[]">
-                                            <input type="hidden" class="form-control" value="50" name="charge_per_item[]" id="charge_per_item3"></td>
-                                            <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity3"></td>
-                                            
-                                        </tr>
-                                                                        <tr>
-                                            <td><input type="checkbox" value="Blanket" name="amenities_id[]"></td>
-                                            <td>Blanket</td>
-                                            <td>200                                        <input type="hidden" class="form-control" value="Blanket" name="amenities_name[]">
-                                            <input type="hidden" class="form-control" value="200" name="charge_per_item[]" id="charge_per_item4"></td>
-                                            <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity4"></td>
-                                            
-                                        </tr>
-                                                                        <tr>
-                                            <td><input type="checkbox" value="Flat sheet" name="amenities_id[]"></td>
-                                            <td>Flat sheet</td>
-                                            <td>50                                        <input type="hidden" class="form-control" value="Flat sheet" name="amenities_name[]">
-                                            <input type="hidden" class="form-control" value="50" name="charge_per_item[]" id="charge_per_item5"></td>
-                                            <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity5"></td>
-                                            
-                                        </tr>
-                                                                        <tr>
-                                            <td><input type="checkbox" value="Bed sheet" name="amenities_id[]"></td>
-                                            <td>Bed sheet</td>
-                                            <td>50                                        <input type="hidden" class="form-control" value="Bed sheet" name="amenities_name[]">
-                                            <input type="hidden" class="form-control" value="50" name="charge_per_item[]" id="charge_per_item6"></td>
-                                            <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity6"></td>
-                                            
-                                        </tr>
-                                                                        <tr>
-                                            <td><input type="checkbox" value="Mattress Pad" name="amenities_id[]"></td>
-                                            <td>Mattress Pad</td>
-                                            <td>200                                        <input type="hidden" class="form-control" value="Mattress Pad" name="amenities_name[]">
-                                            <input type="hidden" class="form-control" value="200" name="charge_per_item[]" id="charge_per_item8"></td>
-                                            <td><input type="text" class="form-control" name="quantity[]" id="quantity" value="0" id="quantity8"></td>
-                                            
-                                        </tr>
-                                                                    
-                                </tbody>
+            <form method="post" action="<?= base_url('/addAmenities') ?>">
+            <tbody>
+        <?php foreach ($roinvents as $roinvent): ?>
+        <tr>
+            <td><input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>"></td>
+            <td><?= $roinvent['ProductName'] ?><input type="hidden" class="form-control" name="ProductName[]" value="<?= $roinvent['ProductName'] ?>"></td>
+            <td><?= $roinvent['Price'] ?><input type="hidden" class="form-control" name="Price[]" value="<?= $roinvent['Price'] ?>"></td>
+            <td><input type="text" class="form-control" name="insertQuantity[]" placeholder="0"></td>  
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
             </table>
-            <tfoot><button type="submit" class="btn btn-dark text-right"><i class="fa fa-download"></i> SUBMIT</button>&nbsp;
+            <tfoot><button type="submit" class="btn btn-dark text-right"><i class="fa fa-download"></i> SUBMIT</button>
             <a href="<?= route_to('bookroom/formdetails') ?>" class="btn btn-dark text-right">Skip <i class="fa fa-arrow-right"></i></a></tfoot>
             </form>
         </div>

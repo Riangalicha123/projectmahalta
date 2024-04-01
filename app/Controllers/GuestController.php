@@ -18,6 +18,8 @@ use App\Models\MenuCategoryModel;
 use App\Models\VenueModel;
 use App\Models\MenuProductIcedModel;
 use App\Traits\EmailTrait;
+use App\Models\RoomInventoryModel;
+use App\Models\ReservationAmenities;
 class GuestController extends BaseController
 {
     use EmailTrait;
@@ -35,6 +37,8 @@ class GuestController extends BaseController
     private $categories;
     private $venues;
     private $iced;
+    private $roominventory;
+    private $reservationamenities;
 
     function __construct(){
         helper(['form']);
@@ -52,6 +56,8 @@ class GuestController extends BaseController
         $this->categories = new MenuCategoryModel();
         $this->venues = new VenueModel();
         $this->iced = new MenuProductIcedModel();
+        $this->roominventory = new RoomInventoryModel();
+        $this->reservationamenities = new ReservationAmenities();
     }
     public function index()
     {
@@ -191,11 +197,6 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
         return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms, 'roomSelected' => $roomSelected, 'TotalAmount' => $TotalAmount]);
     }
     
-    
-    
-    
-    
-
     public function getdataRoomReservation()
     {
         // Load the session library
@@ -237,7 +238,7 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
             ]);
     
             // Redirect to the /bookroom/formdetails page
-            return redirect()->to(base_url('/bookroom/formdetails'));
+            return redirect()->to(base_url('/bookroom/amenities'));
         } else {
             // Handle the case where either reservation or room data is missing
             return redirect()->to(base_url('/error')); // Adjust the URL accordingly
@@ -410,15 +411,49 @@ return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availabl
          $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
         $data = [
             'activePage' => 'Reservation',
-            'rooms' => $this->rooms
-                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType,rooms.Description,rooms.PricePerNight,rooms.AvailabilityStatus,rooms.Image')
-                ->findAll(),
+            'roinvents' => $this->roominventory->findAll(),
             'qrcodes' => $this->qr->findAll(),
             'roomReservationData' => $roomReservationData,
         ];
     
         return view('Hotell\amenities', $data);
     }
+    public function addAmenities()
+    {
+        // Get input data from the form
+        $roomInventoryIDs = $this->request->getPost('roomInventoryID');
+        $insertQuantities = $this->request->getPost('insertQuantity');
+    
+        // Check if any amenities are selected
+        if (!empty($roomInventoryIDs)) {
+            // Loop through each selected amenity
+            foreach ($roomInventoryIDs as $index => $roomInventoryID) {
+                // Prepare data for insertion into reservation_amenities table
+                $amenitiesData = [
+                    'roomInventoryID' => $roomInventoryID,
+                    'insertQuantity' => $insertQuantities[$index],
+                ];
+    
+                // Insert data into reservation_amenities table
+                $inserted = $this->reservationamenities->insert($amenitiesData);
+    
+                // Check insertion result for each amenity
+                if (!$inserted) {
+                    // Redirect with error message if any insertion fails
+                    return redirect()->to(base_url('/bookroom/formdetails'))->with('error', 'Failed to add amenities. Please try again.');
+                }
+            }
+            
+            // Redirect with success message if all insertions are successful
+            return redirect()->to(base_url('/bookroom/formdetails'))->with('success', 'Amenities added successfully.');
+        } else {
+            // Redirect with error message if no amenities are selected
+            return redirect()->to(base_url('/bookroom/amenities'))->with('error', 'Please select at least one amenity.');
+        }
+    }
+    
+
+    
     public function formdetails()
     {
         // Load the session library

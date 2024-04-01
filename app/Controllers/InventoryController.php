@@ -12,9 +12,7 @@ use App\Models\StaffDetailModel;
 use App\Models\DepartmentModel;
 use App\Models\AdminModel;
 use App\Models\ReservationModel;
-use App\Models\InventoryModel;
 use App\Models\RoomInventoryModel;
-use App\Models\RestaurantInventoryModel;
 
 class InventoryController extends BaseController
 {
@@ -27,9 +25,7 @@ class InventoryController extends BaseController
     private $department;
     private $admin;
     private $reservation;
-    private $inventory;
     private $roominventory;
-    private $restaurantinventory;
 
     function __construct(){
         helper(['form']);
@@ -42,9 +38,7 @@ class InventoryController extends BaseController
         $this->department = new DepartmentModel();
         $this->admin = new AdminModel();
         $this->reservation = new ReservationModel();
-        $this->inventory = new InventoryModel();
         $this->roominventory = new RoomInventoryModel();
-        $this->restaurantinventory = new RestaurantInventoryModel();
     }
     public function index()
     {
@@ -72,7 +66,6 @@ class InventoryController extends BaseController
             'ProductName' => 'required|min_length[4]|max_length[100]',
             'Quantity' => 'required',
             'Price' => 'required',
-            'TotalPrice' => 'required',
         ];
 
         if ($this->validate($rules)){
@@ -80,7 +73,6 @@ class InventoryController extends BaseController
                 'ProductName' => $this->request->getVar('ProductName'),
                 'Quantity' => $this->request->getVar('Quantity'),
                 'Price' => $this->request->getVar('Price'),
-                'TotalPrice' => $this->request->getVar('TotalPrice'),
                 
             ];
             $this->roominventory->insert($data);
@@ -100,7 +92,6 @@ class InventoryController extends BaseController
             'ProductName' => 'required',
             'Quantity' => 'required|numeric',
             'Price' => 'required',
-            'TotalPrice' => 'required',
         ];
 
         // Validate Input
@@ -115,7 +106,6 @@ class InventoryController extends BaseController
                     'ProductName' => $this->request->getPost('ProductName'),
                     'Quantity' => $this->request->getPost('Quantity'),
                     'Price' => $this->request->getPost('Price'),
-                    'TotalPrice' => $this->request->getPost('TotalPrice'),
                 ];
 
         // Update Reservation
@@ -124,73 +114,7 @@ class InventoryController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Reservation updated successfully.');
     }
-    public function inrestaurant()
-    {
-        $data = [
-            'inventoryRoutes' => 'inrestaurant',
-            'reinvents' => $this->restaurantinventory->findAll(),
-        ];
-        return view('Stafff\Inventory\restaurant', $data);
-    }
-    public function addinRestaurant()
-    {
-        helper(['form']);
-        $rules = [
-            'ProductName' => 'required|min_length[4]|max_length[100]',
-            'Quantity' => 'required',
-            'Price' => 'required',
-            'TotalPrice' => 'required',
-        ];
-
-        if ($this->validate($rules)){
-            $data = [
-                'ProductName' => $this->request->getVar('ProductName'),
-                'Quantity' => $this->request->getVar('Quantity'),
-                'Price' => $this->request->getVar('Price'),
-                'TotalPrice' => $this->request->getVar('TotalPrice'),
-                
-            ];
-            $this->restaurantinventory->insert($data);
-            return redirect()->to('staff-inventory/restaurant');
-        }else{
-            $data['validation'] = $this->validator;
-            return view('Stafff\Inventory\restaurant',$data);
-        }
-    }
-    public function updateinRestaurant($restaurantInventoryID)
-    {
-        helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
-        $validationRules = [
-            
-            'ProductName' => 'required',
-            'Quantity' => 'required|numeric',
-            'Price' => 'required',
-            'TotalPrice' => 'required',
-        ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
-            return redirect()->to(base_url("/editReservation/{$restaurantInventoryID}"))->with('validationErrors', $validationErrors);
-        }
-
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'ProductName' => $this->request->getPost('ProductName'),
-                    'Quantity' => $this->request->getPost('Quantity'),
-                    'Price' => $this->request->getPost('Price'),
-                    'TotalPrice' => $this->request->getPost('TotalPrice'),
-                ];
-
-        // Update Reservation
-        $this->restaurantinventory->update($restaurantInventoryID, $updateReservationData);
-
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/staff-inventory/restaurant'))->with('success', 'Reservation updated successfully.');
-    }
+    
     
 
 }
