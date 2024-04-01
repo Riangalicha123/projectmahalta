@@ -156,11 +156,72 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
-          <h3 class="mb-5">Featured Room</h3>
+        <h2 class="mb-5">Extras/Amenities</h2>
+        <?php
+if (isset($amenitiesData) && !empty($amenitiesData)) {
+    $totalExtraPrice = 0;
+    foreach ($amenitiesData as $amenity) {
+        $totalPrice = $amenity['Price'] * $amenity['insertQuantity'];
+        $totalExtraPrice += $totalPrice;
+    }
+}
 
+if (isset($roomReservationData) && is_array($roomReservationData)) {
+    if (isset($totalExtraPrice)) {
+        if (array_key_exists('TotalAmount', $roomReservationData)) {
+            $roomReservationData['TotalAmount'] += $totalExtraPrice;
+        } else {
+            $roomReservationData['TotalAmount'] = $totalExtraPrice;
+        }
+    }
+}
+?>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Room Inventory ID</th>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (isset($amenitiesData) && !empty($amenitiesData)) : ?>
+            <?php foreach ($amenitiesData as $amenity) : ?>
+                <tr>
+                    <td><?= $amenity['roomInventoryID']; ?></td>
+                    <td><?= $amenity['ProductName']; ?></td>
+                    <td>Php <?= $amenity['Price']; ?></td>
+                    <td><?= $amenity['insertQuantity']; ?></td>
+                    <td><?= $totalPrice = $amenity['Price'] * $amenity['insertQuantity']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+            <tr>
+                <td colspan="4" class="text-right">Total Price for Extra: </td>
+                <td><b>Php <?= number_format($totalExtraPrice, 2); ?></b></td>
+            </tr>
+        <?php else : ?>
+            <tr>
+                <td colspan="5">No amenities data found.</td>
+            </tr>
+        <?php endif; ?>
+        <?php if (isset($roomReservationData) && is_array($roomReservationData)) : ?>
+            <tr>
+                <td colspan="4" class="text-right">Total Amount with Extras: </td>
+                <td><b>Php <?= number_format($roomReservationData['TotalAmount'], 2); ?></b></td>
+            </tr>
+        <?php else : ?>
+            <tr>
+                <td colspan="5">No reservation data found.</td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+          <h2 class="mb-5">Featured Room</h2>
           <?php if (isset($roomReservationData)): ?>
             <div class="media d-block room mb-0">
-
               <figure>
                 <img src="<?= base_url('/uploads/' . esc($roomReservationData['roomSelected']['Image'] ?? '')) ?>"
                   alt="Generic placeholder image" class="img-fluid">
@@ -183,6 +244,7 @@
                   <p><b>Check-out Date:</b> <?= esc($roomReservationData['reservationData']['CheckOutDate'] ?? '') ?></p>
                   <p>Number of Adults: <?= esc($roomReservationData['reservationData']['Adult'] ?? '') ?></p>
                   <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
+                  
                   <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
                 <hr>
                 
@@ -217,7 +279,6 @@
             <p>No reservation data found.</p>
           <?php endif; ?>
 
-        </div>
         </form>
       </div>
     </div>

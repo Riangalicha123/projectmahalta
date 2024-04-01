@@ -54,28 +54,39 @@
         </div>
       <div class="row">
         <div class="col-md-6">
-            <table class="table table-responsive">
-                <thead>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </thead>
-            <form method="post" action="<?= base_url('/addAmenities') ?>">
-            <tbody>
-        <?php foreach ($roinvents as $roinvent): ?>
-        <tr>
-            <td><input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>"></td>
-            <td><?= $roinvent['ProductName'] ?><input type="hidden" class="form-control" name="ProductName[]" value="<?= $roinvent['ProductName'] ?>"></td>
-            <td><?= $roinvent['Price'] ?><input type="hidden" class="form-control" name="Price[]" value="<?= $roinvent['Price'] ?>"></td>
-            <td><input type="text" class="form-control" name="insertQuantity[]" placeholder="0"></td>  
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-            </table>
-            <tfoot><button type="submit" class="btn btn-dark text-right"><i class="fa fa-download"></i> SUBMIT</button>
-            <a href="<?= route_to('bookroom/formdetails') ?>" class="btn btn-dark text-right">Skip <i class="fa fa-arrow-right"></i></a></tfoot>
-            </form>
+        <form method="post" action="<?= base_url('/addAmenities') ?>">
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Select</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($roinvents as $roinvent): ?>
+            <tr>
+                <td>
+                    <input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                    <!-- Hidden inputs for additional data -->
+                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                </td>
+                <td><?= $roinvent['ProductName'] ?></td>
+                <td><?= $roinvent['Price'] ?></td>
+                <td>
+                    <!-- Use roomInventoryID as the index for quantity inputs -->
+                    <input type="text" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]" placeholder="0">
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <button type="submit">Submit</button>
+    <a href="<?= route_to('bookroom/formdetails') ?>">Skip</a>
+</form>
+
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
