@@ -12,7 +12,7 @@ class ReservationAmenities extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['roomInventoryID','insertQuantity'];
+    protected $allowedFields    = ['UserID','roomInventoryID','insertQuantity'];
 
     // Dates
     protected $useTimestamps = false;
