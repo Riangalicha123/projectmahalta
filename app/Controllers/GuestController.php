@@ -239,19 +239,24 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/bookroom/amenities'))->with('error', 'Please select at least one amenity.');
         }
     }
-    public function gallery()
-    {
-        return view('Hotel\gallery');
-    }
-    
-    public function blog()
+    public function roomPolicy()
     {
         $data = [
-            'activePage' => 'Blog',
+            'activePage' => 'roomPolicy',
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\blog',$data);
+        return view('Hotell\roompolicy',$data);
     }
+    public function restaurantPolicy()
+    {
+        $data = [
+            'activePage' => 'resPolicy',
+            'chats' => $this->chat->findAll()
+        ];
+        return view('Hotell\restaurantpolicy',$data);
+    }
+    
+
     public function restaurantt()
     {
         $data = [

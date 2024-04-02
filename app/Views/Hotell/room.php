@@ -26,27 +26,27 @@
 
 
     
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
+    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/big_image_1.jpg); background-repeat: no-repeat; background-image: cover;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-
+          <br>
           <div class="mb-5 element-animate" style="text-align: center;">
-  <h1 style="font-size: 3em; margin-bottom: -30px;">Rooms</h1>
-  <p>Cozy room with modern amenities for a comfortable stay.</p>
-  
-</div>
-            <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-  <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
-  <div style="display: flex; flex-wrap: wrap;">
-    <div style="flex: 0 0 100%; margin-bottom: 10px;">
-      <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
-    </div>
-    <div style="flex: 0 0 100%; margin-bottom: 10px;">
-      <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
-    </div>
-  </div>
-</div>
+            <h1 style="font-size: 3em; margin-bottom: -5px;">Rooms</h1>
+            <p>Cozy room with modern amenities for a comfortable stay.</p>
+            
+          </div>
+                      <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+            <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
+            <div style="display: flex; flex-wrap: wrap;">
+              <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
+              </div>
+              <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
+              </div>
+            </div>
+          </div>
 
           </div>
         </div>
@@ -175,7 +175,7 @@
     <section class="site-section"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
       <div class="container">
         <div class="row">
-          <div class="col-md-4 mb-4">
+        <div class="col-md-4 mb-4">
             <div class="media d-block room mb-0">
               <figure>
                 <img src="/guest/images/room5.jpg" alt="Generic placeholder image" class="img-fluid">
@@ -194,19 +194,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
-                <!-- Add this div at the end of your section, right before the closing </section> tag -->
-              <div class="row" id="additionalDetails" style="display:none;">
-                <!-- Additional details content goes here -->
-                <p>This is additional information about the rooms...</p>
-              </div>
-
-              <!-- View More Button -->
-              <div class="row">
-                <div class="col-md-12 text-center">
-                  <button id="viewMoreBtn" class="btn btn-primary btn-sm-1"><h6>View More</h6></button>
-                </div>
-              </div>
-
+                <p>Indulge in comfort and style with our Jr. Suite Rooms. </p>
                 <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
             </div>

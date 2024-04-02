@@ -7,7 +7,7 @@
 <?php if(session()->get('isLoggedIn')): ?>
 <div class="floating-messenger">
         <a id="messenger-btn">
-            <img src="/guest/images/mess.png" alt="Messenger Icon">
+            <img src="/guest/images/logomessage.jpg" alt="Messenger Icon">
         </a>
 
         <div id="messenger-form" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">

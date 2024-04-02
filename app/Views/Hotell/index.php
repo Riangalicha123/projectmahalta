@@ -24,7 +24,7 @@
   <?php include('inc/header.php') ?>
     <!-- END header -->
 
-    <section class="site-hero overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/1.1.jpg);">
+    <section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/1.1.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">

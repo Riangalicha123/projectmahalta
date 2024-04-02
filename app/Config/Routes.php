@@ -15,7 +15,7 @@ $routes->get('/bookroom/amenities', 'GuestController::amenities',['filter' => 'n
 $routes->post('/addAmenities', 'GuestController::addAmenities',['filter' => 'noAuth']);
 $routes->get('/bookroom/formdetails', 'GuestController::formdetails',['filter' => 'noAuth']);
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation',['filter' => 'noAuth']);
-$routes->get('/blog', 'GuestController::blog',['filter' => 'noAuth']);
+$routes->get('/roompolicy', 'GuestController::roomPolicy',['filter' => 'noAuth']);
 $routes->get('/faq', 'GuestController::faq',['filter' => 'noAuth']);
 //$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurantt', 'GuestController::restaurantt',['filter' => 'noAuth']);
@@ -23,6 +23,7 @@ $routes->get('/mainmenu', 'GuestController::mainmenu',['filter' => 'noAuth']);
 $routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions',['filter' => 'noAuth']);
 $routes->get('/barmenu', 'GuestController::barmenu',['filter' => 'noAuth']);
 $routes->get('/cafemenu', 'GuestController::cafemenu',['filter' => 'noAuth']);
+$routes->get('/respolicy', 'GuestController::restaurantPolicy',['filter' => 'noAuth']);
 $routes->get('/convention', 'GuestController::convention',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
 $routes->get('/chat', 'GuestController::chat',['filter' => 'noAuth']);
