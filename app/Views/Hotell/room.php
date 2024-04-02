@@ -31,10 +31,22 @@
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
 
-            <div class="mb-5 element-animate">
-              <h1>Rooms</h1>
-              <p>Cozy room with modern amenities for a comfortable stay.</p>
-            </div>
+          <div class="mb-5 element-animate" style="text-align: center;">
+  <h1 style="font-size: 3em; margin-bottom: -30px;">Rooms</h1>
+  <p>Cozy room with modern amenities for a comfortable stay.</p>
+  
+</div>
+            <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+  <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
+  <div style="display: flex; flex-wrap: wrap;">
+    <div style="flex: 0 0 100%; margin-bottom: 10px;">
+      <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
+    </div>
+    <div style="flex: 0 0 100%; margin-bottom: 10px;">
+      <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
+    </div>
+  </div>
+</div>
 
           </div>
         </div>
@@ -59,18 +71,7 @@
         <div class="container" >
             <div class="row">
             <div class="col-md-12">
-  <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-    <div class="card-header text-center">Estimated Check In and Out Time</div>
-    <div style="display: flex; flex-wrap: wrap;">
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Check In Time: 2:00 PM</p>
-      </div>
-      <div style="flex: 0 0 50%; margin-bottom: 10px;">
-        <p style="font-size: 1.2em;">Check Out Time: 12:00 PM</p>
-      </div>
-    </div>
-  </div>
-</div>
+    
                 <div class="col-sm-12">
                     <div class="media d-block room mb-0">
                         <div class="media-body">
