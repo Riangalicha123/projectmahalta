@@ -62,7 +62,7 @@
     <?php else: ?>
         <div class="floating-messenger">
     <a id="messenger-btn">
-        <img src="/guest/images/mess.png" alt="Messenger Icon">
+        <img src="/guest/images/logomessage.jpg" alt="Messenger Icon">
     </a>
 </div>
 

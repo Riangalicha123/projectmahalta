@@ -25,6 +25,7 @@ $routes->get('/barmenu', 'GuestController::barmenu',['filter' => 'noAuth']);
 $routes->get('/cafemenu', 'GuestController::cafemenu',['filter' => 'noAuth']);
 $routes->get('/respolicy', 'GuestController::restaurantPolicy',['filter' => 'noAuth']);
 $routes->get('/convention', 'GuestController::convention',['filter' => 'noAuth']);
+$routes->get('/conpackage', 'GuestController::conPackage',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
 $routes->get('/chat', 'GuestController::chat',['filter' => 'noAuth']);
 $routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1',['filter' => 'noAuth']);

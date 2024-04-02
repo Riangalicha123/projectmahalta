@@ -329,6 +329,14 @@ class GuestController extends BaseController
         ];
         return view('Hotell\convention',$data);
     }
+    public function conPackage()
+    {
+        $data = [
+            'activePage' => 'conPackage',
+            'chats' => $this->chat->findAll()
+        ];
+        return view('Hotell\conpackage',$data);
+    }
     public function bookroom()
     {
         // Load the session library
