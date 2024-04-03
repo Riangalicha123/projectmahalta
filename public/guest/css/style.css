@@ -4,6 +4,14 @@ body {
   margin: 0;
   padding: 0;
 }
+.three-column-container {
+  display: flex;
+}
+
+.column {
+  flex: 1;
+  padding: 0 10px;
+}
 
 .menu-section {
   max-width: 600px;

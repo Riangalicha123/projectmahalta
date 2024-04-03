@@ -88,7 +88,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"  style="color: darkgrey;"> Hotel Rooms</h4>
+            <h4 class="sub-heading" style="color: #404040;"> Hotel Rooms</h4>
               <h2 class="heading">Featured Rooms</h2>
           </div>
         </div>
@@ -160,7 +160,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Restaurant</h4>
+            <h4 class="sub-heading"style="color: #404040;">Mahalta's Restaurant</h4>
               <h2 class="heading">Featured Restaurant</h2>
           </div>
         </div>
@@ -212,7 +212,7 @@
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Mahalta's Conventions</h4>
+            <h4 class="sub-heading"style="color: #404040;">Mahalta's Conventions</h4>
               <h2 class="heading">Featured Conventions</h2>
           </div>
         </div>

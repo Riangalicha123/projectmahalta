@@ -43,13 +43,77 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="heading-wrap  element-animate">
-              <h4><strong>Room Reservations Policies</strong></h4>
+              <h4 style="text-align: center;"><strong>Concention Center Reservations Policies</strong></h4>
               <br>
-              <p class="" style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
+              <div style="text-align: center;">
+  <p class="" style="color: black; font-size: 20px;">
+    <span style="color: black; font-size: 20px;">The room policy specifies a minimum capacity of 150 to 300 persons, with a rate of ₱999 per head for a 6-hour duration,</span>
+  </p>
+  <p class="" style="color: black; font-size: 20px;">
+    <span style="color: black; font-size: 20px;">and an additional charge of ₱1000 for every exceeding hour and person.</span>
+  </p>
+</div>
 
-              <p style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
+              <div class="three-column-container">
+  <div class="column">
+    <ul>
+      <li style="color: black; ">
+      <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">AM Snacks</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">PM Snack</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Lunch (meat, veggies, soup, and drinks)</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Brewed Coffee</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Pica-Pica and Candies</p>
+      </li>
+    </ul>
+  </div>
+  <div class="column">
+    <ul>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Parking Area</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Beach View and Tour to Mahalta's facilities</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Sound System w/ microphone</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Technical Support</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">24Hours CCTV </p>
+      </li>
+    </ul>
+  </div>
+  <div class="column">
+    <ul>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Projector</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Venue with fully air-conditioned</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Stand-by generator</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Seminar Set-up (table and chairs)</p>
+      </li>
+      <li style="color: black; ">
+        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Assisted by Fully Vaccinated and trained Staff</p>
+      </li>
+    </ul>
+  </div>
+</div>
 
-              <p style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
 
             </div>
           </div>
