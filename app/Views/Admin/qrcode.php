@@ -84,7 +84,10 @@
                                 <input type="hidden" name="QrcodeID" id="QrcodeID" value="<?=$qrcode['QrcodeID']?>">
                                 <div class="form-group">
                                     <label for="PaymentOption">PaymentOption</label>
-                                    <input type="text" class="form-control" id="PaymentOption" name="PaymentOption" required>
+                                    <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
+                                                <option <?= ($qrcode['PaymentOption'] == 'gcash') ? 'selected' : '' ?>>gcash</option>
+                                                <option <?= ($qrcode['PaymentOption'] == 'paymaya') ? 'selected' : '' ?>>paymaya</option>
+                                            </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>

@@ -73,6 +73,7 @@
                     <th>#</th>
                     <th>Email</th>
                     <th>Feedback Message</th>
+                    <th>created_at</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -81,6 +82,7 @@
                     <td><?=$feedback['FeedbackID']?></td>
                     <td><?=$feedback['Email']?></td>
                     <td><?=$feedback['FeedbackMessage']?></td>
+                    <td><?=$feedback['created_at']?></td>
                   </tr>
                   <?php endforeach; ?>
                   

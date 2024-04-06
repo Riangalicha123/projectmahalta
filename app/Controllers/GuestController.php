@@ -104,22 +104,14 @@ class GuestController extends BaseController
         return view('Hotell\room', $data);
     }
     public function getData()
-    {
-        $session = \Config\Services::session();
-        $CheckInDate = $this->request->getGet('CheckInDate');
-        $CheckOutDate = $this->request->getGet('CheckOutDate');
-        $numberOfAdults = $this->request->getGet('Adult');
-        $numberOfChildren = $this->request->getGet('Child');
-        $reservationData = [
-            'CheckInDate' => $CheckInDate,
-            'CheckOutDate' => $CheckOutDate,
-            'Adult' => $numberOfAdults,
-            'Child' => $numberOfChildren,
-        ];
-        $session->set('reservationData', $reservationData);
-        $availableRooms = $this->findAvailableRooms($numberOfAdults, $numberOfChildren);
-        return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
-    }
+{
+    $session = \Config\Services::session();
+    $reservationData = $session->get('reservationData'); // Retrieve session data
+    $availableRooms = $this->findAvailableRooms($reservationData['Adult'], $reservationData['Child']); // Use session data to find available rooms
+    return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
+}
+
+    
     
     private function findAvailableRooms($numberOfAdults, $numberOfChildren)
     {
@@ -346,7 +338,7 @@ class GuestController extends BaseController
         $reservationData = $session->get('reservationData');
     
         // Retrieve available rooms data based on reservation data
-        $availableRooms = $this->findAvailableRooms($reservationData['Adult'], $reservationData['Child']);
+        /* $availableRooms = $this->findAvailableRooms($reservationData['Adult'], $reservationData['Child']); */
     
         // Retrieve selected room data from session
         $roomSelected = $session->get('roomSelected');
@@ -392,7 +384,7 @@ class GuestController extends BaseController
             'activePage' => 'Reservation',
             'rooms' => $this->rooms->findAll(),
             'reservationData' => $reservationData,
-            'availableRooms' => $availableRooms,
+            /* 'availableRooms' => $availableRooms, */
             'roomSelected' => $roomSelected,
             'TotalAmount' => $TotalAmount,
         ];
@@ -781,70 +773,83 @@ private function prepareEmail(array $reservationDataa): string // Corrected meth
     return $message;
 }
 
-    public function eventReservation()
-    {
-        helper(['form']);
+public function eventReservation()
+{
+    $session = session();
+    helper(['form']);
 
-        // Validation Rules
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'ContactNumber' => 'required',
-            'CheckInDate' => 'required',
-            'EventType' => 'required',
-            'NumberOfGuests' => 'required',
-            'Note' => 'required',
-        ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/bookroom', ['validationErrors' => $validationErrors]);
-        }
-
-        // Retrieve Post Data
-        $FirstName = $this->request->getPost('FirstName');
-        $LastName = $this->request->getPost('LastName');
-        $Email = $this->request->getPost('Email');
-        $ContactNumber = $this->request->getPost('ContactNumber');
-
-        // Use a single query to get the user based on both first name and last name
-        $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('Email', $Email)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->first();
-
-        // Retrieve Room Data
-        $inputEventType = $this->request->getPost('EventType');
-
-        $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
-
-        // Check both conditions for eventData
-        if ($eventDataByType && $user) {
-            // Prepare Reservation Data
-            $newReservationData = [
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                'Note' => $this->request->getPost('Note'),
-                'Status' => 'Pending',
-                'EventID' => $eventDataByType['EventID'], // Use the RoomID from RoomType
-                'UserID' => $user['UserID'],
-            ];
-
-            // Insert Reservation
-            $inserted = $this->reservation->insert($newReservationData);
-
-            // Redirect with appropriate message
-            if ($inserted) {
-                return redirect()->to(base_url('/convention'))->with('success', 'Reservation added successfully.');
-            } else {
-                return redirect()->to(base_url('/convention'))->with('error', 'Failed to add reservation. Please try again.');
-            }
-        } else {
-            return redirect()->to(base_url('/'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
-        }
+    // Validation Rules
+    $validationRules = [
+        'FirstName' => 'required',
+        'LastName' => 'required',
+        'ContactNumber' => 'required',
+        'EventType' => 'required',
+        'ArivalDate' => 'required',
+        'Note' => 'required',
+    ];
+    if (!$this->validate($validationRules)) {
+        $validationErrors = $this->validator->getErrors();
+        return view('/bookroom', ['validationErrors' => $validationErrors]);
     }
+    $firstName = $this->request->getPost('FirstName');
+    $lastName = $this->request->getPost('LastName');
+    $email = $this->request->getPost('Email');
+    $contactNumber = $this->request->getPost('ContactNumber');
+    $email = $session->get('username');
+    $user = $this->users->where('FirstName', $firstName)
+                        ->where('LastName', $lastName)
+                        ->where('Email', $email)
+                        ->where('ContactNumber', $contactNumber)
+                        ->first();
+    $eventType = $this->request->getPost('EventType');
+    $eventData = $this->events->where('EventType', $eventType)->first();
+    if ($user && $eventData) {
+        $reservationData = [
+            'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+            'ArivalDate' => $this->request->getPost('ArivalDate'),
+            'Note' => $this->request->getPost('Note'),
+            'Status' => 'Pending',
+            'EventID' => $eventData['EventID'],
+            'UserID' => $user['UserID'],
+        ];
+        $inserted = $this->reservation->insert($reservationData);
+        if ($inserted) {
+            $emailMessage = $this->prepareEmailll($reservationData);
+            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+            $fcmToken = $user['fcm_token'];
+
+            if (!empty($fcmToken)) {
+                $notifTitle = 'Reservation Confirmation';
+                $notifBody = 'Your reservation has been successfully added.';
+                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+            }
+            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+            return redirect()->to('/convention');
+        } else {
+            return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
+        }
+    } else {
+        return redirect()->to(base_url('/'))->with('error', 'Invalid input. Please check your details.');
+    }
+}
+private function prepareEmailll(array $reservationData): string
+{
+    $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
+    $arrivalDate = $reservationData['ArivalDate'] ?? '';
+    $note = $reservationData['Note'] ?? '';
+    $eventType = $reservationData['EventType'] ?? ''; // Check if EventType key exists
+
+    $message = "Dear customer,<br><br>";
+    $message .= "Your reservation has been successfully made with the following details:<br>";
+    $message .= "Event Type: {$eventType}<br>";
+    $message .= "Number of Guests: {$numberofGuests}<br>";
+    $message .= "Arrival Date: {$arrivalDate}<br>";
+    $message .= "Note: {$note}<br>";
+
+    return $message;
+}
+
+
     
     public function contact()
     {

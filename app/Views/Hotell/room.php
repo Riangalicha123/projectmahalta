@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
@@ -73,38 +74,13 @@
             <div class="col-md-12">
     
                 <div class="col-sm-12">
-                    <div class="media d-block room mb-0">
-                        <div class="media-body">
-                        <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                                <div class="row">
-                                    <div class="col-sm-3 form-group">
-                                        <label for="CheckInDate">Arrival Date</label>
-                                        <div style="position: relative;">
-                                            <input type='date' class="form-control" id='CheckInDate' name='CheckInDate'/>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3 form-group">
-                                        <label for="CheckOutDate">Departure Date</label>
-                                        <div style="position: relative;">
-                                            <input type='date' class="form-control" id='CheckOutDate' name='CheckOutDate'/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label for="Adult">Adult</label>
-                                        <input type="number" class="form-control" id="Adult"   name="Adult">
-                                    </div>
-                                    <div class="col-md-3 form-group">
-                                        <label for="Child">Child</label>
-                                        <input type="number" class="form-control" id="Child"  name="Child">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 form-group text-center">
-                                        <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
-                                    </div>
-                                </div>
-                            </form>
+                    <div class="media d-block room mb-0" style="border-radius: 10px;">
+                        <div class="media-body" style="border-radius: 10px;">
+                            <div class="row">
+                              <div class="col-md-12 form-group text-center">
+                                <a href="<?= route_to('bookroom') ?>" class="btn btn-primary">Room Reservation</a>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -113,7 +89,7 @@
     </section>
  
 
-      <section class="site-section"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+      <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
           <div class="row">
           <?php foreach ($rooms as $room): ?>
@@ -126,9 +102,6 @@
                       <span>
                       Room<?=$room['RoomNumber']?> 
                       <h6><b><?= $room['AvailabilityStatus'] ?></b></h6>
-                        <!-- <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span>
-                        <span class="ion-ios-star"></span> -->
                       </span>
                     </div>
                   </figure>
@@ -139,9 +112,7 @@
                                       <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                                       <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
                                     </ul>
-                      <!-- Add this div at the end of your section, right before the closing </section> tag -->
                       <div class="row additionalDetails" style="display:none;">
-                        <!-- Additional details content goes here -->
                         <p><?=$room['Description']?></p>
                         
                         <p><b>• ROOM INCLUSIONS</b></p>
@@ -292,64 +263,20 @@
         </div>
       </div>
     </section>
-    <!-- END section -->
     <?php include('inc/chat.php') ?>
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
-    
     <script>
-  // Use a class for the View More buttons to distinguish between them
-  var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-  // Loop through each button and add a click event listener
-  viewMoreButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      // Find the parent container of the clicked button
-      var parentContainer = button.closest('.room');
-
-      // Find the additional details div inside the parent container
-      var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-      // Toggle the display of the additional details
-      detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
-    });
-  });
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Get current date
-    var today = new Date();
-
-    // Set Arrival Date to today
-    var arrivalDateInput = document.getElementById('CheckInDate');
-    arrivalDateInput.valueAsDate = today;
-
-    // Set Departure Date to tomorrow
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    var departureDateInput = document.getElementById('CheckOutDate');
-    departureDateInput.valueAsDate = tomorrow;
-
-    // Disable past dates in date picker
-    var currentDate = new Date().toISOString().split('T')[0];
-    document.getElementById("CheckInDate").setAttribute("min", currentDate);
-    document.getElementById("CheckOutDate").setAttribute("min", currentDate);
-
-    // Add event listener to check-in date picker
-    arrivalDateInput.addEventListener('change', function() {
-        // Disable past dates in check-out date picker based on selected check-in date
-        var selectedDate = new Date(arrivalDateInput.value);
-        var nextDay = new Date(selectedDate);
-        nextDay.setDate(selectedDate.getDate() + 1);
-        var minDate = nextDay.toISOString().split('T')[0];
-        document.getElementById("CheckOutDate").setAttribute("min", minDate);
-    });
-});
-</script>
-
+      var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
+      viewMoreButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+          var parentContainer = button.closest('.room');
+          var detailsDiv = parentContainer.querySelector('.additionalDetails');
+          detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
+        });
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
@@ -363,9 +290,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <script src="/guest/js/main.js"></script>
 
-    <script>
-    $('#arrival_date, #departure_date').datepicker({});
-</script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

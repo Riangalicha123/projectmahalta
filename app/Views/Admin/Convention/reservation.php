@@ -120,8 +120,8 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="CheckInDate">Preferred Date</label>
-                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required>
+                                                <label for="ArivalDate">Preferred Date</label>
+                                                <input type="datetime-local" class="form-control" id="ArivalDate" name="ArivalDate" required>
                                             </div>
                                             
                                         </div>
@@ -175,8 +175,8 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="CheckInDate">Preferred Date</label>
-                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($reevent['CheckInDate'])) ?>">
+                                                <label for="ArivalDate">Preferred Date</label>
+                                                <input type="datetime-local" class="form-control" id="ArivalDate" name="ArivalDate" required value="<?= date('Y-m-d\TH:i', strtotime($reevent['ArivalDate'])) ?>">
                                             </div>
                                             
                                         </div>
@@ -228,7 +228,7 @@
                     <td><?=$reevent['Email']?></td>
                     <td><?=$reevent['ContactNumber']?></td>
                     <td><?=$reevent['EventType']?></td>
-                    <td><?=$reevent['CheckInDate']?></td>
+                    <td><?=$reevent['ArivalDate']?></td>
                     <td><?=$reevent['NumberOfGuests']?></td>
                     <td><?=$reevent['Note']?></td>
                     <td class="project-state">

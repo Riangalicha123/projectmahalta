@@ -25,8 +25,9 @@
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-            <div class="mb-5 element-animate">
-              <h1>Restaurant</h1>
+          <br>
+            <div class="mb-5 element-animate" style="text-align: center;">
+              <h1 style="font-size: 3em; margin-bottom: -5px;">Restaurant</h1>
                <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
             <div class="row mt-4">
@@ -233,10 +234,36 @@
         </div>
     </div>
 </div>
-    <section  class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <section  class="site-section">
     <div class="menu-title">
       <h1>Main Menu</h1>
     </div>
+    <div class="order-online" style="margin-top: 20px; text-align: center;">
+        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
+            Order Menu Online
+        </button>
+    </div>
+    <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header ">
+            <h4 class="modal-title" id="addFormModalLabel">Choose A Service</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- Your form content goes here -->
+            <form style="text-align: center;">
+            <button type="button" class="btn btn-secondary">
+            <i class="ion-knife ion-md-outline"></i> Dine-In
+            </button>
+            </form>
+        </div>
+        </div>
+    </div>
+    </div>
+    
 
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
       <button onclick="showCategory('1')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Pasta</button>
@@ -253,11 +280,11 @@
     </div>
     
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-        <!-- <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1> -->
-        <div class="row">
+        <!-- Menu Records -->
+<div class="row">
     <?php foreach ($menumains as $menumain): ?>
         <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
-            <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menumain['CategoryID'] ?>">
+            <div class="col-md-3 menu-record" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menumain['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
                 <h2 style="color: #333; margin-bottom: 10px;"><?= $menumain['CategoryName'] ?></h2>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
@@ -270,6 +297,7 @@
         <?php endif; ?>
     <?php endforeach; ?>
 </div>
+
 
       </div>
   </section>

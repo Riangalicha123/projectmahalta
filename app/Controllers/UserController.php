@@ -11,6 +11,7 @@ use App\Models\UserRoleModel;
 use App\Models\StaffDetailModel;
 use App\Models\DepartmentModel;
 use App\Models\AdminModel;
+use App\Models\GuestModel;
 use App\Models\ReservationModel;
 use App\Models\RegionModel;
 use App\Models\ProvinceModel;
@@ -32,6 +33,7 @@ class UserController extends BaseController
     private $staffDetail;
     private $department;
     private $admin;
+    private $guest;
     private $reservation;
     private $regions;
     private $province;
@@ -48,6 +50,7 @@ class UserController extends BaseController
         $this->staffDetail = new StaffDetailModel();
         $this->department = new DepartmentModel();
         $this->admin = new AdminModel();
+        $this->guest = new GuestModel();
         $this->reservation = new ReservationModel();
         $this->regions = new RegionModel();
         $this->province = new ProvinceModel();
@@ -117,8 +120,6 @@ class UserController extends BaseController
     }
     public function registerAuth(){
         helper(['form','url']);
-    
-        // Validation rules
         $rules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[3]|max_length[100]',
@@ -130,9 +131,7 @@ class UserController extends BaseController
             'Province' => 'required',
             'City' => 'required',
             'Barangay' => 'required',
-            // Add validation rule for region dropdown
         ];
-    
         $errors = [
             'Email' => [
                 'required' => 'The email field is required.',
@@ -169,14 +168,8 @@ class UserController extends BaseController
             'Barangay' => [
                 'required' => 'The barangay field is required.',
             ],
-
-            // Other custom error messages...
         ];
-    
         if ($this->validate($rules, $errors)){
-            // If validation passes, proceed with user registration
-
-            
             $regionCode = $this->request->getVar('Region');
             $provinceCode = $this->request->getVar('Province');
             $cityCode = $this->request->getVar('City');
@@ -193,39 +186,36 @@ class UserController extends BaseController
                 'Email' => $this->request->getVar('Email'),
                 'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
                 'ContactNumber' => $this->request->getVar('ContactNumber'),
-                'Region' => $regionDesc, // Use descriptive names instead of codes
+                'Region' => $regionDesc,
                 'Province' => $provinceDesc,
                 'City' => $cityDesc,
                 'Barangay' => $barangayDesc,
                 'UserRoleID' => 1,
             ];
-            $verificationToken = bin2hex(random_bytes(16)); // Create a unique token
+            $verificationToken = bin2hex(random_bytes(16));
             $data['verification_token'] = $verificationToken;
-            $data['is_verified'] = 0; // User is not verified initially
-
-            // Insert user data into the database
+            $data['is_verified'] = 0;
             $userId = $this->users->insert($data);
-
-            if($userId) {
-                $verificationUrl = base_url("verify/{$verificationToken}"); // Adjust as necessary
-                $emailMessage = "Please click on the following link to verify your email address: <a href='{$verificationUrl}'>Verify Email</a>";
-                
-                // Send the verification email
-                $this->sendEmail($data['Email'], 'Verify Your Email Address', $emailMessage);
-                
-                session()->setFlashdata('success', 'Successfully Registered. Please check your email to verify your account.');
-                return redirect()->to('/login');
-            } else {
-                // Handle case where user is not successfully inserted into database
-                session()->setFlashdata('error', 'Registration failed. Please try again.');
-                return redirect()->back()->withInput();
+            if ($userId) { $newGuestData = ['UserID' => $userId,];
+                $insertedGuestID = $this->guest->insert($newGuestData);
+                $insertedGuestDetails = $this->guest->find($insertedGuestID);
+                if($insertedGuestDetails) { $verificationUrl = base_url("verify/{$verificationToken}");
+                    $emailMessage = "Please click on the following link to verify your email address: <a href='{$verificationUrl}'>Verify Email</a>";
+                    $this->sendEmail($data['Email'], 'Verify Your Email Address', $emailMessage);
+                    session()->setFlashdata('success', 'Successfully Registered. Please check your email to verify your account.');
+                    return redirect()->to('/login');
+                } else {
+                    session()->setFlashdata('error', 'Registration failed. Please try again.');
+                    return redirect()->back()->withInput();
+                }
+            }else{
+                return redirect()->to(base_url('/register'))->with('error', 'Failed to add reservation. Please try again.');
             }
+            
         } else {
-            // If validation fails, return to the registration form with errors
             $data['validation'] = $this->validator;
             $data['activePage'] = 'Register';
-            $data['regions'] = $this->regions->findAll(); // Fetch regions to repopulate the dropdown
-    
+            $data['regions'] = $this->regions->findAll();
             return view('Register', $data);
         }
     }

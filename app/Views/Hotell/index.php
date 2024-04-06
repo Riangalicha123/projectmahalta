@@ -184,8 +184,7 @@
               <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
-                    Cafe 
-                    
+                    Restaurant
                   </span>
                   
                 </div>

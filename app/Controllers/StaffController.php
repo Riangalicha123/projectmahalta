@@ -747,7 +747,7 @@ class StaffController extends BaseController
         $data = [
             'currentttRoute' => 'convention',
             'reevents' => $this->reservation
-            ->select('reservations.ReservationID, events.EventID, events.EventName, events.EventType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, users.Address, reservations.UserID ')
+            ->select('reservations.ReservationID, events.EventID, events.EventName, events.EventType, reservations.ArivalDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
             ->join ('events', 'reservations.EventID = events.EventID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()

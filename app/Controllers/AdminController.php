@@ -95,24 +95,15 @@ class AdminController extends BaseController
         $session = session();
         $email = $this->request->getVar('Email');
         $password = $this->request->getVar('Password');
-
-        // Retrieve user data from the database based on the provided email
         $data = $this->users->where('Email', $email)->first();
-
         if ($data) {
-            // Verify the provided password against the hashed password in the database
             $pass = $data['Password'];
             $authenticatedPassword = password_verify($password, $pass);
-    
             if ($authenticatedPassword) {
-                // Check if user is verified
                 if ($data['is_verified'] == 0) {
-                    // User is not verified, set flash data and redirect to login with error message
                     $session->setFlashdata('msg', 'Account is not verified. Please check your email.');
                     return redirect()->to('/login');
                 }
-    
-                // User is verified, proceed with setting session data
                 $ses_data = [
                     'id' => $data['UserID'],
                     'username' => $data['Email'],
@@ -123,19 +114,13 @@ class AdminController extends BaseController
                     'userRole' => $data['UserRoleID'],
                     'address' => $data['Region'] . ', ' . $data['Province'] . ', ' . $data['City'] . ', ' . $data['Barangay'],
                 ];
-    
                 $session->set($ses_data);
-
-                // Redirect based on user role, staff details, and admin
                 if ($data['UserRoleID'] == 1) {
-                    // Guest role, redirect to home
                     return redirect()->to('/');
                 } elseif ($data['UserRoleID'] == 2) {
-                    // Staff role, redirect to the appropriate portal
                     $staffDetails = $this->staffDetail->where('UserID', $data['UserID'])->first();
 
                     if ($staffDetails) {
-                        // Redirect to the corresponding staff portal based on DepartmentID
                         switch ($staffDetails['DepartmentID']) {
                             case 1:
                                 return redirect()->to('/staff-convention');
@@ -146,38 +131,29 @@ class AdminController extends BaseController
                             case 4:
                                 return redirect()->to('/staff-inventory');
                             default:
-                                // Handle unexpected DepartmentID
                                 return redirect()->to('/');
                         }
                     } else {
-                        // Handle missing staff details
                         return redirect()->to('/');
                     }
                 } elseif ($data['UserRoleID'] == 3) {
-                    // Admin role, redirect to admin dashboard
                     $adminDetails = $this->admin->where('UserID', $data['UserID'])->first();
-
                     if ($adminDetails) {
-                        // Redirect to the corresponding admin portal based on AdminID
                         switch ($adminDetails['AdminID']) {
                             case 1:
                                 return redirect()->to('/admin-dashboard');
                             default:
-                                // Handle unexpected AdminID
                                 return redirect()->to('/');
                         }
                     } else {
-                        // Handle missing admin details
                         return redirect()->to('/adminlogin');
                     }
                 }
             } else {
-                // Incorrect password
                 $session->setFlashdata('msg', 'Password is incorrect');
                 return redirect()->to('/adminlogin');
             }
         } else {
-            // Email not found
             $session->setFlashdata('msg', 'Email does not exist');
             return redirect()->to('/admin-login');
         }
@@ -185,8 +161,8 @@ class AdminController extends BaseController
     public function logout()
     {
         $session = session();
-        $session->destroy(); // Destroy the user's session
-        return redirect()->to('/admin-login'); // Redirect the user to the login page or any other page after logout
+        $session->destroy(); 
+        return redirect()->to('/admin-login');
     }
     public function dashboard()
     {
@@ -199,13 +175,10 @@ class AdminController extends BaseController
             ->join ('users', 'guest.UserID = users.UserID')
             ->findAll(),
             'hotelrevs' => $this->reservation
-    ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID', false)
-    ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-    ->join('users', 'reservations.UserID = users.UserID')
-    ->findAll(),
-
-
-
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID', false)
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->findAll(),
         ];
         return view('Admin\index', $data);
     }
@@ -214,7 +187,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'customer',
             'guests' => $this->guest
-            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, users.Address')
+            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
             ->join ('users', 'guest.UserID = users.UserID')
             ->findAll()
         ];
@@ -223,8 +196,6 @@ class AdminController extends BaseController
     public function addCustomer()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
@@ -234,14 +205,10 @@ class AdminController extends BaseController
             'Address' => 'required|min_length[4]|max_length[100]',
             'confirmPassword' => 'matches[Password]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
         }
-
-        // Use a single query to get the user based on both first name and last name
         $user = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -251,37 +218,19 @@ class AdminController extends BaseController
             'Address' => $this->request->getVar('Address'),
             'UserRoleID' => 1,
         ];
-
-        // Additional checks and modifications
         if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['Email'])) {
-            // Handle the case where essential user details are missing
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Incomplete user details. Please provide all required information.');
         }
-
-        // Check if the email is unique
         if (!$this->isEmailUnique($user['Email'])) {
-            // Handle the case where the email is not unique
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Email address is already in use. Please choose a different one.');
         }
-
-        // Insert the user into the database
         $insertedUserID = $this->users->insert($user);
-
-
-        // Check both conditions for staffData
         if ($insertedUserID) {
-            // Prepare Staff Data
             $newGuestData = [
                 'UserID' => $insertedUserID,
             ];
-
-            // Insert Staff Details
             $insertedGuestID = $this->guest->insert($newGuestData);
-
-            // Retrieve the inserted staff details
             $insertedGuestDetails = $this->guest->find($insertedGuestID);
-
-            // Redirect with appropriate message and staff details
             if ($insertedGuestID) {
                 return redirect()->to(base_url('/admin-customer'))->with('success', 'Reservation added successfully.')->with('staffDetails', $insertedGuestDetails);
             } else {
@@ -703,7 +652,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'conReservation',
             'reevents' => $this->reservation
-            ->select('reservations.ReservationID, events.EventID, events.EventName, events.EventType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, users.Address, reservations.UserID ')
+            ->select('reservations.ReservationID, events.EventID, events.EventName, events.EventType, reservations.ArivalDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID ')
             ->join ('events', 'reservations.EventID = events.EventID')
             ->join ('users', 'reservations.UserID = users.UserID')
             ->findAll()
@@ -1118,7 +1067,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'feedback',
             'feedbacks' => $this->feedbacks
-            ->select('feedback.FeedbackID,feedback.FeedbackMessage, users.UserID, users.Email')
+            ->select('feedback.FeedbackID,feedback.FeedbackMessage,feedback.created_at, users.UserID, users.Email')
             ->join ('users', 'feedback.UserID = users.UserID')
             ->findAll()
         ];
@@ -1599,6 +1548,12 @@ class AdminController extends BaseController
             echo('error');
         }
         return redirect()->to('/admin-qrcode');
+    }
+    public function setting(){
+        $data = [
+            'adminRoutes' => 'setting',
+        ];
+        return view('Admin/setting', $data);
     }
     
     

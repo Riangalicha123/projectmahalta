@@ -106,6 +106,8 @@ $routes->post('/updateinRestaurant/(:num)', 'InventoryController::updateinRestau
 //Admin-Dashboard
 $routes->get('/admin-dashboard', 'AdminController::dashboard',['filter' => 'adminGuard']);
 
+$routes->get('/admin-setting', 'AdminController::setting',['filter' => 'adminGuard']);
+
 $routes->get('/admin-customer', 'AdminController::customer',['filter' => 'adminGuard']);
 $routes->post('/admin-addCustomer', 'AdminController::addCustomer',['filter' => 'adminGuard']);
 $routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1',['filter' => 'adminGuard']);

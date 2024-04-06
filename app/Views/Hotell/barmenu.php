@@ -24,9 +24,10 @@
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-12 text-center">
-            <div class="mb-5 element-animate">
-              <h1>Restaurant</h1>
+        <div class="col-md-12 text-center">
+          <br>
+            <div class="mb-5 element-animate" style="text-align: center;">
+              <h1 style="font-size: 3em; margin-bottom: -5px;">Restaurant</h1>
                <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
             <div class="row mt-4">
@@ -106,7 +107,7 @@
     <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="background:skyblue;">
                 <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -118,61 +119,64 @@
                 <div id="page1">
             <div class="row">
                 <div class="col-sm-6 form-group">
-                    <label for="Date">Arrival Date</label>
-                    <input type='date' class="form-control" id='Date' name='Date' required/>
+                    <label for="ArivalDate">Arrival Date</label>
+                    <input type='date' class="form-control" id='ArivalDate' name='ArivalDate' required/>
                 </div>
                 <div class="col-sm-6 form-group">
-                    <label for="Time">Arrival Time</label>
-                    <input type='time' class="form-control" id='Time' name='Time' required/>
+                    <label for="ArivalTime">Arrival Time</label>
+                    <input type='time' class="form-control" id='ArivalTime' name='ArivalTime' required/>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6 form-group">
-                    <label for="NumberOfGuests">Number Of Guest</label>
-                    <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests">
-                        <?php for ($i = 1; $i <= 10; $i++): ?>
-                            <option><?= $i ?></option>
-                        <?php endfor; ?>
-                    </select>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label for="VenueName">VenueName</label>
-                    <select class="form-select form-control" id="VenueName" name="VenueName">
-                        <option>Main Restaurant</option>
-                        <option>Venue 2</option>
-                        <option>Venue 3</option>
-                    </select>
-                </div>
+            <div class="col-md-6 form-group">
+                <label for="NumberOfGuests">Number Of Guests</label>
+                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
+                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                        <option><?= $i ?></option>
+                    <?php endfor; ?>
+                </select>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Enter your details</button>
+            <div class="col-md-6 form-group">
+                <label for="VenueName">Venue Name</label>
+                <select class="form-select form-control" id="VenueName" name="VenueName">
+                </select>
+            </div>
+            </div>
+            <div style="text-align: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
+</div>
         </div>
 
         <div id="page2" style="display: none;">
             
             <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="FirstName">First Name</label>
                     <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
                 </div>
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="LastName">Last Name</label>
                     <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
+                <div class="col-md-4 form-group">
                     <label for="ContactNumber">Contact Number</label>
                     <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
                 </div>
             </div>
             <div class="row">
+                
+            </div>
+            <div class="row">
                 <div class="col-md-12 form-group">
                     <label for="Note">Write a Note</label>
-                    <textarea name="Note" id="Note" class="form-control" cols="30" rows="8" required></textarea>
+                    <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button>
-            <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+            <div style="display: flex; justify-content: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+    <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+</div>
+
         </div>
 
         <div id="page3" style="display: none;">
@@ -219,17 +223,45 @@
                     <span id="displayNote"></span>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-            <button type="submit" class="btn btn-success">Submit</button>
+            <div style="display: flex; justify-content: center; align-items: center;">
+    <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</div>
+
         </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
-<section  class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+<section  class="site-section">
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
+    </div>
+    <div class="order-online" style="margin-top: 20px; text-align: center;">
+        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
+            Order Menu Online
+        </button>
+    </div>
+    <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+        <div class="modal-header ">
+            <h4 class="modal-title" id="addFormModalLabel">Choose A Service</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <!-- Your form content goes here -->
+            <form style="text-align: center;">
+            <button type="button" class="btn btn-secondary">
+            <i class="ion-knife ion-md-outline"></i> Dine-In
+            </button>
+            </form>
+        </div>
+        </div>
+    </div>
     </div>
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
       <div class="category-buttons" style="margin-top: 20px; text-align: center;">
@@ -248,7 +280,7 @@
         <div class="row">
         <?php foreach ($menubars as $menubar): ?>
               <?php if ($menubar['MenuType'] === 'Bar Menu' && $menubar['CategoryID'] >= 12 && $menubar['CategoryID'] <= 21): ?>
-                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menubar['CategoryID'] ?>">
+                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menubar['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
                       <h2 style="color: #333; margin-bottom: 10px;"><?=$menubar['CategoryName']?></h2>
                       <div style="display: flex; justify-content: space-between; align-items: center;">
                           <img src="<?=base_url('/restaurant/'.$menubar['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">

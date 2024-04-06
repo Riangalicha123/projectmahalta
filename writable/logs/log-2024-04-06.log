@@ -1,0 +1,117 @@
+CRITICAL - 2024-04-06 03:46:57 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 459.
+ 1 APPPATH\Controllers\GuestController.php(459): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 459)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 03:46:59 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 411.
+ 1 APPPATH\Controllers\GuestController.php(411): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 411)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 03:47:00 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 142.
+ 1 APPPATH\Controllers\GuestController.php(142): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 142)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 12:01:21 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 411.
+ 1 APPPATH\Controllers\GuestController.php(411): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 411)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 12:01:22 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 349.
+ 1 APPPATH\Controllers\GuestController.php(349): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 349)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookroom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 12:05:15 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 349.
+ 1 APPPATH\Controllers\GuestController.php(349): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 349)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookroom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 12:05:32 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 349.
+ 1 APPPATH\Controllers\GuestController.php(349): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 349)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookroom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 12:05:38 --> Undefined variable $availableRooms
+in APPPATH\Controllers\GuestController.php on line 394.
+ 1 APPPATH\Controllers\GuestController.php(394): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $availableRooms', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 394)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookroom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 13:21:11 --> Call to undefined method App\Controllers\GuestController::findAvailableRooms()
+in APPPATH\Controllers\GuestController.php on line 111.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 13:21:20 --> Call to undefined method App\Controllers\GuestController::findAvailableRooms()
+in APPPATH\Controllers\GuestController.php on line 111.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 13:52:56 --> Undefined array key 1
+in APPPATH\Controllers\GuestController.php on line 112.
+ 1 APPPATH\Controllers\GuestController.php(112): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 1', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 112)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 13:59:15 --> Undefined array key 1
+in APPPATH\Controllers\GuestController.php on line 115.
+ 1 APPPATH\Controllers\GuestController.php(115): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 1', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 115)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 14:18:04 --> Undefined array key 1
+in APPPATH\Controllers\GuestController.php on line 119.
+ 1 APPPATH\Controllers\GuestController.php(119): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key 1', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 119)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 14:18:59 --> Call to undefined method CodeIgniter\HTTP\IncomingRequest::getQueryString()
+in APPPATH\Controllers\GuestController.php on line 111.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-06 14:19:25 --> Undefined array key "CheckInDate, CheckOutDate"
+in APPPATH\Controllers\GuestController.php on line 114.
+ 1 APPPATH\Controllers\GuestController.php(114): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "CheckInDate, CheckOutDate"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 114)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

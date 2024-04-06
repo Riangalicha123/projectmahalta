@@ -151,6 +151,7 @@
                     <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
+                    <th>Date-Time Updated</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -160,6 +161,7 @@
                     <td><?=$roinvent['ProductName']?></td>
                     <td><?=$roinvent['Quantity']?></td>
                     <td><?=$roinvent['Price']?></td>
+                    <td><?=$roinvent['updated_at']?></td>
                     <th><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
