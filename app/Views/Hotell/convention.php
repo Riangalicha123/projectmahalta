@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -48,36 +49,34 @@
     <!-- END section -->
 
 
-    <section class="site-section" style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+    <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row">
         <?php foreach ($events as $event): ?>
-          <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Generic placeholder image" class="img-fluid">
-                
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#"><?=$event['EventType']?></a></h3>
-                
-                <p><?=$event['Description']?></p>
-                <!-- <p><a href="#" class="btn btn-primary btn-sm">Book Now</a></p> -->
+        <div class="col-md-4">
+            <div class="post-entry">
+              <a href="#"><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 100%"></a>
+              <div class="body-text">
+                <div class="category"></div>
+                <h3 class="mb-3"><a href="#"><?=$event['EventType']?></a></h3>
+                <p class="mb-4"><?=$event['Description']?>.</p>
+               <!--  <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p> -->
               </div>
             </div>
           </div>
           <?php endforeach; ?>
+          
         </div>
       </div>
     </section>
     <?php if(session()->get('isLoggedIn')): ?>
-    <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+    <section class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
 
             <h2 class="mb-5">Event Inquiry</h2>
-                <form action="<?= base_url('eventReservation') ?>" method="post">
+                <form action="<?= base_url('eventReservation') ?>" method="post" id="eventForm">
                   <div class="row">
                     <div class="col-md-6 form-group">
                       <label for="FirstName">First Name</label>
@@ -109,12 +108,12 @@
                         </select>
                       </div>
                       <div class="col-sm-6 form-group">
-                          <label for="CheckInDate">Preferred Date</label>
+                          <label for="ArivalDate">Preferred Date</label>
                           <div style="position: relative;">
                             <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
+                            <input type='date' class="form-control" id='ArivalDate' name='ArivalDate'/>
                           </div>
-                      </div>  
+                      </div>
                   </div>
                   <div class="row">
                     <div class="col-md-12 form-group">
@@ -137,31 +136,20 @@
                 </form>
               </div>
               <div class="col-md-1"></div>
-              <div class="col-md-5">
-                <h3 class="mb-5">Featured Convention Center</h3>
+              <div class="col-md-5" id="featuredConvention">
+                <h2 class="mb-5">Featured Convention Center</h2>
+                <br>
                 <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Main Convention
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
+                    <figure>
+                        <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid" id="featuredImage" style="width: 500px; height:300px;">
+                        
+                    </figure>
+                    <div class="media-body">
+                        <h3 class="mt-0"><a href="#" id="featuredTitle">Main Convention</a></h3>
+                        <p id="featuredDescription">Elevate your experience in a space designed for seamless gatherings and memorable moments.</p>
+                    </div>
                 </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Main Convention</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 30 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p> Elevate your experience in a space designed for seamless gatherings and memorable moments.</p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now </a></p>
-              </div>
             </div>
-              </div>
         </div>
       </div>
     </section>
@@ -206,10 +194,10 @@
                         </select>
                       </div>
                       <div class="col-sm-6 form-group">
-                          <label for="CheckInDate">Preferred Date</label>
+                          <label for="ArivalDate">Preferred Date</label>
                           <div style="position: relative;">
                             <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
-                            <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate'/>
+                            <input type='date' class="form-control" id='ArivalDate' name='ArivalDate'/>
                           </div>
                       </div>  
                   </div>
@@ -238,7 +226,7 @@
                 <h3 class="mb-5">Featured Convention Center</h3>
                 <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/img_1.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
                     Main Convention 
@@ -271,7 +259,42 @@
     
     <!-- loader -->
     <?php include('inc/loader.php') ?>
+    <script>
+    // Function to update the featured convention center based on the selected event type
+    function updateFeaturedConvention() {
+        var eventType = document.getElementById('EventType').value;
 
+        // Example data for different event types
+        var eventData = {
+            'Wedding': {
+                'image': '/guest/images/wedding.jpg',
+                'title': 'Wedding Convention',
+                'description': 'A magical space for your special day.'
+            },
+            'Team Building': {
+                'image': '/guest/images/teambuilding.jpg',
+                'title': 'Team Building Convention',
+                'description': 'Foster teamwork and collaboration in a dynamic environment.'
+            },
+            'Meeting': {
+                'image': '/guest/images/meeting.jpg',
+                'title': 'Meeting Convention',
+                'description': 'Efficient and productive meetings start here.'
+            }
+        };
+
+        // Update the featured convention center content
+        document.getElementById('featuredImage').src = eventData[eventType].image;
+        document.getElementById('featuredTitle').innerText = eventData[eventType].title;
+        document.getElementById('featuredDescription').innerText = eventData[eventType].description;
+    }
+
+    // Event listener for changes in the event type selection
+    document.getElementById('EventType').addEventListener('change', updateFeaturedConvention);
+
+    // Initialize the featured convention center with the default event type
+    updateFeaturedConvention();
+</script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>

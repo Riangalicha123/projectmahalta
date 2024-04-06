@@ -38,7 +38,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-12">
