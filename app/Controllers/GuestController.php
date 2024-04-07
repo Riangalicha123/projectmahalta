@@ -106,54 +106,100 @@ class GuestController extends BaseController
     public function getData()
 {
     $session = \Config\Services::session();
-    $reservationData = $session->get('reservationData'); // Retrieve session data
-    $availableRooms = $this->findAvailableRooms($reservationData['Adult'], $reservationData['Child']); // Use session data to find available rooms
+    $checkInDate = $this->request->getGet('CheckInDate');
+    $checkOutDate = $this->request->getGet('CheckOutDate');
+    $numberOfAdults = $this->request->getGet('Adult');
+    $numberOfChildren = $this->request->getGet('Child');
+    $reservationData = [
+        'CheckInDate' => $checkInDate,
+        'CheckOutDate' => $checkOutDate,
+        'Adult' => $numberOfAdults,
+        'Child' => $numberOfChildren,
+    ];
+    $session->set('reservationData', $reservationData);
+    // Pass all required parameters to findAvailableRooms method
+    $availableRooms = $this->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
     return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
 }
 
+
+
     
     
-    private function findAvailableRooms($numberOfAdults, $numberOfChildren)
+    private function findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren)
     {
         // Ensure $numberOfAdults and $numberOfChildren are integers
         $numberOfAdults = (int) $numberOfAdults;
         $numberOfChildren = (int) $numberOfChildren;
-            
+    
+        // Convert check-in and check-out dates to proper formats (assuming they are in 'Y-m-d' format)
+        $checkInDateFormatted = date('Y-m-d', strtotime($checkInDate));
+        $checkOutDateFormatted = date('Y-m-d', strtotime($checkOutDate));
+    
         // Sample query to retrieve available rooms based on minimum and maximum person capacity
+        // and availability during the specified date range
         $availableRooms = $this->rooms->where('minPerson <=', $numberOfAdults + $numberOfChildren)
                                         ->where('maxPerson >=', $numberOfAdults + $numberOfChildren)
-                                        ->where('AvailabilityStatus', 'Available')
+                                     
+                                        ->whereNotIn('RoomID', function ($builder) use ($checkInDateFormatted, $checkOutDateFormatted) {
+                                            $builder->select('RoomID')
+                                                    ->from('reservations')
+                                                    ->where('CheckInDate <=', date('Y-m-d', strtotime($checkOutDateFormatted . ' +1 day')))
+                                                    ->where('CheckOutDate >=', date('Y-m-d', strtotime($checkInDateFormatted . ' -1 day')));
+                                                    
+                                        })
                                         ->findAll();
-        
+    
         return $availableRooms;
     }
+    
     public function getdataRoom()
     {
         $session = \Config\Services::session();
         $reservationData = $session->get('reservationData');
-        $availableRooms = $this->findAvailableRooms($reservationData['Adult'], $reservationData['Child']);
-        $TotalAmount = 0;
-        $roomSelected = null;
         $selectedRoomID = $this->request->getGet('selectedRoomID');
+        $roomSelected = null;
+        $TotalAmount = 0;
+    
+        // Retrieve available rooms based on reservation data
+        $availableRooms = $this->findAvailableRooms($reservationData['CheckInDate'], $reservationData['CheckOutDate'], $reservationData['Adult'], $reservationData['Child']);
+    
+        // If a room is selected
         if (!empty($selectedRoomID)) {
+            // Find the selected room
             $roomSelected = $this->rooms->find($selectedRoomID);
-            if (!empty($roomSelected) && isset($roomSelected['AvailabilityStatus']) && $roomSelected['AvailabilityStatus'] === 'Available') {
+    
+            // Calculate total amount if room is available
+            if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
                 $checkInDate = new \DateTime($reservationData['CheckInDate']);
                 $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
                 $numberOfNights = $checkInDate->diff($checkOutDate)->days;
+    
                 $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
                 $numberOfAdults = (int) $reservationData['Adult'];
                 $numberOfChildren = (int) $reservationData['Child'];
                 $totalGuests = $numberOfAdults + $numberOfChildren;
+    
+                // Calculate additional charge for extra guests
                 if ($totalGuests > $roomSelected['minPerson']) {
                     $additionalGuests = $totalGuests - $roomSelected['minPerson'];
                     $TotalAmount += $additionalGuests * 500;
                 }
+    
+                // Store selected room in session
                 $session->set('roomSelected', $roomSelected);
             }
         }
-        return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms, 'roomSelected' => $roomSelected, 'TotalAmount' => $TotalAmount]);
+    
+        // Pass data to the view
+        return view('Hotell/bookroom', [
+            'reservationData' => $reservationData,
+            'availableRooms' => $availableRooms,
+            'roomSelected' => $roomSelected,
+            'TotalAmount' => $TotalAmount
+        ]);
     }
+    
     public function getdataRoomReservation()
     {
         $session = \Config\Services::session();
@@ -579,11 +625,6 @@ class GuestController extends BaseController
                         // Insert reservation data
                         $inserted = $this->reservation->insert($newReservationData);
     
-                        
-                        // Update room availability status
-                        if ($inserted && $roomSelected['AvailabilityStatus'] === 'Available') {
-                            $this->rooms->update($roomSelected['RoomID'], ['AvailabilityStatus' => 'Not Available']);
-                        }
     
                         // Send email and push notification
                         if ($inserted) {

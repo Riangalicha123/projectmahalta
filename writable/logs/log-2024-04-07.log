@@ -1,0 +1,116 @@
+CRITICAL - 2024-04-07 06:26:07 --> Undefined variable $availableRooms
+in APPPATH\Views\Hotell\bookroom.php on line 103.
+ 1 APPPATH\Views\Hotell\bookroom.php(103): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $availableRooms', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\bookroom.php', 103)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\bookroom.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\bookroom', [], true)
+ 5 APPPATH\Controllers\GuestController.php(392): view('Hotell\\bookroom', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookroom()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 06:40:48 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 134.
+ 1 APPPATH\Controllers\GuestController.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 134)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 07:57:06 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 134.
+ 1 APPPATH\Controllers\GuestController.php(134): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 134)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:13 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('1', '2')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:15 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('1', '2')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:16 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('3', '3')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:17 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 157 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(157): App\Controllers\GuestController->findAvailableRooms('3', '3')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:19 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('2', '0')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:21 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 157 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(157): App\Controllers\GuestController->findAvailableRooms('2', '0')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:22 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('2', '0')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:22 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('2', '0')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:38:30 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 120 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 127.
+ 1 APPPATH\Controllers\GuestController.php(120): App\Controllers\GuestController->findAvailableRooms('2', '3')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:40:35 --> Too few arguments to function App\Controllers\GuestController::findAvailableRooms(), 2 passed in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 159 and exactly 4 expected
+in APPPATH\Controllers\GuestController.php on line 129.
+ 1 APPPATH\Controllers\GuestController.php(159): App\Controllers\GuestController->findAvailableRooms('15', '0')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-07 08:49:31 --> foreach() argument must be of type array|object, null given
+in APPPATH\Controllers\GuestController.php on line 583.
+ 1 APPPATH\Controllers\GuestController.php(583): CodeIgniter\Debug\Exceptions->errorHandler(2, 'foreach() argument must be of type array|object, null given', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 583)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
