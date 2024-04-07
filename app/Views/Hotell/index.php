@@ -321,38 +321,101 @@
       </div>
     </section> -->
     <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
-  <div class="container">
-    <div class="row mb-5">
-    <div class="col-md-12 heading-wrap text-center">
-    <br>
-            <h4 class="sub-heading"style="color: darkgrey;">Guest Feedback</h4>
-              <h2 class="heading">Feedback</h2>
-          </div>
-    </div>
-    <div class="row">
-      <?php foreach ($feedbacks as $feedback): ?>
-        <div class="col-md-6">
-          <div class="testimonial" style="background-color: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 20px; margin-bottom: 20px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; position: relative;">
-            <div class="testimonial-content">
-              <h3 class="testimonial-email" style="color: #333; font-size: 18px; margin-bottom: 10px;"><?=$feedback['Email']?></h3>
-              <p class="testimonial-message" style="font-style: italic; font-size: 16px; color: #555;">"<?=$feedback['FeedbackMessage']?>"</p>
-              <!-- Like button and count inline -->
-              <button class="like-btn" onclick="likeFeedback(this)" style="background-color: #3498db; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">&#x1F44D;</button>
-              <span class="like-count" style="margin-left: 5px;">0</span>
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 heading-wrap text-center">
+                <br>
+                <h4 class="sub-heading" style="color: darkgrey;">Guest Feedback</h4>
+                <h2 class="heading">Feedback</h2>
             </div>
-          </div>
         </div>
-      <?php endforeach; ?>
+        <div class="row">
+            <?php 
+            // Define an associative array to store feedbacks grouped by user
+            $userFeedbacks = array();
+            
+            // Group feedbacks by user
+            foreach ($feedbacks as $feedback): 
+                $email = $feedback['Email'];
+                
+                // Add feedback to the user's array
+                if (!isset($userFeedbacks[$email])) {
+                    $userFeedbacks[$email] = array();
+                }
+                $userFeedbacks[$email][] = $feedback['FeedbackMessage'];
+            endforeach; 
+            
+            // Display feedbacks for each user in separate cards
+            foreach ($userFeedbacks as $email => $feedbackMessages): 
+                echo "<!-- Email: $email -->"; // Debug statement
+                foreach ($feedbackMessages as $message):
+                    echo "<!-- Message: $message -->"; // Debug statement
+            ?>
+                    <div class="col-md-6">
+                    <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="testimonial-card text-center" style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; position: relative;">
+                <div class="testimonial-content" style="margin-bottom: 20px;">
+                    <h3 class="testimonial-email" style="color: #333; font-size: 20px;"><?=$email?></h3>
+                    <p class="testimonial-message" style="font-size: 18px; color: #555;"><?=$message?></p>
+                </div>
+                <div class="testimonial-actions" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <button class="like-btn" onclick="likeFeedback(this)" data-feedback-id="unique_feedback_id_here">&#x1F44D; Like</button>
+                        <span class="like-count" style="margin-left: 10px; font-size: 16px;">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <script>
-    function likeFeedback(button) {
-      var likeCountElement = button.nextElementSibling;
-      var currentLikes = parseInt(likeCountElement.innerText);
-      likeCountElement.innerText = currentLikes + 1;
-    }
-  </script>
+</div>
+
+                    </div>
+            <?php 
+                endforeach;
+            endforeach; 
+            ?>
+        </div>
+    </div>
 </section>
+
+<script>
+    // Function to handle like button click
+    function likeFeedback(button) {
+        var likeCountElement = button.nextElementSibling;
+        var currentLikes = parseInt(likeCountElement.innerText);
+
+        // Get the unique ID of the feedback (you can replace it with your own unique identifier)
+        var feedbackId = button.dataset.feedbackId;
+
+        // Check if the feedback is already liked
+        var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
+
+        // Toggle like status
+        if (isLiked === 'true') {
+            // If already liked, set the like count to zero and update localStorage
+            likeCountElement.innerText = 0;
+            localStorage.removeItem('likedFeedback_' + feedbackId);
+        } else {
+            // If not liked, increase like count to 1 and update localStorage
+            likeCountElement.innerText = 1;
+            localStorage.setItem('likedFeedback_' + feedbackId, 'true');
+        }
+    }
+
+    // Restore like states on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        var likeButtons = document.querySelectorAll('.like-btn');
+        likeButtons.forEach(function (button) {
+            var feedbackId = button.dataset.feedbackId;
+            var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
+            if (isLiked === 'true') {
+                button.nextElementSibling.innerText = 1; // Set like count to 1
+            }
+        });
+    });
+</script>
 
 
 <script type="module">

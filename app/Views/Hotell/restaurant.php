@@ -64,7 +64,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
         </div>
@@ -192,7 +192,7 @@
     </section>
 
     
-    <section  class="site-section"style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF); padding: 20px;  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <section  class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
