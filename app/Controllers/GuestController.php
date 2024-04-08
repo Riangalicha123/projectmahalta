@@ -15,11 +15,12 @@ use App\Models\QrcodeModel;
 use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
-use App\Models\VenueModel;
+use App\Models\RestaurantVenueModel;
 use App\Models\MenuProductIcedModel;
 use App\Traits\EmailTrait;
 use App\Models\RoomInventoryModel;
 use App\Models\ReservationAmenities;
+use App\Models\ConventionVenueModel;
 class GuestController extends BaseController
 {
     use EmailTrait;
@@ -39,6 +40,7 @@ class GuestController extends BaseController
     private $iced;
     private $roominventory;
     private $reservationamenities;
+    private $convenues;
 
     function __construct(){
         helper(['form']);
@@ -54,10 +56,11 @@ class GuestController extends BaseController
         $this->menus = new MenuModel();
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
-        $this->venues = new VenueModel();
+        $this->venues = new RestaurantVenueModel();
         $this->iced = new MenuProductIcedModel();
         $this->roominventory = new RoomInventoryModel();
         $this->reservationamenities = new ReservationAmenities();
+        $this->convenues = new ConventionVenueModel();
     }
     public function index()
     {
@@ -104,28 +107,23 @@ class GuestController extends BaseController
         return view('Hotell\room', $data);
     }
     public function getData()
-{
-    $session = \Config\Services::session();
-    $checkInDate = $this->request->getGet('CheckInDate');
-    $checkOutDate = $this->request->getGet('CheckOutDate');
-    $numberOfAdults = $this->request->getGet('Adult');
-    $numberOfChildren = $this->request->getGet('Child');
-    $reservationData = [
-        'CheckInDate' => $checkInDate,
-        'CheckOutDate' => $checkOutDate,
-        'Adult' => $numberOfAdults,
-        'Child' => $numberOfChildren,
-    ];
-    $session->set('reservationData', $reservationData);
-    // Pass all required parameters to findAvailableRooms method
-    $availableRooms = $this->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
-    return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
-}
-
-
-
-    
-    
+    {
+        $session = \Config\Services::session();
+        $checkInDate = $this->request->getGet('CheckInDate');
+        $checkOutDate = $this->request->getGet('CheckOutDate');
+        $numberOfAdults = $this->request->getGet('Adult');
+        $numberOfChildren = $this->request->getGet('Child');
+        $reservationData = [
+            'CheckInDate' => $checkInDate,
+            'CheckOutDate' => $checkOutDate,
+            'Adult' => $numberOfAdults,
+            'Child' => $numberOfChildren,
+        ];
+        $session->set('reservationData', $reservationData);
+        // Pass all required parameters to findAvailableRooms method
+        $availableRooms = $this->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
+        return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
+    }
     private function findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren)
     {
         // Ensure $numberOfAdults and $numberOfChildren are integers
@@ -135,9 +133,6 @@ class GuestController extends BaseController
         // Convert check-in and check-out dates to proper formats (assuming they are in 'Y-m-d' format)
         $checkInDateFormatted = date('Y-m-d', strtotime($checkInDate));
         $checkOutDateFormatted = date('Y-m-d', strtotime($checkOutDate));
-    
-        // Sample query to retrieve available rooms based on minimum and maximum person capacity
-        // and availability during the specified date range
         $availableRooms = $this->rooms->where('minPerson <=', $numberOfAdults + $numberOfChildren)
                                         ->where('maxPerson >=', $numberOfAdults + $numberOfChildren)
                                      
@@ -160,8 +155,6 @@ class GuestController extends BaseController
         $selectedRoomID = $this->request->getGet('selectedRoomID');
         $roomSelected = null;
         $TotalAmount = 0;
-    
-        // Retrieve available rooms based on reservation data
         $availableRooms = $this->findAvailableRooms($reservationData['CheckInDate'], $reservationData['CheckOutDate'], $reservationData['Adult'], $reservationData['Child']);
     
         // If a room is selected
@@ -185,8 +178,6 @@ class GuestController extends BaseController
                     $additionalGuests = $totalGuests - $roomSelected['minPerson'];
                     $TotalAmount += $additionalGuests * 500;
                 }
-    
-                // Store selected room in session
                 $session->set('roomSelected', $roomSelected);
             }
         }
@@ -358,15 +349,141 @@ class GuestController extends BaseController
         ];
         return view('Hotell\cafemenu',$data);
     }
+    
+    public function getdataconVenue()
+    {
+        $session = \Config\Services::session();
+        $selectedconVenueID = $this->request->getGet('selectedconVenueID');
+        $convenuesSelected = null;
+        if (!empty($selectedconVenueID)) {
+            $convenuesSelected = $this->convenues->find($selectedconVenueID);
+                $session->set('convenuesSelected', $convenuesSelected);
+        }
+        $convenues = $this->convenues->findAll();
+        return view('Hotell/conreservation', [
+            'convenuesSelected' => $convenuesSelected,
+            'convenues' => $convenues,
+        ]);
+    }
+    
+    public function getdataconVenueInformation()
+    {
+
+        $session = \Config\Services::session();
+        $reservationData = $session->get('reservationData');
+        $convenuesSelected = $session->get('convenuesSelected');
+        $session->set('convenueReservationData', [
+            'convenuesSelected' => $convenuesSelected,
+            'reservationData' => $reservationData,
+        ]);
+        return redirect()->to(base_url('/convention-center/reservation/information'));
+    }
+    public function getVenue()
+    {
+
+        $session = \Config\Services::session();
+        $checkInDate = $this->request->getGet('CheckInDate');
+        $checkOutDate = $this->request->getGet('CheckOutDate');
+        $numberOfNumberOfGuests = $this->request->getGet('NumberOfGuest');
+        $reservationData = [
+            'CheckInDate' => $checkInDate,
+            'CheckOutDate' => $checkOutDate,
+            'NumberOfGuest' => $numberOfNumberOfGuests,
+        ];
+        $session->set('reservationData', $reservationData);
+        // Pass all required parameters to findAvailableRooms method
+        $availableVenue = $this->findAvailableVenue($checkInDate, $checkOutDate, $numberOfNumberOfGuests);
+        return view('Hotell/coninformation', ['reservationData' => $reservationData, 'availableVenue' => $availableVenue]);
+    }
+    private function findAvailableVenue($checkInDate, $checkOutDate, $numberOfNumberOfGuests)
+    {
+        // Ensure $numberOfAdults and $numberOfChildren are integers
+        $$numberOfNumberOfGuests = (int) $$numberOfNumberOfGuests;
+    
+        // Convert check-in and check-out dates to proper formats (assuming they are in 'Y-m-d' format)
+        $checkInDateFormatted = date('Y-m-d', strtotime($checkInDate));
+        $checkOutDateFormatted = date('Y-m-d', strtotime($checkOutDate));
+        $availableRooms = $this->convenues->where('minPerson <=', $numberOfNumberOfGuests)
+                                        ->where('maxPerson >=', $numberOfNumberOfGuests)
+                                     
+                                        ->whereNotIn('conVenueID', function ($builder) use ($checkInDateFormatted, $checkOutDateFormatted) {
+                                            $builder->select('conVenueID')
+                                                    ->from('reservations')
+                                                    ->where('CheckInDate <=', date('Y-m-d', strtotime($checkOutDateFormatted . ' +1 day')))
+                                                    ->where('CheckOutDate >=', date('Y-m-d', strtotime($checkInDateFormatted . ' -1 day')));
+                                        })
+                                        ->findAll();
+        return $availableRooms;
+    }
+    public function getdataconVenueReservation()
+    {
+        $session = \Config\Services::session();
+        $convenuesSelected = $session->get('convenuesSelected');
+        $session->set('convenueReservationData', [
+            'convenuesSelected' => $convenuesSelected,
+        ]);
+        return redirect()->to(base_url('/convention-center/reservation/formdetails'));
+    }
     public function convention()
     {
+        
         $data = [
             'activePage' => 'Convention',
             'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
             'chats' => $this->chat->findAll()
         ];
         return view('Hotell\convention',$data);
     }
+    public function conReservation()
+    {
+        // Load the session library
+    $session = \Config\Services::session();
+    $convenuesSelected = $session->get('convenuesSelected');
+    
+    // Fetch all convenues
+    $convenues = $this->convenues->findAll();
+
+    $data = [
+        'activePage' => 'Convention Reservation',
+        'events' => $this->events->findAll(),
+        'convenues' => $convenues, // Pass $convenues to the view
+        'convenuesSelected' => $convenuesSelected,
+        'chats' => $this->chat->findAll()
+    ];
+    
+    return view('Hotell\conreservation', $data);
+    }
+    public function conventioninformation()
+    {
+        $session = \Config\Services::session();
+        $convenueReservationData = $session->get('convenueReservationData');
+        $data = [
+            'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
+            'convenueReservationData' => $convenueReservationData,
+            'chats' => $this->chat->findAll(),
+            'qrcodes' => $this->qr->findAll(),
+        ];
+        return view('Hotell\coninformation',$data);
+    }
+    public function conventionformdetails()
+    {
+        $session = \Config\Services::session();
+        $convenueReservationData = $session->get('convenueReservationData');
+        $data = [
+            'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
+            'convenueReservationData' => $convenueReservationData,
+            'chats' => $this->chat->findAll(),
+            'qrcodes' => $this->qr->findAll(),
+        ];
+        return view('Hotell\conformdetail',$data);
+    }
+    
+   
     public function conPackage()
     {
         $data = [

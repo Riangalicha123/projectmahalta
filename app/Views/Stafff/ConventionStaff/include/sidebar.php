@@ -43,6 +43,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link <?= (isset($currentttRoute) && $currentttRoute === 'venue') ? 'active' : '' ?> " href="<?= route_to('staff-convention-venue') ?>">
+              <i class="nav-icon fas fa-calendar"></i>
+              <p>
+                Venue
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link <?= (isset($currentttRoute) && $currentttRoute === 'event') ? 'active' : '' ?> " href="<?= route_to('staff-convention-event') ?>">
               <i class="nav-icon fas fa-calendar"></i>
               <p>

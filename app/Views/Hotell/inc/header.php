@@ -34,7 +34,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Convention</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
-                        <a class="dropdown-item" href="<?= route_to('convention') ?>">Event Inquiry</a>
+                        <a class="dropdown-item" href="<?= route_to('convention-center') ?>">Convention Center</a>
                         <a class="dropdown-item" href="<?= route_to('conpackage') ?>">Package</a>
                         </div>
                     </li>

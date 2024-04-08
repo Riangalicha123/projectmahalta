@@ -94,36 +94,36 @@
             <h3 class="mb-3">Payment Details</h3>
             <p><b>*Note: 50% down payment is required upon reservation.</b></p>
             <?php foreach ($qrcodes as $qr): ?>
-    <div class="row">
-        <div class="col-md-6 form-group">
-            <label for="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>">
-                <h4><?php echo ucfirst($qr['PaymentOption']); ?></h4>
-            </label>
-            <input type="radio" id="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>" name="PaymentOption" value="<?php echo $qr['PaymentOption']; ?>" onclick="showQR('<?php echo $qr['PaymentOption']; ?>')" <?php if ($qr['PaymentOption'] === 'gcash') echo 'checked'; ?>>
-        </div>
-    </div>
-<?php endforeach; ?>
+              <div class="row">
+                  <div class="col-md-6 form-group">
+                      <label for="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>">
+                          <h4><?php echo ucfirst($qr['PaymentOption']); ?></h4>
+                      </label>
+                      <input type="radio" id="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>" name="PaymentOption" value="<?php echo $qr['PaymentOption']; ?>" onclick="showQR('<?php echo $qr['PaymentOption']; ?>')" <?php if ($qr['PaymentOption'] === 'gcash') echo 'checked'; ?>>
+                  </div>
+              </div>
+            <?php endforeach; ?>
 
-<!-- QR Code Image -->
-<div class="row">
-    <div class="col-md-12 form-group">
-        <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
-    </div>
-</div>
+            <!-- QR Code Image -->
+            <div class="row">
+                <div class="col-md-12 form-group">
+                    <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
+                </div>
+            </div>
 
-    <!-- Reference Number Fields -->
-    <div class="row">
-        <!-- Gcash Reference Number -->
-        <div class="col-md-12 form-group" id="gcashReferenceDiv" style="display: block;">
-            <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-            <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
-        </div>
-        <!-- Paymaya Reference Number -->
-        <div class="col-md-12 form-group" id="paymayaReferenceDiv" style="display: none;">
-            <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-            <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
-        </div>
-    </div>
+            <!-- Reference Number Fields -->
+            <div class="row">
+                <!-- Gcash Reference Number -->
+                <div class="col-md-12 form-group" id="gcashReferenceDiv" style="display: block;">
+                    <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
+                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
+                </div>
+                <!-- Paymaya Reference Number -->
+                <div class="col-md-12 form-group" id="paymayaReferenceDiv" style="display: none;">
+                    <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
+                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12 form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>

@@ -24,7 +24,13 @@ $routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions',['filt
 $routes->get('/barmenu', 'GuestController::barmenu',['filter' => 'noAuth']);
 $routes->get('/cafemenu', 'GuestController::cafemenu',['filter' => 'noAuth']);
 $routes->get('/respolicy', 'GuestController::restaurantPolicy',['filter' => 'noAuth']);
-$routes->get('/convention', 'GuestController::convention',['filter' => 'noAuth']);
+$routes->get('/convention-center', 'GuestController::convention',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation', 'GuestController::conReservation',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation', 'GuestController::getdataconVenue',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/getdataconVenueInformation', 'GuestController::getdataconVenueInformation',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/information', 'GuestController::conventioninformation',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/getdataconVenue', 'GuestController::getdataconVenueReservation',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/formdetails', 'GuestController::conventionformdetails',['filter' => 'noAuth']);
 $routes->get('/conpackage', 'GuestController::conPackage',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
 $routes->get('/chat', 'GuestController::chat',['filter' => 'noAuth']);
@@ -92,8 +98,12 @@ $routes->post('/addconReservation', 'StaffController::addconReservation',['filte
 $routes->post('/updateconReservation/(:num)', 'StaffController::updateconReservation/$1',['filter' => 'staffGuard']);
 $routes->get('/staff/updateconStatus/(:segment)/(:num)', 'StaffController::updateconStatus/$1/$2',['filter' => 'staffGuard']);
 $routes->get('/staff-convention-event', 'StaffController::conEvent',['filter' => 'staffGuard']);
+
 $routes->post('/addEvent', 'StaffController::addEvent',['filter' => 'staffGuard']);
 $routes->post('/updateEvent', 'StaffController::updateEvent',['filter' => 'staffGuard']);
+$routes->get('/staff-convention-venue', 'StaffController::conVenue',['filter' => 'staffGuard']);
+$routes->post('/addconVenue', 'StaffController::addconVenue',['filter' => 'staffGuard']);
+$routes->post('/updateconVenue', 'StaffController::updateconVenue',['filter' => 'staffGuard']);
 
 $routes->get('/staff-inventory', 'InventoryController::inhome',['filter' => 'staffGuard']);
 $routes->get('/staff-inventory/hotel', 'InventoryController::inhotel',['filter' => 'staffGuard']);

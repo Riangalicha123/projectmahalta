@@ -48,9 +48,53 @@
     
     <!-- END section -->
 
-
+    <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
+        <div class="container" style="display: grid; place-items: center;" >
+        
+            <div class="row">
+            <div class="col-md-12">
+                <div class="col-sm-6">
+                        <div class="media-body" style="border-radius: 5px;">
+                            <div class="row">
+                              <div class="col-md-12 form-group text-center">
+                                <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
+                              </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
+          <div class="col-md-12 heading-wrap text-center">
+                <h2 class="heading">Convention Venue</h2>
+          </div>
+        <div class="row">
+        <?php foreach ($convenues as $convenue): ?>
+        <div class="col-md-4">
+            <div class="post-entry">
+              <a href="#"><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 100%"></a>
+              <div class="body-text">
+                <div class="category"></div>
+                <h3 class="mb-3"><a href="#"><?=$convenue['conVenueName']?></a></h3>
+                <ul class="room-specs">
+                  <li><span class="ion-ios-people-outline"></span> <?=$convenue['minGuest']?></li>
+                  <li><span class="ion-ios-people-outline"></span> <?=$convenue['maxGuest']?></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <?php endforeach; ?>
+          
+        </div>
+      </div>
+    </section>
+    <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+      <div class="container">
+        <div class="col-md-12 heading-wrap text-center">
+                <h2 class="heading">Convention Event</h2>
+        </div>
         <div class="row">
         <?php foreach ($events as $event): ?>
         <div class="col-md-4">

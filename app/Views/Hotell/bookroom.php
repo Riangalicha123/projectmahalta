@@ -89,6 +89,14 @@
                       </div>
                     </div>
                     <div class="row">
+                    <?php if (isset($reservationData)): ?>
+                            <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
+                            <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                        <?php else: ?>
+                            <p>No reservation data found.</p>
+                        <?php endif; ?>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12 form-group text-center">
                           <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
                         </div>
@@ -287,143 +295,7 @@ departureDateInput.valueAsDate = tomorrow;
     <script src="/guest/js/magnific-popup-options.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
     <script>
-// Function to initialize popover
-function initializePopover() {
-  var popoverContent = `
-    <div id="popoverContent" style="width: 500px;">
-      <table class="table table-responsive">
-        <thead>
-          <tr>
-            <th cols="4"></th>
-            <th cols="4">Adults (Ages 12+)</th>
-            <th cols="4">Children (Ages 1-11)</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody id="roomTableBody">
-          <tr class="room">
-            <td><b>Room1</b></td>
-            <td>
-              <button class="" onclick="decrement('adults1')">
-                <span class="circle">-</span>
-              </button>
-              <span id="adults1"class="number">2</span>
-              <button class="" onclick="increment('adults1')">
-                <span class="circle">+</span>
-              </button>
-            </td>
-            <td>
-              <button class="" onclick="decrement('children1')">
-                <span class="circle">-</span>
-              </button>
-              <span id="children1" class="number">0</span>
-              <button class="" onclick="increment('children1')">
-                <span class="circle">+</span>
-              </button>
-            </td>
-            <td><button  onclick="removeRoom(1)" style="">Remove</button></td>
-          </tr>
-        </tbody>
-        <tfooter>
-        
-        </tfooter>
-      </table>
-      <div class="popover-footer">
-        <button type="button" class="btn btn-primary btn-sm" onclick="addRoom()">
-          <i class="bi bi-plus"></i> Add additional room
-        </button>
-        <button type="button" class="btn btn-success btn-sm" onclick="done()">
-          <i class="bi bi-check"></i> Done
-        </button>
-      </div>
-    </div>
-  `;
-
-  var popoverOptions = {
-    container: 'body',
-    placement: 'bottom',
-    html: true,
-    content: popoverContent
-  };
-
-  $('#roomsguestsPopover').popover(popoverOptions);
-}
-
-function generateRoomDetails(roomNumber) {
-  return `
-    <tr class="room">
-      <td><b>Room${roomNumber}</b></td>
-      <td>
-        <button onclick="decrement('adults${roomNumber}')">
-          <span class="circle">-</span>
-        </button>
-        <span id="adults${roomNumber}" class="number" name="adults${roomNumber}">2</span>
-        <button onclick="increment('adults${roomNumber}')">
-          <span class="circle">+</span>
-        </button>
-      </td>
-      <td>
-        <button onclick="decrement('children${roomNumber}')">
-          <span class="circle">-</span>
-        </button>
-        <span id="children${roomNumber}" class="number" name="children${roomNumber}">0</span>
-        <button onclick="increment('children${roomNumber}')">
-          <span class="circle">+</span>
-        </button>
-      </td>
-      <td><button onclick="removeRoom(${roomNumber})">Remove</button></td>
-    </tr>
-  `;
-}
-
-
-function addRoom() {
-  var numRooms = $('.room').length;
-  if (numRooms <= 8) { 
-    var roomNumber = numRooms;
-    var roomDetails = generateRoomDetails(roomNumber);
-    $('#roomTableBody').append(roomDetails);
-  } else {
-    alert("Maximum room limit reached (8 rooms).");
-  }
-}
-
-// Function to remove a room
-function removeRoom(roomNumber) {
-  $('#popoverContent').find('.room').eq(roomNumber - 1).remove();
-}
-
-
-// Function to handle increment
-function increment(elementId) {
-  var value = parseInt($('#' + elementId).text());
-  $('#' + elementId).text(value + 1);
-}
-
-// Function to handle decrement
-function decrement(elementId) {
-  var value = parseInt($('#' + elementId).text());
-  if (value > 0) {
-    $('#' + elementId).text(value - 1);
-  }
-}
-
-// Function to handle "Done" button click
-function done() {
-  $('#roomsguestsPopover').popover('hide');
-}
-
-// Function to initialize the page
-function initializePage() {
-  initializePopover();
-}
-
-$(document).ready(function () {
-  initializePage();
-});
-</script>
-
-<script>
+    // Function to format date as yyyy-mm-dd
     function formatDate(date) {
         const year = date.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0'); // Adding 1 because months are zero-indexed
@@ -431,39 +303,49 @@ $(document).ready(function () {
         return `${year}-${month}-${dayOfMonth}`;
     }
 
+    // Function to calculate the number of nights between two dates
     function getNightsCount(checkIn, checkOut) {
         const oneDay = 24 * 60 * 60 * 1000;
         const diffDays = Math.round(Math.abs((checkOut - checkIn) / oneDay));
         return diffDays;
     }
 
+    // Get current date and initialize flatpickr with configuration
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate());
     const config = {
         mode: "range",
-        dateFormat: "Y-m-d - Y-m-d (d\\ nights)", 
+        dateFormat: "Y-m-d - Y-m-d", 
         showMonths: 2,
         minDate: currentDate,
         onChange: function(selectedDates, dateStr, instance) {
             const [checkIn, checkOut] = selectedDates;
+            if (!checkIn || !checkOut) {
+                console.error("Invalid date selection");
+                return;
+            }
+
             const formattedCheckIn = formatDate(checkIn);
             const formattedCheckOut = formatDate(checkOut);
             const formattedDateRange = `${formattedCheckIn} - ${formattedCheckOut}`;
-            document.getElementById('dateRange').value = formattedDateRange;
-            document.getElementById('dateRange').setAttribute('name', 'CheckInDate, CheckOutDate');
-            const sessionData = {
-                CheckInDate: formattedCheckIn,
-                CheckOutDate: formattedCheckOut,
-            };
-            sessionStorage.setItem('reservationData', JSON.stringify(sessionData));
-            document.getElementById('checkInDate').textContent =  formattedCheckIn;
-            document.getElementById('checkOutDate').textContent = formattedCheckOut;
 
+            // Set the formatted date range in the input field
+            const dateRangeInput = document.getElementById('dateRange');
+            if (dateRangeInput) {
+                dateRangeInput.value = formattedDateRange;
+                dateRangeInput.setAttribute('name', 'CheckInDate, CheckOutDate');
+            }
+
+            // Update query string
             const queryString = `CheckInDate=${formattedCheckIn}&CheckOutDate=${formattedCheckOut}`;
-            document.getElementById('queryString').textContent = queryString;
-
+            const queryStringElement = document.getElementById('queryString');
+            if (queryStringElement) {
+                queryStringElement.textContent = queryString;
+            }
         }
     };
+
+    // Initialize flatpickr
     flatpickr("#dateRange", config);
 </script>
 

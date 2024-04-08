@@ -20,7 +20,8 @@ use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
 use App\Models\MenuProductIcedModel;
-use App\Models\VenueModel;
+use App\Models\RestaurantVenueModel;
+use App\Models\ConventionVenueModel;
 use App\Traits\EmailTrait;
 use CodeIgniter\API\ResponseTrait;
 
@@ -46,6 +47,7 @@ class StaffController extends BaseController
     private $province;
     private $cities;
     private $barangay;
+    private $convenues;
 
     function __construct(){
         helper(['form']);
@@ -63,10 +65,11 @@ class StaffController extends BaseController
         $this->cities = new CityModel();
         $this->barangay = new BarangayModel();
         $this->menus = new MenuModel();
-        $this->venues = new VenueModel();
+        $this->venues = new RestaurantVenueModel();
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
         $this->iced = new MenuProductIcedModel();
+        $this->convenues = new ConventionVenueModel();
     }
     public function login(){
         helper(['form']);
@@ -880,6 +883,107 @@ class StaffController extends BaseController
 
         // Redirect to the reservation page or wherever appropriate
         return redirect()->to('/staff-convention-reservation')->with('success', 'Reservation status updated successfully');
+    }
+    public function conVenue()
+    {
+        $data = [
+            'currentttRoute' => 'venue',
+            'convenues' => $this->convenues->findAll(),
+        ]; 
+        return view('Stafff\ConventionStaff\venue', $data);
+    }
+    public function addconVenue(){
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'conVenueID' => $this->request->getVar('conVenueID'),
+                'conVenueName' => $this->request->getVar('conVenueName'),
+                'minGuest' => $this->request->getVar('minGuest'),
+                'maxGuest' => $this->request->getVar('maxGuest'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'convention/', $newFileName)) {
+                        // Save product data to the database
+                        $this->convenues->save($data);
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+    
+        return redirect()->to('/staff-convention-venue');
+    }
+    public function updateconVenue(){
+
+        $file = $this->request->getFile('Image');
+    
+        // Check if a file is uploaded
+        if ($file) {
+            $newFileName = $file->getRandomName();
+    
+            $data = [
+                'conVenueID' => $this->request->getVar('conVenueID'),
+                'conVenueName' => $this->request->getVar('conVenueName'),
+                'minGuest' => $this->request->getVar('minGuest'),
+                'maxGuest' => $this->request->getVar('maxGuest'),
+                'Image'                => $newFileName
+            ];
+    
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
+                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                ]
+            ];
+    
+            // Validate the file and other form data
+            if ($this->validate($rules)) {
+                // Check if the file is valid and has not been moved
+                if ($file->isValid() && !$file->hasMoved()) {
+                    // Move the file to the 'uploads' directory
+                    if ($file->move(FCPATH . 'convention/', $newFileName)) {
+                        // Save product data to the database
+                        $this->convenues->save($data);
+                        
+                    } else {
+                        // Handle file move error
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                // Handle validation errors
+                $data['validation'] = $this->validator;
+            }
+        } else {
+            echo('error');
+        }
+        return redirect()->to('/staff-convention-venue');
     }
     public function conEvent()
     {
