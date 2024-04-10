@@ -71,7 +71,7 @@
               <div class="col-md-2"></div>
               <div class="col-md-4">
               <h2 class="mb-5">Selected Venue Details</h2>
-               <form action="<?= base_url('/convention-center/reservation/getdataconVenueInformation') ?>" method="get">
+               <form action="<?= base_url('/convention-center/reservation/getconvenuedirectInformation') ?>" method="get">
                 <?php if (!empty($convenuesSelected)): ?>
                     
                     <div class="media d-block room mb-0">
@@ -81,10 +81,10 @@
                 </figure>
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= esc($convenuesSelected['conVenueName'] ?? '') ?></a></h3>
-                      <h6 class="mt-0"><a >Maximum Guests: <?= esc($convenuesSelected['maxGuest'] ?? '') ?></a></h6>
-                      <h6 class="mt-0"><a >Minimum Guests: <?= esc($convenuesSelected['minGuest'] ?? '') ?></a></h6>
+                      
                         <div class="row additionalDetails" style="display:none;">
-                          
+                        <h6 class="mt-0"><a >Maximum Guests: <?= esc($convenuesSelected['maxGuest'] ?? '') ?></a></h6>
+                      <h6 class="mt-0"><a >Minimum Guests: <?= esc($convenuesSelected['minGuest'] ?? '') ?></a></h6>
                           
                           
                         </div>

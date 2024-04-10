@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class ReservationModel extends Model
+class ConventionModel extends Model
 {
-    protected $table            = 'reservations';
-    protected $primaryKey       = 'ReservationID';
+    protected $table            = 'convention';
+    protected $primaryKey       = 'conventionID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['UserID', 'RoomID', 'VenueID', 'conventionID', 'CheckInDate', 'CheckOutDate', 'ArivalDate', 'ArivalTime', 'NumberOfGuests', 'Adult','Child', 'ReferenceNumber', 'PaymentOption', 'downorfullPayment', 'TotalAmount','Image', 'Note','Status'];
+    protected $allowedFields    = ['conVenueID','EventID'];
 
     // Dates
     protected $useTimestamps = false;

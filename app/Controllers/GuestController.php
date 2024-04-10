@@ -21,6 +21,7 @@ use App\Traits\EmailTrait;
 use App\Models\RoomInventoryModel;
 use App\Models\ReservationAmenities;
 use App\Models\ConventionVenueModel;
+use App\Models\ConventionModel;
 class GuestController extends BaseController
 {
     use EmailTrait;
@@ -41,6 +42,7 @@ class GuestController extends BaseController
     private $roominventory;
     private $reservationamenities;
     private $convenues;
+    private $conventions;
 
     function __construct(){
         helper(['form']);
@@ -61,6 +63,7 @@ class GuestController extends BaseController
         $this->roominventory = new RoomInventoryModel();
         $this->reservationamenities = new ReservationAmenities();
         $this->convenues = new ConventionVenueModel();
+        $this->conventions = new ConventionModel();
     }
     public function index()
     {
@@ -349,149 +352,7 @@ class GuestController extends BaseController
         ];
         return view('Hotell\cafemenu',$data);
     }
-    
-    public function getdataconVenue()
-    {
-        $session = \Config\Services::session();
-        $selectedconVenueID = $this->request->getGet('selectedconVenueID');
-        $convenuesSelected = null;
-        if (!empty($selectedconVenueID)) {
-            $convenuesSelected = $this->convenues->find($selectedconVenueID);
-                $session->set('convenuesSelected', $convenuesSelected);
-        }
-        $convenues = $this->convenues->findAll();
-        return view('Hotell/conreservation', [
-            'convenuesSelected' => $convenuesSelected,
-            'convenues' => $convenues,
-        ]);
-    }
-    
-    public function getdataconVenueInformation()
-    {
 
-        $session = \Config\Services::session();
-        $reservationData = $session->get('reservationData');
-        $convenuesSelected = $session->get('convenuesSelected');
-        $session->set('convenueReservationData', [
-            'convenuesSelected' => $convenuesSelected,
-            'reservationData' => $reservationData,
-        ]);
-        return redirect()->to(base_url('/convention-center/reservation/information'));
-    }
-    public function getVenue()
-    {
-
-        $session = \Config\Services::session();
-        $checkInDate = $this->request->getGet('CheckInDate');
-        $checkOutDate = $this->request->getGet('CheckOutDate');
-        $numberOfNumberOfGuests = $this->request->getGet('NumberOfGuest');
-        $reservationData = [
-            'CheckInDate' => $checkInDate,
-            'CheckOutDate' => $checkOutDate,
-            'NumberOfGuest' => $numberOfNumberOfGuests,
-        ];
-        $session->set('reservationData', $reservationData);
-        // Pass all required parameters to findAvailableRooms method
-        $availableVenue = $this->findAvailableVenue($checkInDate, $checkOutDate, $numberOfNumberOfGuests);
-        return view('Hotell/coninformation', ['reservationData' => $reservationData, 'availableVenue' => $availableVenue]);
-    }
-    private function findAvailableVenue($checkInDate, $checkOutDate, $numberOfNumberOfGuests)
-    {
-        // Ensure $numberOfAdults and $numberOfChildren are integers
-        $$numberOfNumberOfGuests = (int) $$numberOfNumberOfGuests;
-    
-        // Convert check-in and check-out dates to proper formats (assuming they are in 'Y-m-d' format)
-        $checkInDateFormatted = date('Y-m-d', strtotime($checkInDate));
-        $checkOutDateFormatted = date('Y-m-d', strtotime($checkOutDate));
-        $availableRooms = $this->convenues->where('minPerson <=', $numberOfNumberOfGuests)
-                                        ->where('maxPerson >=', $numberOfNumberOfGuests)
-                                     
-                                        ->whereNotIn('conVenueID', function ($builder) use ($checkInDateFormatted, $checkOutDateFormatted) {
-                                            $builder->select('conVenueID')
-                                                    ->from('reservations')
-                                                    ->where('CheckInDate <=', date('Y-m-d', strtotime($checkOutDateFormatted . ' +1 day')))
-                                                    ->where('CheckOutDate >=', date('Y-m-d', strtotime($checkInDateFormatted . ' -1 day')));
-                                        })
-                                        ->findAll();
-        return $availableRooms;
-    }
-    public function getdataconVenueReservation()
-    {
-        $session = \Config\Services::session();
-        $convenuesSelected = $session->get('convenuesSelected');
-        $session->set('convenueReservationData', [
-            'convenuesSelected' => $convenuesSelected,
-        ]);
-        return redirect()->to(base_url('/convention-center/reservation/formdetails'));
-    }
-    public function convention()
-    {
-        
-        $data = [
-            'activePage' => 'Convention',
-            'events' => $this->events->findAll(),
-            'convenues' => $this->convenues->findAll(),
-            'chats' => $this->chat->findAll()
-        ];
-        return view('Hotell\convention',$data);
-    }
-    public function conReservation()
-    {
-        // Load the session library
-    $session = \Config\Services::session();
-    $convenuesSelected = $session->get('convenuesSelected');
-    
-    // Fetch all convenues
-    $convenues = $this->convenues->findAll();
-
-    $data = [
-        'activePage' => 'Convention Reservation',
-        'events' => $this->events->findAll(),
-        'convenues' => $convenues, // Pass $convenues to the view
-        'convenuesSelected' => $convenuesSelected,
-        'chats' => $this->chat->findAll()
-    ];
-    
-    return view('Hotell\conreservation', $data);
-    }
-    public function conventioninformation()
-    {
-        $session = \Config\Services::session();
-        $convenueReservationData = $session->get('convenueReservationData');
-        $data = [
-            'activePage' => 'Convention',
-            'events' => $this->events->findAll(),
-            'convenues' => $this->convenues->findAll(),
-            'convenueReservationData' => $convenueReservationData,
-            'chats' => $this->chat->findAll(),
-            'qrcodes' => $this->qr->findAll(),
-        ];
-        return view('Hotell\coninformation',$data);
-    }
-    public function conventionformdetails()
-    {
-        $session = \Config\Services::session();
-        $convenueReservationData = $session->get('convenueReservationData');
-        $data = [
-            'activePage' => 'Convention',
-            'events' => $this->events->findAll(),
-            'convenues' => $this->convenues->findAll(),
-            'convenueReservationData' => $convenueReservationData,
-            'chats' => $this->chat->findAll(),
-            'qrcodes' => $this->qr->findAll(),
-        ];
-        return view('Hotell\conformdetail',$data);
-    }
-    
-   
-    public function conPackage()
-    {
-        $data = [
-            'activePage' => 'conPackage',
-            'chats' => $this->chat->findAll()
-        ];
-        return view('Hotell\conpackage',$data);
-    }
     public function bookroom()
     {
         // Load the session library
@@ -684,7 +545,6 @@ class GuestController extends BaseController
     
             if ($roomSelected && $reservationData && $user && $TotalAmount) {
                 if ($image = $this->request->getFile('Image')) {
-                    // Upload the image for proof
                     $newFileName = $image->getRandomName();
                     if ($image->isValid() && !$image->hasMoved()) {
                         $image->move(FCPATH .'proof/', $newFileName);
@@ -711,8 +571,6 @@ class GuestController extends BaseController
                             'UserID' => $amenity['UserID'],
                         ];
                         $this->reservationamenities->insert($amenityData);
-
-                        // Decrease Quantity in room_inventory
                         $roomInventoryID = $amenity['roomInventoryID'];
                         $insertQuantity = $amenity['insertQuantity'];
                         $roomInventory = $this->roominventory->find($roomInventoryID);
@@ -722,7 +580,6 @@ class GuestController extends BaseController
                             $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
                         }
                     }
-                        // Prepare reservation data
                         $newReservationData = [
                             'CheckInDate' => $checkInDateTime,
                             'CheckOutDate' => $checkOutDateTime,
@@ -738,12 +595,7 @@ class GuestController extends BaseController
                             'AmenitiesID' => $amenitiesData,
                             'Image' => $newFileName
                         ];
-    
-                        // Insert reservation data
                         $inserted = $this->reservation->insert($newReservationData);
-    
-    
-                        // Send email and push notification
                         if ($inserted) {
                             $emailMessage = $this->prepareEmailMessage($newReservationData);
                             $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
@@ -802,210 +654,422 @@ class GuestController extends BaseController
     
         return $message;
     }
-protected function sendPushNotification($fcmToken, $title, $body) {
-    $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-    $postData = [
-        'to' => $fcmToken,
-        'notification' => [
-            'title' => $title,
-            'body' => $body,
-        ],
-    ];
-    $headers = [
-        'Authorization: key=' . $firebaseServerKey,
-        'Content-Type: application/json',
-    ];
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
-    $result = curl_exec($ch);
-    curl_close($ch);
-}
-public function updateVenueOptions()
-{
-    $NumberOfGuests = $this->request->getVar('NumberOfGuests');
-
-    $venues = $this->venues->where('AvailableCapacity >=', $NumberOfGuests)->findAll();
-
-    return $this->response->setJSON($venues); // Return venues as JSON
-}
-public function tableReservation()
-{
-    $session = session();
-    helper(['form']);
-
-    $validationRules = [
-        'FirstName' => 'required',
-        'LastName' => 'required',
-        'ContactNumber' => 'required',
-        'ArivalDate' => 'required',
-        'ArivalTime' => 'required',
-        'NumberOfGuests' => 'required',
-        'VenueName' => 'required', 
-    ];
-
-    if (!$this->validate($validationRules)) {
-        // Validation failed, return with validation errors
-        $validationErrors = $this->validator->getErrors();
-        return redirect()->to('/')->with('validationErrors', $validationErrors);
-    }
-
-    $FirstName = $this->request->getPost('FirstName');
-    $LastName = $this->request->getPost('LastName');
-    $ContactNumber = $this->request->getPost('ContactNumber');
-    $email = $session->get('username');
-
-    $user = $this->users->where('FirstName', $FirstName)
-                        ->where('LastName', $LastName)
-                        ->where('ContactNumber', $ContactNumber)
-                        ->first();
-
-    $VenueName = $this->request->getPost('VenueName');
-    $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
-
-    if ($restaurantVenue && $user) {
-        $availableCapacity = $restaurantVenue['AvailableCapacity'];
-        $numberOfGuests = $this->request->getPost('NumberOfGuests');
-
-        if ($availableCapacity >= $numberOfGuests) {
-            $newAvailableCapacity = $availableCapacity - $numberOfGuests;
-            $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
-
-            $restaurantReservation = [
-                'NumberOfGuests' => $numberOfGuests,
-                'ArivalDate' => $this->request->getPost('ArivalDate'),
-                'ArivalTime' => $this->request->getPost('ArivalTime'),
-                'Note' => $this->request->getPost('Note'),
-                'Status' => 'Pending',
-                'VenueName' => $VenueName,
-                'VenueID' => $restaurantVenue['VenueID'],
-                'UserID' => $user['UserID'],
-            ];
-
-            $inserted = $this->reservation->insert($restaurantReservation);
-
-            if ($inserted) {
-                $emailMessage = $this->prepareEmail($restaurantReservation);
-                $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
-                $fcmToken = $user['fcm_token'];
-
-                if (!empty($fcmToken)) {
-                    $notifTitle = 'Reservation Confirmation';
-                    $notifBody = 'Your reservation has been successfully added.';
-                    $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
-                }
-                $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                return redirect()->to('/mainmenu');
-            } else {
-                return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
-            }
-        } else {
-            return redirect()->to(base_url('/'))->with('error', 'Not enough available capacity. Please select a different venue or reduce the number of guests.');
-        }
-    } else {
-        return redirect()->to(base_url('/'))->with('error', 'Invalid user or venue information. Please check your input.');
-    }
-}
-
-private function prepareEmail(array $reservationDataa): string // Corrected method name
-{
-    $ArivalDate = $reservationDataa['ArivalDate'];
-    $ArivalTime = $reservationDataa['ArivalTime'];
-    $NumberOfGuests = $reservationDataa['NumberOfGuests'];
-    $Note = $reservationDataa['Note'];
-    $VenueName = $reservationDataa['VenueName'];
-
-    $message = "Dear customer,<br><br>";
-    $message .= "Your reservation has been successfully made with the following details:<br>";
-    $message .= "Venue Name: {$VenueName}<br>";
-    $message .= "Arrival Date: {$ArivalDate}<br>";
-    $message .= "Arrival Time: {$ArivalTime}<br>";
-    $message .= "Number of Guests: {$NumberOfGuests}<br>";
-    $message .= "Note: {$Note}<br>";
-    $message .= "<br>We look forward to hosting you.<br>";
-
-    return $message;
-}
-
-public function eventReservation()
-{
-    $session = session();
-    helper(['form']);
-
-    // Validation Rules
-    $validationRules = [
-        'FirstName' => 'required',
-        'LastName' => 'required',
-        'ContactNumber' => 'required',
-        'EventType' => 'required',
-        'ArivalDate' => 'required',
-        'Note' => 'required',
-    ];
-    if (!$this->validate($validationRules)) {
-        $validationErrors = $this->validator->getErrors();
-        return view('/bookroom', ['validationErrors' => $validationErrors]);
-    }
-    $firstName = $this->request->getPost('FirstName');
-    $lastName = $this->request->getPost('LastName');
-    $email = $this->request->getPost('Email');
-    $contactNumber = $this->request->getPost('ContactNumber');
-    $email = $session->get('username');
-    $user = $this->users->where('FirstName', $firstName)
-                        ->where('LastName', $lastName)
-                        ->where('Email', $email)
-                        ->where('ContactNumber', $contactNumber)
-                        ->first();
-    $eventType = $this->request->getPost('EventType');
-    $eventData = $this->events->where('EventType', $eventType)->first();
-    if ($user && $eventData) {
-        $reservationData = [
-            'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-            'ArivalDate' => $this->request->getPost('ArivalDate'),
-            'Note' => $this->request->getPost('Note'),
-            'Status' => 'Pending',
-            'EventID' => $eventData['EventID'],
-            'UserID' => $user['UserID'],
+    protected function sendPushNotification($fcmToken, $title, $body) {
+        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
+        $postData = [
+            'to' => $fcmToken,
+            'notification' => [
+                'title' => $title,
+                'body' => $body,
+            ],
         ];
-        $inserted = $this->reservation->insert($reservationData);
-        if ($inserted) {
-            $emailMessage = $this->prepareEmailll($reservationData);
-            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
-            $fcmToken = $user['fcm_token'];
-
-            if (!empty($fcmToken)) {
-                $notifTitle = 'Reservation Confirmation';
-                $notifBody = 'Your reservation has been successfully added.';
-                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
-            }
-            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-            return redirect()->to('/convention');
-        } else {
-            return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
-        }
-    } else {
-        return redirect()->to(base_url('/'))->with('error', 'Invalid input. Please check your details.');
+        $headers = [
+            'Authorization: key=' . $firebaseServerKey,
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        $result = curl_exec($ch);
+        curl_close($ch);
     }
-}
-private function prepareEmailll(array $reservationData): string
-{
-    $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
-    $arrivalDate = $reservationData['ArivalDate'] ?? '';
-    $note = $reservationData['Note'] ?? '';
-    $eventType = $reservationData['EventType'] ?? ''; // Check if EventType key exists
+    public function updateVenueOptions()
+    {
+        $NumberOfGuests = $this->request->getVar('NumberOfGuests');
 
-    $message = "Dear customer,<br><br>";
-    $message .= "Your reservation has been successfully made with the following details:<br>";
-    $message .= "Event Type: {$eventType}<br>";
-    $message .= "Number of Guests: {$numberofGuests}<br>";
-    $message .= "Arrival Date: {$arrivalDate}<br>";
-    $message .= "Note: {$note}<br>";
+        $venues = $this->venues->where('AvailableCapacity >=', $NumberOfGuests)->findAll();
 
-    return $message;
-}
+        return $this->response->setJSON($venues); // Return venues as JSON
+    }
+    public function tableReservation()
+    {
+        $session = session();
+        helper(['form']);
+
+        $validationRules = [
+            'FirstName' => 'required',
+            'LastName' => 'required',
+            'ContactNumber' => 'required',
+            'ArivalDate' => 'required',
+            'ArivalTime' => 'required',
+            'NumberOfGuests' => 'required',
+            'VenueName' => 'required', 
+        ];
+
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->to('/')->with('validationErrors', $validationErrors);
+        }
+
+        $FirstName = $this->request->getPost('FirstName');
+        $LastName = $this->request->getPost('LastName');
+        $ContactNumber = $this->request->getPost('ContactNumber');
+        $email = $session->get('username');
+
+        $user = $this->users->where('FirstName', $FirstName)
+                            ->where('LastName', $LastName)
+                            ->where('ContactNumber', $ContactNumber)
+                            ->first();
+
+        $VenueName = $this->request->getPost('VenueName');
+        $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
+
+        if ($restaurantVenue && $user) {
+            $availableCapacity = $restaurantVenue['AvailableCapacity'];
+            $numberOfGuests = $this->request->getPost('NumberOfGuests');
+
+            if ($availableCapacity >= $numberOfGuests) {
+                $newAvailableCapacity = $availableCapacity - $numberOfGuests;
+                $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
+
+                $restaurantReservation = [
+                    'NumberOfGuests' => $numberOfGuests,
+                    'ArivalDate' => $this->request->getPost('ArivalDate'),
+                    'ArivalTime' => $this->request->getPost('ArivalTime'),
+                    'Note' => $this->request->getPost('Note'),
+                    'Status' => 'Pending',
+                    'VenueName' => $VenueName,
+                    'VenueID' => $restaurantVenue['VenueID'],
+                    'UserID' => $user['UserID'],
+                ];
+
+                $inserted = $this->reservation->insert($restaurantReservation);
+
+                if ($inserted) {
+                    $emailMessage = $this->prepareEmail($restaurantReservation);
+                    $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                    $fcmToken = $user['fcm_token'];
+
+                    if (!empty($fcmToken)) {
+                        $notifTitle = 'Reservation Confirmation';
+                        $notifBody = 'Your reservation has been successfully added.';
+                        $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                    }
+                    $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                    return redirect()->to('/mainmenu');
+                } else {
+                    return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/'))->with('error', 'Not enough available capacity. Please select a different venue or reduce the number of guests.');
+            }
+        } else {
+            return redirect()->to(base_url('/'))->with('error', 'Invalid user or venue information. Please check your input.');
+        }
+    }
+
+    private function prepareEmail(array $reservationDataa): string // Corrected method name
+    {
+        $ArivalDate = $reservationDataa['ArivalDate'];
+        $ArivalTime = $reservationDataa['ArivalTime'];
+        $NumberOfGuests = $reservationDataa['NumberOfGuests'];
+        $Note = $reservationDataa['Note'];
+        $VenueName = $reservationDataa['VenueName'];
+
+        $message = "Dear customer,<br><br>";
+        $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Venue Name: {$VenueName}<br>";
+        $message .= "Arrival Date: {$ArivalDate}<br>";
+        $message .= "Arrival Time: {$ArivalTime}<br>";
+        $message .= "Number of Guests: {$NumberOfGuests}<br>";
+        $message .= "Note: {$Note}<br>";
+        $message .= "<br>We look forward to hosting you.<br>";
+
+        return $message;
+    }
+
+    public function convention()
+    {
+        
+        $data = [
+            'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
+            'chats' => $this->chat->findAll()
+        ];
+        return view('Hotell\convention',$data);
+    }
+    
+    public function getdataconVenue()
+    {
+        $session = \Config\Services::session();
+        $selectedconVenueID = $this->request->getGet('selectedconVenueID');
+        $convenuesSelected = null;
+        if (!empty($selectedconVenueID)) {
+            $convenuesSelected = $this->convenues->find($selectedconVenueID);
+                $session->set('convenuesSelected', $convenuesSelected);
+        }
+        $convenues = $this->convenues->findAll();
+        return view('Hotell/conreservation', [
+            'convenuesSelected' => $convenuesSelected,
+            'convenues' => $convenues,
+        ]);
+    }
+    public function getconvenuedirectInformation()
+    {
+
+        $session = \Config\Services::session();
+        $convenuesSelected = $session->get('convenuesSelected');
+        $session->set('convenuesSelected', $convenuesSelected);
+        return redirect()->to(base_url('/convention-center/reservation/information'));
+    }
+    public function conReservation()
+    {
+        // Load the session library
+        $session = \Config\Services::session();
+        $convenuesSelected = $session->get('convenuesSelected');
+        $selectedconVenueID = $this->request->getGet('selectedconVenueID');
+        if (!empty($selectedconVenueID)) {
+            $convenuesSelected = $this->convenues->find($selectedconVenueID);
+                $session->set('convenuesSelected', $convenuesSelected);
+        }
+
+        $data = [
+            'activePage' => 'Convention Reservation',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(), // Pass $convenues to the view
+            'convenuesSelected' => $convenuesSelected,
+            'chats' => $this->chat->findAll()
+        ];
+        
+        return view('Hotell\conreservation', $data);
+    }
+    public function getVenueDateandGuests()
+    {
+        $session = \Config\Services::session();
+        $CheckInDate = $this->request->getPost('CheckInDate');
+        $CheckOutDate = $this->request->getPost('CheckOutDate');
+        $NumberOfGuests = $this->request->getPost('NumberOfGuests');
+
+        $FirstName = $this->request->getPost('FirstName');
+        $LastName = $this->request->getPost('LastName');
+        $ContactNumber = $this->request->getPost('ContactNumber');
+        $Region = $this->request->getPost('Region');
+        $Province = $this->request->getPost('Province');
+        $City = $this->request->getPost('City');
+        $Barangay = $this->request->getPost('Barangay');
+        $EventType = $this->request->getPost('EventType');
+        // Store user data in session
+        $UserData = [
+            'FirstName' => $FirstName,
+            'LastName' => $LastName,
+            'ContactNumber' => $ContactNumber,
+            'Region' => $Region,
+            'Province' => $Province,
+            'City' => $City,
+            'Barangay' => $Barangay,
+        ];
+        $ReservationData = [
+            'CheckInDate' => $CheckInDate,
+            'CheckOutDate' => $CheckOutDate,
+            'NumberOfGuests' => $NumberOfGuests,
+        ];
+        $EventData = [
+            'EventType' => $EventType
+        ];
+        $session->set('UserData', $UserData);
+        $session->set('ReservationData', $ReservationData);
+        $session->set('EventData', $EventData);
+        
+        $TotalAmount = $NumberOfGuests * 999; // Calculate total amount
+        $session->set('TotalAmount', $TotalAmount); // Store total amount in session
+        
+        return redirect()->to(base_url('/convention-center/reservation/formdetails'));
+    }
+
+    public function conventioninformation()
+    {
+        $session = \Config\Services::session();
+        $convenuesSelected = $session->get('convenuesSelected');
+        $ReservationData = $session->get('ReservationData');
+        $EventData = $session->get('EventData');
+        $UserData = $session->get('UserData');
+        $TotalAmount = $session->get('TotalAmount'); // Retrieve total amount from session
+        $qr = $this->qr->findAll();
+        $data = [
+            'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
+            'convenuesSelected' => $convenuesSelected,
+            'UserData' => $UserData,
+            'TotalAmount' => $TotalAmount,
+            'ReservationData' => $ReservationData,
+            'EventData' => $EventData,
+            'chats' => $this->chat->findAll(),
+            'qrcodes' => $qr,
+        ];
+        return view('Hotell\coninformation', $data);
+    }
+    public function conventionformdetails()
+    {
+        $session = \Config\Services::session();
+        $ReservationData = $session->get('ReservationData');
+        $convenuesSelected = $session->get('convenuesSelected');
+        $EventData = $session->get('EventData');
+        $UserData = $session->get('UserData');
+        $TotalAmount = $session->get('TotalAmount'); // Retrieve total amount from session
+    
+        // Calculate down payment and full payment amounts
+        $DownPaymentAmount = $TotalAmount * 0.5;
+        $FullPaymentAmount = $TotalAmount;
+    
+        // Store down payment and full payment amounts in the data array
+        $data = [
+            'activePage' => 'Convention',
+            'events' => $this->events->findAll(),
+            'convenues' => $this->convenues->findAll(),
+            'UserData' => $UserData,
+            'TotalAmount' => $TotalAmount,
+            'convenuesSelected' => $convenuesSelected,
+            'ReservationData' => $ReservationData,
+            'EventData' => $EventData,
+            'DownpaymentAmount' => $DownPaymentAmount,
+            'FullpaymentAmount' => $FullPaymentAmount,
+            'chats' => $this->chat->findAll(),
+            'qrcodes' => $this->qr->findAll(),
+        ];
+        return view('Hotell\conformdetail', $data);
+    }
+    public function conPackage()
+    {
+        $data = [
+            'activePage' => 'conPackage',
+            'chats' => $this->chat->findAll()
+        ];
+        return view('Hotell\conpackage',$data);
+    }
+    public function conventionReservation()
+    {
+       helper(['form']);
+        $session = session();
+        $validationRules = [
+            'PaymentOption' => 'required|in_list[gcash,paymaya]',
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+        $validationMessages = [
+            'PaymentOption' => [
+                'required' => 'Please select a payment option.',
+                'in_list' => 'Invalid payment option selected.'
+            ],
+            'Image' => [
+                'uploaded' => 'Please upload an image for proof.',
+                'max_size' => 'The image size exceeds the maximum allowed size of 10MB.',
+                'ext_in' => 'Only PNG, JPG, and GIF files are allowed for proof.'
+            ],
+            'ReferenceNumberPaymaya' => [
+                'required' => 'The Paymaya reference number is required.',
+                'regex_match' => 'The Paymaya must start with "CA" followed by 12 alphanumeric characters.'
+            ],
+            'ReferenceNumberGcash' => [
+                'required' => 'The Gcash reference number is required.',
+                'numeric' => 'The Gcash reference number must be numeric.',
+                'exact_length[13]' => 'The Gcash reference number must be exactly 13 characters long.'
+            ],
+        ];
+        if ($this->validate($validationRules, $validationMessages)) {
+            $UserData = session()->get('UserData');
+            $FirstName = $UserData['FirstName'] ?? '';
+            $LastName = $UserData['LastName'] ?? '';
+            $ContactNumber = $UserData['ContactNumber'] ?? '';
+            $Region = $UserData['Region'] ?? '';
+            $Province = $UserData['Province'] ?? '';
+            $City = $UserData['City'] ?? '';
+            $Barangay = $UserData['Barangay'] ?? '';
+            $UserData = $this->users->where('FirstName', $FirstName)
+                                ->where('LastName', $LastName)
+                                ->where('ContactNumber', $ContactNumber)
+                                ->where('Region', $Region)
+                                ->where('Province', $Province)
+                                ->where('City', $City)
+                                ->where('Barangay', $Barangay)
+                                ->first();
+            $ReservationData = session()->get('ReservationData');
+            $EventData = session()->get('EventData');
+            $EventType = $EventData['EventType'] ?? '';
+            $EventData = $this->events->where('EventType', $EventType)
+                                ->first();
+            $TotalAmount = session()->get('TotalAmount');
+            $convenuesSelected = session()->get('convenuesSelected');
+            $paymentOption = $this->request->getPost('PaymentOption');
+            $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
+    
+            
+            if ($EventData && $ReservationData && $UserData && $TotalAmount && $convenuesSelected) {
+                if ($image = $this->request->getFile('Image')) {
+                    $newFileName = $image->getRandomName();
+                    if ($image->isValid() && !$image->hasMoved()) {
+                        $image->move(FCPATH .'proof/', $newFileName);
+                        $checkInTime = '14:00:00'; // 2:00 PM
+                        $checkOutTime = '12:00:00'; // 12:00 PM
+                        $checkInDateTime = $ReservationData['CheckInDate'] . ' ' . $checkInTime;
+                        $checkOutDateTime = $ReservationData['CheckOutDate'] . ' ' . $checkOutTime;
+ 
+                        $eventID = $EventData['EventID'] ?? null;
+                        $conVenueID = $convenuesSelected['conVenueID'] ?? null;
+                        $conventionData = [
+                            'EventID' => $eventID,
+                            'conVenueID' => $conVenueID,
+                        ];
+                        $conventionID = $this->conventions->insert($conventionData);
+                        $newReservationData = [
+                            'UserID' => $UserData['UserID'],
+                            'conventionID' => $conventionID,
+                            'CheckInDate' => $checkInDateTime,
+                            'CheckOutDate' => $checkOutDateTime,
+                            'NumberOfGuests' => $ReservationData['NumberOfGuests'],
+                            'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                            'ReferenceNumber' => $referenceNumber,
+                            'PaymentOption' => $paymentOption,
+                            'Status' => 'Pending',
+                            'TotalAmount' => $TotalAmount,
+                            'Image' => $newFileName
+                        ];
+                        $inserted = $this->reservation->insert($newReservationData);
+                        if ($inserted) {
+    
+                            // Redirect with success message
+                            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                            return redirect()->to('/convention-center');
+                        } else {
+                            return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                        }
+                    } else {
+                        return redirect()->to(base_url('/u'))->with('error', 'Failed to upload image. Please try again.');
+                    }
+                } else {
+                    return redirect()->to(base_url('/u'))->with('error', 'Please upload an image.');
+                }
+            } else {
+                return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
+            }
+        } else {
+            // Validation failed, return to the reservation form with validation errors
+            $newReservationData['validation'] = $this->validator;
+            $newReservationData = ['qrcodes' => $this->qr->findAll()];
+            return view('Hotell/conformdetail', $newReservationData);
+        }
+        
+    }    
+    private function prepareEmailllMessage(array $reservationData): string
+    {
+        $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
+        $arrivalDate = $reservationData['ArivalDate'] ?? '';
+        $note = $reservationData['Note'] ?? '';
+        $eventType = $reservationData['EventType'] ?? ''; // Check if EventType key exists
+
+        $message = "Dear customer,<br><br>";
+        $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Event Type: {$eventType}<br>";
+        $message .= "Number of Guests: {$numberofGuests}<br>";
+        $message .= "Arrival Date: {$arrivalDate}<br>";
+        $message .= "Note: {$note}<br>";
+
+        return $message;
+    }
 
 
     

@@ -17,7 +17,6 @@ $routes->get('/bookroom/formdetails', 'GuestController::formdetails',['filter' =
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation',['filter' => 'noAuth']);
 $routes->get('/roompolicy', 'GuestController::roomPolicy',['filter' => 'noAuth']);
 $routes->get('/faq', 'GuestController::faq',['filter' => 'noAuth']);
-//$routes->get('/contact', 'GuestController::contact');
 $routes->get('/restaurantt', 'GuestController::restaurantt',['filter' => 'noAuth']);
 $routes->get('/mainmenu', 'GuestController::mainmenu',['filter' => 'noAuth']);
 $routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions',['filter' => 'noAuth']);
@@ -27,9 +26,12 @@ $routes->get('/respolicy', 'GuestController::restaurantPolicy',['filter' => 'noA
 $routes->get('/convention-center', 'GuestController::convention',['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation', 'GuestController::conReservation',['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation', 'GuestController::getdataconVenue',['filter' => 'noAuth']);
-$routes->get('/convention-center/reservation/getdataconVenueInformation', 'GuestController::getdataconVenueInformation',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/getconvenuedirectInformation', 'GuestController::getconvenuedirectInformation',['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation/information', 'GuestController::conventioninformation',['filter' => 'noAuth']);
-$routes->get('/convention-center/reservation/getdataconVenue', 'GuestController::getdataconVenueReservation',['filter' => 'noAuth']);
+$routes->post('/convention-center/reservation/information/getVenueDateandGuests', 'GuestController::getVenueDateandGuests',['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/getdataconVenueReservation', 'GuestController::getdataconVenueReservation',['filter' => 'noAuth']);
+$routes->post('/conventionReservation', 'GuestController::conventionReservation',['filter' => 'noAuth']);
+
 $routes->get('/convention-center/reservation/formdetails', 'GuestController::conventionformdetails',['filter' => 'noAuth']);
 $routes->get('/conpackage', 'GuestController::conPackage',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
