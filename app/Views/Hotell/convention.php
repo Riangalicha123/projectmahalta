@@ -39,7 +39,9 @@
               <h1>Convention Center</h1>
                <p>Welcome to our premier convention center—where sophistication meets innovation. We offer the perfect venue for your events, from corporate conferences to grand expos. </p> 
             </div>
-
+            <div class="col-md-12 form-group text-center">
+                                <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
+                              </div>
           </div>
         </div>
       </div>
@@ -48,7 +50,7 @@
     
     <!-- END section -->
 
-    <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
+    <!-- <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
         <div class="container" style="display: grid; place-items: center;" >
         
             <div class="row">
@@ -64,7 +66,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
           <div class="col-md-12 heading-wrap text-center">
