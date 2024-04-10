@@ -65,7 +65,7 @@
     </div>
 </section>
 
-<section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+<section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -82,8 +82,8 @@
                             <ul class="list-unstyled room-specs mb-3">
                                 <li><span class="ion-ios-people-outline"></span> <?= $convenue['minGuest'] ?> - <?= $convenue['maxGuest'] ?> Guests</li>
                             </ul>
-                            <!-- Add data attributes to store venue details and trigger modal -->
-                            <button type="button" class="btn btn-primary btn-sm select-venue" data-toggle="modal" data-target="#venueModal" data-name="<?= $convenue['conVenueName'] ?>" data-image="<?= base_url('/convention/'.$convenue['Image']) ?>" data-min-guest="<?= $convenue['minGuest'] ?>" data-max-guest="<?= $convenue['maxGuest'] ?>">Select</button>
+                            <!-- Baguhin ang data attributes upang itakda ang tamang impormasyon ng venue -->
+                            <button type="button" class="btn btn-primary btn-sm select-venue" data-toggle="modal" data-target="#venueModal" data-id="<?= $convenue['conVenueID'] ?>" data-name="<?= $convenue['conVenueName'] ?>" data-image="<?= base_url('/convention/'.$convenue['Image']) ?>" data-min-guest="<?= $convenue['minGuest'] ?>" data-max-guest="<?= $convenue['maxGuest'] ?>">Select</button>
                         </div>
                     </div>
                 </div>
@@ -91,50 +91,56 @@
         </div>
     </div>
 </section>
-
 <!-- Venue Details Modal -->
 <div class="modal fade" id="venueModal" tabindex="-1" role="dialog" aria-labelledby="venueModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="venueModalLabel">Selected Venue Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="" alt="" class="img-fluid rounded mb-3" id="venueImage">
-                <div class="additional-details">
-                    <h6 id="venueName"></h6>
-                    <h6 id="minGuest"></h6>
-                    <h6 id="maxGuest"></h6>
+            <!-- I-wrap ang lahat sa form tag -->
+            <form action="<?= base_url('/convention-center/reservation/getconvenuedirectInformation') ?>" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="venueModalLabel">Selected Venue Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <form action="<?= base_url('/convention-center/reservation/getconvenuedirectInformation') ?>" method="get">
-                    <button type="submit" value="Reserve Now" class="btn btn-primary btn-sm">Check</button>
-                </form>
-                <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-body">
+                    <img src="" alt="" class="img-fluid rounded mb-3" id="venueImage">
+                    <div class="additional-details">
+                        <h6 id="venueName"></h6>
+                        <h6 id="minGuest"></h6>
+                        <h6 id="maxGuest"></h6>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- Ilagay ang selectedconVenueID sa hidden input para maisumite sa server -->
+                    <input type="hidden" id="selectedconVenueID" name="selectedconVenueID">
+                    <!-- Ilagay ang submit button dito -->
+                    <button type="submit" class="btn btn-primary btn-sm">Check</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
 
 <script>
     // JavaScript to update modal content based on selected venue
     var selectButtons = document.querySelectorAll('.select-venue');
     selectButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            var name = this.getAttribute('data-name');
+          var conVenueID = this.getAttribute('data-id');
+            var conVenueName = this.getAttribute('data-name');
             var minGuest = this.getAttribute('data-min-guest');
             var maxGuest = this.getAttribute('data-max-guest');
             var imageURL = this.getAttribute('data-image');
 
             // Update modal content with selected venue details
-            document.getElementById('venueName').textContent = name;
+            document.getElementById('venueName').textContent = conVenueName;
             document.getElementById('minGuest').textContent = "Minimum Guests: " + minGuest;
             document.getElementById('maxGuest').textContent = "Maximum Guests: " + maxGuest;
             document.getElementById('venueImage').setAttribute('src', imageURL);
+            document.getElementById('selectedconVenueID').value = conVenueID;
         });
     });
 </script>

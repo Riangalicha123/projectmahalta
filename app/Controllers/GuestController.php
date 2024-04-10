@@ -794,7 +794,7 @@ class GuestController extends BaseController
         return view('Hotell\convention',$data);
     }
     
-    public function getdataconVenue()
+/*     public function getdataconVenue()
     {
         $session = \Config\Services::session();
         $selectedconVenueID = $this->request->getGet('selectedconVenueID');
@@ -808,15 +808,25 @@ class GuestController extends BaseController
             'convenuesSelected' => $convenuesSelected,
             'convenues' => $convenues,
         ]);
-    }
+    } */
     public function getconvenuedirectInformation()
     {
-
         $session = \Config\Services::session();
-        $convenuesSelected = $session->get('convenuesSelected');
-        $session->set('convenuesSelected', $convenuesSelected);
-        return redirect()->to(base_url('/convention-center/reservation/information'));
+        $selectedconVenueID = $this->request->getPost('selectedconVenueID');
+        $convenuesSelected = null;
+        if (!empty($selectedconVenueID)) {
+            // Retrieve the selected venue from the database based on the ID
+            $convenuesSelected = $this->convenues->find($selectedconVenueID);
+            $session->set('convenuesSelected', $convenuesSelected);
+        }
+        
+        return view('Hotell/coninformation', [
+            'convenuesSelected' => $convenuesSelected,
+        ]);
     }
+    
+    
+    
     public function conReservation()
     {
         // Load the session library

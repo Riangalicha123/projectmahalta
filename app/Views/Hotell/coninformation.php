@@ -104,6 +104,7 @@
                     <input type="text" id="Barangay" name="Barangay" class="form-control"
                       value="<?= $_SESSION['barangay'] ?? ''; ?>" required>
                   </div>
+                  
                   <div class="col-md-6 form-group">
                         <label for="EventType">Event Type</label>
                         <select class="form-select form-control" id="EventType" name="EventType" required>
