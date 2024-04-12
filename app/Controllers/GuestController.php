@@ -116,78 +116,82 @@ class GuestController extends BaseController
         $checkOutDate = $this->request->getGet('CheckOutDate');
         $numberOfAdults = $this->request->getGet('Adult');
         $numberOfChildren = $this->request->getGet('Child');
+
         $reservationData = [
             'CheckInDate' => $checkInDate,
             'CheckOutDate' => $checkOutDate,
             'Adult' => $numberOfAdults,
             'Child' => $numberOfChildren,
         ];
+
         $session->set('reservationData', $reservationData);
-        // Pass all required parameters to findAvailableRooms method
-        $availableRooms = $this->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
-        return view('Hotell/bookroom', ['reservationData' => $reservationData, 'availableRooms' => $availableRooms]);
-    }
-    private function findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren)
-    {
-        // Ensure $numberOfAdults and $numberOfChildren are integers
-        $numberOfAdults = (int) $numberOfAdults;
-        $numberOfChildren = (int) $numberOfChildren;
-    
-        // Convert check-in and check-out dates to proper formats (assuming they are in 'Y-m-d' format)
-        $checkInDateFormatted = date('Y-m-d', strtotime($checkInDate));
-        $checkOutDateFormatted = date('Y-m-d', strtotime($checkOutDate));
-        $availableRooms = $this->rooms->where('minPerson <=', $numberOfAdults + $numberOfChildren)
-                                        ->where('maxPerson >=', $numberOfAdults + $numberOfChildren)
-                                     
-                                        ->whereNotIn('RoomID', function ($builder) use ($checkInDateFormatted, $checkOutDateFormatted) {
-                                            $builder->select('RoomID')
-                                                    ->from('reservations')
-                                                    ->where('CheckInDate <=', date('Y-m-d', strtotime($checkOutDateFormatted . ' +1 day')))
-                                                    ->where('CheckOutDate >=', date('Y-m-d', strtotime($checkInDateFormatted . ' -1 day')));
-                                                    
-                                        })
-                                        ->findAll();
-    
-        return $availableRooms;
-    }
-    
-    public function getdataRoom()
-    {
-        $session = \Config\Services::session();
-        $reservationData = $session->get('reservationData');
-        $selectedRoomID = $this->request->getGet('selectedRoomID');
-        $roomSelected = null;
-        $TotalAmount = 0;
-        $availableRooms = $this->findAvailableRooms($reservationData['CheckInDate'], $reservationData['CheckOutDate'], $reservationData['Adult'], $reservationData['Child']);
-    
-        // If a room is selected
-        if (!empty($selectedRoomID)) {
-            // Find the selected room
-            $roomSelected = $this->rooms->find($selectedRoomID);
-    
-            // Calculate total amount if room is available
-            if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
-                $checkInDate = new \DateTime($reservationData['CheckInDate']);
-                $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
-                $numberOfNights = $checkInDate->diff($checkOutDate)->days;
-    
-                $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
-                $numberOfAdults = (int) $reservationData['Adult'];
-                $numberOfChildren = (int) $reservationData['Child'];
-                $totalGuests = $numberOfAdults + $numberOfChildren;
-    
-                // Calculate additional charge for extra guests
-                if ($totalGuests > $roomSelected['minPerson']) {
-                    $additionalGuests = $totalGuests - $roomSelected['minPerson'];
-                    $TotalAmount += $additionalGuests * 500;
-                }
-                $session->set('roomSelected', $roomSelected);
-            }
-        }
-    
+
+        // Create an instance of RoomModel
+        $roomModel = new RoomModel();
+
+        // Call the findAvailableRooms method from RoomModel
+        $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
+
         // Pass data to the view
         return view('Hotell/bookroom', [
             'reservationData' => $reservationData,
+            'availableRooms' => $availableRooms
+        ]);
+    }
+    public function getdataRoom()
+    {
+        $session = \Config\Services::session();
+        $selectedRoomID = $this->request->getGet('selectedRoomID');
+
+        // Dynamically construct the field names based on the selectedRoomID
+        $checkInFieldName = 'CheckInDate' . $selectedRoomID;
+        $checkOutFieldName = 'CheckOutDate' . $selectedRoomID;
+
+        // Fetch the check-in and check-out dates from the GET parameters
+        $checkInDate = $this->request->getGet($checkInFieldName);
+        $checkOutDate = $this->request->getGet($checkOutFieldName);
+        $reservationData = $session->get('reservationData');
+        $numberOfAdults = $reservationData['Adult'] ?? 0;
+        $numberOfChildren = $reservationData['Child'] ?? 0;
+
+        // Load the RoomModel and find available rooms based on the dynamic dates
+        $roomModel = new RoomModel;
+        $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
+
+        $roomSelected = null;
+        $TotalAmount = 0;
+
+        if (!empty($selectedRoomID)) {
+            // Fetch details for the selected room
+            $roomSelected = $roomModel->find($selectedRoomID);
+
+            if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
+                if (!empty($checkInDate) && !empty($checkOutDate)) {
+                    $checkInDateTime = new \DateTime($checkInDate);
+                    $checkOutDateTime = new \DateTime($checkOutDate);
+                    $numberOfNights = $checkInDateTime->diff($checkOutDateTime)->days;
+
+                    $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+                    $totalGuests = (int) $numberOfAdults + (int) $numberOfChildren;
+
+                    if ($totalGuests > $roomSelected['minPerson']) {
+                        $additionalGuests = $totalGuests - $roomSelected['minPerson'];
+                        $TotalAmount += $additionalGuests * 500;  // Assuming 500 is the charge per extra guest
+                    }
+                }
+                $session->set('roomSelected', $roomSelected);
+                $session->set('reservationData', [
+                    'CheckInDate' => $checkInDate,
+                    'CheckOutDate' => $checkOutDate,
+                    'Adult' => $numberOfAdults,
+                    'Child' => $numberOfChildren,
+                    'TotalAmount' => $TotalAmount
+                ]);
+            }
+        }
+
+        return view('Hotell/bookroom', [
+            'reservationData' => $session->get('reservationData'),
             'availableRooms' => $availableRooms,
             'roomSelected' => $roomSelected,
             'TotalAmount' => $TotalAmount
@@ -809,24 +813,45 @@ class GuestController extends BaseController
             'convenues' => $convenues,
         ]);
     } */
+    public function conPackage()
+    {
+        $data = [
+            'activePage' => 'conPackage',
+            'chats' => $this->chat->findAll()
+        ];
+        return view('Hotell\conpackage',$data);
+    }
     public function getconvenuedirectInformation()
     {
         $session = \Config\Services::session();
         $selectedconVenueID = $this->request->getPost('selectedconVenueID');
         $convenuesSelected = null;
+        $eventTypes = [];
         if (!empty($selectedconVenueID)) {
-            // Retrieve the selected venue from the database based on the ID
             $convenuesSelected = $this->convenues->find($selectedconVenueID);
             $session->set('convenuesSelected', $convenuesSelected);
+            if (!empty($convenuesSelected['conVenueName'])) {
+                switch ($convenuesSelected['conVenueName']) {
+                    case 'CBRC Hall':
+                        $eventTypes = ['Wedding', 'Seminar', 'Christening', 'Birthday', 'Anniversary'];
+                        break;
+                    case 'Tamaraw':
+                        $eventTypes = ['Birthday', 'Seminar'];
+                        break;
+                    case 'Octagon':
+                        $eventTypes = ['Wedding', 'Seminar', 'Christening', 'Birthday', 'Anniversary'];
+                        break;
+                    default:
+                        $eventTypes = [];
+                        break;
+                }
+            }
         }
-        
         return view('Hotell/coninformation', [
             'convenuesSelected' => $convenuesSelected,
+            'eventTypes' => $eventTypes,
         ]);
     }
-    
-    
-    
     public function conReservation()
     {
         // Load the session library
@@ -944,14 +969,7 @@ class GuestController extends BaseController
         ];
         return view('Hotell\conformdetail', $data);
     }
-    public function conPackage()
-    {
-        $data = [
-            'activePage' => 'conPackage',
-            'chats' => $this->chat->findAll()
-        ];
-        return view('Hotell\conpackage',$data);
-    }
+
     public function conventionReservation()
     {
        helper(['form']);

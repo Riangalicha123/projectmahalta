@@ -19,7 +19,7 @@ use App\Models\QrcodeModel;
 use App\Models\MenuModel;
 use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
-use App\Models\VenueModel;
+use App\Models\RestaurantVenueModel;
 use App\Models\MenuProductIcedModel;
 use App\Models\RegionModel;
 use App\Models\ProvinceModel;
@@ -72,7 +72,7 @@ class AdminController extends BaseController
         $this->menus = new MenuModel();
         $this->products = new MenuProductModel();
         $this->categories = new MenuCategoryModel();
-        $this->venues = new VenueModel();
+        $this->venues = new RestaurantVenueModel();
         $this->iced = new MenuProductIcedModel();
         $this->regions = new RegionModel();
         $this->province = new ProvinceModel();

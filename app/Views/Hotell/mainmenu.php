@@ -32,7 +32,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
               <div class="card-header text-center">À la Carte Service</div>
                 <div style="flex: 0 0 50%; margin-bottom: 10px;">
                     <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="card-header text-center">Buffet Service</div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div style="flex: 0 0 50%; margin-bottom: 10px;">

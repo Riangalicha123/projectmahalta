@@ -104,16 +104,17 @@
                     <input type="text" id="Barangay" name="Barangay" class="form-control"
                       value="<?= $_SESSION['barangay'] ?? ''; ?>" required>
                   </div>
-                  
+          
                   <div class="col-md-6 form-group">
-                        <label for="EventType">Event Type</label>
-                        <select class="form-select form-control" id="EventType" name="EventType" required>
+                      <label for="EventType">Event Type</label>
+                      <select class="form-select form-control" id="EventType" name="EventType" required>
                           <option>Select Event</option>
-                          <option>Wedding</option>
-                          <option>Team Building</option>
-                          <option>Meeting</option>
-                        </select>
-                      </div>
+                          <?php foreach ($eventTypes as $eventType): ?>
+                              <option><?= $eventType ?></option>
+                          <?php endforeach; ?>
+                      </select>
+                  </div>
+
                 </div>
                 <div class="row">
                         <div class="col-md-12 form-group text-center">
@@ -211,9 +212,24 @@ flatpickr("#dateRange", {
             document.getElementById('CheckInDate').value = checkInStr;
             document.getElementById('CheckOutDate').value = checkOutStr;
         }
-    }
+    },
+    disable: [
+        function(date) {
+            // Get today's date in Philippines timezone
+            const today = new Date();
+            today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+
+            // Get yesterday's date in Philippines timezone
+            const yesterday = new Date(today);
+            yesterday.setDate(yesterday.getDate() - 2);
+
+            // Disable dates up to yesterday
+            return (date < yesterday);
+        }
+    ]
 });
 </script>
+
 
     <?= $this->renderSection('scripts') ?>
   </body>

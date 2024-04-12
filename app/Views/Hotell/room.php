@@ -32,7 +32,8 @@
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
           <br>
-          <div class="mb-5 element-animate" style="text-align: center;">
+          <br>
+          <div class="mb-7 element-animate" style="text-align: center;">
             <h1 style="font-size: 3em; margin-bottom: -5px;">Rooms</h1>
             <p>Cozy room with modern amenities for a comfortable stay.</p>
             
@@ -93,7 +94,7 @@
                   </figure>
                   <div class="media-body">
                     <h3 class="mt-0"><a href="#"><?=$room['RoomType']?></a></h3>
-                    <h5 class="mt-0"><a href="#">PHP <?=$room['PricePerNight']?>/ Night</a></h5>
+                    <h5 class="mt-0"><a href="#">PHP <?=$room['PricePerNight']?></a></h5>
                     <ul class="room-specs">
                                       <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                                       <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
