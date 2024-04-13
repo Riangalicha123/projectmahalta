@@ -110,14 +110,6 @@
             </a>
           </li>
           <li class="nav-item">
-            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'rate') ? 'active' : '' ?> " href="<?= route_to('admin-rate') ?>">
-              <i class="nav-icon fas fa-star"></i>
-              <p>
-                Rate Management
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
               <i class="nav-icon fas fa-comment-alt"></i>
               <p>

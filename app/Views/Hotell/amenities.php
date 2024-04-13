@@ -84,7 +84,7 @@
         </tbody>
     </table>
     <button type="submit">Submit</button>
-    <a href="<?= route_to('bookroom/formdetails') ?>">Skip</a>
+    <a href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
 </form>
 
         </div>

@@ -71,7 +71,7 @@
 </head>
 
 <body>
-  <?php include('include/header.php') ?>
+  <?php include('inc/header.php') ?>
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
     <div class="container">
       <div class="row align-items-center site-hero-inner justify-content-center">
@@ -271,11 +271,11 @@
 
   <!-- END section -->
 
-  <?php include('include/footer.php') ?>
+  <?php include('inc/footer.php') ?>
   <!-- END footer -->
 
   <!-- loader -->
-  <?php include('include/loader.php') ?>
+  <?php include('inc/loader.php') ?>
 
   <script>
     // Get current date

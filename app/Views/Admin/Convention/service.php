@@ -42,19 +42,17 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Hotel Room Services</h1>
+            <h1>Convention Services</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Room Services</li>
+              <li class="breadcrumb-item active">Services</li>
             </ol>
           </div>
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -63,7 +61,7 @@
 
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Room Services</h3>
+                <h3 class="card-title">Venue Services</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -77,7 +75,156 @@
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Event</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="<?= base_url('/addserviceEvent') ?>" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                <div class="form-group">
+                                    <label for="EventType">Event Type</label>
+                                    <select class="custom-select form-control-border" id="EventType" name="EventType" required>
+                                      <option>Wedding</option>
+                                      <option>Team Building</option>
+                                      <option>Meeting</option>
+                                      <option>Proposal</option>
+                                    </select>
+                                </div>
+                                <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="minGuest">Minimum Guest</label>
+                                                <input type="number" class="form-control" id="minGuest" name="minGuest" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="maxGuest">Maximum Guest</label>
+                                                <input type="number" class="form-control" id="maxGuest" name="maxGuest" required>
+                                            </div>
+                                        </div>
+                                <div class="form-group">
+                                    <label for="Image">Upload</label>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
+                                </div>
+                                
+                                </div>
+                                <!-- /.card-body -->
+
+                                <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Edit Room Modal -->
+                    <?php foreach ($convenues as $convenue): ?>
+                    <div class="modal fade" id="eeditModal<?=$convenue['conVenueID']?>" tabindex="-1" role="dialog" aria-labelledby="eeeditModalLabel<?=$convenue['conVenueID']?>" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="eeeditModalLabel<?=$convenue['conVenueID']?>">Edit Event</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="<?= base_url('/updateserviceEvent/') ?>" method="post" enctype="multipart/form-data">
+                                <div class="card-body">
+                                <input type="hidden" name="conVenueID" id="conVenueID" value="<?=$convenue['conVenueID']?>">
+                                
+                                <div class="form-group">
+                                    <label for="conVenueName">Venue Name</label>
+                                    <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" value="<?=$convenue['conVenueName']?>" required>
+                                      <option <?= ($convenue['conVenueName'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Seminar') ? 'selected' : '' ?>>Seminar</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Christening') ? 'selected' : '' ?>>Christening</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Anniversary') ? 'selected' : '' ?>>Anniversary</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                                <label for="minGuest">Minimum Guest</label>
+                                                <input type="number" class="form-control" id="minGuest" name="minGuest" required value="<?=$convenue['minGuest']?>">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="maxGuest">Maximum Guest</label>
+                                                <input type="number" class="form-control" id="maxGuest" name="maxGuest" required value="<?=$convenue['maxGuest']?>">
+                                            </div>
+                                <div class="form-group">
+                                    <label for="Image">Upload</label>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$convenue['Image']?>"required>
+                                </div>
+                                
+                                </div>
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>Venue Name</th>
+                    <th>Minimum Guest</th>
+                    <th>Maximum Guest</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php foreach ($convenues as $convenue): ?>
+                  <tr>
+                    <td><?=$convenue['conVenueName']?></td>
+                    <td><?=$convenue['minGuest']?></td>
+                    <td><?=$convenue['maxGuest']?></td>
+                    <td><img style="width: 350px; height: 300px;" src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="#"/></td>
+                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $convenue['conVenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#eeditModal<?=$convenue['conVenueID']?>">Edit</a></th>
+                  </tr>
+                  <?php endforeach; ?>
+                  
+                  
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    <!-- Event content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Event Services</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    Add
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -131,9 +278,10 @@
                                     <label for="EventType">Event Type</label>
                                     <select class="custom-select form-control-border" id="EventType" name="EventType" value="<?=$event['EventType']?>" required>
                                       <option <?= ($event['EventType'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
-                                      <option <?= ($event['EventType'] == 'Team Building') ? 'selected' : '' ?>>Team Building</option>
-                                      <option <?= ($event['EventType'] == 'Meeting') ? 'selected' : '' ?>>Meeting</option>
-                                      <option <?= ($event['EventType'] == 'Proposal') ? 'selected' : '' ?>>Proposal</option>
+                                      <option <?= ($event['EventType'] == 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+                                      <option <?= ($event['EventType'] == 'Seminar') ? 'selected' : '' ?>>Seminar</option>
+                                      <option <?= ($event['EventType'] == 'Christening') ? 'selected' : '' ?>>Christening</option>
+                                      <option <?= ($event['EventType'] == 'Anniversary') ? 'selected' : '' ?>>Anniversary</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -170,7 +318,7 @@
                     <td><?=$event['EventID']?></td>
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
-                    <td><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 350px; height: 300px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
                     <th><a class="btn btn-danger" href="/deleteRoom/<?= $event['EventID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

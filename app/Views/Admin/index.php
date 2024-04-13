@@ -57,7 +57,7 @@
     <section class="content">
       <div class="container-fluid">
       <div class="row">
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -70,8 +70,34 @@
               <a href="<?= route_to('admin-hotel/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+          <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?= count($reevents); ?></h3>
+                <p>Restaurant Reservation</p>
+              </div>
+              <div class="icon">
+              <i class="nav-icon fas fa-bed"></i>
+              </div>
+              <a href="<?= route_to('admin-restaurant/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+              <div class="inner">
+                <h3><?= count($reevents); ?></h3>
+                <p>Convention Reservation</p>
+              </div>
+              <div class="icon">
+              <i class="nav-icon fas fa-bed"></i>
+              </div>
+              <a href="<?= route_to('admin-convention/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
@@ -85,7 +111,7 @@
               <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
@@ -100,7 +126,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-4 col-6">
               <!-- small box -->
               <div class="small-box bg-warning">
                   <div class="inner">
@@ -117,9 +143,8 @@
           
           <!-- ./col -->
         </div>
-        <div class="row">
+<!--         <div class="row">
           <div class="col-md-6">
-            <!-- AREA CHART -->
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Room Sales</h3>
@@ -138,31 +163,13 @@
                   <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                 </div>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
-
-            <!-- DONUT CHART -->
-            
-
-            <!-- PIE CHART -->
-            
-
           </div>
-          <!-- /.col (LEFT) -->
           <div class="col-md-6">
-            <!-- LINE CHART -->
-            
-
-            <!-- BAR CHART -->
-            
-
-            <!-- STACKED BAR CHART -->
             
 
           </div>
-          <!-- /.col (RIGHT) -->
-        </div>
+        </div> -->
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </section>

@@ -502,136 +502,114 @@ class GuestController extends BaseController
     {
         helper(['form']);
         $session = session();
-        $validationRules = [
-            'PaymentOption' => 'required|in_list[gcash,paymaya]',
-            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
-        ];
-        $validationMessages = [
-            'PaymentOption' => [
-                'required' => 'Please select a payment option.',
-                'in_list' => 'Invalid payment option selected.'
-            ],
-            'Image' => [
-                'uploaded' => 'Please upload an image for proof.',
-                'max_size' => 'The image size exceeds the maximum allowed size of 10MB.',
-                'ext_in' => 'Only PNG, JPG, and GIF files are allowed for proof.'
-            ],
-            'ReferenceNumberPaymaya' => [
-                'required' => 'The Paymaya reference number is required.',
-                'regex_match' => 'The Paymaya must start with "CA" followed by 12 alphanumeric characters.'
-            ],
-            'ReferenceNumberGcash' => [
-                'required' => 'The Gcash reference number is required.',
-                'numeric' => 'The Gcash reference number must be numeric.',
-                'exact_length[13]' => 'The Gcash reference number must be exactly 13 characters long.'
-            ],
-        ];
-        if ($this->validate($validationRules, $validationMessages)) {
-            // Retrieve reservation data and user details
-            $FirstName = $this->request->getPost('FirstName');
-            $LastName = $this->request->getPost('LastName');
-            $ContactNumber = $this->request->getPost('ContactNumber');
-            $Address = $this->request->getPost('Address');
-            $email = $session->get('username');
-            $user = $this->users->where('FirstName', $FirstName)
-                                ->where('LastName', $LastName)
-                                ->where('ContactNumber', $ContactNumber)
-                                ->first();
-            $roomSelected = session()->get('roomSelected');
-            $reservationData = session()->get('reservationData');
-            $amenitiesData = session()->get('amenitiesData');
-            $totalExtraPrice = session()->get('totalExtraPrice');
-            $TotalAmount = session()->get('roomReservationData')['TotalAmount'] + $totalExtraPrice;
     
-            // Get the selected payment option and reference number
+        // Retrieve reservation data and user details
+        $FirstName = $this->request->getPost('FirstName');
+        $LastName = $this->request->getPost('LastName');
+        $ContactNumber = $this->request->getPost('ContactNumber');
+        $Address = $this->request->getPost('Address');
+        $email = $session->get('username');
+        $user = $this->users->where('FirstName', $FirstName)
+                            ->where('LastName', $LastName)
+                            ->where('ContactNumber', $ContactNumber)
+                            ->first();
+        $roomSelected = session()->get('roomSelected');
+        $reservationData = session()->get('reservationData');
+        $amenitiesData = session()->get('amenitiesData');
+        $totalExtraPrice = session()->get('totalExtraPrice');
+        $TotalAmount = session()->get('roomReservationData')['TotalAmount'] + $totalExtraPrice;
+    
+        // Check if the skip parameter is present in the URL query string
+        $skipAmenities = $this->request->getGet('skip') === 'true';
+    
+        if ($roomSelected && $reservationData && $user && $TotalAmount) {
+            if (!$skipAmenities && $amenitiesData) {
+                // Process amenities data
+                $amenitiesWithUserID = [];
+                foreach ($amenitiesData as $amenity) {
+                    $amenity['UserID'] = $user['UserID'];
+                    $amenitiesWithUserID[] = $amenity;
+                }
+                
+                // Insert amenities data and update room inventory
+                foreach ($amenitiesWithUserID as $amenity) {
+                    $amenityData = [
+                        'roomInventoryID' => $amenity['roomInventoryID'],
+                        'insertQuantity' => $amenity['insertQuantity'],
+                        'UserID' => $amenity['UserID'],
+                    ];
+                    $this->reservationamenities->insert($amenityData);
+                    $roomInventoryID = $amenity['roomInventoryID'];
+                    $insertQuantity = $amenity['insertQuantity'];
+                    $roomInventory = $this->roominventory->find($roomInventoryID);
+                    if ($roomInventory) {
+                        $currentQuantity = $roomInventory['Quantity'];
+                        $newQuantity = $currentQuantity - $insertQuantity;
+                        $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
+                    }
+                }
+            }
+    
+            // Prepare reservation data
             $paymentOption = $this->request->getPost('PaymentOption');
             $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
     
-            if ($roomSelected && $reservationData && $user && $TotalAmount) {
-                if ($image = $this->request->getFile('Image')) {
-                    $newFileName = $image->getRandomName();
-                    if ($image->isValid() && !$image->hasMoved()) {
-                        $image->move(FCPATH .'proof/', $newFileName);
+            // Upload and process image
+            if ($image = $this->request->getFile('Image')) {
+                $newFileName = $image->getRandomName();
+                if ($image->isValid() && !$image->hasMoved()) {
+                    $image->move(FCPATH .'proof/', $newFileName);
     
-                        // Define the desired times for CheckInDate and CheckOutDate
-                        $checkInTime = '14:00:00'; // 2:00 PM
-                        $checkOutTime = '12:00:00'; // 12:00 PM
-                        
-                        // Concatenate the times with the date strings
-                        $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
-                        $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
-                       // Prepare amenity data with UserID
-                    $amenitiesWithUserID = [];
-                    foreach ($amenitiesData as $amenity) {
-                        $amenity['UserID'] = $user['UserID'];
-                        $amenitiesWithUserID[] = $amenity;
-                    }
-                    
-                    // Insert amenities data
-                    foreach ($amenitiesWithUserID as $amenity) {
-                        $amenityData = [
-                            'roomInventoryID' => $amenity['roomInventoryID'], // Assuming roomInventoryID is linked to room ID
-                            'insertQuantity' => $amenity['insertQuantity'],
-                            'UserID' => $amenity['UserID'],
-                        ];
-                        $this->reservationamenities->insert($amenityData);
-                        $roomInventoryID = $amenity['roomInventoryID'];
-                        $insertQuantity = $amenity['insertQuantity'];
-                        $roomInventory = $this->roominventory->find($roomInventoryID);
-                        if ($roomInventory) {
-                            $currentQuantity = $roomInventory['Quantity'];
-                            $newQuantity = $currentQuantity - $insertQuantity;
-                            $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
-                        }
-                    }
-                        $newReservationData = [
-                            'CheckInDate' => $checkInDateTime,
-                            'CheckOutDate' => $checkOutDateTime,
-                            'Adult' => $reservationData['Adult'],
-                            'Child' => $reservationData['Child'],
-                            'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                            'ReferenceNumber' => $referenceNumber,
-                            'PaymentOption' => $paymentOption,
-                            'Status' => 'Pending',
-                            'RoomID' => $roomSelected['RoomID'],
-                            'UserID' => $user['UserID'],
-                            'TotalAmount' => $TotalAmount + $totalExtraPrice,
-                            'AmenitiesID' => $amenitiesData,
-                            'Image' => $newFileName
-                        ];
-                        $inserted = $this->reservation->insert($newReservationData);
-                        if ($inserted) {
-                            $emailMessage = $this->prepareEmailMessage($newReservationData);
-                            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
-                            $fcmToken = $user['fcm_token'];
-                            if (!empty($fcmToken)) {
-                                $notifTitle = 'Reservation Confirmation';
-                                $notifBody = 'Your reservation has been successfully added.';
-                                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
-                            }
+                    // Define the desired times for CheckInDate and CheckOutDate
+                    $checkInTime = '14:00:00'; // 2:00 PM
+                    $checkOutTime = '12:00:00'; // 12:00 PM
+                    $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
+                    $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
     
-                            // Redirect with success message
-                            $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                            return redirect()->to('/room');
-                        } else {
-                            return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                    // Insert reservation data
+                    $newReservationData = [
+                        'CheckInDate' => $checkInDateTime,
+                        'CheckOutDate' => $checkOutDateTime,
+                        'Adult' => $reservationData['Adult'],
+                        'Child' => $reservationData['Child'],
+                        'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                        'ReferenceNumber' => $referenceNumber,
+                        'PaymentOption' => $paymentOption,
+                        'Status' => 'Pending',
+                        'RoomID' => $roomSelected['RoomID'],
+                        'UserID' => $user['UserID'],
+                        'TotalAmount' => $TotalAmount + $totalExtraPrice,
+                        'AmenitiesID' => $skipAmenities ? null : $amenitiesData, // Set AmenitiesID to null if amenities are skipped
+                        'Image' => $newFileName
+                    ];
+                    $inserted = $this->reservation->insert($newReservationData);
+                    if ($inserted) {
+                        $emailMessage = $this->prepareEmailMessage($newReservationData);
+                        $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                        $fcmToken = $user['fcm_token'];
+                        if (!empty($fcmToken)) {
+                            $notifTitle = 'Reservation Confirmation';
+                            $notifBody = 'Your reservation has been successfully added.';
+                            $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                         }
+    
+                        // Redirect with success message
+                        $session->setFlashdata('success', 'Reservation added successfully and email sent.');
+                        return redirect()->to('/room');
                     } else {
-                        return redirect()->to(base_url('/u'))->with('error', 'Failed to upload image. Please try again.');
+                        return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
                     }
                 } else {
-                    return redirect()->to(base_url('/u'))->with('error', 'Please upload an image.');
+                    return redirect()->to(base_url('/u'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
+                return redirect()->to(base_url('/u'))->with('error', 'Please upload an image.');
             }
         } else {
-            // Validation failed, return to the reservation form with validation errors
-            $newReservationData['validation'] = $this->validator;
-            return view('Hotell/checkOutReservation', $newReservationData);
+            return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-    private function prepareEmailMessage(array $reservationData): string
+        private function prepareEmailMessage(array $reservationData): string
     {
         $checkInDate = $reservationData['CheckInDate'];
         $checkOutDate = $reservationData['CheckOutDate'];
