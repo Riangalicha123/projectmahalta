@@ -73,73 +73,70 @@
 <body>
   <?php include('inc/header.php') ?>
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
-    <div class="container">
-      <div class="row align-items-center site-hero-inner justify-content-center">
-        <div class="col-md-12 text-center">
-          <div class="mb-5 element-animate">
-            <h1>Room Reservation</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="media d-block room mb-0" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
-            <div class="media-body">
-              <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                <div class="row">
-                  <div class="col-sm-3 form-group">
-                    
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="Adult">Adult</label>
-                    <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                  </div>
-                  <div class="col-md-3 form-group">
-                    <label for="Child">Kids</label>
-                    <input type="number" class="form-control" id="Child" name="Child" value="0">
-                  </div>
-                  <div class="col-sm-3 form-group">
-                    
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+     
+      <div class="col-md-12 text-center">
+      <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
+    <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+</div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                <div class="media-body">
+                  <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                    <div class="row">
+                      <div class="col-sm-3 form-group"></div>
+                      <div class="col-md-3 form-group">
+                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                        <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                        <input type="number" class="form-control" id="Child" name="Child" value="0">
+                      </div>
+                      <div class="col-sm-3 form-group"></div>
                     </div>
+                    <input type="hidden" id="CheckInDate" name="CheckInDate">
+                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                    <div class="row">
+                      <div class="col-md-12 form-group text-center">
+                        <button type="submit" class="btn btn-primary">Check Availability</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-                <input type="hidden" id="CheckInDate" name="CheckInDate">
-                <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                <div class="row">
-                  <div class="col-md-12 form-group text-center">
-                    <button type="submit" class="btn btn-primary">Check Availability</button>
-                  </div>
-                </div>
-              </form>
-
-
+              </div>
             </div>
           </div>
         </div>
       </div>
-  </section>
-  <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="mb-5">Available Reservation Rooms</h2>
-          <form action="<?= base_url('getdataRoom') ?>" method="GET">
+    </div>
+  </div>
+</section>
+
+
+<section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="mb-5">Available Reservation Rooms</h2>
+        <form action="<?= base_url('getdataRoom') ?>" method="GET">
+          <div class="row">
             <?php if (!empty($availableRooms)) : ?>
               <?php foreach ($availableRooms as $room) : ?>
-                <div class="col-md-12">
+                <div class="col-md-6 mb-4">
                   <div class="media d-block room mb-0">
-                    <!-- Room details display here -->
-                    <figure>
-                      <img src="<?= base_url('/uploads/' . $room['Image']) ?>" alt="Room Image" class="img-fluid" style="width:510px">
-                      <div class="overlap-text">
-                        <span>
-                          Room<?= $room['RoomNumber'] ?>
-                        </span>
-                      </div>
-                    </figure>
+                  <figure>
+  <img src="<?= base_url('/uploads/' . $room['Image']) ?>" alt="Room Image" class="img-fluid rounded" style="width: 100%; height: auto;">
+  <div class="overlap-text">
+    <span>
+      Room<?= $room['RoomNumber'] ?>
+    </span>
+  </div>
+</figure>
+
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= $room['RoomType'] ?></a></h3>
                       <h5 class="mt-0"><a href="#">PHP <?= $room['PricePerNight'] ?></a></h5>
@@ -147,12 +144,7 @@
                         <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                         <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
                       </ul>
-                      <!-- Flatpickr calendar for date range selection -->
-
-                      <!-- JavaScript to initialize flatpickr -->
-
                       <div class="row additionalDetails" style="display:none;">
-                        <!-- Additional details content goes here -->
                         <p><?= $room['Description'] ?></p>
                         <p><b>• ROOM INCLUSIONS</b></p>
                         <p>-Complimentary Breakfast(Plated Service)</p>
@@ -162,8 +154,6 @@
                         <p>-Stand By Generator Set</p>
                         <p><b>NOTE: Extra person will be charged PHP 500.00 per head</b></p>
                       </div>
-
-                      <!-- View More Button -->
                       <div class="row">
                         <div class="col-md-12 text-center">
                           <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
@@ -173,22 +163,13 @@
                         <div class="col-md-12 text-center">
                           <?php if ($room['AvailabilityStatus'] == 'Not Available') : ?>
                             <h6 style="border: 1px solid #ccc"> Find available dates</h6>
-                            <!-- Use button to submit the form -->
                             <button type="button" class="btn btn-primary" disabled>Select</button>
                           <?php else : ?>
-                            <!-- Include selected room ID, check-in date, and check-out date in the URL -->
                             <input type="text" id="dateRange<?= $room['RoomID'] ?>" class="form-control" placeholder="Select dates">
                             <input type="hidden" id="CheckInDate<?= $room['RoomID'] ?>" name="CheckInDate<?= $room['RoomID'] ?>">
                             <input type="hidden" id="CheckOutDate<?= $room['RoomID'] ?>" name="CheckOutDate<?= $room['RoomID'] ?>">
                             <br>
                             <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary">Select</button>
-
-
-                            <!-- No need to modify hidden inputs on submission click, handled by JS onClose -->
-
-                            <!-- Set the selected check-in and check-out dates in the hidden input fields -->
-
-
                           <?php endif; ?>
                         </div>
                       </div>
@@ -197,68 +178,66 @@
                 </div>
               <?php endforeach; ?>
             <?php else : ?>
-              <p>No available rooms matching your criteria found.</p>
-            <?php endif; ?>
-          </form>
-
-        </div>
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-          <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
-            <?php if (!empty($roomSelected)) : ?>
-              <h2>Selected Room Details</h2>
-              <div class="media d-block room mb-0">
-
-                <figure>
-                  <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid">
-                  <div class="overlap-text">
-                    <span>
-                      Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
-                      <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
-                    </span>
-                  </div>
-                </figure>
-                <div class="media-body">
-                  <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
-                  <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?>/ Night</a></h5>
-                  <?php if (isset($reservationData)) : ?>
-                    <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
-                    <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
-                    <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
-                    <p>Number of Childs: <?= esc($reservationData['Child'] ?? '') ?></p>
-                    <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
-                  <?php else : ?>
-                    <p>No reservation data found.</p>
-                  <?php endif; ?>
-                  <hr>
-                  <div class="row additionalDetails" style="display:none;">
-                    <p><?= esc($roomSelected['Description'] ?? '') ?></p>
-
-                    <p><b>• ROOM INCLUSIONS</b></p>
-                    <p>-Complimentary Breakfast(Plated Service)</p>
-                    <p>-Free Flow or Brewed Coffee</p>
-                    <p>-Complete Amenities</p>
-                    <p>-Swimming Pool Access</p>
-                    <p>-Stand By Generator Set</p>
-                    <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12 text-center">
-                      <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
-                    </div>
-                  </div>
-
-                  <button type="submit" value="Reserve Now" class="btn btn-primary">Check</button>
-                </div>
-
+              <div class="col-md-12">
+                <p>No available rooms matching your criteria found.</p>
               </div>
             <?php endif; ?>
-          </form>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <h2>Selected Room Details</h2>
+        <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
+          <?php if (!empty($roomSelected)) : ?>
+            <div class="media d-block room mb-0">
+            <figure style="margin: 0;width: 100%; height: auto; display: block;">
+  <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid rounded" style="width: 100%; height: auto; display: block;">
+  <div class="overlap-text">
+    <span>
+      Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
+      <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
+    </span>
+  </div>
+</figure>
+
+              <div class="media-body">
+                <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
+                <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?>/ Night</a></h5>
+                <?php if (isset($reservationData)) : ?>
+                  <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
+                  <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                  <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
+                  <p>Number of Childs: <?= esc($reservationData['Child'] ?? '') ?></p>
+                  <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
+                <?php else : ?>
+                  <p>No reservation data found.</p>
+                <?php endif; ?>
+                <hr>
+                <div class="row additionalDetails" style="display:none;">
+                  <p><?= esc($roomSelected['Description'] ?? '') ?></p>
+                  <p><b>• ROOM INCLUSIONS</b></p>
+                  <p>-Complimentary Breakfast(Plated Service)</p>
+                  <p>-Free Flow or Brewed Coffee</p>
+                  <p>-Complete Amenities</p>
+                  <p>-Swimming Pool Access</p>
+                  <p>-Stand By Generator Set</p>
+                  <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 text-center">
+                    <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+                  </div>
+                </div>
+                <button type="submit" value="Reserve Now" class="btn btn-primary">Check</button>
+              </div>
+            </div>
+          <?php endif; ?>
+        </form>
       </div>
     </div>
-    </div>
-  </section>
+  </div>
+</section>
+
 
   <!-- END section -->
 

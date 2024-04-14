@@ -93,28 +93,27 @@
       </div>
     </section>
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
-      <div class="container">
-        <div class="col-md-12 heading-wrap text-center">
-                <h2 class="heading">Convention Event</h2>
-        </div>
-        <div class="row">
-        <?php foreach ($events as $event): ?>
-        <div class="col-md-4">
-            <div class="post-entry">
-              <a href="#"><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 100%"></a>
-              <div class="body-text">
-                <div class="category"></div>
-                <h3 class="mb-3"><a href="#"><?=$event['EventType']?></a></h3>
-                <p class="mb-4"><?=$event['Description']?>.</p>
-               <!--  <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p> -->
-              </div>
-            </div>
+    <div class="container">
+    <div class="col-md-12 heading-wrap text-center">
+            <h2 class="heading" style="color: #404040;"> Convention Center Events</h2>
           </div>
-          <?php endforeach; ?>
-          
+        <div class="row">
+            <?php foreach ($events as $event): ?>
+                <div class="col-md-4">
+                    <div class="post-entry">
+                        <a href="#"><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Image placeholder" class="img-fluid" style="width: 100%; height: 200px; object-fit: cover;"></a>
+                        <div class="body-text" style="background-color: #fff; padding: 20px;">
+                            <h3 class="mb-3" style="font-size: 24px; color: #333;"><a href="#" style="color: #333;"><?= $event['EventType'] ?></a></h3>
+                            <p class="mb-4" style="font-size: 16px; color: #666;"><?= $event['Description'] ?></p>
+                            <!-- <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p> -->
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-      </div>
-    </section>
+    </div>
+</section>
+
     <?php if(session()->get('isLoggedIn')): ?>
     <section class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
       <div class="container">
