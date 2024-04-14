@@ -49,58 +49,59 @@
               <h2 class="mb-5">Available Reservation Venues</h2>
               <form action="<?= base_url('/convention-center/reservation/information/getVenueDateandGuests') ?>" method="POST">
                 <div class="row">
-                  <div class="col-md-6 form-group">
+                  <div class="col-md-12 form-group">
                     <label for="dateRange">Arrival Date to Departure Date</label>
                     <div style="position: relative;">
                       <input type='text' class="form-control" id='dateRange' placeholder="Check-In-Date to Check-Out-Date" required/>
                     </div>
                     <input type="hidden" id="CheckInDate" name="CheckInDate">
                     <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-
                   </div>
-                  <div class="col-md-6 form-group">
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-12 form-group">
                     <label for="NumberOfGuests">Number Of Guest</label>
                     <input type="number" class="form-control" id="NumberOfGuests"  name="NumberOfGuests" required>
                   </div>
                 </div>
-                
                 <div class="row">
                   <div class="col-md-6 form-group">
                     <label for="FirstName">First Name</label>
-                    <input type="text" id="FirstName" name="FirstName" class="form-control"
-                      value="<?= $_SESSION['firstname'] ?? ''; ?>" required>
+                    <input type="text" id="FirstName" name="FirstName" class="form-control" value="<?= $_SESSION['firstname'] ?? ''; ?>" disabled>
+                    <input type="hidden" name="FirstName" value="<?= $_SESSION['firstname'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="LastName">Last Name</label>
-                    <input type="text" id="LastName" name="LastName" class="form-control"
-                      value="<?= $_SESSION['lastname'] ?? ''; ?>" required>
+                    <input type="text" id="LastName" class="form-control" value="<?= $_SESSION['lastname'] ?? ''; ?>" disabled>
+                    <input type="hidden" name="LastName" value="<?= $_SESSION['lastname'] ?? ''; ?>">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-6 form-group">
                     <label for="ContactNumber">Contact Number</label>
-                    <input type="text" id="ContactNumber" name="ContactNumber" class="form-control"
-                      value="<?= $_SESSION['contact'] ?? ''; ?>" required>
+                    <input type="text" id="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="ContactNumber" value="<?= $_SESSION['contact'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="Region">Region</label>
-                    <input type="text" id="Region" name="Region" class="form-control"
-                      value="<?= $_SESSION['region'] ?? ''; ?>" required>
+                    <input type="text" id="Region"  class="form-control" value="<?= $_SESSION['region'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Region" value="<?= $_SESSION['region'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="Province">Province</label>
-                    <input type="text" id="Province" name="Province" class="form-control"
-                      value="<?= $_SESSION['province'] ?? ''; ?>" required>
+                    <input type="text" id="Province" class="form-control" value="<?= $_SESSION['province'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Province" value="<?= $_SESSION['province'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="City">City/Municipality</label>
-                    <input type="text" id="City" name="City" class="form-control"
-                      value="<?= $_SESSION['city'] ?? ''; ?>" required>
+                    <input type="text" id="City" class="form-control" value="<?= $_SESSION['city'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="City" value="<?= $_SESSION['city'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                     <label for="Barangay">Barangay</label>
-                    <input type="text" id="Barangay" name="Barangay" class="form-control"
-                      value="<?= $_SESSION['barangay'] ?? ''; ?>" required>
+                    <input type="text" id="Barangay" class="form-control" value="<?= $_SESSION['barangay'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Barangay" value="<?= $_SESSION['barangay'] ?? ''; ?>">
                   </div>
           
                   <div class="col-md-6 form-group">
@@ -191,42 +192,48 @@
 
     <script src="/guest/js/main.js"></script>
     <script>
-flatpickr("#dateRange", {
-    mode: "range",
-    dateFormat: "Y-m-d",
-    onClose: function(selectedDates, dateStr, instance) {
-        if(selectedDates.length > 1) {
-            // Convert selected dates to Philippines timezone
-            const checkInDate = new Date(selectedDates[0]);
-            const checkOutDate = new Date(selectedDates[1]);
-            checkInDate.setHours(checkInDate.getHours() + 8); // Philippines timezone is UTC+8
-            checkOutDate.setHours(checkOutDate.getHours() + 8);
-            
-            // Format dates as YYYY-MM-DD
-            const checkInStr = checkInDate.toISOString().split('T')[0];
-            const checkOutStr = checkOutDate.toISOString().split('T')[0];
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#dateRange", {
+            mode: "range",
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+            onClose: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length > 1) {
+                    // Convert selected dates to Philippines timezone
+                    const checkInDate = new Date(selectedDates[0]);
+                    const checkOutDate = new Date(selectedDates[1]);
+                    checkInDate.setHours(checkInDate.getHours() + 8); // Philippines timezone is UTC+8
+                    checkOutDate.setHours(checkOutDate.getHours() + 8);
 
-            // Update input fields with formatted dates
-            document.getElementById('CheckInDate').value = checkInStr;
-            document.getElementById('CheckOutDate').value = checkOutStr;
-        }
-    },
-    disable: [
-        function(date) {
-            // Get today's date in Philippines timezone
-            const today = new Date();
-            today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    // Format dates as YYYY-MM-DD HH:mm
+                    const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
+                    const checkOutStr = checkOutDate.toISOString().slice(0, 16).replace('T', ' ');
 
-            // Get yesterday's date in Philippines timezone
-            const yesterday = new Date(today);
-            yesterday.setDate(yesterday.getDate() - 2);
+                    document.getElementById('CheckInDate').value = checkInStr;
+                    document.getElementById('CheckOutDate').value = checkOutStr;
+                }
+            },
+            disable: [
+                // Disable dates up to yesterday
+                function(date) {
+                    const today = new Date();
+                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
 
-            // Disable dates up to yesterday
-            return (date < yesterday);
-        }
-    ]
-});
+                    return date < yesterday;
+                },
+                // Disable dates in unavailableDates array
+                <?php if (!empty($unavailableDates)) : ?>
+                    <?php foreach ($unavailableDates as $unavailableDate) : ?>
+                        '<?php echo $unavailableDate ?>',
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            ]
+        });
+    });
 </script>
+
 
 
     <?= $this->renderSection('scripts') ?>

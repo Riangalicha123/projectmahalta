@@ -159,7 +159,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>Event Type</th>
                     <th>Description</th>
                     <th>Image</th>
@@ -169,10 +168,9 @@
                   <tbody>
                   <?php foreach ($events as $event): ?>
                   <tr>
-                    <td><?=$event['EventID']?></td>
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
-                    <td><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 300px; height: 250px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
                     <th><a class="btn btn-danger" href="/deleteRoom/<?= $event['EventID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>

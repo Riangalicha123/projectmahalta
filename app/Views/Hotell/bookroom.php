@@ -185,20 +185,21 @@
           </div>
         </form>
       </div>
-      <div class="col-md-6">
-        <h2>Selected Room Details</h2>
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <h2 class="mb-5">Selected Room Details</h2>
         <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
           <?php if (!empty($roomSelected)) : ?>
             <div class="media d-block room mb-0">
             <figure style="margin: 0;width: 100%; height: auto; display: block;">
-  <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid rounded" style="width: 100%; height: auto; display: block;">
-  <div class="overlap-text">
-    <span>
-      Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
-      <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
-    </span>
-  </div>
-</figure>
+              <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid rounded" style="width: 100%; height: auto; display: block;">
+              <div class="overlap-text">
+                <span>
+                  Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
+                  <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
+                </span>
+              </div>
+            </figure>
 
               <div class="media-body">
                 <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>

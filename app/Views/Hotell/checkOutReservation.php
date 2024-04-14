@@ -24,7 +24,7 @@
 
 <body>
 
-  <?php include('include/header.php') ?>
+  <?php include('inc/header.php') ?>
 
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(/guest/images/3.jpg);">
@@ -50,48 +50,95 @@
                                         </div>
                                     <?php endif;?>
           <form action="<?= base_url('/bookroom/addReservation') ?>" method="post" enctype="multipart/form-data">
-            <h3 class="mb-5">Guest Details</h3>
+          <h2 class="mb-5">Extras/Amenities</h2>
+          <div style="text-align: center;">
+                    <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                    <th>Product Name</th>
+                                    <th colspan="2">Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total Price</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                              <?php if (isset($amenitiesData) && !empty($amenitiesData)) : ?>
+                                <?php foreach ($amenitiesData as $amenity) : ?>
+                                  <tr>
+                                    <td><?= $amenity['ProductName']; ?></td>
+                                    <td colspan="2">Php <?= $amenity['Price']; ?></td>
+                                    <td><?= $amenity['insertQuantity']; ?></td>
+                                    <td>Php <?= $totalPrice = $amenity['Price'] * $amenity['insertQuantity']; ?></td>
+                                    <input type="hidden" name="UserID[]">
+                                  </tr>
+                                <?php endforeach; ?>
+                                  <tr>
+                                      <td colspan="4" class="text-right">Total Price for Extra: </td>
+                                      <td><b>Php <?= number_format($totalExtraPrice, 2); ?></b></td>
+                                  </tr>
+                              <?php else : ?>
+                                <tr>
+                                  <td colspan="5">No amenities data found.</td>
+                                </tr>
+                              <?php endif; ?>
+                              <?php if (isset($roomReservationData) && is_array($roomReservationData)) : ?>
+                                  <tr>
+                                      <td colspan="4" class="text-right">Total Amount with Extras: </td>
+                                      <td><b>Php <?= number_format($roomReservationData['TotalAmount'], 2); ?></b></td>
+                                  </tr>
+                              <?php else : ?>
+                                  <tr>
+                                      <td colspan="5">No reservation data found.</td>
+                                  </tr>
+                              <?php endif; ?>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+
+            <h2 class="mb-5">Guest Details</h2>
             <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="FirstName">First Name</label>
-                <input type="text" id="FirstName" name="FirstName" class="form-control"
-                  value="<?= $_SESSION['firstname'] ?? ''; ?>" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="LastName">Last Name</label>
-                <input type="text" id="LastName" name="LastName" class="form-control"
-                  value="<?= $_SESSION['lastname'] ?? ''; ?>" required>
-              </div>
-            </div>
+                  <div class="col-md-6 form-group">
+                    <label for="FirstName">First Name</label>
+                    <input type="text" id="FirstName" name="FirstName" class="form-control" value="<?= $_SESSION['firstname'] ?? ''; ?>" disabled>
+                    <input type="hidden" name="FirstName" value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="LastName">Last Name</label>
+                    <input type="text" id="LastName" class="form-control" value="<?= $_SESSION['lastname'] ?? ''; ?>" disabled>
+                    <input type="hidden" name="LastName" value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                  </div>
+                </div>
             <div class="row">
-              <div class="col-md-6 form-group">
-                <label for="ContactNumber">Contact Number</label>
-                <input type="text" id="ContactNumber" name="ContactNumber" class="form-control"
-                  value="<?= $_SESSION['contact'] ?? ''; ?>" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="Region">Region</label>
-                <input type="text" id="Region" name="Region" class="form-control"
-                  value="<?= $_SESSION['region'] ?? ''; ?>" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="Province">Province</label>
-                <input type="text" id="Province" name="Province" class="form-control"
-                  value="<?= $_SESSION['province'] ?? ''; ?>" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="City">City/Municipality</label>
-                <input type="text" id="City" name="City" class="form-control"
-                  value="<?= $_SESSION['city'] ?? ''; ?>" required>
-              </div>
-              <div class="col-md-6 form-group">
-                <label for="Barangay">Barangay</label>
-                <input type="text" id="Barangay" name="Barangay" class="form-control"
-                  value="<?= $_SESSION['barangay'] ?? ''; ?>" required>
-              </div>
+            <div class="col-md-6 form-group">
+                    <label for="ContactNumber">Contact Number</label>
+                    <input type="text" id="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="ContactNumber" value="<?= $_SESSION['contact'] ?? ''; ?>">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="Region">Region</label>
+                    <input type="text" id="Region"  class="form-control" value="<?= $_SESSION['region'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Region" value="<?= $_SESSION['region'] ?? ''; ?>">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="Province">Province</label>
+                    <input type="text" id="Province" class="form-control" value="<?= $_SESSION['province'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Province" value="<?= $_SESSION['province'] ?? ''; ?>">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="City">City/Municipality</label>
+                    <input type="text" id="City" class="form-control" value="<?= $_SESSION['city'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="City" value="<?= $_SESSION['city'] ?? ''; ?>">
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <label for="Barangay">Barangay</label>
+                    <input type="text" id="Barangay" class="form-control" value="<?= $_SESSION['barangay'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="Barangay" value="<?= $_SESSION['barangay'] ?? ''; ?>">
+                  </div>
             </div>
             <hr>
-            <h3 class="mb-3">Payment Details</h3>
+            <h2 class="mb-3">Payment Details</h2>
             <p><b>*Note: 50% down payment is required upon reservation.</b></p>
             <?php foreach ($qrcodes as $qr): ?>
               <div class="row">
@@ -156,48 +203,7 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
-        <h2 class="mb-5">Extras/Amenities</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th colspan="2">Price</th>
-                    <th>Quantity</th>
-                    <th>Total Price</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (isset($amenitiesData) && !empty($amenitiesData)) : ?>
-                    <?php foreach ($amenitiesData as $amenity) : ?>
-                        <tr>
-                            <td><?= $amenity['ProductName']; ?></td>
-                            <td colspan="2">Php <?= $amenity['Price']; ?></td>
-                            <td><?= $amenity['insertQuantity']; ?></td>
-                            <td>Php <?= $totalPrice = $amenity['Price'] * $amenity['insertQuantity']; ?></td>
-                            <input type="hidden" name="UserID[]">
-                        </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <td colspan="4" class="text-right">Total Price for Extra: </td>
-                        <td><b>Php <?= number_format($totalExtraPrice, 2); ?></b></td>
-                    </tr>
-                <?php else : ?>
-                    <tr>
-                        <td colspan="5">No amenities data found.</td>
-                    </tr>
-                <?php endif; ?>
-                <?php if (isset($roomReservationData) && is_array($roomReservationData)) : ?>
-                    <tr>
-                        <td colspan="4" class="text-right">Total Amount with Extras: </td>
-                        <td><b>Php <?= number_format($roomReservationData['TotalAmount'], 2); ?></b></td>
-                    </tr>
-                <?php else : ?>
-                    <tr>
-                        <td colspan="5">No reservation data found.</td>
-                    </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+        
           <h2 class="mb-5">Featured Room</h2>
           <?php if (isset($roomReservationData) && is_array($roomReservationData)): ?>
             <div class="media d-block room mb-0">
@@ -273,11 +279,11 @@
 
   <!-- END section -->
 
-  <?php include('include/footer.php') ?>
+  <?php include('inc/footer.php') ?>
   <!-- END footer -->
-  <?php include('include/header.php') ?>
+  <?php include('inc/header.php') ?>
   <!-- loader -->
-  <?php include('include/loader.php') ?>
+  <?php include('inc/loader.php') ?>
   <script>
 function showQR(option) {
     <?php foreach ($qrcodes as $qr): ?>

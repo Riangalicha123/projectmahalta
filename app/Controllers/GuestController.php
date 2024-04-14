@@ -625,8 +625,6 @@ class GuestController extends BaseController
         $roomNumber = $roomSelected['RoomNumber'];
         $roomType = $roomSelected['RoomType'];
     
-        // User details
-        $userID = $user['UserID'];
         $firstName = $user['FirstName'];
         $lastName = $user['LastName'];
     
@@ -796,22 +794,6 @@ class GuestController extends BaseController
         ];
         return view('Hotell\convention',$data);
     }
-    
-/*     public function getdataconVenue()
-    {
-        $session = \Config\Services::session();
-        $selectedconVenueID = $this->request->getGet('selectedconVenueID');
-        $convenuesSelected = null;
-        if (!empty($selectedconVenueID)) {
-            $convenuesSelected = $this->convenues->find($selectedconVenueID);
-                $session->set('convenuesSelected', $convenuesSelected);
-        }
-        $convenues = $this->convenues->findAll();
-        return view('Hotell/conreservation', [
-            'convenuesSelected' => $convenuesSelected,
-            'convenues' => $convenues,
-        ]);
-    } */
     public function conPackage()
     {
         $data = [
@@ -846,9 +828,37 @@ class GuestController extends BaseController
                 }
             }
         }
+        $reservationModel = new ReservationModel();
+        $conVenueID = $this->request->getPost('selectedconVenueID'); // Get selected convention venue ID
+        $reservationsQuery = $reservationModel->table('reservations')
+            ->select('DATE_FORMAT(CheckInDate, "%Y-%m-%d") as StartDate, DATE_FORMAT(CheckOutDate, "%Y-%m-%d") as EndDate, Status, convention.conventionID, convention.conVenueID')
+            ->join('convention', 'reservations.conventionID = convention.conventionID')
+            ->where('convention.conVenueID', $conVenueID)
+            ->get();
+
+        $reservations = $reservationsQuery->getResultArray();
+        $unavailableDates = []; // Array to store unavailable dates
+
+        foreach ($reservations as $reservation) {
+            $startDate = new \DateTime($reservation['StartDate']);
+            $endDate = new \DateTime($reservation['EndDate']);
+
+            // Extend the end date by one day for maintenance
+            $endDate->modify('+1 day');
+
+            // Generate period between start and end dates
+            $interval = new \DateInterval('P1D');
+            $period = new \DatePeriod($startDate, $interval, $endDate);
+
+            // Add each date in the period to the unavailable dates array
+            foreach ($period as $date) {
+                $unavailableDates[] = $date->format('Y-m-d');
+            }
+        }
         return view('Hotell/coninformation', [
             'convenuesSelected' => $convenuesSelected,
             'eventTypes' => $eventTypes,
+            'unavailableDates' => $unavailableDates,
         ]);
     }
     public function conReservation()
@@ -1030,10 +1040,6 @@ class GuestController extends BaseController
                     $newFileName = $image->getRandomName();
                     if ($image->isValid() && !$image->hasMoved()) {
                         $image->move(FCPATH .'proof/', $newFileName);
-                        $checkInTime = '14:00:00'; // 2:00 PM
-                        $checkOutTime = '12:00:00'; // 12:00 PM
-                        $checkInDateTime = $ReservationData['CheckInDate'] . ' ' . $checkInTime;
-                        $checkOutDateTime = $ReservationData['CheckOutDate'] . ' ' . $checkOutTime;
  
                         $eventID = $EventData['EventID'] ?? null;
                         $conVenueID = $convenuesSelected['conVenueID'] ?? null;
@@ -1045,8 +1051,8 @@ class GuestController extends BaseController
                         $newReservationData = [
                             'UserID' => $UserData['UserID'],
                             'conventionID' => $conventionID,
-                            'CheckInDate' => $checkInDateTime,
-                            'CheckOutDate' => $checkOutDateTime,
+                            'CheckInDate' => $ReservationData['CheckInDate'],
+                            'CheckOutDate' => $ReservationData['CheckOutDate'],
                             'NumberOfGuests' => $ReservationData['NumberOfGuests'],
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                             'ReferenceNumber' => $referenceNumber,

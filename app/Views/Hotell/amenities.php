@@ -24,7 +24,7 @@
 
 <body>
 
-  <?php include('include/header.php') ?>
+  <?php include('inc/header.php') ?>
   <!-- END header -->
 
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
@@ -157,11 +157,11 @@
     </div>
   </section>
 
-  <?php include('include/footer.php') ?>
+  <?php include('inc/footer.php') ?>
   <!-- END footer -->
 
   <!-- loader -->
-  <?php include('include/loader.php') ?>
+  <?php include('inc/loader.php') ?>
   <script>
 function showQR(option) {
     <?php foreach ($qrcodes as $qr): ?>
