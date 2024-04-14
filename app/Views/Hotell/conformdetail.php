@@ -44,35 +44,89 @@
         </div>
       </div>
     </section>
-    <section class="site-section" >
+    <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
       <div class="container">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
                 <form action="<?= base_url('conventionReservation') ?>" method="POST" enctype="multipart/form-data">
                 <?php if (isset($ReservationData) && !empty($ReservationData)): ?>
-                            <p>Check-in Date: <?= esc($ReservationData['CheckInDate'] ?? '') ?></p>
-                            <p>Check-out Date: <?= esc($ReservationData['CheckOutDate'] ?? '') ?></p>
-                            <p>Number of Guests: <?= esc($ReservationData['NumberOfGuests'] ?? '') ?></p>
-                        <?php else: ?>
-                            <p>No reservation data found.</p>
-                        <?php endif; ?>
+                  <div style="text-align: center;">
+                    <div class="table-responsive">
+                          <table class="table">
+                              <thead>
+                                  <tr>
+                                      <th>Check-in Date</th>
+                                      <th>Check-out Date</th>
+                                      <th>Number of Guests</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr>
+                                      <td><?= esc($ReservationData['CheckInDate'] ?? '') ?></td>
+                                      <td><?= esc($ReservationData['CheckOutDate'] ?? '') ?></td>
+                                      <td><?= esc($ReservationData['NumberOfGuests'] ?? '') ?></td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+                <?php else: ?>
+                  <p>No reservation data found.</p>
+                <?php endif; ?>
                 <?php if (isset($UserData) && !empty($UserData)): ?>
-                            <p>First Name: <?= esc($UserData['FirstName'] ?? '') ?></p>
-                            <p>Last Name: <?= esc($UserData['LastName'] ?? '') ?></p>
-                            <p>Contact Number: <?= esc($UserData['ContactNumber'] ?? '') ?></p>
-                            <p>Region: <?= esc($UserData['Region'] ?? '') ?></p>
-                            <p>Province: <?= esc($UserData['Province'] ?? '') ?></p>
-                            <p>City: <?= esc($UserData['City'] ?? '') ?></p>
-                            <p>Barangay: <?= esc($UserData['Barangay'] ?? '') ?></p>
-                        <?php else: ?>
-                            <p>No reservation data found.</p>
-                        <?php endif; ?>
-                        <?php if (isset($EventData) && !empty($EventData)): ?>
-                          <p>EventType: <?= esc($EventData['EventType'] ?? '') ?></p>
-                        <?php else: ?>
-                            <p>No reservation data found.</p>
-                        <?php endif; ?>
-            <h3 class="mb-3">Payment Details</h3>
+                  <table class="table table-responsive">
+                    <thead>
+                      <tr>
+                        <th colspan="12"><h4 style="text-align: center;">Guest Details</h4></th>
+                      </tr>
+                    </thead>
+                    <thead>
+                      <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Contact Number</th>
+                        <th>Region</th>
+                        <th>Province</th>
+                        <th>City</th>
+                        <th>Barangay</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><?= esc($UserData['FirstName'] ?? '') ?></td>
+                        <td><?= esc($UserData['LastName'] ?? '') ?></td>
+                        <td><?= esc($UserData['ContactNumber'] ?? '') ?></td>
+                        <td><?= esc($UserData['Region'] ?? '') ?></td>
+                        <td><?= esc($UserData['Province'] ?? '') ?></td>
+                        <td><?= esc($UserData['City'] ?? '') ?></td>
+                        <td><?= esc($UserData['Barangay'] ?? '') ?></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                <?php else: ?>
+                  <p>No reservation data found.</p>
+                <?php endif; ?>
+                <?php if (isset($EventData) && !empty($EventData)): ?>
+                  <div style="text-align: center;">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><h4>Event Type</h4></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><?= esc($EventData['EventType'] ?? '') ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                <?php else: ?>
+                  <p>No reservation data found.</p>
+                <?php endif; ?>
+            <h4 class="mb-3">Payment Details</h4>
             <p><b>*Note: 50% down payment is required upon reservation.</b></p>
             <?php foreach ($qrcodes as $qr): ?>
               <div class="row">
@@ -137,7 +191,7 @@
             </div>
           
             </div>
-              <div class="col-md-2"></div>
+              <div class="col-md-1"></div>
               <div class="col-md-4">
               <h2 class="mb-5">Selected Venue Details</h2>
               <?php if (isset($convenuesSelected) && is_array($convenuesSelected)): ?>
@@ -148,6 +202,7 @@
                 </figure>
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= esc($convenuesSelected['conVenueName'] ?? '') ?></a></h3>
+                      
                       <?php if (isset($TotalAmount)): ?>
                             <h3>Total Amount:Php <?= number_format($TotalAmount, 2) ?> </h3>
                         <?php else: ?>

@@ -56,8 +56,9 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-4 col-6">
+        <!-- Small boxes (Stat box) -->
+        <div class="row">
+          <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -70,110 +71,151 @@
               <a href="<?= route_to('admin-hotel/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <div class="col-lg-4 col-6">
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?= count($reevents); ?></h3>
+                <h3><?= count($restrevs); ?></h3>
                 <p>Restaurant Reservation</p>
               </div>
               <div class="icon">
-              <i class="nav-icon fas fa-bed"></i>
+                <i class="ion ion-stats-bars"></i>
               </div>
               <a href="<?= route_to('admin-restaurant/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <div class="col-lg-4 col-6">
+          <!-- ./col -->
+          <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?= count($reevents); ?></h3>
+              <h3><?= count($reevents); ?></h3>
                 <p>Convention Reservation</p>
               </div>
               <div class="icon">
-              <i class="nav-icon fas fa-bed"></i>
+                <i class="ion ion-person-add"></i>
               </div>
               <a href="<?= route_to('admin-convention/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-4 col-6">
+          <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-warning">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Sales Report</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                <p>Reservation Report</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-          <div class="col-lg-4 col-6">
-              <!-- small box -->
-              <div class="small-box bg-warning">
-                  <div class="inner">
-                      <h3><?= count($customers); ?></h3>
+              <h3><?= count($customers); ?></h3>
                       <p>Customer Registrations</p>
-                  </div>
-                  <div class="icon">
-                      <i class="ion ion-person-add"></i>
-                  </div>
-                  <a href="<?= route_to('admin-customer') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
+              <div class="icon">
+              <i class="ion ion-person-add"></i>
+              </div>
+              <a href="<?= route_to('admin-customer') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
           </div>
-          <!-- ./col -->
-          
           <!-- ./col -->
         </div>
-<!--         <div class="row">
-          <div class="col-md-6">
-            <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title">Room Sales</h3>
-
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <button type="button" class="btn btn-tool" data-card-widget="remove">
-                    <i class="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-              <div class="card-body">
-                <div class="chart">
-                  <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            
-
-          </div>
-        </div> -->
         <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-6 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Reservation Reports
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#reservation-weekly" data-toggle="tab">Weekly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#reservation-monthly" data-toggle="tab">Monthly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#reservation-yearly" data-toggle="tab">Yearly</a>
+                    </li>
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="reservation-weekly"
+                       style="position: relative; height: 300px;">
+                      <canvas id="reservationbarchart-weekly" height="300" style="height: 300px;"></canvas>
+                   </div>
+                  <div class="chart tab-pane" id="reservation-monthly" style="position: relative; height: 300px;">
+                    <canvas id="reservationbarchart-monthly" height="300" style="height: 300px;"></canvas>
+                  </div>
+                  <div class="chart tab-pane" id="reservation-yearly" style="position: relative; height: 300px;">
+                    <canvas id="reservationbarchart-yearly" height="300" style="height: 300px;"></canvas>
+                  </div>
+                </div>
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-6 connectedSortable">
+            <!-- Custom tabs (Charts with tabs)-->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Sales Reports
+                </h3>
+                <div class="card-tools">
+                  <ul class="nav nav-pills ml-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="#sales-weekly" data-toggle="tab">Weekly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sales-monthly" data-toggle="tab">Monthly</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#sales-yearly" data-toggle="tab">Yearly</a>
+                    </li>
+                  </ul>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="sales-weekly"
+                       style="position: relative; height: 300px;">
+                      <canvas id="salesbarchart-weekly" height="300" style="height: 300px;"></canvas>
+                   </div>
+                  <div class="chart tab-pane" id="sales-monthly" style="position: relative; height: 300px;">
+                    <canvas id="salesbarchart-monthly" height="300" style="height: 300px;"></canvas>
+                  </div>
+                  <div class="chart tab-pane" id="sales-yearly" style="position: relative; height: 300px;">
+                    <canvas id="salesbarchart-yearly" height="300" style="height: 300px;"></canvas>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+
+
+
+
+            <!-- /.card -->
+          </section>
+          <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -193,22 +235,74 @@
 <script src="<?=base_url()?>admin/dist/js/adminlte.min.js"></script>
 <script>
   $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
-
     //--------------
-    //- Bar CHART -
+    //- Reservation Bar CHART weekly -
     //--------------
 
     // Get context with jQuery - using jQuery's .get() method.
-    var barChartCanvas = $('#barChart').get(0).getContext('2d');
-    var barChartData = {
+    var barChartCanvas = $('#reservationbarchart-weekly').get(0).getContext('2d');
+    var barChartDataWeekly = {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5'], // Updated labels to reflect weeks
+        datasets: [
+            {
+                label: 'Hotel Reservation',
+                backgroundColor: 'rgba(60,141,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [0, 48, 40, 19, 86] // Adjusted data for weekly basis
+            },
+            {
+                label: 'Restaurant Reservation',
+                backgroundColor: 'rgba(60,0,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19, 86] // Adjusted data for weekly basis
+            },
+            {
+                label: 'Convention Reservation',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
+                borderColor: 'rgba(210, 214, 222, 1)',
+                pointRadius: false,
+                pointColor: 'rgba(210, 214, 222, 1)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [28, 48, 40, 19, 86] // Adjusted data for weekly basis
+            },
+        ]
+    };
+
+    var barChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    };
+
+    new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartDataWeekly,
+        options: barChartOptions
+    });
+
+        //--------------
+    //- Reservation Bar CHART monthly -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    var barChartCanvasMonthly = $('#reservationbarchart-monthly').get(0).getContext('2d');
+    var barChartDataMonthly = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August','September','October','November','December'],
         datasets: [
             {
-                label: 'Deluxe Room',
+                label: 'Hotel Reservation',
                 backgroundColor: 'rgba(60,141,188,0.9)',
                 borderColor: 'rgba(60,141,188,0.8)',
                 pointRadius: false,
@@ -219,7 +313,7 @@
                 data: [0, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 100]
             },
             {
-                label: 'Jr. Suite Room',
+                label: 'Restaurant Reservation',
                 backgroundColor: 'rgba(60,0,188,0.9)',
                 borderColor: 'rgba(60,141,188,0.8)',
                 pointRadius: false,
@@ -230,7 +324,7 @@
                 data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
             },
             {
-                label: 'Family Room',
+                label: 'Convention Reservation',
                 backgroundColor: 'rgba(210, 214, 222, 1)',
                 borderColor: 'rgba(210, 214, 222, 1)',
                 pointRadius: false,
@@ -240,9 +334,177 @@
                 pointHighlightStroke: 'rgba(220,220,220,1)',
                 data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
             },
+        ]
+    };
+
+    var barChartOptionsMonthly = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    };
+
+    new Chart(barChartCanvasMonthly, {
+        type: 'bar',
+        data: barChartDataMonthly,
+        options: barChartOptionsMonthly
+    });
+    
+        //--------------
+    //- Reservation Bar CHART yearly -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    var barChartCanvasYearly = $('#reservationbarchart-yearly').get(0).getContext('2d');
+    var barChartDataYearly = {
+        labels: ['2024', '2025', '2026', '2027'], // Updated labels to reflect years
+        datasets: [
             {
-                label: 'Barkad Room',
-                backgroundColor: 'rgba(210, 224, 222, 1)',
+                label: 'Hotel Reservation',
+                backgroundColor: 'rgba(60,141,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [0, 48, 40, 19] // Adjusted data for yearly basis
+            },
+            {
+                label: 'Restaurant Reservation',
+                backgroundColor: 'rgba(60,0,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19] // Adjusted data for yearly basis
+            },
+            {
+                label: 'Convention Reservation',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
+                borderColor: 'rgba(210, 214, 222, 1)',
+                pointRadius: false,
+                pointColor: 'rgba(210, 214, 222, 1)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [28, 48, 40, 19] // Adjusted data for yearly basis
+            },
+        ]
+    };
+
+    var barChartOptionsYearly = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    };
+
+    new Chart(barChartCanvasYearly, {
+        type: 'bar',
+        data: barChartDataYearly,
+        options: barChartOptionsYearly
+    });
+  })
+</script>
+
+<script>
+  $(function () {
+    //--------------
+    //- sales Bar CHART weekly -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    /* var barChartCanvas = $('#salesbarchart-weekly').get(0).getContext('2d');
+    var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August','September','October','November','December'],
+        datasets: [
+            {
+                label: 'Hotel Reservation',
+                backgroundColor: 'rgba(60,141,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [0, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 100]
+            },
+            {
+                label: 'Restaurant Reservation',
+                backgroundColor: 'rgba(60,0,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+            },
+            {
+                label: 'Convention Reservation',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
+                borderColor: 'rgba(210, 214, 222, 1)',
+                pointRadius: false,
+                pointColor: 'rgba(210, 214, 222, 1)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+            },
+        ]
+    };
+    var temp0 = barChartData.datasets[0];
+    var temp1 = barChartData.datasets[1];
+    barChartData.datasets[0] = temp1;
+    barChartData.datasets[1] = temp0;
+
+    var barChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    };
+
+    new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+    }); */
+
+        //--------------
+    //- sales Bar CHART monthly -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    /* var barChartCanvas = $('#salesbarchart-monthly').get(0).getContext('2d');
+    var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August','September','October','November','December'],
+        datasets: [
+            {
+                label: 'Hotel Reservation',
+                backgroundColor: 'rgba(60,141,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [0, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 100]
+            },
+            {
+                label: 'Restaurant Reservation',
+                backgroundColor: 'rgba(60,0,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+            },
+            {
+                label: 'Convention Reservation',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
                 borderColor: 'rgba(210, 214, 222, 1)',
                 pointRadius: false,
                 pointColor: 'rgba(210, 214, 222, 1)',
@@ -270,7 +532,69 @@
         type: 'bar',
         data: barChartData,
         options: barChartOptions
-    });
+    }); */
+        //--------------
+    //- sales Bar CHART yearly -
+    //--------------
+
+    // Get context with jQuery - using jQuery's .get() method.
+    /* var barChartCanvas = $('#salesbarchart-yearly').get(0).getContext('2d');
+    var barChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August','September','October','November','December'],
+        datasets: [
+            {
+                label: 'Hotel Reservation',
+                backgroundColor: 'rgba(60,141,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [0, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 100]
+            },
+            {
+                label: 'Restaurant Reservation',
+                backgroundColor: 'rgba(60,0,188,0.9)',
+                borderColor: 'rgba(60,141,188,0.8)',
+                pointRadius: false,
+                pointColor: '#3b8bba',
+                pointStrokeColor: 'rgba(60,141,188,1)',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(60,141,188,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+            },
+            {
+                label: 'Convention Reservation',
+                backgroundColor: 'rgba(210, 214, 222, 1)',
+                borderColor: 'rgba(210, 214, 222, 1)',
+                pointRadius: false,
+                pointColor: 'rgba(210, 214, 222, 1)',
+                pointStrokeColor: '#c1c7d1',
+                pointHighlightFill: '#fff',
+                pointHighlightStroke: 'rgba(220,220,220,1)',
+                data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+            },
+        ]
+    };
+
+    // Swap datasets
+    var temp0 = barChartData.datasets[0];
+    var temp1 = barChartData.datasets[1];
+    barChartData.datasets[0] = temp1;
+    barChartData.datasets[1] = temp0;
+
+    var barChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        datasetFill: false
+    };
+
+    new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+    }); */
   })
 </script>
 </body>

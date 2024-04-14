@@ -37,14 +37,12 @@
             <br>
             <br>
               <h1>Convention Reservation</h1>
-               
             </div>
-
           </div>
         </div>
       </div>
     </section>
-    <section class="site-section" >
+    <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
       <div class="container">
         <div class="row">
             <div class="col-md-6">

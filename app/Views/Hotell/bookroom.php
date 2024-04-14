@@ -83,11 +83,11 @@
       </div>
     </div>
   </section>
-  <section class="site-section">
+  <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <div class="media d-block room mb-0">
+          <div class="media d-block room mb-0" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
             <div class="media-body">
               <form action="<?= base_url('/bookroom/submit') ?>" method="get">
                 <div class="row">
@@ -121,7 +121,7 @@
         </div>
       </div>
   </section>
-  <section class="site-section">
+  <section class="site-section" style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
     <div class="container">
       <div class="row">
         <div class="col-md-6">

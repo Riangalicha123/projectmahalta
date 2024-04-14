@@ -181,6 +181,7 @@ class AdminController extends BaseController
             ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.ReferenceNumber, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID', false)
             ->join('rooms', 'reservations.RoomID = rooms.RoomID')
             ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
             ->findAll(),
             'reevents' => $this->reservation
             ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
@@ -188,11 +189,13 @@ class AdminController extends BaseController
             ->join ('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
             ->join ('events', 'convention.EventID = events.EventID')
             ->join ('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
             ->findAll(),
             'restrevs' => $this->reservation
             ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
             ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
             ->join ('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
             ->findAll(),
         ];
         return view('Admin\index', $data);

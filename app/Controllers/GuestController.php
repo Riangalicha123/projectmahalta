@@ -584,7 +584,7 @@ class GuestController extends BaseController
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
                     if ($inserted) {
-                        $emailMessage = $this->prepareEmailMessage($newReservationData);
+                        $emailMessage = $this->prepareEmailMessage($newReservationData, $roomSelected, $user, $amenitiesData);
                         $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                         $fcmToken = $user['fcm_token'];
                         if (!empty($fcmToken)) {
@@ -609,20 +609,39 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-        private function prepareEmailMessage(array $reservationData): string
+    private function prepareEmailMessage(array $reservationData, array $roomSelected, array $user, array $amenitiesData): string
     {
         $checkInDate = $reservationData['CheckInDate'];
         $checkOutDate = $reservationData['CheckOutDate'];
         $adults = $reservationData['Adult'];
         $children = $reservationData['Child'];
-        $newFileName = $reservationData['Image'];
+        $image = $reservationData['Image'];
         $downorfullPayment = $reservationData['downorfullPayment'];
         $paymentOption = $reservationData['PaymentOption'];
         $referenceNumber = $reservationData['ReferenceNumber'];
         $totalAmount = $reservationData['TotalAmount'];
+        
+        // Additional room details
+        $roomNumber = $roomSelected['RoomNumber'];
+        $roomType = $roomSelected['RoomType'];
     
-        $message = "Dear customer,<br><br>";
+        // User details
+        $userID = $user['UserID'];
+        $firstName = $user['FirstName'];
+        $lastName = $user['LastName'];
+    
+        // Amenities details
+        $amenitiesMessage = "";
+        if (!empty($amenitiesData)) {
+            $amenitiesMessage .= "Selected Amenities:<br>";
+            foreach ($amenitiesData as $amenity) {
+                $amenitiesMessage .= "- {$amenity['ProductName']} ({$amenity['insertQuantity']})<br>";
+            }
+        }
+    
+        $message = "Dear {$firstName} {$lastName},<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Room: {$roomNumber} ({$roomType})<br>";
         $message .= "Check-in Date: {$checkInDate}<br>";
         $message .= "Check-out Date: {$checkOutDate}<br>";
         $message .= "Number of Adults: {$adults}<br>";
@@ -631,11 +650,13 @@ class GuestController extends BaseController
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= "Proof of Payment: <img src='" . base_url('/proof/' . $newFileName) . "' alt='Proof of Payment'><br>"; 
+        $message .= $amenitiesMessage; // Add amenities information
+        $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         $message .= "<br>We look forward to hosting you.<br>";
     
         return $message;
     }
+    
     protected function sendPushNotification($fcmToken, $title, $body) {
         $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
         $postData = [
@@ -1002,7 +1023,7 @@ class GuestController extends BaseController
             $convenuesSelected = session()->get('convenuesSelected');
             $paymentOption = $this->request->getPost('PaymentOption');
             $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
-    
+            $email = $session->get('username');
             
             if ($EventData && $ReservationData && $UserData && $TotalAmount && $convenuesSelected) {
                 if ($image = $this->request->getFile('Image')) {
@@ -1036,7 +1057,15 @@ class GuestController extends BaseController
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
-    
+                            $emailMessage = $this->prepareEmailConvention($UserData, $newReservationData, $EventData, $convenuesSelected);
+                            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                            $fcmToken = $UserData['fcm_token'];
+
+                            if (!empty($fcmToken)) {
+                                $notifTitle = 'Reservation Confirmation';
+                                $notifBody = 'Your reservation has been successfully added.';
+                                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                            }
                             // Redirect with success message
                             $session->setFlashdata('success', 'Reservation added successfully and email sent.');
                             return redirect()->to('/convention-center');
@@ -1060,22 +1089,41 @@ class GuestController extends BaseController
         }
         
     }    
-    private function prepareEmailllMessage(array $reservationData): string
+    private function prepareEmailConvention(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
     {
         $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
-        $arrivalDate = $reservationData['ArivalDate'] ?? '';
-        $note = $reservationData['Note'] ?? '';
-        $eventType = $reservationData['EventType'] ?? ''; // Check if EventType key exists
-
-        $message = "Dear customer,<br><br>";
+        $checkInDate = $reservationData['CheckInDate'] ?? '';
+        $checkOutDate = $reservationData['CheckOutDate'] ?? '';
+        $downorfullPayment = $reservationData['downorfullPayment'] ?? '';
+        $referenceNumber = $reservationData['ReferenceNumber'] ?? '';
+        $paymentOption = $reservationData['PaymentOption'] ?? '';
+        $totalAmount = $reservationData['TotalAmount'] ?? '';
+        $image = $reservationData['Image'] ?? '';
+    
+        $firstName = $userData['FirstName'] ?? '';
+        $lastName = $userData['LastName'] ?? '';
+        $contactNumber = $userData['ContactNumber'] ?? '';
+    
+        $eventType = $eventData['EventType'] ?? '';
+        $conVenueName = $convenuesSelected['conVenueName'] ?? '';
+    
+        $message = "Dear {$firstName} {$lastName},<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
-        $message .= "Event Type: {$eventType}<br>";
         $message .= "Number of Guests: {$numberofGuests}<br>";
-        $message .= "Arrival Date: {$arrivalDate}<br>";
-        $message .= "Note: {$note}<br>";
-
+        $message .= "Check-In Date: {$checkInDate}<br>";
+        $message .= "Check-Out Date: {$checkOutDate}<br>";
+        $message .= "Payment Option: {$paymentOption}<br>";
+        $message .= "Reference Number: {$referenceNumber}<br>";
+        $message .= "Total Amount: {$totalAmount}<br>";
+        $message .= "Down/Full Payment: {$downorfullPayment}<br>";
+        $message .= "Event Type: {$eventType}<br>";
+        $message .= "Contact Number: {$contactNumber}<br>";
+        $message .= "Convention Venue: {$conVenueName}<br>";
+        $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
+    
         return $message;
     }
+    
 
 
     
