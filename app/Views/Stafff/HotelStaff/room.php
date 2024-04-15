@@ -174,7 +174,7 @@
                                     <textarea class="form-control" id="Description" name="Description" required  cols="30" rows="10"><?=$room['Description']?></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
+                                    <label for="PricePerNight">Price</label>
                                     <input type="text" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
                                 </div>
                                 <div class="form-group">
@@ -211,7 +211,7 @@
                     <th>RoomNumber</th>
                     <th>RoomTypes</th>
                     <th>Description</th>
-                    <th>Price per Night</th>
+                    <th>Price</th>
                     <th>Min Person</th>
                     <th>Max Person</th>
                     <th>Image</th>

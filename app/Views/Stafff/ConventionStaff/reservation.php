@@ -69,21 +69,21 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button>
+                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Staff</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Reservation</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?= base_url('/addconReservation') ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?= base_url('/addConReservation') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                   <div class="form-row">
                                       <div class="form-group col-md-6">
@@ -122,10 +122,13 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="ArivalDate">Preferred Date</label>
-                                                <input type="date" class="form-control" id="ArivalDate" name="ArivalDate" required>
+                                                <label for="CheckInDate">Preferred Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required>
                                             </div>
-                                            
+                                            <div class="form-group col-md-6">
+                                                <label for="CheckOutDate">Departure Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckOutDate" name="CheckOutDate" required>
+                                            </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -134,12 +137,8 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="Note">Note</label>
-                                                <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"></textarea>
-                                            </div>
+                                           
                                         </div>
-                                
                                 </div>
                                 <!-- /.card-body -->
 
@@ -161,24 +160,37 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateconReservation/' . $reevent['ReservationID']) ?>" method="post" enctype="multipart/form-data">
+                                <form action="<?= base_url('/updateConReservation/' . $reevent['ReservationID']) ?>" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $reevent['ReservationID'] ?>">
                                         <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                              <label for="conVenueName">Event Type</label>
+                                              <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" value="<?=$reevent['conVenueName']?>" required>
+                                                <option <?= ($reevent['conVenueName'] == 'CBRC Hall') ? 'selected' : '' ?>>CBRC Hall</option>
+                                                <option <?= ($reevent['conVenueName'] == 'Tamaraw') ? 'selected' : '' ?>>Tamaraw</option>
+                                                <option <?= ($reevent['conVenueName'] == 'Octagon') ? 'selected' : '' ?>>Octagon</option>
+                                              </select>
+                                            </div>
                                             <div class="form-group col-md-6">
                                               <label for="EventType">Event Type</label>
                                               <select class="custom-select form-control-border" id="EventType" name="EventType" value="<?=$reevent['EventType']?>" required>
-                                                <option <?= ($reevent['EventType'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
-                                                <option <?= ($reevent['EventType'] == 'Team Building') ? 'selected' : '' ?>>Team Building</option>
-                                                <option <?= ($reevent['EventType'] == 'Meeting') ? 'selected' : '' ?>>Meeting</option>
-                                                <option <?= ($reevent['EventType'] == 'Proposal') ? 'selected' : '' ?>>Proposal</option>
+                                              <option <?= ($reevent['conVenueName'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+                                              <option <?= ($reevent['conVenueName'] == 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+                                              <option <?= ($reevent['conVenueName'] == 'Seminar') ? 'selected' : '' ?>>Seminar</option>
+                                              <option <?= ($reevent['conVenueName'] == 'Christening') ? 'selected' : '' ?>>Christening</option>
+                                              <option <?= ($reevent['conVenueName'] == 'Anniversary') ? 'selected' : '' ?>>Anniversary</option>
                                               </select>
                                             </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="ArivalDate">Preferred Date</label>
-                                                <input type="date" class="form-control" id="ArivalDate" name="ArivalDate" required value="<?= date('Y-m-d\TH:i', strtotime($reevent['ArivalDate'])) ?>">
+                                                <label for="CheckInDate">Preferred Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($reevent['CheckInDate'])) ?>">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="CheckOutDate">Departure Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckOutDate" name="CheckOutDate" required value="<?= date('Y-m-d\TH:i', strtotime($reevent['CheckOutDate'])) ?>">
                                             </div>
                                             
                                         </div>
@@ -189,10 +201,7 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                            <label for="Note">Note</label>
-                                                <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"><?= $reevent['Note'] ?></textarea>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="card-footer">
@@ -207,15 +216,20 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
                     <th>Contact No.</th>
+                    <th>Venue Name</th>
                     <th>Event Type</th>
                     <th>Preferred Date</th>
+                    <th>Departure Date</th>
                     <th>Number of Guests</th>
-                    <th>Note</th>
+                    <th>Payment Option</th>
+                    <th>Reference Number</th>
+                    <th>Down or Full Payment</th>
+                    <th>Total Amount</th>
+                    <th>Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
                     <th>Action</th>
@@ -224,15 +238,20 @@
                   <tbody>
                   <?php foreach ($reevents as $reevent): ?>
                   <tr>
-                    <td><?=$reevent['ReservationID']?></td>
                     <td><?=$reevent['FirstName']?></td>
                     <td><?=$reevent['LastName']?></td>
                     <td><?=$reevent['Email']?></td>
                     <td><?=$reevent['ContactNumber']?></td>
+                    <td><?=$reevent['conVenueName']?></td>
                     <td><?=$reevent['EventType']?></td>
-                    <td><?=$reevent['ArivalDate']?></td>
+                    <td><?=$reevent['CheckInDate']?></td>
+                    <td><?=$reevent['CheckOutDate']?></td>
                     <td><?=$reevent['NumberOfGuests']?></td>
-                    <td><?=$reevent['Note']?></td>
+                    <td><?=$reevent['PaymentOption']?></td>
+                    <td><?=$reevent['ReferenceNumber']?></td>
+                    <td><?=$reevent['downorfullPayment']?></td>
+                    <td><?=$reevent['TotalAmount']?></td>
+                    <td><img style="width: 350px; height: 300px;" src="<?=base_url('/proof/'.$reevent['reservation_image'])?>" alt="#"/></td>
                     <td class="project-state">
                         <?php
                         $badgeClass = '';
@@ -323,7 +342,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["pdf"]
+      "buttons": ["excel", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

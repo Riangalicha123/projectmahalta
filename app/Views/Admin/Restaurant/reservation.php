@@ -67,9 +67,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button>
+                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -304,7 +304,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["pdf"]
+      "buttons": ["excel", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

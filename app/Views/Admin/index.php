@@ -80,7 +80,7 @@
                 <p>Restaurant Reservation</p>
               </div>
               <div class="icon">
-                <i class="ion ion-stats-bars"></i>
+              <i class="nav-icon fas fa-utensils"></i>
               </div>
               <a href="<?= route_to('admin-restaurant/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
@@ -94,7 +94,7 @@
                 <p>Convention Reservation</p>
               </div>
               <div class="icon">
-                <i class="ion ion-person-add"></i>
+                <i class="nav-icon fas fa-ethernet"></i>
               </div>
               <a href="<?= route_to('admin-convention/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>

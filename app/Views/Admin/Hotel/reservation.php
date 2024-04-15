@@ -97,9 +97,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button>
+                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -295,7 +295,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact No.</th>
@@ -319,7 +318,6 @@
                   <tbody>
                   <?php foreach ($hotelrevs as $hotelrev): ?>
                   <tr>
-                    <td><?=$hotelrev['ReservationID']?></td>
                     <td><?=$hotelrev['FirstName']?></td>
                     <td><?=$hotelrev['LastName']?></td>
                     <td><?=$hotelrev['ContactNumber']?></td>

@@ -113,13 +113,13 @@
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
               <i class="nav-icon fas fa-comment-alt"></i>
               <p>
-                Feedback Analytics
+                Feedback<!--  Analytics -->
               </p>
             </a>
           </li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'chat') ? 'active' : '' ?> " href="<?= route_to('admin-chat') ?>">
-              <i class="nav-icon fas fa-comment-alt"></i>
+            <i class="nav-icon fas fa-robot"></i>
               <p>
                 Chat Bot
               </p>
@@ -127,7 +127,7 @@
           </li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'qrcode') ? 'active' : '' ?> " href="<?= route_to('admin-qrcode') ?>">
-              <i class=""></i>
+            <i class="nav-icon fas fa-qrcode"></i>
               <p>
                 Manage Qr Code
               </p>

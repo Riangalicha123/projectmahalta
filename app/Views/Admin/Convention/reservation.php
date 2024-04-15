@@ -67,16 +67,16 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button>
+                    </button> -->
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Staff</h5>
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Reservation</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -120,10 +120,13 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="ArivalDate">Preferred Date</label>
-                                                <input type="datetime-local" class="form-control" id="ArivalDate" name="ArivalDate" required>
+                                                <label for="CheckInDate">Preferred Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required>
                                             </div>
-                                            
+                                            <div class="form-group col-md-6">
+                                                <label for="CheckOutDate">Departure Date</label>
+                                                <input type="datetime-local" class="form-control" id="CheckOutDate" name="CheckOutDate" required>
+                                            </div>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -340,7 +343,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["pdf"]
+      "buttons": ["excel", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
