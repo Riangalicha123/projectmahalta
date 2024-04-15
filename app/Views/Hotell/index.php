@@ -330,52 +330,58 @@
             </div>
         </div>
         <div class="row">
-            <?php 
-            // Define an associative array to store feedbacks grouped by user
-            $userFeedbacks = array();
+        <?php 
+// Define an associative array to store feedbacks grouped by user
+$userFeedbacks = array();
             
-            // Group feedbacks by user
-            foreach ($feedbacks as $feedback): 
-                $email = $feedback['Email'];
-                
-                // Add feedback to the user's array
-                if (!isset($userFeedbacks[$email])) {
-                    $userFeedbacks[$email] = array();
-                }
-                $userFeedbacks[$email][] = $feedback['FeedbackMessage'];
-            endforeach; 
-            
-            // Display feedbacks for each user in separate cards
-            foreach ($userFeedbacks as $email => $feedbackMessages): 
-                echo "<!-- Email: $email -->"; // Debug statement
-                foreach ($feedbackMessages as $message):
-                    echo "<!-- Message: $message -->"; // Debug statement
-            ?>
-                    <div class="col-md-6">
-                    <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="testimonial-card text-center" style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; position: relative;">
-                <div class="testimonial-content" style="margin-bottom: 20px;">
-                    <h3 class="testimonial-email" style="color: #333; font-size: 20px;"><?=$email?></h3>
-                    <p class="testimonial-message" style="font-size: 18px; color: #555;"><?=$message?></p>
-                </div>
-                <div class="testimonial-actions" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <button class="like-btn" onclick="likeFeedback(this)" data-feedback-id="unique_feedback_id_here">&#x1F44D; Like</button>
-                        <span class="like-count" style="margin-left: 10px; font-size: 16px;">0</span>
+// Group feedbacks by user
+foreach ($feedbacks as $feedback): 
+    $email = $feedback['Email'];
+    $created_at = $feedback['created_at']; // Assuming this is the creation date field
+    
+    // Add feedback to the user's array
+    if (!isset($userFeedbacks[$email])) {
+        $userFeedbacks[$email] = array();
+    }
+    $userFeedbacks[$email][] = array(
+        'message' => $feedback['FeedbackMessage'],
+        'created_at' => $created_at // Assigning the created_at variable
+    );
+endforeach; 
+
+// Display feedbacks for each user in separate cards
+foreach ($userFeedbacks as $email => $feedbackMessages): 
+    echo "<!-- Email: $email -->"; // Debug statement
+    foreach ($feedbackMessages as $feedback):
+        echo "<!-- Message: {$feedback['message']} -->"; // Debug statement
+        echo "<!-- Created At: {$feedback['created_at']} -->"; // Debug statement
+?>
+<div class="col-md-6">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="testimonial-card text-center" style="background-color: #f5f5f5; border-radius: 15px; padding: 20px; margin-bottom: 30px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease-in-out; position: relative;">
+                    <div class="testimonial-content" style="margin-bottom: 20px;">
+                        <h3 class="testimonial-email" style="color: #333; font-size: 20px;"><?=$email?></h3>
+                        <p class="testimonial-message" style="font-size: 18px; color: #555;"><?=$feedback['message']?></p>
+                    </div>
+                    <div class="testimonial-actions" style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <!-- <button class="like-btn" onclick="likeFeedback(this)" data-feedback-id="unique_feedback_id_here">&#x1F44D; Like</button>
+                            <span class="like-count" style="margin-left: 10px; font-size: 16px;">0</span> -->
+                        </div>
+                        <p class="testimonial-message" style="font-size: 18px; color: #555;"><?=$feedback['created_at']?></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<?php 
+    endforeach;
+endforeach; 
+?>
 
-                    </div>
-            <?php 
-                endforeach;
-            endforeach; 
-            ?>
         </div>
     </div>
 </section>

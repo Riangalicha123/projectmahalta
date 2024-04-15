@@ -20,6 +20,26 @@
 
   <!-- Theme Style -->
   <link rel="stylesheet" href="/guest/css/style.css">
+  <style>
+    
+/* Style the buttons */
+.btn-info, .btn-secondary {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+}
+
+  </style>
 </head>
 
 <body>
@@ -83,8 +103,8 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-    <button type="submit">Submit</button>
-    <a href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
+    <button type="submit" class="btn-info">Submit</button>
+    <a class="btn-secondary" href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
 </form>
 
         </div>

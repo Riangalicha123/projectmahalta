@@ -279,8 +279,8 @@
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <!-- Inside the dropdown menu in your HTML template -->
                             <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Confirm/{$reevent['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateconStatus/Pending/{$reevent['ReservationID']}") ?>">Pending</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateconStatus/Cancel/{$reevent['ReservationID']}") ?>">Cancel</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Pending/{$reevent['ReservationID']}") ?>">Pending</a>
+                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Cancel/{$reevent['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>
                     </td>

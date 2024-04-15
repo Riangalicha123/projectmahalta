@@ -485,7 +485,11 @@ class AdminController extends BaseController
         $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
         $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
         $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+        $emailMessage .= "Adult: {$reservation['Adult']}<br>";
+        $emailMessage .= "Kid: {$reservation['Child']}<br>";
+        $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
+        $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
+        $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
         $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
         $emailMessage .= "If you have any questions, please contact us.<br>";
 
@@ -651,19 +655,65 @@ class AdminController extends BaseController
     }
     public function updateResStatus($status, $reservationID)
     {
-        // Get the ReservationID from the request, assuming it's sent via POST
+        $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
+    
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status (you may redirect or show an error message)
-            return redirect()->back('/admin-dashboard')->with('error', 'Invalid status');
+            // Handle invalid status
+            return redirect()->back()->with('error', 'Invalid status');
         }
-
+    
+        // Retrieve the reservation and associated user's email address
+        $reservation = $this->reservation
+                             ->where('ReservationID', $reservationID)
+                             ->first();
+    
+        if (!$reservation) {
+            // Handle case where reservation doesn't exist
+            return redirect()->back()->with('error', 'Reservation not found');
+        }
+    
+        // Retrieve user data based on UserID from the reservation
+        $user = $this->users
+                     ->where('UserID', $reservation['UserID'])
+                     ->first();
+    
+        if (!$user) {
+            // Handle case where user doesn't exist
+            return redirect()->back()->with('error', 'User not found for the reservation');
+        }
+    
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
-        $this->reservation->update($reservationID, $updateData);
+        $updated = $this->reservation->update($reservationID, $updateData);
+    
+        if ($updated) {
+         // Prepare the email message with reservation details
+        $emailMessage = "Dear customer,<br><br>";
+        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+        $emailMessage .= "Arrival Date: {$reservation['ArivalDate']}<br>";
+        $emailMessage .= "Arrival Date: {$reservation['ArivalTime']}<br>";
+        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+        $emailMessage .= "Note : {$reservation['Note']}<br>";
+        $emailMessage .= "If you have any questions, please contact us.<br>";
 
-        // Redirect to the reservation page or wherever appropriate
-        return redirect()->to('/admin-restaurant/reservation')->with('success', 'Reservation status updated successfully');
+    
+            // Send the email to the user
+            $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
+            $fcmToken = $user['fcm_token'];
+            if (!empty($fcmToken)) {
+                $notifTitle = 'Reservation Status Updated';
+                $notifBody = "Your reservation status has been updated to {$status}.";
+                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+            }
+            // Redirect to the reservation page with a success message
+            $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
+            return redirect()->to('/admin-restaurant/reservation');
+        } else {
+            // Handle case where update fails
+            return redirect()->back()->with('error', 'Failed to update reservation status');
+        }
     }
     public function conReservation()
     {
@@ -791,19 +841,65 @@ class AdminController extends BaseController
     }
     public function updateconStatus($status, $reservationID)
     {
-        // Get the ReservationID from the request, assuming it's sent via POST
+        $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
+    
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status (you may redirect or show an error message)
-            return redirect()->back('/admin-dashboard')->with('error', 'Invalid status');
+            // Handle invalid status
+            return redirect()->back()->with('error', 'Invalid status');
         }
-
+    
+        // Retrieve the reservation and associated user's email address
+        $reservation = $this->reservation
+                             ->where('ReservationID', $reservationID)
+                             ->first();
+    
+        if (!$reservation) {
+            // Handle case where reservation doesn't exist
+            return redirect()->back()->with('error', 'Reservation not found');
+        }
+    
+        // Retrieve user data based on UserID from the reservation
+        $user = $this->users
+                     ->where('UserID', $reservation['UserID'])
+                     ->first();
+    
+        if (!$user) {
+            // Handle case where user doesn't exist
+            return redirect()->back()->with('error', 'User not found for the reservation');
+        }
+    
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
-        $this->reservation->update($reservationID, $updateData);
+        $updated = $this->reservation->update($reservationID, $updateData);
+    
+        if ($updated) {
+         // Prepare the email message with reservation details
+        $emailMessage = "Dear customer,<br><br>";
+        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+        $emailMessage .= "If you have any questions, please contact us.<br>";
 
-        // Redirect to the reservation page or wherever appropriate
-        return redirect()->to('/admin-convention/reservation')->with('success', 'Reservation status updated successfully');
+    
+            // Send the email to the user
+            $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
+            $fcmToken = $user['fcm_token'];
+            if (!empty($fcmToken)) {
+                $notifTitle = 'Reservation Status Updated';
+                $notifBody = "Your reservation status has been updated to {$status}.";
+                $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+            }
+            // Redirect to the reservation page with a success message
+            $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
+            return redirect()->to('/admin-hotel/reservation');
+        } else {
+            // Handle case where update fails
+            return redirect()->back()->with('error', 'Failed to update reservation status');
+        }
     }
     public function staffAccounts()
     {

@@ -83,7 +83,7 @@ class GuestController extends BaseController
             'activePage' => 'Home',
             'chats' => $this->chat->findAll(),
             'feedbacks' => $this->feedbacks
-            ->select('feedback.FeedbackID,feedback.FeedbackMessage, users.UserID, users.Email')
+            ->select('feedback.FeedbackID,feedback.FeedbackMessage,feedback.created_at, users.UserID, users.Email')
             ->join ('users', 'feedback.UserID = users.UserID')
             ->findAll()
         ];
@@ -837,7 +837,7 @@ class GuestController extends BaseController
             ->get();
 
         $reservations = $reservationsQuery->getResultArray();
-        $unavailableDates = []; // Array to store unavailable dates
+        $unavailableDates = [];
 
         foreach ($reservations as $reservation) {
             $startDate = new \DateTime($reservation['StartDate']);
@@ -849,6 +849,10 @@ class GuestController extends BaseController
             // Generate period between start and end dates
             $interval = new \DateInterval('P1D');
             $period = new \DatePeriod($startDate, $interval, $endDate);
+            // Only consider dates for reservations with status 'Confirm' or 'Pending'
+            if ($reservation['Status'] === 'Cancel') {
+                continue;
+            }
 
             // Add each date in the period to the unavailable dates array
             foreach ($period as $date) {
@@ -1063,7 +1067,7 @@ class GuestController extends BaseController
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
-                            $emailMessage = $this->prepareEmailConvention($UserData, $newReservationData, $EventData, $convenuesSelected);
+                            $emailMessage = $this->prepareEmailConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected);
                             $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                             $fcmToken = $UserData['fcm_token'];
 
@@ -1095,7 +1099,7 @@ class GuestController extends BaseController
         }
         
     }    
-    private function prepareEmailConvention(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
+    private function prepareEmailConventionMessage(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
     {
         $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
         $checkInDate = $reservationData['CheckInDate'] ?? '';
@@ -1129,7 +1133,6 @@ class GuestController extends BaseController
     
         return $message;
     }
-    
 
 
     
