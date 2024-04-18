@@ -230,7 +230,7 @@
                     <th>Reference Number</th>
                     <th>Down or Full Payment</th>
                     <th>Total Amount</th>
-                    <th>Image</th>
+                    <th>Proof Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
                     <th>Action</th>

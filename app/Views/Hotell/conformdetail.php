@@ -31,15 +31,12 @@
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-
             <div class="mb-5 element-animate">
             <br>
             <br>
             <br>
               <h1>Convention Reservation</h1>
-               
             </div>
-
           </div>
         </div>
       </div>

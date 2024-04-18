@@ -296,7 +296,7 @@
       </div>
     </section>
     <?php endif; ?>
-    <?php include('inc/chat.php') ?>
+    
     <!-- END section -->
 
     <?php include('inc/footer.php') ?>

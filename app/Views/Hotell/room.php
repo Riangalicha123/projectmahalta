@@ -250,7 +250,7 @@
         </div>
       </div>
     </section>
-    <?php include('inc/chat.php') ?>
+    
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
     <script>

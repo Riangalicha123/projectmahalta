@@ -309,7 +309,7 @@
                     <th>Reference No.</th>
                     <th>Down or Full Payment</th>
                     <th>TotalAmount</th>
-                    <th>Image</th>
+                    <th>Proof Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
                     <th>Action</th>
@@ -332,7 +332,7 @@
                     <td><?=$hotelrev['ReferenceNumber']?></td>
                     <td><?=$hotelrev['downorfullPayment']?></td>
                     <td><?=$hotelrev['TotalAmount']?></td>
-                    <td><img src="<?=base_url('/proof/'.$hotelrev['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 200px; height: 200px;" src="<?=base_url('/proof/'.$hotelrev['Image'])?>" alt="#"/></td>
                     <td class="project-state">
                         <?php
                         $badgeClass = '';

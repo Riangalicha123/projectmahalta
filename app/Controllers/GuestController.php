@@ -83,7 +83,7 @@ class GuestController extends BaseController
             'activePage' => 'Home',
             'chats' => $this->chat->findAll(),
             'feedbacks' => $this->feedbacks
-            ->select('feedback.FeedbackID,feedback.FeedbackMessage,feedback.created_at, users.UserID, users.Email')
+            ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, users.UserID, users.Email')
             ->join ('users', 'feedback.UserID = users.UserID')
             ->findAll()
         ];
@@ -609,7 +609,7 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-    private function prepareEmailMessage(array $reservationData, array $roomSelected, array $user, array $amenitiesData): string
+    private function prepareEmailMessage(array $reservationData, array $roomSelected, array $user, ?array $amenitiesData): string
     {
         $checkInDate = $reservationData['CheckInDate'];
         $checkOutDate = $reservationData['CheckOutDate'];
@@ -654,6 +654,7 @@ class GuestController extends BaseController
     
         return $message;
     }
+    
     
     protected function sendPushNotification($fcmToken, $title, $body) {
         $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
@@ -1144,6 +1145,114 @@ class GuestController extends BaseController
     {
         return view('Hotell\index');
     }
+    public function submitReview()
+    {
+        $feedbackModel = new FeedbackModel();
+
+        $Email = $this->request->getPost('Email');
+        $userModel = new UserModel(); // Assuming UserModel is used for fetching user data
+        $user = $userModel->where('Email', $Email)->first();
+
+        $data = [
+            'UserID'           => $user['UserID'], // Assuming UserID is the primary key
+            'UserRating'       => $this->request->getPost('UserRating'),
+            'FeedbackMessage'  => $this->request->getPost('FeedbackMessage'),
+            'datetime'         => time()
+        ];
+
+        try {
+            $result = $feedbackModel->insert($data);
+
+            if ($result === false) {
+                // Insertion failed
+                return "Failed to submit review.";
+            } else {
+                // Insertion successful
+                return "Your Review & Rating Have Been Successfully Submitted";
+            }
+        } catch (\Exception $e) {
+            // Log the error
+            log_message('error', $e->getMessage());
+            return "An error occurred while submitting the review.";
+        }
+    }
+
+    public function Review()
+    {
+        if ($this->request->getPost('action')) {
+            $feedbackModel = new FeedbackModel();
+            $reviews = $feedbackModel->orderBy('FeedbackID', 'DESC')->findAll();
+    
+            $averageRating = 0;
+            $totalReview = count($reviews);
+            $fiveStarReview = 0;
+            $fourStarReview = 0;
+            $threeStarReview = 0;
+            $twoStarReview = 0;
+            $oneStarReview = 0;
+            $totalUserRating = 0;
+            $reviewContent = [];
+    
+            // Assuming UserModel is used for fetching user data
+            $userModel = new UserModel();
+    
+            foreach ($reviews as $row) {
+                // Fetch user data based on UserID
+                $user = $userModel->find($row['UserID']);
+    
+                // Check if user exists and has an email address
+                if ($user && isset($user['Email'])) {
+                    $email = $user['Email'];
+                } else {
+                    // If user or email is not found, set a default value or handle accordingly
+                    $email = "Unknown";
+                }
+    
+                $reviewContent[] = [
+                    'Email' => $email, // Update email here
+                    'FeedbackMessage' => $row['FeedbackMessage'],
+                    'rating' => $row['UserRating'],
+                    'datetime' => date('l jS, F Y h:i:s A', strtotime($row['datetime']))
+                ];
+    
+                switch ($row['UserRating']) {
+                    case 5:
+                        $fiveStarReview++;
+                        break;
+                    case 4:
+                        $fourStarReview++;
+                        break;
+                    case 3:
+                        $threeStarReview++;
+                        break;
+                    case 2:
+                        $twoStarReview++;
+                        break;
+                    case 1:
+                        $oneStarReview++;
+                        break;
+                }
+    
+                $totalUserRating += $row['UserRating'];
+            }
+    
+            $averageRating = $totalUserRating / $totalReview;
+    
+            $output = [
+                'average_rating' => number_format($averageRating, 1),
+                'total_review' => $totalReview,
+                'five_star_review' => $fiveStarReview,
+                'four_star_review' => $fourStarReview,
+                'three_star_review' => $threeStarReview,
+                'two_star_review' => $twoStarReview,
+                'one_star_review' => $oneStarReview,
+                'review_data' => $reviewContent
+            ];
+    
+            return json_encode($output);
+        }
+    }
+    
     public function postFeedback()
     {
         helper(['form']);

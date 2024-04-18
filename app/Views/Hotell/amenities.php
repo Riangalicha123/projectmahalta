@@ -75,38 +75,40 @@
       <div class="row">
         <div class="col-md-6">
         <form method="post" action="<?= base_url('/addAmenities') ?>">
-    <table class="table table-responsive">
-        <thead>
-            <tr>
-                <th>Select</th>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($roinvents as $roinvent): ?>
-            <tr>
-                <td>
-                    <input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
-                    <!-- Hidden inputs for additional data -->
-                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
-                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
-                </td>
-                <td><?= $roinvent['ProductName'] ?></td>
-                <td><?= $roinvent['Price'] ?></td>
-                <td>
-                    <!-- Use roomInventoryID as the index for quantity inputs -->
-                    <input type="text" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]" placeholder="0">
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <button type="submit" class="btn-info">Submit</button>
-    <a class="btn-secondary" href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
-</form>
-
+          <table class="table table-responsive">
+              <thead>
+                  <tr>
+                      <th>Select</th>
+                      <th>Product Name</th>
+                      <th>Price</th>
+                      <th>Quantity</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <?php foreach ($roinvents as $roinvent): ?>
+                  <tr>
+                      <td>
+                          <input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                          <!-- Hidden inputs for additional data -->
+                          <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                          <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                      </td>
+                      <td><?= $roinvent['ProductName'] ?></td>
+                      <td><?= $roinvent['Price'] ?></td>
+                      <td>
+                      <select name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
+                          <?php for ($i = 0; $i <= 10; $i++) : ?>
+                              <option value="<?= $i ?>"><?= $i ?></option>
+                          <?php endfor; ?>
+                      </select>
+                      </td>
+                  </tr>
+                  <?php endforeach; ?>
+              </tbody>
+          </table>
+          <button type="submit" class="btn-info">Submit</button>
+          <a class="btn-secondary" href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
+      </form>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
@@ -139,14 +141,10 @@
                   <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
                   <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
                 <hr>
-                
-                <!-- Add this div at the end of your section, right before the closing </section> tag -->
                 <div class="row additionalDetails" style="display:none;">
-                  <!-- Additional details content goes here -->
                   <p>
                       <?= esc($roomReservationData['roomSelected']['Description'] ?? '') ?>
                   </p>
-
                   <p><b>• ROOM INCLUSIONS</b></p>
                   <ul>
                       <li>Complimentary Breakfast (Plated Service)</li>
@@ -157,127 +155,90 @@
                   </ul>
                   <p><b>NOTE: Extra person will be charged PHP 500.00 per head</b></p>
                 </div>
-
-                <!-- View More Button -->
                 <div class="row">
                   <div class="col-md-12 text-center">
                     <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
                   </div>
                 </div>
               </div>
-              
             </div>
           <?php else: ?>
             <p>No reservation data found.</p>
           <?php endif; ?>
-
         </div>
         </form>
       </div>
     </div>
   </section>
-
   <?php include('inc/footer.php') ?>
-  <!-- END footer -->
-
-  <!-- loader -->
   <?php include('inc/loader.php') ?>
   <script>
-function showQR(option) {
-    <?php foreach ($qrcodes as $qr): ?>
-        if (option === '<?php echo $qr['PaymentOption']; ?>') {
-            document.getElementById('qrImage').src = "<?=base_url('/qrimage/'.$qr['Image'])?>";
-            <?php if ($qr['PaymentOption'] === 'gcash'): ?>
-                document.getElementById('gcashReferenceDiv').style.display = 'block';
-                document.getElementById('paymayaReferenceDiv').style.display = 'none';
-                document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
-                document.getElementById('paymayaReferenceNumber').removeAttribute('name');
-            <?php elseif ($qr['PaymentOption'] === 'paymaya'): ?>
-                document.getElementById('gcashReferenceDiv').style.display = 'none';
-                document.getElementById('paymayaReferenceDiv').style.display = 'block';
-                document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
-                document.getElementById('gcashReferenceNumber').removeAttribute('name');
-            <?php endif; ?>
-        }
-    <?php endforeach; ?>
-}
-</script>
+  function showQR(option) {
+      <?php foreach ($qrcodes as $qr): ?>
+          if (option === '<?php echo $qr['PaymentOption']; ?>') {
+              document.getElementById('qrImage').src = "<?=base_url('/qrimage/'.$qr['Image'])?>";
+              <?php if ($qr['PaymentOption'] === 'gcash'): ?>
+                  document.getElementById('gcashReferenceDiv').style.display = 'block';
+                  document.getElementById('paymayaReferenceDiv').style.display = 'none';
+                  document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
+                  document.getElementById('paymayaReferenceNumber').removeAttribute('name');
+              <?php elseif ($qr['PaymentOption'] === 'paymaya'): ?>
+                  document.getElementById('gcashReferenceDiv').style.display = 'none';
+                  document.getElementById('paymayaReferenceDiv').style.display = 'block';
+                  document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
+                  document.getElementById('gcashReferenceNumber').removeAttribute('name');
+              <?php endif; ?>
+          }
+      <?php endforeach; ?>
+  }
+  </script>
 
   <script>
-    // Function to update payment input container
-    function updatePaymentInputContainer() {
-        // Get the selected option
-        var selectedOption = document.getElementById("downorfullPayment").value;
-        
-        // Update the paymentInputContainer with the selected value
-        document.getElementById("paymentInputContainer").innerHTML = selectedOption;
+      function updatePaymentInputContainer() {
+          var selectedOption = document.getElementById("downorfullPayment").value;
+          document.getElementById("paymentInputContainer").innerHTML = selectedOption;
+      }
+      document.getElementById("downorfullPayment").addEventListener("change", updatePaymentInputContainer);
+      updatePaymentInputContainer();
+  </script>
+  <script>
+    function showMessage(message, type) {
+        const messageContainer = document.getElementById('messageContainer');
+        messageContainer.textContent = message;
+        messageContainer.className = type;
+        messageContainer.style.display = 'block';
+        setTimeout(function() {
+            messageContainer.style.display = 'none';
+        }, 5000);
     }
-    
-    // Add event listener to the dropdown
-    document.getElementById("downorfullPayment").addEventListener("change", updatePaymentInputContainer);
-    
-    // Initially call the function to populate the container with the default selected value
-    updatePaymentInputContainer();
-</script>
+  if (sessionStorage.getItem('success')) {
+      showMessage(sessionStorage.getItem('success'), 'success');
+  }
+  if (sessionStorage.getItem('error')) {
+      showMessage(sessionStorage.getItem('error'), 'error');
+  }
+
+  </script>
   <script>
-  // Function to show a message in the message container
-function showMessage(message, type) {
-    const messageContainer = document.getElementById('messageContainer');
-    messageContainer.textContent = message;
-    messageContainer.className = type;
-    messageContainer.style.display = 'block';
-    // Automatically hide the message after 5 seconds (adjust as needed)
-    setTimeout(function() {
-        messageContainer.style.display = 'none';
-    }, 5000);
-}
-
-// Check if a success message exists in the session and display it
-if (sessionStorage.getItem('success')) {
-    showMessage(sessionStorage.getItem('success'), 'success');
-}
-
-// Check if an error message exists in the session and display it
-if (sessionStorage.getItem('error')) {
-    showMessage(sessionStorage.getItem('error'), 'error');
-}
-
-</script>
-  <script>
-    // Function to add leading zeros to single-digit numbers
     function padZero(number) {
       return number < 10 ? '0' + number : number;
     }
-
-    // Get current date and time in the Philippine timezone (UTC+8)
     let currentDate = new Date();
     let philippineTime = new Date(currentDate.getTime());
-
-    // Format the date to match the datetime-local input format
     let formattedDate = philippineTime.getFullYear() + '-' +
       padZero(philippineTime.getMonth() + 1) + '-' +
       padZero(philippineTime.getDate()) + 'T' +
       padZero(philippineTime.getHours()) + ':' +
       padZero(philippineTime.getMinutes());
-
-    // Set the values of Arrival Date and Departure Date fields
     document.getElementById('CheckInDate').value = formattedDate;
     document.getElementById('CheckOutDate').value = formattedDate;
   </script>
   <script>
-    // Use a class for the View More buttons to distinguish between them
     var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-    // Loop through each button and add a click event listener
     viewMoreButtons.forEach(function (button) {
       button.addEventListener('click', function () {
-        // Find the parent container of the clicked button
         var parentContainer = button.closest('.room');
-
-        // Find the additional details div inside the parent container
         var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-        // Toggle the display of the additional details
         detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
       });
     });

@@ -43,7 +43,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="heading-wrap  element-animate">
-              <h4 style="text-align: center;"><strong>Concention Center Reservations Policies</strong></h4>
+              <h4 style="text-align: center;"><strong>Convention Center Reservations Policies</strong></h4>
               <br>
               <div style="text-align: center;">
   <p class="" style="color: black; font-size: 20px;">
@@ -122,7 +122,7 @@
         </div>
       </div>
     </section>
-    <?php include('inc/chat.php') ?>
+    
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
 

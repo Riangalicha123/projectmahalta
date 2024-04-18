@@ -41,6 +41,8 @@ $routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1',['fil
 $routes->post('/tableReservation', 'GuestController::tableReservation',['filter' => 'noAuth']);
 $routes->post('/eventReservation', 'GuestController::eventReservation',['filter' => 'noAuth']);
 $routes->get('/getFeedback', 'GuestController::getFeedback',['filter' => 'noAuth']);
+$routes->post('/submit-review', 'GuestController::submitReview',['filter' => 'noAuth']);
+$routes->post('/review', 'GuestController::Review',['filter' => 'noAuth']);
 $routes->post('/postFeedback', 'GuestController::postFeedback',['filter' => 'noAuth']);
 
 $routes->post('/get_chat_data', 'GuestController::get_chat_data',['filter' => 'noAuth']);
