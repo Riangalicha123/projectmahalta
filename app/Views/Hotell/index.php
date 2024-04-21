@@ -291,53 +291,7 @@
         </div>
       </div>
     </section>
-    <!-- END section -->
-    
-<!--     <section class="site-section bg-light"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
-      <div class="container">
-        <div class="row mb-5">
-          <div class="col-md-12 heading-wrap text-center">
-            <h4 class="sub-heading"style="color: darkgrey;">Our Blog</h4>
-              <h2 class="heading">Our Recent Blog</h2>
-          </div>
-        </div>
-        <div class="row ">
-          <div class="col-md-4">
-            <div class="post-entry">
-              <img src="/guest/images/MahaltaPic/5.jpg" alt="Image placeholder" class="img-fluid">
-              <div class="body-text">
-                <div class="category">Rooms</div>
-                <h3 class="mb-3"><a href="#">New Rooms</a></h3>
-                <p class="mb-4">Cozy room with modern amenities for a comfortable stay.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <img src="/guest/images/img_6.jpg" alt="Image placeholder" class="img-fluid">
-              <div class="body-text">
-                <div class="category">News</div>
-                <h3 class="mb-3"><a href="#">New Staff Added</a></h3>
-                <p class="mb-4">Professional staff dedicated to ensuring your satisfaction during your stay.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="post-entry">
-              <img src="/guest/images/MahaltaPic/20.jpg" alt="Image placeholder" class="img-fluid">
-              <div class="body-text">
-                <div class="category">Restaurant</div>
-                <h3 class="mb-3"><a href="#">Restaurant for All</a></h3>
-                <p class="mb-4">Enjoy delicious meals in our restaurant for a delightful dining experience.</p>
-                <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> -->
+    <?php if(session()->get('isLoggedIn')): ?>
     <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
     <div class="container">
         <div class="row mb-5">
@@ -447,6 +401,86 @@
     	</div>
   	</div>
 </div>
+<?php else: ?>
+  <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-md-12 heading-wrap text-center">
+                <br>
+                <h4 class="sub-heading" style="color: darkgrey;">Guest Feedback</h4>
+                <h2 class="heading">Feedback</h2>
+            </div>
+        </div>
+        <div class="card">
+    		<div class="card-header"></div>
+    		<div class="card-body">
+    			<div class="row">
+    				<div class="col-sm-4 text-center">
+    					<h1 class="text-warning mt-4 mb-4">
+    						<b><span id="average_rating">0.0</span> / 5</b>
+    					</h1>
+    					<div class="mb-3">
+    						<i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+                            <i class="fas fa-star star-light mr-1 main_star"></i>
+	    				</div>
+    					<h3><span id="total_review">0</span> Review</h3>
+    				</div>
+    				<div class="col-sm-4">
+    					<p>
+                            <div class="progress-label-left"><b>5</b> <i class="fas fa-star text-warning"></i></div>
+
+                            <div class="progress-label-right">(<span id="total_five_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress"></div>
+                            </div>
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>4</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_four_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress"></div>
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>3</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_three_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="three_star_progress"></div>
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>2</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_two_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="two_star_progress"></div>
+                            </div>               
+                        </p>
+    					<p>
+                            <div class="progress-label-left"><b>1</b> <i class="fas fa-star text-warning"></i></div>
+                            
+                            <div class="progress-label-right">(<span id="total_one_star_review">0</span>)</div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="one_star_progress"></div>
+                            </div>               
+                        </p>
+    				</div>
+    				<div class="col-sm-4 text-center">
+    					<h3 class="mt-4 mb-3">Write Review Here</h3>
+    					<button type="button" href="<?= route_to('login') ?>" class="btn btn-primary">Review</button>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="mt-5" id="review_content"></div>
+    </div>
+</section>
+<?php endif; ?>
 <script>
 $(document).ready(function(){
     $('#add_review').click(function(){

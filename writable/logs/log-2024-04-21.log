@@ -1,0 +1,48 @@
+CRITICAL - 2024-04-21 02:57:34 --> Undefined variable $roinvents
+in APPPATH\Views\Stafff\Inventory\hotel.php on line 113.
+ 1 APPPATH\Views\Stafff\Inventory\hotel.php(113): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roinvents', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\hotel.php', 113)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\hotel.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\Inventory\\hotel', [], true)
+ 5 APPPATH\Controllers\InventoryController.php(82): view('Stafff\\Inventory\\hotel', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\InventoryController->addinHotel()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-21 02:58:07 --> Undefined variable $roinvents
+in APPPATH\Views\Stafff\Inventory\hotel.php on line 113.
+ 1 APPPATH\Views\Stafff\Inventory\hotel.php(113): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roinvents', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\hotel.php', 113)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\hotel.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\Inventory\\hotel', [], true)
+ 5 APPPATH\Controllers\InventoryController.php(82): view('Stafff\\Inventory\\hotel', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\InventoryController->addinHotel()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-21 06:01:41 --> Undefined array key "Adult"
+in APPPATH\Views\Hotell\booking.php on line 71.
+ 1 APPPATH\Views\Hotell\booking.php(71): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "Adult"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 71)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1403): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-21 06:02:37 --> Undefined array key "PaymentOption"
+in APPPATH\Views\Hotell\booking.php on line 73.
+ 1 APPPATH\Views\Hotell\booking.php(73): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "PaymentOption"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 73)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1403): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

@@ -35,6 +35,7 @@ $routes->post('/conventionReservation', 'GuestController::conventionReservation'
 $routes->get('/convention-center/reservation/formdetails', 'GuestController::conventionformdetails',['filter' => 'noAuth']);
 $routes->get('/conpackage', 'GuestController::conPackage',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
+$routes->get('/booking', 'GuestController::booking',['filter' => 'noAuth']);
 $routes->get('/chat', 'GuestController::chat',['filter' => 'noAuth']);
 $routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1',['filter' => 'noAuth']);
 

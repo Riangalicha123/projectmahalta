@@ -63,7 +63,7 @@ class InventoryController extends BaseController
     {
         helper(['form']);
         $rules = [
-            'ProductName' => 'required|min_length[4]|max_length[100]',
+            'ProductName' => 'required|min_length[3]|max_length[100]',
             'Quantity' => 'required',
             'Price' => 'required',
         ];

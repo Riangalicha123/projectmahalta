@@ -1390,6 +1390,17 @@ class GuestController extends BaseController
             exit;
         }
     }
-
+    public function booking()
+    {
+        $data=[
+            'hotelrevs' => $this->reservation
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false )
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->findAll(),
+        ];
+        return view('Hotell\booking', $data);
+    }
 
 }
