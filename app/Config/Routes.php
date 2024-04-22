@@ -23,6 +23,7 @@ $routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions',['filt
 $routes->get('/barmenu', 'GuestController::barmenu',['filter' => 'noAuth']);
 $routes->get('/cafemenu', 'GuestController::cafemenu',['filter' => 'noAuth']);
 $routes->get('/respolicy', 'GuestController::restaurantPolicy',['filter' => 'noAuth']);
+$routes->get('/daytour', 'GuestController::daytour',['filter' => 'noAuth']);
 $routes->get('/convention-center', 'GuestController::convention',['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation', 'GuestController::conReservation',['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation', 'GuestController::getdataconVenue',['filter' => 'noAuth']);
@@ -36,6 +37,9 @@ $routes->get('/convention-center/reservation/formdetails', 'GuestController::con
 $routes->get('/conpackage', 'GuestController::conPackage',['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile',['filter' => 'noAuth']);
 $routes->get('/booking', 'GuestController::booking',['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updatehotelstatus/(:segment)/(:num)', 'GuestController::bookinghotelupdatestatus/$1/$2',['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updaterestaustatus/(:segment)/(:num)', 'GuestController::bookingrestauupdatestatus/$1/$2',['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updateconvenstatus/(:segment)/(:num)', 'GuestController::bookingconvenupdatestatus/$1/$2',['filter' => 'noAuth']);
 $routes->get('/chat', 'GuestController::chat',['filter' => 'noAuth']);
 $routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1',['filter' => 'noAuth']);
 
@@ -47,7 +51,6 @@ $routes->post('/review', 'GuestController::Review',['filter' => 'noAuth']);
 $routes->post('/postFeedback', 'GuestController::postFeedback',['filter' => 'noAuth']);
 
 $routes->post('/get_chat_data', 'GuestController::get_chat_data',['filter' => 'noAuth']);
-
 
 $routes->get('/register', 'UserController::register',['filter' => 'noAuth']);
 $routes->post('/api/fetch-province', 'UserController::fetchProvince',['filter' => 'noAuth']);

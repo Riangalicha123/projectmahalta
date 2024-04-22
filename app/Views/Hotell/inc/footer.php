@@ -39,17 +39,9 @@
               <a href="#" class="p-3"><span class="fa fa-youtube-play"></span></a> 
             </p>
           </div> -->
-          <!-- <div class="col-md-4">
-            <h3>Connect With Us</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, odio.</p>
-            <form action="#" class="subscribe">
-              <div class="form-group">
-                <button type="submit"><span class="ion-ios-arrow-thin-right"></span></button>
-                <input type="email" class="form-control" placeholder="Enter email">
-              </div>
-              
-            </form>
-          </div> -->
+          <div class="col-md-4">
+
+          </div>
           <div class="col-md-4">
     <!-- ... Your existing content ... -->
     <!-- Add Google Map -->
@@ -59,41 +51,6 @@
     </div>
     <!-- ... Your existing content ... -->
 </div>
-        <?php if(session()->get('isLoggedIn')): ?>
-        <div class="col-md-4">
-                  <h3 style="background: linear-gradient(to bottom, blue, lightgreen); -webkit-background-clip: text; color: transparent;font-weight: bold; font-size: 20px;">Leave Your Feedback</h3>
-                  <p> Share your thoughts with us!</p>
-          <form action="/postFeedback" method="post" class="feedback-form">
-            <div class="form-group">
-              <!-- <label for="feedbackEmail">Your Email:</label> -->
-              <input type="email" class="form-control" id="Email" name="Email" required value="<?= $_SESSION['username'] ?? ''; ?>">
-              <!-- <label for="feedbackMessage"style="color: skyblue;">Your Feedback:</label> -->
-              <textarea class="form-control" id="FeedbackMessage" name="FeedbackMessage" rows="4" placeholder="Enter your feedback" required ></textarea>
-            </div>
-            <div class="form-group text-center">
-              <button type="submit" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px; background-color: #007bff; color: #fff; border: 1px solid #fff; cursor: pointer;">Submit Feedback</button>
-            </div>
-
-          </form>
-        </div>
-        <?php else: ?>
-        <div class="col-md-4">
-                  <h3 style="background: linear-gradient(to bottom, blue, lightgreen); -webkit-background-clip: text; color: transparent;font-weight: bold; font-size: 20px;">Leave Your Feedback</h3>
-                  <p> Share your thoughts with us!</p>
-          <form action="#" class="feedback-form">
-            <div class="form-group">
-              <!-- <label for="feedbackEmail">Your Email:</label> -->
-              <!-- <input type="email" class="form-control" id="Email" name="Email" required> -->
-              <!-- <label for="feedbackMessage"style="color: skyblue;">Your Feedback:</label> -->
-              <textarea class="form-control" id="FeedbackMessage" name="FeedbackMessage" rows="4" placeholder="Enter your feedback" ></textarea>
-            </div>
-            <div class="form-group text-center">
-              <button type="submit" class="btn btn-primary" style="padding: 5px 10px; font-size: 12px; background-color: #007bff; color: #fff; border: 1px solid #fff; cursor: pointer;">Submit Feedback</button>
-            </div>
-
-          </form>
-        </div>
-        <?php endif; ?>
         </div>
         
         <div class="row justify-content-center">

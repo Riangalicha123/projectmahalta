@@ -246,7 +246,7 @@
                 <h3 class="mt-0"><a href="#">Events</a></h3>
                 
                 <p>Enjoy your events at our convention center – modern spaces, great amenities, and expert support for successful gatherings. </p>
-                <p><a href="<?= route_to('convention') ?>" class="btn btn-primary btn-sm">View Our Convetions Options</a></p>
+                <p><a href="<?= route_to('convention-center') ?>" class="btn btn-primary btn-sm">View Our Convetions Options</a></p>
               </div>
             </div>
           </div>
@@ -279,7 +279,60 @@
         </div>
       </div>
     </section>
-    
+    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-12 heading-wrap text-center">
+              <h2 class="heading">Featured Day Tour</h2>
+          </div>
+        </div>
+        <div class="row ">
+          <div class="col-md-7">
+            <div class="media d-block room mb-0">
+              <figure>
+                <img src="/guest/images/MahaltaPic/19.jpg" alt="Generic placeholder image" class="img-fluid">
+                <div class="overlap-text">
+                  
+                </div>
+              </figure>
+              <div class="media-body">
+                <h3 class="mt-0"><a href="#">Pool</a></h3>
+                
+                <p>
+Experience the ultimate day tour with exclusive pool access, where you can unwind and relax in our pristine waters. Dive into luxury and soak up the sun while enjoying refreshing beverages and delectable snacks poolside.</p>
+                <p><a href="<?= route_to('daytour') ?>" class="btn btn-primary btn-sm">View Our Day Tour Policy</a></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 room-thumbnail-absolute">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/18.jpg); ">
+              <!-- <figure> -->
+                <div class="overlap-text">
+                  <!-- <span>
+                    Wedding and Celebrations
+                    
+                  </span> -->
+                  
+                </div>
+              <!-- </figure> -->
+            </a>
+
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/17.jpg); ">
+              <!-- <figure> -->
+                <div class="overlap-text">
+                  <!-- <span>
+                    Meeting 
+                    
+                  </span> -->
+                  
+                </div>
+              <!-- </figure> -->
+            </a>
+            
+          </div>
+        </div>
+      </div>
+    </section>
     <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/MahaltaPic/25.jpg);">
       <div class="container">
         <div class="row justify-content-center align-items-center intro">
