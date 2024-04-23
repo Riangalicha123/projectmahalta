@@ -1157,7 +1157,7 @@ class GuestController extends BaseController
             'UserID'           => $user['UserID'], // Assuming UserID is the primary key
             'UserRating'       => $this->request->getPost('UserRating'),
             'FeedbackMessage'  => $this->request->getPost('FeedbackMessage'),
-            'datetime'         => time()
+            'datetime'         => date('Y-m-d H:i:s') // Include current date and time here
         ];
 
         try {
@@ -1212,7 +1212,7 @@ class GuestController extends BaseController
                     'Email' => $email, // Update email here
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
-                    'datetime' => date('l jS, F Y h:i:s A', strtotime($row['datetime']))
+                    'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
                 ];
     
                 switch ($row['UserRating']) {
@@ -1380,7 +1380,7 @@ class GuestController extends BaseController
 
         // Check if no matching words were found
         if (array_sum($arrCount) == 0) {
-            echo "Sorry, I can't recognize. Please choose one below";
+            echo "Sorry, I can't recognize. Please choose one above";
             exit;
         } else {
             // Find the index of the question with the highest count of matching words

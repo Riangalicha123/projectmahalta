@@ -224,7 +224,7 @@ function sendReceive(msg) {
     $.post("/get_chat_data", { msg: msg })
         .done(function(data) {
             // Append the received response to the chat window
-            $("#chatmsg").append(data + "<br>");
+            $("#chatmsg").append("BOT: " + data + "<br>");
 
             // Trim the chat window content to limit its length
             var len = $("#chatmsg").html().length;
@@ -237,6 +237,23 @@ function sendReceive(msg) {
             console.error("Error:", data);
         });
 }
+// Get references to all elements with class "chat-msg"
+const chatMsgs = document.querySelectorAll("#chatmsgs");
+
+// Loop through each chat message button
+chatMsgs.forEach(chatMsg => {
+    // Add event listener to each button
+    chatMsg.addEventListener("click", function() {
+        // Get the text content of the clicked button (the chat message)
+        const msg = this.textContent.trim();
+
+        // Append the user's message to the chat window
+        $("#chatmsg").append("<br>" + "You: " + msg + "<br>");
+
+        // Call the sendReceive function with the message
+        sendReceive(msg);
+    });
+});
 
 
 

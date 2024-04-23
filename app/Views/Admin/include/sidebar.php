@@ -113,7 +113,7 @@
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
               <i class="nav-icon fas fa-comment-alt"></i>
               <p>
-                Feedback<!--  Analytics -->
+                Feedback Analytics
               </p>
             </a>
           </li>

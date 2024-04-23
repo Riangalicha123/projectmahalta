@@ -685,6 +685,12 @@ $(document).ready(function(){
                     }
 
                     $('#review_content').html(html);
+
+                    $('.review-date').each(function() {
+                        var dateTimeString = $(this).text();
+                        var formattedDateTime = moment(dateTimeString).format('dddd, MMMM Do YYYY, h:mm:ss A');
+                        $(this).text(formattedDateTime);
+                    });
                 }
             }
         })
@@ -802,7 +808,7 @@ onMessage(messaging, (payload) => {
 
     
     <!-- END section -->
-   
+    <?php include('inc/chat.php') ?>
     <?php include('inc/footer.php') ?>
     <!-- END footer -->
     

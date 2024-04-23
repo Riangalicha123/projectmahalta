@@ -169,6 +169,39 @@ class AdminController extends BaseController
     }
     public function dashboard()
     {
+        // Initialize counts for positive, neutral, and negative ratings
+        $positiveCount = 0;
+        $neutralCount = 0;
+        $negativeCount = 0;
+
+        $feedbackData = $this->feedbacks->findAll();
+
+        // Iterate through each feedback entry
+        foreach ($feedbackData as $feedback) {
+            // Categorize ratings
+            switch ($feedback['UserRating']) {
+                case '1':
+                case '2':
+                    $negativeCount++;
+                    break;
+                case '3':
+                    $neutralCount++;
+                    break;
+                case '4':
+                case '5':
+                    $positiveCount++;
+                    break;
+            }
+        }
+
+        // Compute total number of ratings
+        $totalRating = count($feedbackData);
+
+        // Compute percentages
+        $positivePercentage = ($positiveCount / $totalRating) * 100 ;
+        $neutralPercentage = ($neutralCount / $totalRating) * 100;
+        $negativePercentage = ($negativeCount / $totalRating) * 100;
+
         $regions = $this->regions->findAll();
         $data = [
             'adminRoutes' => 'dashboard',
@@ -197,6 +230,10 @@ class AdminController extends BaseController
             ->join ('users', 'reservations.UserID = users.UserID')
             ->where('reservations.Status', 'Confirm')
             ->findAll(),
+            'feedback' => $this->feedbacks->findAll(),
+            'positivePercentage' => $positivePercentage,
+            'neutralPercentage' => $neutralPercentage,
+            'negativePercentage' => $negativePercentage,
         ];
         return view('Admin\index', $data);
     }

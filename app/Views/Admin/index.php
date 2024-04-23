@@ -158,7 +158,18 @@
               </div><!-- /.card-body -->
             </div>
             <!-- /.card -->
-
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-pie mr-1"></i>
+                  Sentimental Analysis
+                </h3>
+                
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <canvas id="sentimental-analysis" height="300" style="height: 300px;"></canvas>
+              </div><!-- /.card-body -->
+            </div>
           </section>
           <!-- /.Left col -->
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
@@ -234,6 +245,45 @@
 <script src="<?=base_url()?>admin/plugins/chart.js/Chart.min.js"></script>
 <script src="<?=base_url()?>admin/dist/js/adminlte.min.js"></script>
 <script>
+   var pieChartCanvas = document.getElementById('sentimental-analysis').getContext('2d');
+        var pieData = {
+            labels: ['Positive', 'Neutral', 'Negative'],
+            datasets: [{
+                data: [<?= $positivePercentage ?>, <?= $neutralPercentage ?>, <?= $negativePercentage ?>],
+                backgroundColor: ['#00a65a', '#f39c12', '#f56954']
+            }]
+        };
+var pieOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    legend: {
+        display: true, // Display the legend
+        position: 'bottom', // You can adjust the position as per your requirement
+        labels: {
+            boxWidth: 20, // Width of each legend box
+            fontSize: 12, // Font size of legend text
+            padding: 20 // Padding between legend elements
+        }
+    },
+    tooltips: {
+        callbacks: {
+            label: function(tooltipItem, data) {
+                var dataset = data.datasets[tooltipItem.datasetIndex];
+                var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    return previousValue + currentValue;
+                });
+                var currentValue = dataset.data[tooltipItem.index];
+                var percentage = Math.round((currentValue / total) * 100);
+                return percentage + "%";
+            }
+        }
+    }
+};
+        var pieChart = new Chart(pieChartCanvas, {
+            type: 'doughnut',
+            data: pieData,
+            options: pieOptions
+        });
   $(function () {
     //--------------
     //- Reservation Bar CHART weekly -
