@@ -1429,73 +1429,79 @@ class GuestController extends BaseController
     
         return view('Hotell\booking', $data);
     }
-    
     public function bookinghotelupdatestatus($status, $reservationID)
-    {
-        $session = session();
-        $allowedStatuses = ['Cancel'];
-    
-        if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status
-            return redirect()->back()->with('error', 'Invalid status');
-        }
-    
-        // Retrieve the reservation and associated user's email address
-        $reservation = $this->reservation
-                             ->where('ReservationID', $reservationID)
-                             ->first();
-    
-        if (!$reservation) {
-            // Handle case where reservation doesn't exist
-            return redirect()->back()->with('error', 'Reservation not found');
-        }
-    
-        // Retrieve user data based on UserID from the reservation
-        $user = $this->users
-                     ->where('UserID', $reservation['UserID'])
-                     ->first();
-    
-        if (!$user) {
-            // Handle case where user doesn't exist
-            return redirect()->back()->with('error', 'User not found for the reservation');
-        }
-    
-        // Update the reservation status in the database
-        $updateData = ['Status' => $status];
-        $updated = $this->reservation->update($reservationID, $updateData);
-    
-        if ($updated) {
-         // Prepare the email message with reservation details
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Adult: {$reservation['Adult']}<br>";
-        $emailMessage .= "Kid: {$reservation['Child']}<br>";
-        $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
-        $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
-        $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
-        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
+{
+    $session = session();
+    $allowedStatuses = ['Cancel'];
 
-    
-            // Send the email to the user
-            $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
+    if (!in_array($status, $allowedStatuses)) {
+        // Handle invalid status
+        return redirect()->back()->with('error', 'Invalid status');
+    }
+
+    // Retrieve the reservation and associated user's email address
+    $reservation = $this->reservation
+                         ->where('ReservationID', $reservationID)
+                         ->first();
+
+    if (!$reservation) {
+        // Handle case where reservation doesn't exist
+        return redirect()->back()->with('error', 'Reservation not found');
+    }
+    // Retrieve user data based on UserID from the reservation
+    $user = $this->users
+    ->where('UserID', $reservation['UserID'])
+    ->first();
+
+if (!$user) {
+// Handle case where user doesn't exist
+return redirect()->back()->with('error', 'User not found for the reservation');
+}
+
+    // Calculate the difference between cancellation time and check-in date
+    $checkInDate = new \DateTime($reservation['CheckInDate']);
+    $cancellationDate = new \DateTime();
+    $difference = $cancellationDate->diff($checkInDate);
+    $daysDifference = $difference->days;
+
+    // Check if cancellation is within 3 days of check-in date
+    if ($daysDifference <= 3) {
+        // Calculate refund amount (50% of downorfullPayment)
+        $refundAmount = $reservation['downorfullPayment'] * 0.5;
+
+        // Update the reservation status and refund amount in the database
+        $updateData = ['Status' => $status, 'RefundAmount' => $refundAmount];
+        $updated = $this->reservation->update($reservationID, $updateData);
+
+        if ($updated) {
+            // Prepare email message about the refund
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated on 3 days.<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
+
+            // Send email notification to the user
+            $this->sendEmail($user['Email'], 'Reservation Canceled and Refund Initiated on 3 Days', $emailMessage);
+
+            // Notify user via push notification
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
-                $notifTitle = 'Reservation Status Updated';
-                $notifBody = "Your reservation status has been updated to {$status}.";
+                $notifTitle = 'Reservation Canceled and Refund Initiated';
+                $notifBody = "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated.";
                 $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
             }
+
             // Redirect to the reservation page with a success message
-            $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
+            $session->setFlashdata('success', 'Reservation canceled successfully, and refund initiated.');
             return redirect()->to('/booking');
         } else {
             // Handle case where update fails
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
+    } else {
+        // Cancellation period has passed, refund not applicable
+        return redirect()->back()->with('error', 'Refund not applicable as cancellation period has passed.');
     }
+}
     public function bookingrestauupdatestatus($status, $reservationID)
     {
         $session = session();
