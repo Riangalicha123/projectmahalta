@@ -22,6 +22,7 @@ use App\Models\RoomInventoryModel;
 use App\Models\ReservationAmenities;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
+
 class GuestController extends BaseController
 {
     use EmailTrait;
@@ -584,6 +585,9 @@ class GuestController extends BaseController
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
                     if ($inserted) {
+                        $generator = new \Picqer\Barcode\BarcodeGeneratorHTML;
+                        $reservationDataSerialized = serialize($newReservationData);
+                        $barcodeHtml = $generator->getBarcode($reservationDataSerialized, $generator::TYPE_CODE_128);
                         $emailMessage = $this->prepareEmailMessage($newReservationData, $roomSelected, $user, $amenitiesData);
                         $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                         $fcmToken = $user['fcm_token'];
@@ -592,7 +596,7 @@ class GuestController extends BaseController
                             $notifBody = 'Your reservation has been successfully added.';
                             $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                         }
-    
+                        $session->setFlashdata('barcodeHtml', $barcodeHtml);
                         // Redirect with success message
                         $session->setFlashdata('success', 'Reservation added successfully and email sent.');
                         return redirect()->to('/room');

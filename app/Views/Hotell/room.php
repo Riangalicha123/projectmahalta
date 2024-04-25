@@ -18,6 +18,26 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
+    <style>
+      /* CSS Styles */
+.floating-card-container {
+    position: relative;
+    margin-top: 50px; /* Adjust as needed */
+}
+
+.floating-card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 20px;
+    z-index: 1000; /* Ensure the card appears above other content */
+}
+  
+    </style>
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
@@ -65,15 +85,23 @@
             // Retrieve flash messages from session
             $session = session();
             $successMessage = $session->getFlashdata('success');
+            $barcodeHtml = $session->getFlashdata('barcodeHtml');
             ?>
 
+            
             <!-- Check if there's a success message and display it -->
             <?php if($successMessage): ?>
                 <div class="alert alert-success">
                     <?= $successMessage ?>
                 </div>
             <?php endif; ?>
-
+            <?php if($barcodeHtml): ?>
+    <div class="floating-card-container">
+        <div class="floating-card">
+            <?= $barcodeHtml ?>
+        </div>
+    </div>
+<?php endif; ?>
  
 
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
