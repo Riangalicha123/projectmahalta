@@ -48,9 +48,11 @@
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
-            <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent;">
-            Welcome to Mahalta Resort and Convention Center
-            </h1>
+            <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
+    Welcome to Mahalta Resort and Convention Center
+</h1>
+
+
             </div>
 
           </div>
@@ -344,8 +346,10 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
         </div>
       </div>
     </section>
+
     <?php if(session()->get('isLoggedIn')): ?>
-    <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+
+<section class="testimonial-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-12 heading-wrap text-center">
@@ -355,7 +359,7 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
             </div>
         </div>
         <div class="card">
-    		<div class="card-header">Sample Product</div>
+    		<div class="card-header bg-info" style="color: black;font-size:20px;">Guest Feedback</div>
     		<div class="card-body">
     			<div class="row">
     				<div class="col-sm-4 text-center">
@@ -424,36 +428,37 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
     </div>
 </section>
 <div id="review_modal" class="modal" tabindex="-1" role="dialog">
-  	<div class="modal-dialog" role="document">
-    	<div class="modal-content">
-	      	<div class="modal-header">
-	        	<h5 class="modal-title">Submit Review</h5>
-	        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          		<span aria-hidden="true">&times;</span>
-	        	</button>
-	      	</div>
-	      	<div class="modal-body">
-	      		<h4 class="text-center mt-2 mb-4">
-	        		<i class="fas fa-star star-light submit_star mr-1" id="submit_star_1" data-rating="1"></i>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #ffffff;">
+            <div class="modal-header" style="background-color: #007bff; color: #ffffff;">
+                <h5 class="modal-title">Submit Review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h4 class="text-center mt-2 mb-4">
+                    <i class="fas fa-star star-light submit_star mr-1" id="submit_star_1" data-rating="1"></i>
                     <i class="fas fa-star star-light submit_star mr-1" id="submit_star_2" data-rating="2"></i>
                     <i class="fas fa-star star-light submit_star mr-1" id="submit_star_3" data-rating="3"></i>
                     <i class="fas fa-star star-light submit_star mr-1" id="submit_star_4" data-rating="4"></i>
                     <i class="fas fa-star star-light submit_star mr-1" id="submit_star_5" data-rating="5"></i>
-	        	</h4>
-	        	<div class="form-group">
-	        		<input type="text" name="Email" id="Email" class="form-control" value="<?= $_SESSION['username'] ?? ''; ?>" disabled />
-                      <input type="hidden" name="Email" value="<?= $_SESSION['username'] ?? ''; ?>">
-	        	</div>
-	        	<div class="form-group">
-	        		<textarea name="FeedbackMessage" id="FeedbackMessage" class="form-control" placeholder="Type Review Here"></textarea>
-	        	</div>
-	        	<div class="form-group text-center mt-4">
-	        		<button type="button" class="btn btn-primary" id="save_review">Submit</button>
-	        	</div>
-	      	</div>
-    	</div>
-  	</div>
+                </h4>
+                <div class="form-group">
+                    <input type="text" name="Email" id="Email" class="form-control" value="<?= $_SESSION['username'] ?? ''; ?>" disabled style="background-color: #f0f0f0; color: #000000;" />
+                    <input type="hidden" name="Email" value="<?= $_SESSION['username'] ?? ''; ?>">
+                </div>
+                <div class="form-group">
+                    <textarea name="FeedbackMessage" id="FeedbackMessage" class="form-control" placeholder="Type Review Here" style="background-color: #f0f0f0; color: #000000;"></textarea>
+                </div>
+                <div class="form-group text-center mt-4">
+                    <button type="button" class="btn btn-primary" id="save_review" style="background-color: #007bff;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
 <?php else: ?>
   <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
     <div class="container">
@@ -635,69 +640,53 @@ $(document).ready(function(){
 
                 $('#one_star_progress').css('width', (data.one_star_review/data.total_review) * 100 + '%');
 
-                if(data.review_data.length > 0)
-                {
-                    var html = '';
+                if(data.review_data.length > 0) {
+                    var html = '<div class="row">'; // Start the first row
 
-                    for(var count = 0; count < data.review_data.length; count++)
-                    {
-                        html += '<div class="row mb-3">';
-
-                        html += '<div class="col-sm-1"><div class="rounded-circle bg-danger text-white pt-2 pb-2"><h3 class="text-center">'+data.review_data[count].Email.charAt(0)+'</h3></div></div>';
-
-                        html += '<div class="col-sm-11">';
-
-                        html += '<div class="card">';
-
-                        html += '<div class="card-header"><b>'+data.review_data[count].Email+'</b></div>';
-
-                        html += '<div class="card-body">';
-
-                        for(var star = 1; star <= 5; star++)
-                        {
-                            var class_name = '';
-
-                            if(data.review_data[count].rating >= star)
-                            {
-                                class_name = 'text-warning';
-                            }
-                            else
-                            {
-                                class_name = 'star-light';
-                            }
-
-                            html += '<i class="fas fa-star '+class_name+' mr-1"></i>';
+                    for(var count = 0; count < data.review_data.length; count++) {
+                        if (count > 0 && count % 3 === 0) { // Close the previous row and start a new one after every 3 reviews
+                            html += '</div><div class="row">';
                         }
 
+                        html += '<div class="col-sm-4 mb-3">'; // Each review will occupy 4 columns on small screens and above
+
+                        // Construct the review HTML
+                        html += '<div class="row mb-3">';
+                       /*  html += '<div class="col-sm-1"><div class="rounded-circle bg-danger text-white pt-2 pb-2"><h3 class="text-center">'+data.review_data[count].Email.charAt(0)+'</h3></div></div>'; */
+                        html += '<div class="col-sm-11">';
+                        html += '<div class="card">';
+                        html += '<div class="card-header bg-info text-white"><b>'+data.review_data[count].Email+'</b></div>';
+                        html += '<div class="card-body">';
+                        
+                        // Construct star ratings
+                        for(var star = 1; star <= 5; star++) {
+                            var class_name = (data.review_data[count].rating >= star) ? 'text-warning' : 'star-light';
+                            html += '<i class="fas fa-star '+class_name+' mr-1"></i>';
+                        }
+                        
                         html += '<br />';
-
                         html += data.review_data[count].FeedbackMessage;
-
                         html += '</div>';
-
                         html += '<div class="card-footer text-right">On '+data.review_data[count].datetime+'</div>';
-
+                        html += '</div>';
+                        html += '</div>';
                         html += '</div>';
 
-                        html += '</div>';
-
-                        html += '</div>';
+                        html += '</div>'; // Close the col-sm-4
                     }
+
+                    html += '</div>'; // Close the last row
 
                     $('#review_content').html(html);
 
-                    $('.review-date').each(function() {
-                        var dateTimeString = $(this).text();
-                        var formattedDateTime = moment(dateTimeString).format('dddd, MMMM Do YYYY, h:mm:ss A');
-                        $(this).text(formattedDateTime);
-                    });
+                    // Perform any additional actions or formatting if needed
                 }
             }
-        })
+        });
     }
 });
-
 </script>
+
 <script>
     // Function to handle like button click
     function likeFeedback(button) {
@@ -804,7 +793,6 @@ onMessage(messaging, (payload) => {
   // Process your message as required
 });
 </script>
-
 
     
     <!-- END section -->

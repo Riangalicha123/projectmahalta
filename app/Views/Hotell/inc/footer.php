@@ -39,18 +39,17 @@
               <a href="#" class="p-3"><span class="fa fa-youtube-play"></span></a> 
             </p>
           </div> -->
-          <div class="col-md-4">
-
-          </div>
-          <div class="col-md-4">
+         
+          
     <!-- ... Your existing content ... -->
     <!-- Add Google Map -->
-    <div class="col-md-4">
-       <!--  <h3>Our Location</h3> -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7761.750176350001!2d121.20824972542549!3d13.42005806230071!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce9395c682133%3A0x2a54eb8df931b1c2!2sMahalta%20Resorts%20and%20Convention%20Center!5e0!3m2!1sen!2sph!4v1700304323303!5m2!1sen!2sph" width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" width="s" height="400" frameborder="0" style="border:0; width: 100%;" allowfullscreen=""></iframe>
-    </div>
-    <!-- ... Your existing content ... -->
+    <div >
+    <!--  <h3>Our Location</h3> -->
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7761.750176350001!2d121.20824972542549!3d13.42005806230071!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce9395c682133%3A0x2a54eb8df931b1c2!2sMahalta%20Resorts%20and%20Convention%20Center!5e0!3m2!1sen!2sph!4v1700304323303!5m2!1sen!2sph" width="1000" ma height="250" style="border:0; width: 700px; max-width: 100%; " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe>
 </div>
+
+    <!-- ... Your existing content ... -->
+
         </div>
         
         <div class="row justify-content-center">

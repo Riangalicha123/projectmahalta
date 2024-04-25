@@ -115,7 +115,7 @@
 </section>
 
     <?php if(session()->get('isLoggedIn')): ?>
-    <section class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
+    <section class="site-section"style="background: #FAF2D3;">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
@@ -201,7 +201,7 @@
     <?php else: ?>
 
       
-      <section class="site-section" style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
+      <section class="site-section" style="background: #FAF2D3;">
       <div class="container">
         <div class="row">
           <div class="col-md-6">

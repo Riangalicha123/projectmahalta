@@ -65,7 +65,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section "style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
         </div>
@@ -234,51 +234,54 @@
         </div>
     </div>
 </div>
-    <section  class="site-section">
+    <section  class="site-section"style="background: #FAF2D3;">
     <div class="menu-title">
       <h1>Main Menu</h1>
     </div>
-    <div class="order-online" style="margin-top: 20px; text-align: center;">
+    <!-- <div class="order-online" style="margin-top: 20px; text-align: center;">
         <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
             Order Menu Online
         </button>
-    </div>
+    </div> -->
     <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-        <div class="modal-header ">
+        <div class="modal-header "style="background-color: #e9f0fd;">
             <h4 class="modal-title" id="addFormModalLabel">Choose A Service</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
         </div>
         <div class="modal-body">
-            <!-- Your form content goes here -->
-            <form style="text-align: center;">
-            <button type="button" class="btn btn-secondary">
+    <!-- Your form content goes here -->
+    <form style="text-align: center;">
+        <button type="button" class="btn btn-primary">
             <i class="ion-knife ion-md-outline"></i> Dine-In
-            </button>
-            </form>
-        </div>
+        </button>
+    </form>
+</div>
+
         </div>
     </div>
     </div>
     
 
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-      <button onclick="showCategory('1')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Pasta</button>
-      <button onclick="showCategory('2')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
-      <button onclick="showCategory('3')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Sizzling</button>
-      <button onclick="showCategory('4')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Chicken</button>
-      <button onclick="showCategory('5')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Pork</button>
-      <button onclick="showCategory('6')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Soup</button>
-      <button onclick="showCategory('7')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Meal Deals</button>
-      <button onclick="showCategory('8')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Veggies</button>
-      <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
-      <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
-      <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
-    </div>
-    
+      <button onclick="showCategory('1')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Pasta</button>
+      <button onclick="showCategory('2')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
+      <button onclick="showCategory('3')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Sizzling</button>
+      <button onclick="showCategory('4')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Chicken</button>
+      <button onclick="showCategory('5')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Pork</button>
+      <button onclick="showCategory('6')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Soup</button>
+      <button onclick="showCategory('7')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Meal Deals</button>
+      <button onclick="showCategory('8')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Veggies</button>
+      <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
+      <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
+      <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
+      <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Order Menu Online
+</button> 
+
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <!-- Menu Records -->
 <div class="row">

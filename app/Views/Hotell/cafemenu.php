@@ -32,7 +32,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
               <div class="card-header text-center">À la Carte Service</div>
                 <div style="flex: 0 0 50%; margin-bottom: 10px;">
                     <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(70, 130, 180, 0.7); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <div class="card-header text-center">Buffet Service</div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div style="flex: 0 0 50%; margin-bottom: 10px;">
@@ -65,7 +65,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,  #3085C3, #FAF2D3,  #5CD2E6, #FFFBE9,#F4E869,#F4E869);">
+    <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
         </div>
@@ -234,15 +234,15 @@
         </div>
     </div>
 </div>
-<section  class="site-section">
+<section  class="site-section"style="background: #FAF2D3;">
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
-    <div class="order-online" style="margin-top: 20px; text-align: center;">
+   <!--  <div class="order-online" style="margin-top: 20px; text-align: center;">
         <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
             Order Menu Online
         </button>
-    </div>
+    </div> -->
     <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -265,9 +265,12 @@
     </div>
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
       <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-        <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
-        <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
-        <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
+        <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
+        <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
+        <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
+        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Order Menu Online
+</button> 
       </div>
         <div class="row">
         <?php foreach ($menuices as $menuice): ?>

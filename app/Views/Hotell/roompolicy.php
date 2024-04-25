@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <title>Mahalta</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,31 +18,19 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
-  </head>
-  <body>
-    
-  <?php include('inc/header.php') ?>
-    <!-- END header -->
+</head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
-      <div class="container">
-        <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-12 text-center">
+<?php include('inc/header.php') ?>
+<!-- END header -->
 
-            <div class="mb-5 element-animate">
-              <h1>Room Policy</h1>
-              <p>Stay updated with our reservation policies <!-- and events. --></p>
-            </div>
 
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="site-section" style="background: linear-gradient(to bottom left, #F4E869, #FFFBE9, #5CD2E6);">
+
+<section class="site-section" style="background: #FAF2D3;">
     <div class="container" style="max-width: 1100px; margin: 50px auto; padding: 0 20px;">
         <div class="row align-items-center">
             <div class="col-md-12">
-                <div class="heading-wrap element-animate">
+                <div class="heading-wrap element-animate" id="section-policies">
                     <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Room Reservations Policies</strong></h4>
                     <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to stay with us. Please take a moment to review our hotel room policies.</p>
                     <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
@@ -67,21 +55,25 @@
     </div>
 </section>
 
-    <?php include('inc/footer.php') ?>
-    <?php include('inc/loader.php') ?>
+<?php include('inc/footer.php') ?>
+<?php include('inc/loader.php') ?>
 
-    <script src="/guest/js/jquery-3.2.1.min.js"></script>
-    <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
-    <script src="/guest/js/popper.min.js"></script>
-    <script src="/guest/js/bootstrap.min.js"></script>
-    <script src="/guest/js/owl.carousel.min.js"></script>
-    <script src="/guest/js/jquery.waypoints.min.js"></script>
-    <script src="/guest/js/jquery.stellar.min.js"></script>
+<script src="/guest/js/jquery-3.2.1.min.js"></script>
+<script src="/guest/js/jquery-migrate-3.0.0.js"></script>
+<script src="/guest/js/popper.min.js"></script>
+<script src="/guest/js/bootstrap.min.js"></script>
+<script src="/guest/js/owl.carousel.min.js"></script>
+<script src="/guest/js/jquery.waypoints.min.js"></script>
+<script src="/guest/js/jquery.stellar.min.js"></script>
 
-    <script src="/guest/js/jquery.magnific-popup.min.js"></script>
-    <script src="/guest/js/magnific-popup-options.js"></script>
+<script src="/guest/js/jquery.magnific-popup.min.js"></script>
+<script src="/guest/js/magnific-popup-options.js"></script>
 
-    <script src="/guest/js/main.js"></script>
-    
-  </body>
+<script src="/guest/js/main.js"></script>
+
+<script>
+    $('body').scrollspy({ target: '.site-navbar-target' });
+</script>
+
+</body>
 </html>

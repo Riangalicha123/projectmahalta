@@ -64,7 +64,7 @@
   </section>
   <!-- END section -->
   
-  <section class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
+  <section class="site-section"style="background: #FAF2D3;">
     <div class="container">
         <div class="col-md-12 text-center">
         <div class="mb-5 element-animate">
@@ -75,40 +75,48 @@
       <div class="row">
         <div class="col-md-6">
         <form method="post" action="<?= base_url('/addAmenities') ?>">
-          <table class="table table-responsive">
-              <thead>
-                  <tr>
-                      <th>Select</th>
-                      <th>Product Name</th>
-                      <th>Price</th>
-                      <th>Quantity</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <?php foreach ($roinvents as $roinvent): ?>
-                  <tr>
-                      <td>
-                          <input type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
-                          <!-- Hidden inputs for additional data -->
-                          <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
-                          <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
-                      </td>
-                      <td><?= $roinvent['ProductName'] ?></td>
-                      <td><?= $roinvent['Price'] ?></td>
-                      <td>
-                      <select name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
-                          <?php for ($i = 0; $i <= 10; $i++) : ?>
-                              <option value="<?= $i ?>"><?= $i ?></option>
-                          <?php endfor; ?>
-                      </select>
-                      </td>
-                  </tr>
-                  <?php endforeach; ?>
-              </tbody>
-          </table>
-          <button type="submit" class="btn-info">Submit</button>
-          <a class="btn-secondary" href="<?= route_to('bookroom/formdetails') ?>?skip=true">Skip</a>
-      </form>
+    <div class="table-responsive">
+        <table class="table">
+            <thead style="background: linear-gradient(to bottom,#00BFFF, white);">
+                <tr>
+                    <th>Select</th>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($roinvents as $roinvent): ?>
+                <tr style="border-bottom: 1px solid #000;">
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                        </div>
+                    </td>
+                    <td><?= $roinvent['ProductName'] ?></td>
+                    <td>Php<?= $roinvent['Price'] ?></td>
+                    <td>
+                        <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
+                            <?php for ($i = 0; $i <= 10; $i++) : ?>
+                                <option value="<?= $i ?>"><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" style="width: 250px;">Submit</button>
+        <a class="btn btn-primary" href="<?= route_to('bookroom/formdetails') ?>?skip=true" style="width: 250px;">Skip</a>
+    </div>
+</form>
+
+
+
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
