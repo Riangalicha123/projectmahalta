@@ -120,7 +120,7 @@
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
-          <h3 class="mb-5">Featured Room</h3>
+          <h1 class="mb-5">Featured Room</h1>
 
           <?php if (isset($roomReservationData)): ?>
             <div class="media d-block room mb-0">

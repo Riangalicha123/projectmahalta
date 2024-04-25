@@ -460,7 +460,7 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
 </div>
 
 <?php else: ?>
-  <section class="testimonial-section" style="background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+  <section class="testimonial-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-12 heading-wrap text-center">
@@ -470,7 +470,7 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
             </div>
         </div>
         <div class="card">
-    		<div class="card-header"></div>
+    		<div class="card-header bg-info" style="color: black;font-size:20px;">Guest Feedback</div>
     		<div class="card-body">
     			<div class="row">
     				<div class="col-sm-4 text-center">

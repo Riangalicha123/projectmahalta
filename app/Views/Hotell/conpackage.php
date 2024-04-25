@@ -19,6 +19,18 @@
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
   </head>
+  <style>
+    .card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  background: linear-gradient(to bottom, lightblue, white);
+  border-radius: 10px;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+  </style>
   <body>
     
   <?php include('inc/header.php') ?>
@@ -43,7 +55,7 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="heading-wrap  element-animate">
-              <h4 style="text-align: center;"><strong>Convention Center Reservations Policies</strong></h4>
+              <h4 style="text-align: center;font-size: 30px;"><strong>Convention Center Reservations Package</strong></h4>
               <br>
               <div style="text-align: center;">
   <p class="" style="color: black; font-size: 20px;">
@@ -56,62 +68,52 @@
 
               <div class="three-column-container">
               <br>
-  <div class="column">
-    <ul>
-      <li style="color: black; ">
-      <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">AM Snacks</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">PM Snack</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Lunch (meat, veggies, soup, and drinks)</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Brewed Coffee</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Pica-Pica and Candies</p>
-      </li>
-    </ul>
-  </div>
-  <div class="column">
-    <ul>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Parking Area</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Beach View and Tour to Mahalta's facilities</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Sound System w/ microphone</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Technical Support</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">24Hours CCTV </p>
-      </li>
-    </ul>
-  </div>
-  <div class="column">
-    <ul>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Projector</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Venue with fully air-conditioned</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Stand-by generator</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Seminar Set-up (table and chairs)</p>
-      </li>
-      <li style="color: black; ">
-        <code></code> <p style="color: black; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); transition: transform 0.3s;" onmouseover="this.style.transform='scale(0.9)'" onmouseout="this.style.transform='scale(1)'">Assisted by Fully Vaccinated and trained Staff</p>
-      </li>
-    </ul>
+              <div class="container">
+    
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+           
+            <ul>
+              <li>AM Snacks</li>
+              <li>PM Snack</li>
+              <li>Lunch (meat, veggies, soup ,and drinks)</li>
+              <li>Brewed Coffee</li>
+              <li>Pica-Pica and Candies</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+        
+            <ul>
+              <li>Parking Area</li>
+              <li>Beach View and Tour to Mahalta's facilities</li>
+              <li>Sound System w/ microphone</li>
+              <li>Technical Support</li>
+              <li>24Hours CCTV</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+
+            <ul>
+              <li>Projector</li>
+              <li>Venue with fully air-conditioned</li>
+              <li>Stand-by generator</li>
+              <li>Seminar Set-up (table and chairs)</li>
+              <li>Assisted by Fully Vaccinated and trained Staff</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

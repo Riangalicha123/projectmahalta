@@ -24,39 +24,35 @@
   <?php include('inc/header.php') ?>
     <!-- END header -->
 
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
-      <div class="container">
-        <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-12 text-center">
-
-            <div class="mb-5 element-animate">
-              <h1>Restaurant Policy</h1>
-              <p>Stay updated with our reservation policies <!-- and events. --></p>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
-      <div class="container">
+    
+    <section class="site-section" style="background: #FAF2D3;">
+    <div class="container" style="max-width: 1100px; margin: 50px auto; padding: 0 20px;">
         <div class="row align-items-center">
-          <div class="col-md-12">
-            <div class="heading-wrap  element-animate">
-              <h4><strong>Restaurant Reservations Policies</strong></h4>
-              <br>
-              <p class="" style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
+            <div class="col-md-12">
+                <div class="heading-wrap element-animate" id="section-policies">
+                    <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Restaurant Policies</strong></h4>
+                    <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to dine with us. Please take a moment to review our restaurant policies.</p>
+                    <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+                    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Walk-in Priority:</strong> We prioritize walk-in guests and do not accept reservations.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Table Availability:</strong> Tables are allocated on a first-come, first-served basis.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Waiting Area:</strong> A comfortable waiting area is provided for guests during peak hours.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Limited Group Sizes:</strong> Due to our walk-in policy, we can accommodate groups of up to six guests.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Menu Options:</strong> Our menu is designed to cater to walk-in diners with a variety of options available at all times.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Service Time:</strong> We strive to provide prompt service to all walk-in customers.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Feedback:</strong> We welcome feedback from our walk-in guests to continually improve our service.</li>
+    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Special Occasions:</strong> While we don't accept reservations, we're happy to accommodate special occasions for walk-in guests whenever possible.</li>
 
-              <p style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
-
-              <p style="color: black; font-size: 20px;"><strong>asd:</strong> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus illo similique natus, a recusandae? Dolorum, unde a quibusdam est? Corporis deleniti obcaecati quibusdam inventore fuga eveniet! Qui delectus tempore amet!</p>
-
+                    </ul>
+                    <div style="text-align: center;">
+                        <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">If you have any questions or need further assistance, please don't hesitate to contact our restaurant staff.</p>
+                        <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">We look forward to serving you!</p>
+                    </div>
+                </div>
             </div>
-          </div>
-          
         </div>
-      </div>
-    </section>
+    </div>
+</section>
+
     
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>

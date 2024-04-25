@@ -24,39 +24,35 @@
   <?php include('inc/header.php') ?>
     <!-- END header -->
 
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
+    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
 
             <div class="mb-5 element-animate">
               <h1>Day Tour</h1>
-              <p>Stay updated with our day tour pool access <!-- and events. --></p>
+              <p>Stay updated with our day tour pool access  and events. </p>
             </div>
 
           </div>
         </div>
       </div>
-    </section>
-    <section class="site-section" style="background: linear-gradient(to bottom left, #F4E869, #FFFBE9, #5CD2E6);">
+    </section> -->
+    <section class="site-section" style="background: #FAF2D3;">
     <div class="container" style="max-width: 1100px; margin: 50px auto; padding: 0 20px;">
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="heading-wrap element-animate">
                     <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Day Tour Policies</strong></h4>
-                    <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to stay with us. Please take a moment to review our day tour policies.</p>
-                    <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-in:</strong> Check-in time is 2:00 PM. Early check-in is subject to availability.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-out:</strong> Check-out time is 12:00 PM. Late check-out may be available upon request, subject to an additional charge.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Reservation Policy:</strong>All reservations must be done online booking and walk in.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Payment:</strong> Payment is required upon check-in. We accept cash or by Gcashor Paymaya.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Cancellation Policy:</strong> Cancellations made less than 24 hours prior to arrival will be subject to a one-night cancellation fee.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>No-shows:</strong> Guests who do not arrive on the scheduled arrival date will be charged for the full stay.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Smoking Policy:</strong> Smoking is strictly prohibited in all guest rooms and public areas. A cleaning fee will be charged for smoking in non-smoking rooms.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Pet Policy:</strong> Pets are not allowed in the hotel premises.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Damage Policy:</strong> Guests will be responsible for any damage to the room or hotel property caused during their stay.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Noise Policy:</strong> Please respect the privacy and comfort of other guests by keeping noise levels to a minimum, especially during quiet hours from 10:00 PM to 7:00 AM.</li>
-                    </ul>
+                    <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Welcome to our day tour experience! We aim to provide you with a relaxing and enjoyable time during your visit. Please take note of the following policies:</p>
+                    <ul style="list-style-type: none; padding: 0; margin-bottom: 20px;">
+
+        
+        <li style="font-size: 18px; margin-bottom: 15px;"><strong>1. Entrance Fee:</strong> We're delighted to offer our day tour guests complimentary entrance to our facilities. There's no entrance fee, so you can freely explore and enjoy our amenities.</li>
+        <li style="font-size: 18px; margin-bottom: 15px;"><strong>2. Pool Access:</strong> If you'd like to take a refreshing dip in our pool, a nominal fee applies. For adults, access to the pool is priced at 250 pesos for a 4-hour session, while children can enjoy it for 150 pesos. Please note that this fee is applicable for each session and is payable upon arrival.</li>
+        <li style="font-size: 18px; margin-bottom: 15px;"><strong>3. Payment:</strong> Payment for the day tour experience is available exclusively through walk-in arrangements. We accept cash payments only. Rest assured, our staff will be happy to assist you with any payment inquiries upon your arrival.</li>
+        <li style="font-size: 18px; margin-bottom: 15px;"><strong>4. Cleanliness:</strong> We prioritize cleanliness to ensure a pleasant environment for all our guests. Our facilities undergo regular maintenance and sanitation procedures to uphold high standards of hygiene. Your comfort and satisfaction are our top priorities.</li>
+    </ul>
                     <div style="text-align: center;">
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">If you have any questions or need further assistance, please don't hesitate to contact our front desk staff.</p>
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">We hope you have a pleasant stay!</p>

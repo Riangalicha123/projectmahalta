@@ -158,7 +158,7 @@
       </section>  
     <?php else: ?>
 
-    <section class="site-section"style=" background: linear-gradient(to bottom,  #3085C3,#F4E869,#FAF2D3,#ECF9FF);">
+    <section class="site-section"style="background: #FAF2D3;">
       <div class="container">
         <div class="row">
         <div class="col-md-4 mb-4">
