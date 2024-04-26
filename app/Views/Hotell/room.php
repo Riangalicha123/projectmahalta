@@ -85,7 +85,6 @@
             // Retrieve flash messages from session
             $session = session();
             $successMessage = $session->getFlashdata('success');
-            $barcodeHtml = $session->getFlashdata('barcodeHtml');
             ?>
 
             
@@ -95,13 +94,6 @@
                     <?= $successMessage ?>
                 </div>
             <?php endif; ?>
-            <?php if($barcodeHtml): ?>
-    <div class="floating-card-container">
-        <div class="floating-card">
-            <?= $barcodeHtml ?>
-        </div>
-    </div>
-<?php endif; ?>
  
 
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
