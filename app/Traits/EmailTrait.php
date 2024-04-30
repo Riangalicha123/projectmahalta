@@ -1,11 +1,15 @@
-<?php namespace App\Traits;
+<?php
+
+namespace App\Traits;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Config\Services;
 
-trait EmailTrait {
-    public function sendEmail($to, $subject, $message) {
+trait EmailTrait
+{
+    public function sendEmail($to, $subject, $message, $attachmentPath = null)
+    {
 
         try {
             $mail = new PHPMailer(true);
@@ -20,6 +24,15 @@ trait EmailTrait {
             // Recipients
             $mail->setFrom('mahaltaweb@gmail.com', 'Mahalta_Mailer');
             $mail->addAddress($to); // Add a recipient, passed via method parameter
+            // Add attachment if exists
+            if ($attachmentPath && file_exists($attachmentPath)) {
+                $cid = $mail->addEmbeddedImage($attachmentPath, 'qr-code-cid', 'QRCode.png');
+                $message .= '<br><img src="cid:qr-code-cid">';
+            } elseif ($attachmentPath) {
+                log_message('error', "Attachment file does not exist: $attachmentPath");
+                throw new Exception("Attachment file does not exist: $attachmentPath");
+            }
+
 
             // Content
             $mail->isHTML(true); // Set email format to HTML

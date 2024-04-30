@@ -1,0 +1,150 @@
+ERROR - 2024-04-28 18:47:24 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:184
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(184): mysqli->real_connect('localhost', 'root', Object(SensitiveParameterValue), 'caps', 3306, '', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\GuestController.php(85): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\GuestController->home()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\laragon\www\projectmahalta\app\Controllers\GuestController.php(85): CodeIgniter\BaseModel->findAll()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\GuestController->home()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-04-28 18:47:24 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `chatbot`', [], false)
+ 3 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Controllers\GuestController.php(85): CodeIgniter\BaseModel->findAll()
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 19:20:41 --> Undefined array key "BookingID"
+in APPPATH\Controllers\GuestController.php on line 625.
+ 1 APPPATH\Controllers\GuestController.php(625): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "BookingID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 625)
+ 2 APPPATH\Controllers\GuestController.php(571): App\Controllers\GuestController->generateQrCode([...], '1')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 19:29:26 --> Trying to access array offset on int
+in APPPATH\Controllers\GuestController.php on line 627.
+ 1 APPPATH\Controllers\GuestController.php(627): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on int', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 627)
+ 2 APPPATH\Controllers\GuestController.php(597): App\Controllers\GuestController->generateQrCode(193, '1')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 19:29:29 --> Trying to access array offset on int
+in APPPATH\Controllers\GuestController.php on line 627.
+ 1 APPPATH\Controllers\GuestController.php(627): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on int', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 627)
+ 2 APPPATH\Controllers\GuestController.php(597): App\Controllers\GuestController->generateQrCode(194, '1')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 19:29:57 --> file_put_contents(C:\laragon\www\projectmahalta\public\/qr-codes/qr-code-195.png): Failed to open stream: No such file or directory
+in VENDORPATH\endroid\qr-code\src\Writer\Result\AbstractResult.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'file_put_contents(C:\\laragon\\www\\projectmahalta\\public\\/qr-codes/qr-code-195.png): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\vendor\\endroid\\qr-code\\src\\Writer\\Result\\AbstractResult.php', 29)
+ 2 VENDORPATH\endroid\qr-code\src\Writer\Result\AbstractResult.php(29): file_put_contents('C:\\laragon\\www\\projectmahalta\\public\\/qr-codes/qr-code-195.png', '‰PNG
+
+' . "\0" . '' . "\0" . '' . "\0" . 'IHDR' . "\0" . '' . "\0" . '@' . "\0" . '' . "\0" . '@' . "\0" . '' . "\0" . '' . "\0" . 'Bò2ý' . "\0" . '' . "\0" . '' . "\0" . '	pHYs' . "\0" . '' . "\0" . 'Ä' . "\0" . '' . "\0" . 'Ä•+' . "\0" . '' . "\0" . '©IDATxœíÜKŽ#GAQÐý¯<:Á	1”^m¶m Yü8ró¯_¿~ý4ýý§' . "\0" . 'øïa†0C˜€!LÀ&`0„	Âþyÿç×ëuç9:Ù¨Ýü|¶=Ï”§¾¯)ï?\'0„	Âa†0C˜€!LÀ&`0„	Âa¶Ð\'Š÷ZNmk§v¼7ÿÏ‰›¯5eÛóœøþwè†0C˜€!LÀ&`0„	Âa†0C˜€!l`}bÛýÉÛL}>ÛîOÞ¶©~ÞïÐ	a†0C˜€!LÀ&`0„	Âa†0CØ¥-ôOV¼;zÛ¦šßqC˜€!LÀ&`0„	Âa†0C˜€!LÀfý¿Û¶s>±íÿð;N`0„	Âa†0C˜€!LÀ&`0„	Â.m¡mbß›º‡yêÿlÛfOÙö<ßsC˜€!LÀ&`0„	Âa†0C˜€!LÀ6°…žÚßm»óù©ÿçÄÏü:!LÀ&`0„	Âa†0C˜€!LÀ&`û°…~Þ=ºÏ6õ}mÛ9ûþŽÂa†0C˜€!LÀ&`0„	Âa†°[è©»v§¶µ7_ëäÿÜ|_S¶ÝÕ¼mw}Ó÷ïË	a†0C˜€!LÀ&`0„	Âa†0CØëýÒòæŽwÛ–õæ6{ÊOÞosçsvC˜€!LÀ&`0„	Âa†0C˜€!LÀöá^èS÷ún»úækmÛKOÙ¶»¾ùÛ¸ósC˜€!LÀ&`0„	Âa†0C˜€!LÀöa=µeÝ¶õzž©×ÚvõOþ§Üyf\'0„	Âa†0C˜€!LÀ&`0„	Âa÷BŸxêÖwÛF÷\'ßw}ó™÷ì®À&`0„	Âa†0C˜€!LÀ&`0„}ØBßÜ»nÛÍžØ¶¾¹Ñ}êûjýæÀ&`0„	Âa†0C˜€!LÀ&`0„Ü}s;zó^ß©{¡O´ö·çöÜŸ|®õ:!LÀ&`0„	Âa†0C˜€!LÀ&`{½_cnÛoóÔ­oñûšú.¦>Ÿ)ïŸÇ	a†0C˜€!LÀ&`0„	Âa†0CØÀ½ÐS¶Ý/}â©Ïs¢¸\'0„	Âa†0C˜€!LÀ&`0„	Âaî…æ½›÷fŸØömn»_º¸ßv/4<–€!LÀ&`0„	Âa†0C˜€!LÀöá^èâvtÊÉFwjÇ[¼_úæocÛ¦zÏ÷å†0C˜€!LÀ&`0„	Âa†0C˜€!ìÃúÄ¶»ˆO7ÞÅ;¨Ÿzßõ”ïß—Âa†0C˜€!LÀ&`0„	Âa†°-ô‰›Ûã›»Ù›[ß§ÞA½m—>µñ¾ó;tC˜€!LÀ&`0„	Âa†0C˜€!LÀviý“ÝÜ{­ïmÛx¿ïN`0„	Âa†0C˜€!LÀ&`0„	Âl¡¿²m|óžê©gÞvOõÍÏù{N`0„	Âa†0C˜€!LÀ&`0„	Â.m¡oÞë{Ó¶;·í¥§ìÙŸ»óù8!LÀ&`0„	Âa†0C˜€!LÀ&`ØBwªEÛîažrsO~òZÛžçýk9!LÀ&`0„	Âa†0C˜€!LÀ&`{m[ÆçœÀ&`0„	Âa†0C˜€!LÀö/ÕÓ£j~u3' . "\0" . '' . "\0" . '' . "\0" . '' . "\0" . 'IEND®B`‚')
+ 3 APPPATH\Controllers\GuestController.php(633): Endroid\QrCode\Writer\Result\AbstractResult->saveToFile('C:\\laragon\\www\\projectmahalta\\public\\/qr-codes/qr-code-195.png')
+ 4 APPPATH\Controllers\GuestController.php(597): App\Controllers\GuestController->generateQrCode(195, '1')
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-04-28 19:30:48 --> Mailer Error: Could not access file: http://localhost:8080/qr-codes/qr-code-196.png
+ERROR - 2024-04-28 19:33:55 --> Mailer Error: Invalid address:  (to): 
+CRITICAL - 2024-04-28 19:34:42 --> syntax error, unexpected token "}"
+in APPPATH\Controllers\GuestController.php on line 625.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\GuestController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\GuestController')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\GuestController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 19:36:21 --> syntax error, unexpected token "}"
+in APPPATH\Controllers\GuestController.php on line 612.
+ 1 SYSTEMPATH\Autoloader\Autoloader.php(291): CodeIgniter\Autoloader\Autoloader->includeFile('C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php')
+ 2 SYSTEMPATH\Autoloader\Autoloader.php(269): CodeIgniter\Autoloader\Autoloader->loadInNamespace('App\\Controllers\\GuestController')
+ 3 [internal function]: CodeIgniter\Autoloader\Autoloader->loadClass('App\\Controllers\\GuestController')
+ 4 SYSTEMPATH\CodeIgniter.php(900): class_exists('\\App\\Controllers\\GuestController', true)
+ 5 SYSTEMPATH\CodeIgniter.php(489): CodeIgniter\CodeIgniter->startController()
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-04-28 19:36:27 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:39:53 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:41:18 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:43:44 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:44:14 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:44:34 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:45:05 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:45:41 --> Mailer Error: Invalid address:  (to): 
+ERROR - 2024-04-28 19:46:57 --> Mailer Error: Could not access file: http://localhost:8080/qr-codes/qr-code-206.png
+ERROR - 2024-04-28 19:47:24 --> Mailer Error: Could not access file: http://localhost:8080/qr-codes/qr-code-207.png
+ERROR - 2024-04-28 19:50:29 --> Attachment file does not exist: http://localhost:8080/qr-codes/qr-code-209.png
+ERROR - 2024-04-28 19:50:29 --> Mailer Error: 
+ERROR - 2024-04-28 19:53:19 --> Attachment file does not exist: http://localhost:8080/qr-codes/qr-code-210.png
+ERROR - 2024-04-28 19:53:19 --> Mailer Error: 
+CRITICAL - 2024-04-28 20:45:46 --> include(inc/header.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Admin\reservation_view.php on line 76.
+ 1 APPPATH\Views\Admin\reservation_view.php(76): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(inc/header.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\reservation_view.php', 76)
+ 2 APPPATH\Views\Admin\reservation_view.php(76): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\reservation_view.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/reservation_view', [], true)
+ 6 APPPATH\Controllers\AdminController.php(1737): view('Admin/reservation_view', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('215')
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 20:54:51 --> Class "App\Controllers\DateTime" not found
+in APPPATH\Controllers\AdminController.php on line 1737.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('215')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-28 20:55:04 --> Invalid file: "Hotel/reservation_view.php"
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(216): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('Hotel/reservation_view.php')
+ 2 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel/reservation_view', [], true)
+ 3 APPPATH\Controllers\AdminController.php(1743): view('Hotel/reservation_view', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('215')
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

@@ -28,6 +28,7 @@ use App\Models\BarangayModel;
 use App\Traits\EmailTrait;
 use App\Models\ConventionVenueModel;
 use CodeIgniter\API\ResponseTrait;
+use DateTime;
 
 class AdminController extends BaseController
 {
@@ -56,7 +57,8 @@ class AdminController extends BaseController
     private $cities;
     private $barangay;
     private $convenues;
-    function __construct(){
+    function __construct()
+    {
         helper(['form']);
         $this->rooms = new RoomModel();
         $this->tables = new TableModel();
@@ -86,12 +88,13 @@ class AdminController extends BaseController
     {
         //
     }
-    public function login(){
+    public function login()
+    {
         helper(['form']);
         $data = [
             'activePage' => 'AdminLogin',
         ];
-        return view('AdminLogin',$data);
+        return view('AdminLogin', $data);
     }
     public function LoginAuth()
     {
@@ -164,7 +167,7 @@ class AdminController extends BaseController
     public function logout()
     {
         $session = session();
-        $session->destroy(); 
+        $session->destroy();
         return redirect()->to('/admin-login');
     }
     public function dashboard()
@@ -198,7 +201,7 @@ class AdminController extends BaseController
         $totalRating = count($feedbackData);
 
         // Compute percentages
-        $positivePercentage = ($positiveCount / $totalRating) * 100 ;
+        $positivePercentage = ($positiveCount / $totalRating) * 100;
         $neutralPercentage = ($neutralCount / $totalRating) * 100;
         $negativePercentage = ($negativeCount / $totalRating) * 100;
 
@@ -207,29 +210,29 @@ class AdminController extends BaseController
             'adminRoutes' => 'dashboard',
             'regions' => $regions,
             'customers' => $this->guest
-            ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
-            ->join ('users', 'guest.UserID = users.UserID')
-            ->findAll(),
+                ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('users', 'guest.UserID = users.UserID')
+                ->findAll(),
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false )
-            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join('users', 'reservations.UserID = users.UserID')
-            ->where('reservations.Status', 'Confirm')
-            ->findAll(),
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
             'reevents' => $this->reservation
-            ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
-            ->join ('convention', 'reservations.conventionID = convention.conventionID')
-            ->join ('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
-            ->join ('events', 'convention.EventID = events.EventID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->where('reservations.Status', 'Confirm')
-            ->findAll(),
+                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
+                ->join('convention', 'reservations.conventionID = convention.conventionID')
+                ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+                ->join('events', 'convention.EventID = events.EventID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
-            ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->where('reservations.Status', 'Confirm')
-            ->findAll(),
+                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+                ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
             'feedback' => $this->feedbacks->findAll(),
             'positivePercentage' => $positivePercentage,
             'neutralPercentage' => $neutralPercentage,
@@ -242,9 +245,9 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'customer',
             'guests' => $this->guest
-            ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
-            ->join ('users', 'guest.UserID = users.UserID')
-            ->findAll()
+                ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
+                ->join('users', 'guest.UserID = users.UserID')
+                ->findAll()
         ];
         return view('Admin\customer', $data);
     }
@@ -295,7 +298,7 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
         }
     }
-    
+
     public function updateCustomer($userID)
     {
         helper(['form']);
@@ -339,18 +342,18 @@ class AdminController extends BaseController
         return redirect()->to(base_url('/admin-customer'))->with('success', 'Guest details updated successfully.');
     }
 
-    
+
     public function holReservation()
     {
         $data = [
             'adminRoutes' => 'holReservation',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false )
-            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join('users', 'reservations.UserID = users.UserID')
-            ->findAll()
-        
-        ]; 
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll()
+
+        ];
         return view('Admin\Hotel\reservation', $data);
     }
     public function addHotelReservation()
@@ -387,10 +390,10 @@ class AdminController extends BaseController
 
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
-                            ->first();
+            ->where('LastName', $LastName)
+            ->where('ContactNumber', $ContactNumber)
+            ->where('Address', $Address)
+            ->first();
 
         // Retrieve Room Data
         $inputRoomType = $this->request->getPost('RoomType');
@@ -433,7 +436,7 @@ class AdminController extends BaseController
 
         // Validation Rules (you can customize these based on your requirements)
         $validationRules = [
-            
+
             'CheckInDate' => 'required',
             'CheckOutDate' => 'required',
             'RoomNumber' => 'required',
@@ -456,27 +459,27 @@ class AdminController extends BaseController
         $inputRoomNumber = $this->request->getPost('RoomNumber');
 
         $roomData = $this->rooms->where('RoomType', $inputRoomType)
-                                ->where('RoomNumber', $inputRoomNumber)
-                                ->first();
+            ->where('RoomNumber', $inputRoomNumber)
+            ->first();
 
         // Update Reservation Data
         if ($roomData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
-                    'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                    'TotalAmount' => $this->request->getPost('TotalAmount'),
-                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
-                    'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
-                ];
+            // Prepare Reservation Data
+            $updateReservationData = [
+                'CheckInDate' => $this->request->getPost('CheckInDate'),
+                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                'TotalAmount' => $this->request->getPost('TotalAmount'),
+                'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
+            ];
 
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
+            // Update Reservation
+            $this->reservation->update($reservationID, $updateReservationData);
 
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/admin-hotel/reservation'))->with('success', 'Reservation updated successfully.');
+            // Redirect with appropriate message
+            return redirect()->to(base_url('/admin-hotel/reservation'))->with('success', 'Reservation updated successfully.');
         } else {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
         }
@@ -485,52 +488,52 @@ class AdminController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-    
+
         if (!in_array($status, $allowedStatuses)) {
             // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-    
+
         // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
-                             ->where('ReservationID', $reservationID)
-                             ->first();
-    
+            ->where('ReservationID', $reservationID)
+            ->first();
+
         if (!$reservation) {
             // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-    
+
         // Retrieve user data based on UserID from the reservation
         $user = $this->users
-                     ->where('UserID', $reservation['UserID'])
-                     ->first();
-    
+            ->where('UserID', $reservation['UserID'])
+            ->first();
+
         if (!$user) {
             // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-    
+
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-    
-        if ($updated) {
-         // Prepare the email message with reservation details
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Adult: {$reservation['Adult']}<br>";
-        $emailMessage .= "Kid: {$reservation['Child']}<br>";
-        $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
-        $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
-        $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
-        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
 
-    
+        if ($updated) {
+            // Prepare the email message with reservation details
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+            $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+            $emailMessage .= "Adult: {$reservation['Adult']}<br>";
+            $emailMessage .= "Kid: {$reservation['Child']}<br>";
+            $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
+            $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
+            $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
+            $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
+
+
             // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
@@ -547,9 +550,10 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
-    protected function sendPushNotification($fcmToken, $title, $body) {
+    protected function sendPushNotification($fcmToken, $title, $body)
+    {
         $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-    
+
         $postData = [
             'to' => $fcmToken,
             'notification' => [
@@ -557,12 +561,12 @@ class AdminController extends BaseController
                 'body' => $body,
             ],
         ];
-    
+
         $headers = [
             'Authorization: key=' . $firebaseServerKey,
             'Content-Type: application/json',
         ];
-    
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
         curl_setopt($ch, CURLOPT_POST, true);
@@ -572,23 +576,24 @@ class AdminController extends BaseController
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         $result = curl_exec($ch);
         curl_close($ch);
-    
+
         // Log or handle the response as needed
     }
-    
+
     public function resReservation()
     {
         $data = [
             'adminRoutes' => 'restReservation',
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
-            ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->findAll()
-        ]; 
-        return view('Admin\Restaurant\reservation',$data);
+                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+                ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll()
+        ];
+        return view('Admin\Restaurant\reservation', $data);
     }
-    public function addRestauReservation(){
+    public function addRestauReservation()
+    {
         helper(['form']);
         $validationRules = [
             'FirstName' => 'required',
@@ -612,10 +617,10 @@ class AdminController extends BaseController
 
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
-                            ->first();
+            ->where('LastName', $LastName)
+            ->where('ContactNumber', $ContactNumber)
+            ->where('Address', $Address)
+            ->first();
 
         // Retrieve Room Data
         $inputTable = $this->request->getPost('Venue');
@@ -652,7 +657,7 @@ class AdminController extends BaseController
 
         // Validation Rules (you can customize these based on your requirements)
         $validationRules = [
-            
+
             'CheckInDate' => 'required',
             'Venue' => 'required',
             'Note' => 'required',
@@ -666,26 +671,26 @@ class AdminController extends BaseController
         }
 
 
-        
+
         $inputTableNumber = $this->request->getPost('Venue');
 
         $tableData = $this->tables->where('Venue', $inputTableNumber)
-                                ->first();
+            ->first();
 
         // Update Reservation Data
         if ($tableData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'Note' => $this->request->getPost('Note'),
-                    'TableID' => $tableData['TableID'], // Use the RoomID from RoomType
-                ];
+            // Prepare Reservation Data
+            $updateReservationData = [
+                'CheckInDate' => $this->request->getPost('CheckInDate'),
+                'Note' => $this->request->getPost('Note'),
+                'TableID' => $tableData['TableID'], // Use the RoomID from RoomType
+            ];
 
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
+            // Update Reservation
+            $this->reservation->update($reservationID, $updateReservationData);
 
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/admin-restaurant/reservation'))->with('success', 'Reservation updated successfully.');
+            // Redirect with appropriate message
+            return redirect()->to(base_url('/admin-restaurant/reservation'))->with('success', 'Reservation updated successfully.');
         } else {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
         }
@@ -694,48 +699,48 @@ class AdminController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-    
+
         if (!in_array($status, $allowedStatuses)) {
             // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-    
+
         // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
-                             ->where('ReservationID', $reservationID)
-                             ->first();
-    
+            ->where('ReservationID', $reservationID)
+            ->first();
+
         if (!$reservation) {
             // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-    
+
         // Retrieve user data based on UserID from the reservation
         $user = $this->users
-                     ->where('UserID', $reservation['UserID'])
-                     ->first();
-    
+            ->where('UserID', $reservation['UserID'])
+            ->first();
+
         if (!$user) {
             // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-    
+
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-    
-        if ($updated) {
-         // Prepare the email message with reservation details
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Arrival Date: {$reservation['ArivalDate']}<br>";
-        $emailMessage .= "Arrival Date: {$reservation['ArivalTime']}<br>";
-        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
-        $emailMessage .= "Note : {$reservation['Note']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
 
-    
+        if ($updated) {
+            // Prepare the email message with reservation details
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Arrival Date: {$reservation['ArivalDate']}<br>";
+            $emailMessage .= "Arrival Date: {$reservation['ArivalTime']}<br>";
+            $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+            $emailMessage .= "Note : {$reservation['Note']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
+
+
             // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
@@ -757,14 +762,14 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'conReservation',
             'reevents' => $this->reservation
-            ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
-            ->join ('convention', 'reservations.conventionID = convention.conventionID')
-            ->join ('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
-            ->join ('events', 'convention.EventID = events.EventID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->findAll()
-        ]; 
-        return view('Admin\Convention\reservation',$data);
+                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
+                ->join('convention', 'reservations.conventionID = convention.conventionID')
+                ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+                ->join('events', 'convention.EventID = events.EventID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll()
+        ];
+        return view('Admin\Convention\reservation', $data);
     }
     public function addConReservation()
     {
@@ -796,10 +801,10 @@ class AdminController extends BaseController
 
         // Use a single query to get the user based on both first name and last name
         $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('Email', $Email)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->first();
+            ->where('LastName', $LastName)
+            ->where('Email', $Email)
+            ->where('ContactNumber', $ContactNumber)
+            ->first();
 
         // Retrieve Room Data
         $inputEventType = $this->request->getPost('EventType');
@@ -851,27 +856,27 @@ class AdminController extends BaseController
         }
 
 
-        
+
         $inputEventType = $this->request->getPost('EventType');
 
         $eventData = $this->events->where('EventType', $inputEventType)
-                                ->first();
+            ->first();
 
         // Update Reservation Data
         if ($eventData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                    'Note' => $this->request->getPost('Note'),
-                    'EventID' => $eventData['EventID'], // Use the RoomID from RoomType
-                ];
+            // Prepare Reservation Data
+            $updateReservationData = [
+                'CheckInDate' => $this->request->getPost('CheckInDate'),
+                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                'Note' => $this->request->getPost('Note'),
+                'EventID' => $eventData['EventID'], // Use the RoomID from RoomType
+            ];
 
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
+            // Update Reservation
+            $this->reservation->update($reservationID, $updateReservationData);
 
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation updated successfully.');
+            // Redirect with appropriate message
+            return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation updated successfully.');
         } else {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
         }
@@ -880,48 +885,48 @@ class AdminController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-    
+
         if (!in_array($status, $allowedStatuses)) {
             // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-    
+
         // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
-                             ->where('ReservationID', $reservationID)
-                             ->first();
-    
+            ->where('ReservationID', $reservationID)
+            ->first();
+
         if (!$reservation) {
             // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-    
+
         // Retrieve user data based on UserID from the reservation
         $user = $this->users
-                     ->where('UserID', $reservation['UserID'])
-                     ->first();
-    
+            ->where('UserID', $reservation['UserID'])
+            ->first();
+
         if (!$user) {
             // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-    
+
         // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-    
-        if ($updated) {
-         // Prepare the email message with reservation details
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
-        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
 
-    
+        if ($updated) {
+            // Prepare the email message with reservation details
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+            $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+            $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+            $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
+
+
             // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
@@ -945,62 +950,62 @@ class AdminController extends BaseController
             'regions' => $this->regions->findAll(),
             'staffs' => $this->staffDetail
                 ->select('staff_details.StaffDetailsID, departments.DepartmentID, departments.DepartmentName, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
-                ->join ('departments', 'staff_details.DepartmentID = departments.DepartmentID')
-                ->join ('users', 'staff_details.UserID = users.UserID')
+                ->join('departments', 'staff_details.DepartmentID = departments.DepartmentID')
+                ->join('users', 'staff_details.UserID = users.UserID')
                 ->findAll()
-        ]; 
-        return view('Admin\staffAccount',$data);
+        ];
+        return view('Admin\staffAccount', $data);
     }
-    
+
     public function fetchProvince()
     {
         $request = service('request');
-        
+
         // Ensure regCode is set in the request
         $regCode = $request->getPost('regCode');
-        
+
         // Load the model or service responsible for fetching provinces
         $provinces = $this->province->where('regCode', $regCode)->findAll();
-        
+
         $data['provinces'] = $provinces;
-        
+
         return $this->response->setJSON($data);
     }
-    
+
     public function fetchCity()
     {
         $request = service('request');
-        
+
         // Ensure provCode is set in the request
         $provCode = $request->getPost('provCode');
-        
+
         // Load the model or service responsible for fetching cities
         $cities = $this->cities->where('provCode', $provCode)->findAll();
-        
+
         $data['cities'] = $cities;
-        
+
         return $this->response->setJSON($data);
     }
-    
+
     public function fetchBarangay()
     {
         $request = service('request');
-        
+
         // Ensure citymunCode is set in the request
         $citymunCode = $request->getPost('citymunCode');
-        
+
         // Load the model or service responsible for fetching barangays
         $barangays = $this->barangay->where('citymunCode', $citymunCode)->findAll();
-        
+
         $data['barangays'] = $barangays;
-        
+
         return $this->response->setJSON($data);
     }
-    
+
     public function addStaffDetails()
     {
         helper(['form']);
-    
+
         // Validation Rules and Messages
         $validationRules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
@@ -1015,7 +1020,7 @@ class AdminController extends BaseController
             'Barangay' => 'required',
             'DepartmentName' => 'required',
         ];
-    
+
         $validationMessages = [
             'FirstName' => [
                 'required' => 'The first name field is required.',
@@ -1062,21 +1067,21 @@ class AdminController extends BaseController
                 'required' => 'The barangay field is required.',
             ],
         ];
-    
+
         // Validate Input
         if ($this->validate($validationRules, $validationMessages)) {
 
-    
+
             $regionCode = $this->request->getVar('Region');
             $provinceCode = $this->request->getVar('Province');
             $cityCode = $this->request->getVar('City');
             $barangayCode = $this->request->getVar('Barangay');
-    
+
             $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'];
             $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'];
             $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'];
             $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'];
-    
+
             // Construct user data
             $userData = [
                 'FirstName' => $this->request->getVar('FirstName'),
@@ -1093,39 +1098,39 @@ class AdminController extends BaseController
             $verificationToken = bin2hex(random_bytes(16));
             $userData['verification_token'] = $verificationToken;
             $userData['is_verified'] = 1;
-    
+
             // Insert user data into the database
             $insertedUserID = $this->users->insert($userData);
-    
+
             // Handle database insertion errors
             if (!$insertedUserID) {
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
             }
-    
+
             // Retrieve department ID based on department name
-            $inputDepartmentName =$this->request->getPost('DepartmentName');
+            $inputDepartmentName = $this->request->getPost('DepartmentName');
             $departmentData = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-    
+
             if (!$departmentData) {
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid department selected.');
             }
-    
+
             // Construct staff data
             $staffData = [
                 'DepartmentID' => $departmentData['DepartmentID'],
                 'UserID' => $insertedUserID,
             ];
-    
+
             // Insert staff data into the database
             $insertedStaffID = $this->staffDetail->insert($staffData);
-    
+
             // Handle staff insertion errors
             if (!$insertedStaffID) {
                 // Rollback user insertion
                 $this->users->delete($insertedUserID);
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
             }
-    
+
             // Redirect with success message
             return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff added successfully.');
         } else {
@@ -1138,7 +1143,7 @@ class AdminController extends BaseController
                 ->join('departments', 'staff_details.DepartmentID = departments.DepartmentID')
                 ->join('users', 'staff_details.UserID = users.UserID')
                 ->findAll();
-    
+
             return view('Admin\staffAccount', $data);
         }
     }
@@ -1204,41 +1209,42 @@ class AdminController extends BaseController
     }
     public function rate()
     {
-        
+
         $data = [
             'adminRoutes' => 'rate',
-            
+
         ];
-    
+
         return view('Admin/rate', $data);
     }
-    
-       
+
+
 
     public function feedback()
     {
         $data = [
             'adminRoutes' => 'feedback',
             'feedbacks' => $this->feedbacks
-            ->select('feedback.FeedbackID,feedback.FeedbackMessage,feedback.created_at, users.UserID, users.Email')
-            ->join ('users', 'feedback.UserID = users.UserID')
-            ->findAll()
+                ->select('feedback.FeedbackID,feedback.FeedbackMessage,feedback.created_at, users.UserID, users.Email')
+                ->join('users', 'feedback.UserID = users.UserID')
+                ->findAll()
         ];
         return view('Admin\feedback', $data);
     }
 
     public function chat()
     {
-        
+
         $data = [
             'adminRoutes' => 'chat',
             'chats' => $this->chat->findAll()
         ];
-    
+
         // Load the view with the data
         return view('Admin/chat', $data);
     }
-    public function addChat(){
+    public function addChat()
+    {
         helper(['form']);
 
         // Validation Rules
@@ -1254,21 +1260,21 @@ class AdminController extends BaseController
         }
 
 
-       
-            $newReservationData = [
-                'Question' => $this->request->getPost('Question'),
-                'Answer' => $this->request->getPost('Answer'),
-            ];
 
-            // Insert Reservation
-            $inserted = $this->chat->insert($newReservationData);
+        $newReservationData = [
+            'Question' => $this->request->getPost('Question'),
+            'Answer' => $this->request->getPost('Answer'),
+        ];
 
-            // Redirect with appropriate message
-            if ($inserted) {
-                return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation added successfully.');
-            } else {
-                return redirect()->to(base_url('/admin-chat'))->with('error', 'Failed to add reservation. Please try again.');
-            }
+        // Insert Reservation
+        $inserted = $this->chat->insert($newReservationData);
+
+        // Redirect with appropriate message
+        if ($inserted) {
+            return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation added successfully.');
+        } else {
+            return redirect()->to(base_url('/admin-chat'))->with('error', 'Failed to add reservation. Please try again.');
+        }
     }
     public function updateChat($ChatID)
     {
@@ -1288,11 +1294,11 @@ class AdminController extends BaseController
         }
 
 
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'Question' => $this->request->getPost('Question'),
-                    'Answer' => $this->request->getPost('Answer'),
-                ];
+        // Prepare Reservation Data
+        $updateReservationData = [
+            'Question' => $this->request->getPost('Question'),
+            'Answer' => $this->request->getPost('Answer'),
+        ];
 
         // Update Reservation
         $this->chat->update($ChatID, $updateReservationData);
@@ -1301,24 +1307,25 @@ class AdminController extends BaseController
         return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation updated successfully.');
     }
 
-    
+
     public function holService()
     {
         $data = [
             'adminRoutes' => 'holService',
             'rooms' => $this->rooms->findAll(),
         ];
-    
+
         // Load the view with the data
         return view('Admin/Hotel/service', $data);
     }
-    public function addserviceRoom(){
+    public function addserviceRoom()
+    {
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'RoomNumber' => $this->request->getVar('RoomNumber'),
                 'RoomType' => $this->request->getVar('RoomType'),
@@ -1329,7 +1336,7 @@ class AdminController extends BaseController
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1337,7 +1344,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1356,19 +1363,20 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
-    
+
         return redirect()->to('/admin-hotel/service');
     }
-    public function updateserviceRoom(){
+    public function updateserviceRoom()
+    {
 
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'RoomID' => $this->request->getVar('RoomID'),
                 'RoomNumber' => $this->request->getVar('RoomNumber'),
@@ -1380,7 +1388,7 @@ class AdminController extends BaseController
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1388,7 +1396,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1397,7 +1405,6 @@ class AdminController extends BaseController
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
                         $this->rooms->save($data);
-                        
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1408,7 +1415,7 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/admin-hotel/service');
     }
@@ -1418,44 +1425,45 @@ class AdminController extends BaseController
             'adminRoutes' => 'restService',
             'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'menumains' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(1, 11))
-            ->where('menu.MenuType', 'Main Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(1, 11))
+                ->where('menu.MenuType', 'Main Menu')
+                ->findAll(),
             'menubars' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(12, 21))
-            ->where('menu.MenuType', 'Bar Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(12, 21))
+                ->where('menu.MenuType', 'Bar Menu')
+                ->findAll(),
             'menucafes' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(21, 24))
-            ->where('menu.MenuType', 'Cafe Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(21, 24))
+                ->where('menu.MenuType', 'Cafe Menu')
+                ->findAll(),
             'menuices' => $this->iced
-            ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
-            ->where('menu_category.CategoryID', 22)
-            ->where('menu.MenuType', 'Cafe Menu')
-            ->findAll(),
+                ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
+                ->where('menu_category.CategoryID', 22)
+                ->where('menu.MenuType', 'Cafe Menu')
+                ->findAll(),
 
         ];
         return view('Admin/Restaurant/service', $data);
     }
-    public function addserviceTable(){
+    public function addserviceTable()
+    {
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
                 'VenueName' => $this->request->getVar('VenueName'),
@@ -1463,7 +1471,7 @@ class AdminController extends BaseController
                 'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1471,7 +1479,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1490,22 +1498,23 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
-    
+
         return redirect()->to('/admin-restaurant/service');
     }
-    
 
 
-    public function updateserviceTable(){
+
+    public function updateserviceTable()
+    {
 
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
                 'VenueName' => $this->request->getVar('VenueName'),
@@ -1513,7 +1522,7 @@ class AdminController extends BaseController
                 'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1521,7 +1530,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1530,7 +1539,6 @@ class AdminController extends BaseController
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
                         $this->venues->save($data);
-                        
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1541,7 +1549,7 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/admin-restaurant/service');
     }
@@ -1552,24 +1560,25 @@ class AdminController extends BaseController
             'events' => $this->events->findAll(),
             'convenues' => $this->convenues->findAll(),
         ];
-    
+
         // Load the view with the data
         return view('Admin/Convention/service', $data);
     }
-    public function addserviceEvent(){
+    public function addserviceEvent()
+    {
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'RoomNumber' => $this->request->getVar('RoomNumber'),
                 'EventType' => $this->request->getVar('EventType'),
                 'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1577,7 +1586,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1596,26 +1605,27 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
-    
+
         return redirect()->to('/admin-convention/service');
     }
-    public function updateserviceEvent(){
+    public function updateserviceEvent()
+    {
 
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'EventID' => $this->request->getVar('EventID'),
                 'EventType' => $this->request->getVar('EventType'),
                 'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1623,7 +1633,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1632,7 +1642,6 @@ class AdminController extends BaseController
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
                         $this->events->save($data);
-                        
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1643,7 +1652,7 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/admin-convention/service');
     }
@@ -1654,24 +1663,25 @@ class AdminController extends BaseController
             'adminRoutes' => 'qrcode',
             'qrcodes' => $this->qr->findAll(),
         ];
-    
+
         // Load the view with the data
         return view('Admin/qrcode', $data);
     }
-    public function updateQrcode(){
+    public function updateQrcode()
+    {
 
         $file = $this->request->getFile('Image');
-    
+
         // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'QrcodeID' => $this->request->getVar('QrcodeID'),
                 'PaymentOption' => $this->request->getVar('PaymentOption'),
                 'Image'                => $newFileName
             ];
-    
+
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
@@ -1679,7 +1689,7 @@ class AdminController extends BaseController
                     'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
                 ]
             ];
-    
+
             // Validate the file and other form data
             if ($this->validate($rules)) {
                 // Check if the file is valid and has not been moved
@@ -1688,7 +1698,6 @@ class AdminController extends BaseController
                     if ($file->move(FCPATH . 'qrimage/', $newFileName)) {
                         // Save product data to the database
                         $this->qr->save($data);
-                        
                     } else {
                         // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1699,16 +1708,43 @@ class AdminController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/admin-qrcode');
     }
-    public function setting(){
+    public function setting()
+    {
         $data = [
             'adminRoutes' => 'setting',
         ];
         return view('Admin/setting', $data);
     }
-    
-    
+
+    public function viewReservation($reservationID)
+    {
+        $db = \Config\Database::connect(); // Get database connection
+
+        // SQL Query to fetch reservation, user, and room details
+        $query = $db->table('reservations')
+            ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->where('reservations.ReservationID', $reservationID)
+            ->get();
+
+        $reservationDetails = $query->getRow();
+
+        // Check if reservation has expired
+        if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
+            $reservationDetails->Status = 'Expired'; // Set status to Expired if checkout date is past
+        } else {
+            $reservationDetails->Status = 'Valid';
+        }
+
+        if ($reservationDetails) {
+            return view('Hotell/reservation_view', ['reservation' => $reservationDetails]); // Load the view and pass the details
+        } else {
+            return redirect()->back()->with('error', 'Reservation not found.');
+        }
+    }
 }

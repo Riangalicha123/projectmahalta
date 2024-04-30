@@ -12,7 +12,7 @@ class ReservationModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['UserID', 'RoomID', 'VenueID', 'conventionID', 'CheckInDate', 'CheckOutDate', 'ArivalDate', 'ArivalTime', 'NumberOfGuests', 'Adult','Child', 'ReferenceNumber', 'PaymentOption', 'downorfullPayment', 'TotalAmount','Image', 'Note','Status'];
+    protected $allowedFields    = ['UserID', 'RoomID', 'VenueID', 'conventionID', 'CheckInDate', 'CheckOutDate', 'ArivalDate', 'ArivalTime', 'NumberOfGuests', 'Adult', 'Child', 'ReferenceNumber', 'PaymentOption', 'downorfullPayment', 'TotalAmount', 'Image', 'Note', 'Status', 'QRCodePath'];
 
     // Dates
     protected $useTimestamps = false;
