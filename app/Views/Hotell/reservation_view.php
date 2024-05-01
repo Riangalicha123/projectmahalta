@@ -107,13 +107,26 @@
                 <h2>Reservation Information</h2>
                 <p><strong>Check-In Date:</strong> <?= $reservation->CheckInDate ?></p>
                 <p><strong>Check-Out Date:</strong> <?= $reservation->CheckOutDate ?></p>
-                <p><strong>Number of Guest:</strong> <?= $reservation->NumberOfGuests ?></p>
                 <p><strong>Adult:</strong> <?= $reservation->Adult ?></p>
                 <p><strong>Child:</strong> <?= $reservation->Child ?></p>
                 <p><strong>Room:</strong> <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?></p>
                 <p><strong>Total Amount:</strong> <?= $reservation->TotalAmount ?></p>
                 <p style="color: <?= (new DateTime() > new DateTime($reservation->CheckOutDate)) ? 'red' : 'green'; ?>;"><strong>Status:</strong> <?= $reservation->Status ?></p>
             </div>
+            <div class="section">
+    <h2>Amenities Details</h2>
+    <?php if (!empty($amenities)) : ?>
+        <ul>
+            <?php foreach ($amenities as $amenity) : ?>
+                <li><?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?></li>
+            <?php endforeach; ?>
+        </ul>
+    <?php else : ?>
+        <p>No amenities selected</p>
+    <?php endif; ?>
+</div>
+
+
             <div class="section">
                 <h2>Room Details</h2>
                 <p><strong>Description:</strong> <?= $reservation->Description ?></p>

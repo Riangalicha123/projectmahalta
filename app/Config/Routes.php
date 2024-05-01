@@ -173,6 +173,7 @@ $routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1', ['filter' 
 $routes->get('/admin-hotel/service', 'AdminController::holService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceRoom', 'AdminController::addserviceRoom', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom', ['filter' => 'adminGuard']);
+$routes->post('/room-image/add', 'AdminController::addserviceRoomImage',['filter' => 'adminGuard']);
 //Restaurant
 $routes->get('/admin-restaurant/service', 'AdminController::restService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' => 'adminGuard']);

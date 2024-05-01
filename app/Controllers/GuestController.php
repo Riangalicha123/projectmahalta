@@ -22,6 +22,7 @@ use App\Models\RoomInventoryModel;
 use App\Models\ReservationAmenities;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
+use App\Models\RoomImageModel;
 
 class GuestController extends BaseController
 {
@@ -44,6 +45,7 @@ class GuestController extends BaseController
     private $reservationamenities;
     private $convenues;
     private $conventions;
+    private $roomimages;
 
     function __construct()
     {
@@ -66,6 +68,7 @@ class GuestController extends BaseController
         $this->reservationamenities = new ReservationAmenities();
         $this->convenues = new ConventionVenueModel();
         $this->conventions = new ConventionModel();
+        $this->roomimages = new RoomImageModel();
     }
     public function index()
     {
@@ -107,6 +110,11 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Room',
             'rooms' => $this->rooms->findAll(),
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
             'chats' => $this->chat->findAll(),
         ];
         return view('Hotell\room', $data);
@@ -137,7 +145,13 @@ class GuestController extends BaseController
         // Pass data to the view
         return view('Hotell/bookroom', [
             'reservationData' => $reservationData,
-            'availableRooms' => $availableRooms
+            'availableRooms' => $availableRooms,
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
+            'rooms' => $this->rooms->findAll(),
         ]);
     }
     public function getdataRoom()
@@ -196,7 +210,13 @@ class GuestController extends BaseController
             'reservationData' => $session->get('reservationData'),
             'availableRooms' => $availableRooms,
             'roomSelected' => $roomSelected,
-            'TotalAmount' => $TotalAmount
+            'TotalAmount' => $TotalAmount,
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
+            'rooms' => $this->rooms->findAll(),
         ]);
     }
 
@@ -205,15 +225,6 @@ class GuestController extends BaseController
         $session = \Config\Services::session();
         $reservationData = $session->get('reservationData');
         $roomSelected = $session->get('roomSelected');
-        $amenitiesData = $session->get('amenitiesData'); // Retrieve amenities data from session
-        $totalExtraPrice = 0; // Initialize total extra price
-
-        // Calculate total extra price for amenities
-        if (!empty($amenitiesData)) {
-            foreach ($amenitiesData as $amenity) {
-                $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
-            }
-        }
 
         if (!empty($reservationData) && !empty($roomSelected)) {
             $checkInDate = new \DateTime($reservationData['CheckInDate']);
@@ -221,8 +232,7 @@ class GuestController extends BaseController
             $numberOfNights = $checkInDate->diff($checkOutDate)->days;
             $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
 
-            // Add total extra price to the TotalAmount
-            $TotalAmount += $totalExtraPrice;
+
 
             $numberOfAdults = (int) $reservationData['Adult'];
             $numberOfChildren = (int) $reservationData['Child'];
@@ -238,7 +248,6 @@ class GuestController extends BaseController
                 'reservationData' => $reservationData,
                 'roomSelected' => $roomSelected,
                 'TotalAmount' => $TotalAmount,
-                'totalExtraPrice' => $totalExtraPrice, // Include totalExtraPrice
             ]);
             return redirect()->to(base_url('/bookroom/amenities'));
         } else {
@@ -413,6 +422,11 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Reservation',
             'rooms' => $this->rooms->findAll(),
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
             'reservationData' => $reservationData,
             /* 'availableRooms' => $availableRooms, */
             'roomSelected' => $roomSelected,
@@ -525,32 +539,7 @@ class GuestController extends BaseController
         $skipAmenities = $this->request->getGet('skip') === 'true';
 
         if ($roomSelected && $reservationData && $user && $TotalAmount) {
-            if (!$skipAmenities && $amenitiesData) {
-                // Process amenities data
-                $amenitiesWithUserID = [];
-                foreach ($amenitiesData as $amenity) {
-                    $amenity['UserID'] = $user['UserID'];
-                    $amenitiesWithUserID[] = $amenity;
-                }
-
-                // Insert amenities data and update room inventory
-                foreach ($amenitiesWithUserID as $amenity) {
-                    $amenityData = [
-                        'roomInventoryID' => $amenity['roomInventoryID'],
-                        'insertQuantity' => $amenity['insertQuantity'],
-                        'UserID' => $amenity['UserID'],
-                    ];
-                    $this->reservationamenities->insert($amenityData);
-                    $roomInventoryID = $amenity['roomInventoryID'];
-                    $insertQuantity = $amenity['insertQuantity'];
-                    $roomInventory = $this->roominventory->find($roomInventoryID);
-                    if ($roomInventory) {
-                        $currentQuantity = $roomInventory['Quantity'];
-                        $newQuantity = $currentQuantity - $insertQuantity;
-                        $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
-                    }
-                }
-            }
+            
 
             // Prepare reservation data
             $paymentOption = $this->request->getPost('PaymentOption');
@@ -583,7 +572,6 @@ class GuestController extends BaseController
                         'RoomID' => $roomSelected['RoomID'],
                         'UserID' => $user['UserID'],
                         'TotalAmount' => $TotalAmount + $totalExtraPrice,
-                        'AmenitiesID' => $skipAmenities ? null : $amenitiesData, // Set AmenitiesID to null if amenities are skipped
                         'Image' => $newFileName,
 
                     ];
@@ -591,10 +579,37 @@ class GuestController extends BaseController
 
 
                     if ($inserted) {
+                        if (!$skipAmenities && $amenitiesData) {
+                            // Process amenities data
+                            $amenitiesWithUserID = [];
+                            foreach ($amenitiesData as $amenity) {
+                                $amenity['UserID'] = $user['UserID'];
+                                $amenitiesWithUserID[] = $amenity;
+                            }
+            
+                            // Insert amenities data and update room inventory
+                            foreach ($amenitiesWithUserID as $amenity) {
+                                $amenityData = [
+                                    'ReservationID' => $inserted,
+                                    'roomInventoryID' => $amenity['roomInventoryID'],
+                                    'insertQuantity' => $amenity['insertQuantity'],
+                                    'UserID' => $amenity['UserID'],
+                                ];
+                                $this->reservationamenities->insert($amenityData);
+                                $roomInventoryID = $amenity['roomInventoryID'];
+                                $insertQuantity = $amenity['insertQuantity'];
+                                $roomInventory = $this->roominventory->find($roomInventoryID);
+                                if ($roomInventory) {
+                                    $currentQuantity = $roomInventory['Quantity'];
+                                    $newQuantity = $currentQuantity - $insertQuantity;
+                                    $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
+                                }
+                            }
+                        }
                         $reservationID = $this->reservation->getInsertID();
                         // After successful reservation, generate QR Code
                         // Generate QR Code with the new ReservationID
-                        $qrCodeInfo  = $this->generateQrCode($reservationID, $roomSelected['RoomID']);
+                        $qrCodeInfo  = $this->generateQrCode($reservationID, $amenitiesData);
                         $qrCodePath = $qrCodeInfo['file_path'];
                         $qrCodePath2 = $qrCodeInfo['url'];
                         // Store QR code path in session
@@ -627,38 +642,42 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-    private function generateQrCode($reservationID, $roomId)
+    private function generateQrCode($reservationID, $amenitiesData)
     {
-        // Construct the URL that the QR code will encode
-        $encodedUrl = base_url("reservation/$reservationID");
-
+        // Convert amenitiesData array to a string if it's not null
+        $amenitiesQueryParam = !is_null($amenitiesData) ? http_build_query(['amenities' => $amenitiesData]) : '';
+    
+        // Construct the encoded URL with the amenities query parameter
+        $encodedUrl = base_url("reservation/$reservationID") . ($amenitiesQueryParam ? "?$amenitiesQueryParam" : '');
+    
         // Create a new QR code object with the encoded URL
         $qrCode = new \Endroid\QrCode\QrCode($encodedUrl);
         $qrCode->setSize(300);
-
+    
         // Initialize the QR code writer
         $writer = new \Endroid\QrCode\Writer\PngWriter();
-
+    
         // Ensure the directory exists
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
             mkdir($dirPath, 0777, true); // Adjust permissions as necessary
         }
-
+    
         // Path where the QR code will be saved
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
         $result->saveToFile($filePath);
-
+    
         // Generate the URL to access the QR code image
         $url = base_url('qr-codes/qr-code-' . $reservationID . '.png');
-
+    
         // Return both the URL to the QR code image and the file path
         return [
             'url' => $url,
             'file_path' => $filePath
         ];
     }
+    
 
     public function qrPath()
     {

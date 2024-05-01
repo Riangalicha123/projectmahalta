@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta-Staff</title>
+  <title>Mahalta Admin</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -256,6 +256,128 @@
       </div>
       <!-- /.container-fluid -->
     </section>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Room Services</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterr">
+                    Add
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade " id="exampleModalCenterr" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form action="<?= base_url('/room-image/add'); ?>" method="post" enctype="multipart/form-data">
+                            <div class="card-body">
+                              <div class="form-group">
+                                    <label for="RoomNumber">Select Room Type</label>
+                                    <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber">
+                                        <option value="" selected disabled>Select Room Type</option>
+                                        <?php foreach ($rooms as $room): ?>
+                                            <option value="<?= $room['RoomNumber']; ?>"><?= $room['RoomNumber']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Images">Upload Image(s)</label>
+                                    <input type="file" class="form-control-file" id="Images" name="Images[]" multiple accept="Image/*" required>
+                                    <small class="form-text text-muted">You can upload multiple images (max: 5).</small>
+                                </div>
+                            </div>
+                                <div class="card-footer">
+                                <button type="submit" class="btn btn-primary">Upload Images</button>
+                                </div>
+                                
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                                    
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>RoomNumber</th>
+                    <th>RoomTypes</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Min Person</th>
+                    <th>Max Person</th>
+                    <th>Image</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <?php foreach ($roomimages as $roomimage): ?>
+                  <tr>
+                    <td><?=$roomimage['RoomID']?></td>
+                    <td><?=$roomimage['RoomNumber']?></td>
+                    <td><?=$roomimage['RoomType']?></td>
+                    <td><?=$roomimage['Description']?></td>
+                    <td><?=$roomimage['PricePerNight']?></td>
+                    <td><?=$roomimage['minPerson']?></td>
+                    <td><?=$roomimage['maxPerson']?></td>
+                    <td><div id="imageCarousel<?php echo $roomimage['RoomID']; ?>" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                        <?php $images = explode(',', $roomimage['Images']); ?>
+                        <?php foreach ($images as $index => $image): ?>
+                            <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
+                                <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 400px; height: 200px;">
+                            </div>
+                        <?php endforeach; ?>
+                        </div>
+                        <a class="carousel-control-prev" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div></td>
+                  </tr>
+                  <?php endforeach; ?>
+                  
+                  
+                  </tbody>
+                  
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+    
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->

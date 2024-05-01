@@ -27,6 +27,8 @@ use App\Models\CityModel;
 use App\Models\BarangayModel;
 use App\Traits\EmailTrait;
 use App\Models\ConventionVenueModel;
+use App\Models\RoomImageModel;
+use App\Models\RoomInventoryModel;
 use CodeIgniter\API\ResponseTrait;
 use DateTime;
 
@@ -57,6 +59,8 @@ class AdminController extends BaseController
     private $cities;
     private $barangay;
     private $convenues;
+    private $roomimages;
+    private $roominventory;
     function __construct()
     {
         helper(['form']);
@@ -83,6 +87,8 @@ class AdminController extends BaseController
         $this->cities = new CityModel();
         $this->barangay = new BarangayModel();
         $this->convenues = new ConventionVenueModel();
+        $this->roomimages = new RoomImageModel();
+        $this->roominventory = new RoomInventoryModel();
     }
     public function index()
     {
@@ -208,6 +214,7 @@ class AdminController extends BaseController
         $regions = $this->regions->findAll();
         $data = [
             'adminRoutes' => 'dashboard',
+            'roinvents' => $this->roominventory->findAll(),
             'regions' => $regions,
             'customers' => $this->guest
                 ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
@@ -1313,6 +1320,11 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'holService',
             'rooms' => $this->rooms->findAll(),
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
         ];
 
         // Load the view with the data
@@ -1418,6 +1430,50 @@ class AdminController extends BaseController
             echo ('error');
         }
         return redirect()->to('/admin-hotel/service');
+    }
+    public function addserviceRoomImage()
+    {
+        // Check if form is submitted
+        if ($this->request->getMethod() === 'post') {
+            // Get selected room type from form
+            $roomNumber = $this->request->getPost('RoomNumber');
+
+            // Validate room type
+            if (empty($roomNumber)) {
+                return redirect()->back()->with('error', 'Please select a room type.');
+            }
+
+            // Get room ID based on selected room type
+            $room = $this->rooms->where('RoomNumber', $roomNumber)->first();
+            if (!$room) {
+                return redirect()->back()->with('error', 'Room not found for the selected room type.');
+            }
+
+            $roomID = $room['RoomID'];
+
+            // Handle image upload
+            $uploadedFiles = $this->request->getFiles();
+
+            foreach ($uploadedFiles['Images'] as $image) {
+                // Check if file is valid
+                if ($image->isValid() && !$image->hasMoved()) {
+                    // Move the file to the upload directory
+                    $newName = $image->getRandomName();
+                    $image->move(ROOTPATH . 'public/uploads', $newName);
+
+                    // Save image details to database
+                    $this->roomimages->save([
+                        'RoomID' => $roomID,
+                        'Image' => $newName,
+                    ]);
+                }
+            }
+
+            return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.'); // Redirect to room details page
+        }
+
+        // If not POST request, redirect back
+        return redirect()->back();
     }
     public function restService()
     {
@@ -1726,13 +1782,18 @@ class AdminController extends BaseController
 
         // SQL Query to fetch reservation, user, and room details
         $query = $db->table('reservations')
-            ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight')
-            ->join('users', 'reservations.UserID = users.UserID')
-            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->where('reservations.ReservationID', $reservationID)
-            ->get();
-
-        $reservationDetails = $query->getRow();
+        ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID, room_inventory.ProductName, reservation_amenities.insertQuantity')
+        ->join('users', 'reservations.UserID = users.UserID')
+        ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+        ->join('reservation_amenities', 'reservations.ReservationID = reservation_amenities.ReservationID', 'left')
+        ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left')
+        ->where('reservations.ReservationID', $reservationID)
+        ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, room_inventory.ProductName, reservation_amenities.insertQuantity')
+        ->get();
+    
+    
+    $reservationDetails = $query->getRow();
+    
 
         // Check if reservation has expired
         if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
@@ -1740,9 +1801,24 @@ class AdminController extends BaseController
         } else {
             $reservationDetails->Status = 'Valid';
         }
+        if ($reservationDetails && !empty($reservationDetails->AmenitiesID)) {
+            $amenitiesArray = explode(',', $reservationDetails->AmenitiesID);
+            $reservationDetails->AmenitiesID = $amenitiesArray;
+        } else {
+            $reservationDetails->AmenitiesID = []; // Set it to an empty array if no amenities selected
+        }
+        $amenities = [];
+foreach ($query->getResult() as $row) {
+    $amenity = [
+        'ProductName' => $row->ProductName,
+        'insertQuantity' => $row->insertQuantity
+    ];
+    $amenities[] = $amenity;
+}
+        
 
         if ($reservationDetails) {
-            return view('Hotell/reservation_view', ['reservation' => $reservationDetails]); // Load the view and pass the details
+            return view('Hotell/reservation_view', ['reservation' => $reservationDetails, 'amenities' => $amenities]);
         } else {
             return redirect()->back()->with('error', 'Reservation not found.');
         }

@@ -196,6 +196,13 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
+<script>
+    <?php foreach ($roinvents as $roinvent): ?>
+        <?php if ($roinvent['Quantity'] <= 10): ?>
+            alert('Warning: Quantity is <?= $roinvent['Quantity'] ?> for <?= $roinvent['ProductName'] ?>');
+        <?php endif; ?>
+    <?php endforeach; ?>
+</script>
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

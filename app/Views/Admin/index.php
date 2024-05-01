@@ -124,7 +124,7 @@
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-chart-pie mr-1"></i>
+                  <i class="fas fa-chart-bar mr-1"></i>
                   Reservation Reports
                 </h3>
                 <div class="card-tools">
@@ -162,7 +162,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  Sentimental Analysis
+                  Sentiment Analysis
                 </h3>
                 
               </div><!-- /.card-header -->
@@ -239,7 +239,13 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script>
+    <?php foreach ($roinvents as $roinvent): ?>
+        <?php if ($roinvent['Quantity'] <= 10): ?>
+            alert('Warning: Quantity is <?= $roinvent['Quantity'] ?> for <?= $roinvent['ProductName'] ?>');
+        <?php endif; ?>
+    <?php endforeach; ?>
+</script>
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/chart.js/Chart.min.js"></script>

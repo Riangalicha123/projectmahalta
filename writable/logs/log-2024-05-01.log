@@ -1,0 +1,410 @@
+ERROR - 2024-05-01 00:01:40 --> mysqli_sql_exception: Unknown column 'reservation_amenities.ReservationID' in 'on clause' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 00:01:40 --> Unknown column 'reservation_amenities.ReservationID' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 00:02:04 --> mysqli_sql_exception: Unknown column 'reservation_amenities.ReservationID' in 'on clause' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 00:02:04 --> Unknown column 'reservation_amenities.ReservationID' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 00:02:05 --> mysqli_sql_exception: Unknown column 'reservation_amenities.ReservationID' in 'on clause' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 00:02:05 --> Unknown column 'reservation_amenities.ReservationID' in 'on clause'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('223')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:17:05 --> Undefined array key "ReservationID"
+in APPPATH\Controllers\GuestController.php on line 567.
+ 1 APPPATH\Controllers\GuestController.php(567): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ReservationID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 567)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:18:25 --> Undefined array key "ReservationID"
+in APPPATH\Controllers\GuestController.php on line 558.
+ 1 APPPATH\Controllers\GuestController.php(558): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ReservationID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 558)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:18:42 --> Undefined array key "ReservationID"
+in APPPATH\Controllers\GuestController.php on line 558.
+ 1 APPPATH\Controllers\GuestController.php(558): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ReservationID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 558)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:24:05 --> Undefined array key "UserID"
+in APPPATH\Controllers\GuestController.php on line 608.
+ 1 APPPATH\Controllers\GuestController.php(608): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "UserID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 608)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:24:37 --> Array to string conversion
+in APPPATH\Controllers\GuestController.php on line 660.
+ 1 APPPATH\Controllers\GuestController.php(660): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 660)
+ 2 APPPATH\Controllers\GuestController.php(624): App\Controllers\GuestController->generateQrCode(225, [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 00:29:33 --> foreach() argument must be of type array|object, string given
+in APPPATH\Views\Hotell\reservation_view.php on line 121.
+ 1 APPPATH\Views\Hotell\reservation_view.php(121): CodeIgniter\Debug\Exceptions->errorHandler(2, 'foreach() argument must be of type array|object, string given', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\reservation_view.php', 121)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\reservation_view.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell/reservation_view', [], true)
+ 5 APPPATH\Controllers\AdminController.php(1804): view('Hotell/reservation_view', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('227')
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 00:45:41 --> mysqli_sql_exception: Operand should contain 1 column(s) in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('INSERT INTO `re...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `re...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `re...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `re...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(788): CodeIgniter\Model->doInsert(Array)
+#6 C:\laragon\www\projectmahalta\system\Model.php(715): CodeIgniter\BaseModel->insert(Array, true)
+#7 C:\laragon\www\projectmahalta\app\Controllers\GuestController.php(611): CodeIgniter\Model->insert(Array)
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-05-01 00:45:41 --> Operand should contain 1 column(s)
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2308): CodeIgniter\Database\BaseConnection->query('INSERT INTO `reservation_amenities` (`roomInventoryID`, `insertQuantity`, `UserID`, `ReservationID`) VALUES (:roomInventoryID:, :insertQuantity:, :UserID:, :ReservationID:)', [...], false)
+ 2 SYSTEMPATH\Model.php(319): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(788): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(715): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\GuestController.php(611): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 01:00:36 --> Array to string conversion
+in APPPATH\Controllers\GuestController.php on line 659.
+ 1 APPPATH\Controllers\GuestController.php(659): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Array to string conversion', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 659)
+ 2 APPPATH\Controllers\GuestController.php(623): App\Controllers\GuestController->generateQrCode(229, [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:20:09 --> mysqli_sql_exception: Unknown column 'reservation_amenities.AmenityID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:20:09 --> Unknown column 'reservation_amenities.AmenityID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenityID, "-", reservation_amenities.Quantity) as Amenities
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:20:56 --> mysqli_sql_exception: Unknown column 'reservation_amenities.AmenityID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:20:56 --> Unknown column 'reservation_amenities.AmenityID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenityID, "-", reservation_amenities.insertQuantity) as Amenities
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:20:57 --> mysqli_sql_exception: Unknown column 'reservation_amenities.AmenityID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:20:57 --> Unknown column 'reservation_amenities.AmenityID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenityID, "-", reservation_amenities.insertQuantity) as Amenities
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:20:57 --> mysqli_sql_exception: Unknown column 'reservation_amenities.AmenityID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:20:57 --> Unknown column 'reservation_amenities.AmenityID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenityID, "-", reservation_amenities.insertQuantity) as Amenities
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:22:48 --> mysqli_sql_exception: Unknown column 'reservation_amenities.Quantity' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:22:48 --> Unknown column 'reservation_amenities.Quantity' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID, "-", reservation_amenities.Quantity) as Amenities
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1791): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 01:22:59 --> Call to undefined method App\Controllers\AdminController::fetchProductName()
+in APPPATH\Controllers\AdminController.php on line 1807.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:31:41 --> mysqli_sql_exception: Table 'caps.room_amenities' doesn't exist in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1793): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:31:41 --> Table 'caps.room_amenities' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID, `room_inventory`.`ProductName`, `room_amenities`.`insertQuantity`
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+LEFT JOIN `room_inventory` ON `reservation_amenities`.`roomInventoryID` = `room_inventory`.`roomInventoryID`
+LEFT JOIN `room_amenities` ON `reservation_amenities`.`roomAmenityID` = `room_amenities`.`roomAmenityID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1793): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:33:43 --> mysqli_sql_exception: Table 'caps.room_amenities' doesn't exist in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1793): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:33:43 --> Table 'caps.room_amenities' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID, `room_inventory`.`ProductName`, `room_amenities`.`insertQuantity`
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+LEFT JOIN `room_inventory` ON `reservation_amenities`.`roomInventoryID` = `room_inventory`.`roomInventoryID`
+LEFT JOIN `room_amenities` ON `reservation_amenities`.`roomAmenityID` = `room_amenities`.`roomAmenityID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1793): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-01 01:33:49 --> mysqli_sql_exception: Expression #31 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.room_inventory.ProductName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1792): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-01 01:33:49 --> Expression #31 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.room_inventory.ProductName' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, `rooms`.`RoomNumber`, `rooms`.`RoomType`, `rooms`.`Description`, `rooms`.`PricePerNight`, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID, `room_inventory`.`ProductName`, `reservation_amenities`.`insertQuantity`
+FROM `reservations`
+JOIN `users` ON `reservations`.`UserID` = `users`.`UserID`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+LEFT JOIN `reservation_amenities` ON `reservations`.`ReservationID` = `reservation_amenities`.`ReservationID`
+LEFT JOIN `room_inventory` ON `reservation_amenities`.`roomInventoryID` = `room_inventory`.`roomInventoryID`
+WHERE `reservations`.`ReservationID` = :reservations.ReservationID:
+GROUP BY `reservations`.`ReservationID`', [...], false)
+ 2 APPPATH\Controllers\AdminController.php(1792): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('232')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

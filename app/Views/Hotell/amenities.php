@@ -86,26 +86,34 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($roinvents as $roinvent): ?>
-                <tr style="border-bottom: 1px solid #000;">
-                    <td>
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
-                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
-                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
-                        </div>
-                    </td>
-                    <td><?= $roinvent['ProductName'] ?></td>
-                    <td>Php<?= $roinvent['Price'] ?></td>
-                    <td>
-                        <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
-                            <?php for ($i = 0; $i <= 10; $i++) : ?>
-                                <option value="<?= $i ?>"><?= $i ?></option>
-                            <?php endfor; ?>
-                        </select>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+            <?php 
+foreach ($roinvents as $roinvent): 
+    $availableQuantity = $roinvent['Quantity'];
+?>
+    <?php if ($availableQuantity > 0): ?>
+        <tr style="border-bottom: 1px solid #000;">
+            <td>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                </div>
+            </td>
+            <td><?= $roinvent['ProductName'] ?></td>
+            <td>Php<?= $roinvent['Price'] ?></td>
+            <td>
+                <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
+                    <?php for ($i = 0; $i <= $availableQuantity; $i++) : ?>
+                        <option value="<?= $i ?>"><?= $i ?></option>
+                    <?php endfor; ?>
+                </select>
+                <?php if ($availableQuantity <= 10): ?>
+                    <span style="color: red;">Warning: Only <?= $availableQuantity ?> left in stock!</span>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endif; ?>
+<?php endforeach; ?>
             </tbody>
         </table>
     </div>

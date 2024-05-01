@@ -100,7 +100,7 @@
         <div class="container">
           <div class="row">
           <?php foreach ($rooms as $room): ?>
-            <?php if ($room['AvailabilityStatus'] === 'Available'): ?> <!-- Check availability status -->
+            <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
               <div class="col-md-4 mb-4">
                 <div class="media d-block room mb-0">
                   <figure>
@@ -119,22 +119,12 @@
                                       <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                                       <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
                                     </ul>
-                      <div class="row additionalDetails" style="display:none;">
-                        <p><?=$room['Description']?></p>
-                        
-                        <p><b>• ROOM INCLUSIONS</b></p>
-                        <p>-Complimentary Breakfast(Plated Service)</p>
-                        <p>-Free Flow or Brewed Coffee</p>
-                        <p>-Complete Amenities</p>
-                        <p>-Swimming Pool Access</p>
-                        <p>-Stand By Generator Set</p>
-                        <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
-                      </div>
+                      
 
                       <!-- View More Button -->
                       <div class="row">
                         <div class="col-md-12 text-center">
-                        <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+                        <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$room['RoomID']?>" style="cursor: pointer;">View More Details</a></h6>
                         </div>
                       </div>
                     
@@ -143,6 +133,52 @@
                   </div>
                 </div>
               </div>
+               <!-- Modal for room details -->
+        <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="roomModalLabel<?=$room['RoomID']?>">Room <?=$room['RoomNumber']?> <strong>||</strong> <?=$room['RoomType']?> Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Carousel for room images -->
+                <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php foreach ($roomimages as $roomimage): ?>
+                            <?php if ($roomimage['RoomID'] === $room['RoomID']): ?>
+                                <?php $images = explode(',', $roomimage['Images']); ?>
+                                <?php foreach ($images as $index => $image): ?>
+                                    <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
+                                        <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 100px; height: 300px;">
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <a class="carousel-control-prev" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <p><?=$room['Description']?></p>
+                <p><b>• ROOM INCLUSIONS</b></p>
+                <p>-Complimentary Breakfast(Plated Service)</p>
+                <p>-Free Flow or Brewed Coffee</p>
+                <p>-Complete Amenities</p>
+                <p>-Swimming Pool Access</p>
+                <p>-Stand By Generator Set</p>
+                <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+            </div>
+        </div>
+    </div>
+</div>
             <?php endif; ?>
             <?php endforeach; ?>
           </div>
