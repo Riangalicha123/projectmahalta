@@ -110,7 +110,7 @@
                 <p><strong>Adult:</strong> <?= $reservation->Adult ?></p>
                 <p><strong>Child:</strong> <?= $reservation->Child ?></p>
                 <p><strong>Room:</strong> <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?></p>
-                <p><strong>Total Amount:</strong> <?= $reservation->TotalAmount ?></p>
+                
                 <p style="color: <?= (new DateTime() > new DateTime($reservation->CheckOutDate)) ? 'red' : 'green'; ?>;"><strong>Status:</strong> <?= $reservation->Status ?></p>
             </div>
             <div class="section">
@@ -138,12 +138,13 @@
                 <p><strong>Reference Number:</strong> <?= $reservation->ReferenceNumber ?></p>
                 <p><strong>Payment Type:</strong> <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?></p>
                 <p><strong>Payment Amount:</strong> <?= $reservation->downorfullPayment ?></p>
+                <p><strong>Total Amount:</strong> <?= $reservation->TotalAmount ?></p>
 
             </div>
             <div class="receipt-footer">
                 <p>Thank you for choosing us!</p>
             </div>
-            <button onclick="downloadPDF()">Download Receipt</button>
+            <button onclick="downloadPDF()" style="cursor: pointer;" class="button">Download Receipt</button>
 
             <a href="<?= base_url('') ?>" class="button">Back to Reservations</a>
         </div>
@@ -152,44 +153,55 @@
     <?php include('inc/loader.php') ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-        function downloadPDF() {
-            const {
-                jsPDF
-            } = window.jspdf;
-            const doc = new jsPDF();
+    function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-            doc.setFont("helvetica", "bold");
-            doc.setFontSize(16);
-            doc.text('Reservation Receipt', 105, 20, null, null, 'center');
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text('Reservation Receipt', 105, 20, null, null, 'center');
 
-            doc.setFontSize(12);
-            doc.setFont("helvetica", "normal");
-            doc.text(20, 40, 'Guest Information');
-            doc.setFontSize(10);
-            doc.text(`Name: ${'<?= $reservation->FirstName ?> <?= $reservation->LastName ?>'}`, 20, 50);
-            doc.text(`Email: ${'<?= $reservation->Email ?>'}`, 20, 60);
-            doc.text(`Contact Number: ${'<?= $reservation->ContactNumber ?>'}`, 20, 70);
+        doc.setFontSize(12);
+        doc.setFont("helvetica", "normal");
+        doc.text(20, 40, 'Guest Information');
+        doc.setFontSize(10);
+        doc.text(`Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>`, 20, 50);
+        doc.text(`Email: <?= $reservation->Email ?>`, 20, 60);
+        doc.text(`Contact Number: <?= $reservation->ContactNumber ?>`, 20, 70);
 
-            doc.setFontSize(12);
-            doc.text('Reservation Information', 20, 90);
-            doc.setFontSize(10);
-            doc.text(`Check-In Date: ${'<?= $reservation->CheckInDate ?>'}`, 20, 100);
-            doc.text(`Check-Out Date: ${'<?= $reservation->CheckOutDate ?>'}`, 20, 110);
-            doc.text(`Room: ${'<?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?>'} - Total Amount: ${'<?= $reservation->TotalAmount ?>'}`, 20, 120);
-            doc.text(`Status: ${'<?= $reservation->Status ?>'}`, 20, 130, {
-                fillColor: (new Date() > new Date('<?= $reservation->CheckOutDate ?>')) ? [255, 0, 0] : [0, 255, 0]
-            });
+        doc.setFontSize(12);
+        doc.text('Reservation Information', 20, 90);
+        
+        doc.setFontSize(10);
+        doc.text(`Check-In Date: <?= $reservation->CheckInDate ?>`, 20, 100);
+        doc.text(`Check-Out Date: <?= $reservation->CheckOutDate ?>`, 20, 110);
+        doc.text(`Room: <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?> - Total Amount: <?= $reservation->TotalAmount ?>`, 20, 120);
+        doc.text(`Status: <?= $reservation->Status ?>`, 20, 130, {
+            fillColor: (new Date() > new Date('<?= $reservation->CheckOutDate ?>')) ? [255, 0, 0] : [0, 255, 0]
+        });
 
-            doc.setFontSize(12);
-            doc.text('Payment Details', 20, 150);
-            doc.setFontSize(10);
-            doc.text(`Payment Option: ${'<?= $reservation->PaymentOption ?>'}`, 20, 160);
-            doc.text(`Reference Number: ${'<?= $reservation->ReferenceNumber ?>'}`, 20, 170);
-            doc.text(`Payment Type: ${'<?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?>'} - Amount: ${'<?= $reservation->downorfullPayment ?>'}`, 20, 180);
+        doc.setFontSize(12);
+        doc.text('Amenities Details', 20, 150);
+        doc.setFontSize(10);
+        <?php if (!empty($amenities)) : ?>
+            <?php foreach ($amenities as $amenity) : ?>
+                doc.text('<?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?>', 20, 160);
+            <?php endforeach; ?>
+        <?php else : ?>
+            doc.text('No amenities selected', 20, 160);
+        <?php endif; ?>
 
-            doc.save('ReservationReceipt.pdf');
-        }
-    </script>
+        doc.setFontSize(12);
+        doc.text('Payment Details', 20, <?php if (empty($amenities)) echo 160; else echo 180; ?>);
+        doc.setFontSize(10);
+        doc.text(`Payment Option: <?= $reservation->PaymentOption ?>`, 20, <?php if (empty($amenities)) echo 170; else echo 190; ?>);
+        doc.text(`Reference Number: <?= $reservation->ReferenceNumber ?>`, 20, <?php if (empty($amenities)) echo 180; else echo 200; ?>);
+        doc.text(`Payment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`, 20, <?php if (empty($amenities)) echo 190; else echo 210; ?>);
+
+        doc.save('ReservationReceipt.pdf');
+    }
+</script>
+
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>

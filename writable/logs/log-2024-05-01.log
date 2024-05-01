@@ -423,3 +423,18 @@ in APPPATH\Controllers\GuestController.php on line 447.
  4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 03:52:36 --> Call to undefined method App\Controllers\GuestController::calculateTotalExtraPrice()
+in APPPATH\Controllers\GuestController.php on line 370.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addAmenities()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 04:13:52 --> Undefined variable $TotalAmount
+in APPPATH\Controllers\GuestController.php on line 496.
+ 1 APPPATH\Controllers\GuestController.php(496): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $TotalAmount', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 496)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
