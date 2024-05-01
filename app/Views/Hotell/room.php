@@ -47,7 +47,7 @@
 
 
     
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/big_image_1.jpg); background-repeat: no-repeat; background-image: cover;">
+    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/big_image_1.jpg); background-repeat: no-repeat; background-image: cover;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -71,13 +71,11 @@
             </div>
             
           </div>
-          <div class="col-md-12 form-group text-center">
-                                <a href="<?= route_to('bookroom') ?>" class="btn btn-primary">Room Reservation</a>
-                              </div>
+
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <!-- END section -->
 
     <?php if(session()->get('isLoggedIn')): ?>
@@ -95,7 +93,59 @@
                 </div>
             <?php endif; ?>
  
-
+            <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
+  <div class="container">
+    <div class="row align-items-center site-hero-inner justify-content-center">
+     
+      <div class="col-md-12 text-center">
+      <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
+    <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+    <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
+            <div style="display: flex; flex-wrap: wrap;">
+              <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
+              </div>
+              <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
+              </div>
+              
+            </div>
+</div>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                <div class="media-body">
+                  <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                    <div class="row">
+                      <div class="col-sm-3 form-group"></div>
+                      <div class="col-md-3 form-group">
+                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                        <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                      </div>
+                      <div class="col-md-3 form-group">
+                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                        <input type="number" class="form-control" id="Child" name="Child" value="0">
+                      </div>
+                      <div class="col-sm-3 form-group"></div>
+                    </div>
+                    <input type="hidden" id="CheckInDate" name="CheckInDate">
+                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                    <div class="row">
+                      <div class="col-md-12 form-group text-center">
+                        <button type="submit" class="btn btn-primary">Check Availability</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
           <div class="row">

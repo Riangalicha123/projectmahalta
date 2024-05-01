@@ -408,3 +408,18 @@ GROUP BY `reservations`.`ReservationID`', [...], false)
  5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 02:51:22 --> Attempt to assign property "Status" on null
+in APPPATH\Controllers\AdminController.php on line 1802.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->viewReservation('1')
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-01 03:04:17 --> Undefined array key "TotalAmount"
+in APPPATH\Controllers\GuestController.php on line 447.
+ 1 APPPATH\Controllers\GuestController.php(447): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "TotalAmount"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 447)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
