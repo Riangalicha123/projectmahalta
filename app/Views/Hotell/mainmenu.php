@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
@@ -117,16 +118,15 @@
                 <!-- Add your form here -->
                 <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
                 <div id="page1">
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                    <label for="ArivalDate">Arrival Date</label>
-                    <input type='date' class="form-control" id='ArivalDate' name='ArivalDate' required/>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label for="CheckInDate">Arrival Date</label>
+                    <div style="position: relative;">
+                      <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                    </div>
+                  </div>
+                  
                 </div>
-                <div class="col-sm-6 form-group">
-                    <label for="ArivalTime">Arrival Time</label>
-                    <input type='time' class="form-control" id='ArivalTime' name='ArivalTime' required/>
-                </div>
-            </div>
             <div class="row">
             <div class="col-md-6 form-group">
                 <label for="NumberOfGuests">Number Of Guests</label>
@@ -183,11 +183,7 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label>Arrival Date:</label>
-                    <span id="displayDate"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Arrival Time:</label>
-                    <span id="displayTime"></span>
+                    <span id="displayCheckInDate"></span>
                 </div>
             </div>
             <div class="row">
@@ -340,7 +336,7 @@
         });
     }
 </script>
-    <script>
+<script>
     function nextPage(page) {
         document.getElementById('page1').style.display = 'none';
         document.getElementById('page2').style.display = 'none';
@@ -353,8 +349,7 @@
     }
 
     function displayFormData() {
-        document.getElementById('displayDate').innerText = document.getElementById('ArivalDate').value;
-        document.getElementById('displayTime').innerText = document.getElementById('ArivalTime').value;
+        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; // Corrected ID
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;
         document.getElementById('displayVenue').innerText = document.getElementById('VenueName').value;
         document.getElementById('displayNote').innerText = document.getElementById('Note').value;
@@ -363,53 +358,16 @@
         document.getElementById('displayContactNumber').innerText = document.getElementById('ContactNumber').value;
     }
 </script>
+
 <script>
     function showCategory(categoryID) {
         $('.col-md-3').hide(); // Hide all products initially
         $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
     }
 </script>
-<script>
-    // Function to enable/disable buttons on page 1
-    function enablePage1Button() {
-        var arrivalDate = document.getElementById('ArivalDate').value;
-        var arrivalTime = document.getElementById('ArivalTime').value;
-        var venueName = document.getElementById('VenueName').value;
-        var button = document.querySelector('#page1 button');
-        if (arrivalDate && arrivalTime && venueName !== 'Select Venue') {
-            button.disabled = false;
-        } else {
-            button.disabled = true;
-        }
-    }
-
-    // Function to enable/disable buttons on page 2
-    function enablePage2Button() {
-        var firstName = document.getElementById('FirstName').value;
-        var lastName = document.getElementById('LastName').value;
-        var contactNumber = document.getElementById('ContactNumber').value;
-        var button = document.querySelector('#page2 button[type="button"]');
-        if (firstName && lastName && contactNumber) {
-            button.disabled = false;
-        } else {
-            button.disabled = true;
-        }
-    }
-
-    // Call enablePage1Button and enablePage2Button initially
-    enablePage1Button();
-    enablePage2Button();
-
-    // Event listeners to call enable/disable functions on input/change
-    document.getElementById('ArivalDate').addEventListener('change', enablePage1Button);
-    document.getElementById('ArivalTime').addEventListener('change', enablePage1Button);
-    document.getElementById('VenueName').addEventListener('change', enablePage1Button);
-    document.getElementById('FirstName').addEventListener('input', enablePage2Button);
-    document.getElementById('LastName').addEventListener('input', enablePage2Button);
-    document.getElementById('ContactNumber').addEventListener('input', enablePage2Button);
-</script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
@@ -422,6 +380,44 @@
     <script src="/guest/js/magnific-popup-options.js"></script>
 
     <script src="/guest/js/main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#CheckInDate", {
+            mode: "single",
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+            onClose: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length > 1) {
+                    // Convert selected dates to Philippines timezone
+                    const checkInDate = new Date(selectedDates[0]);
+                    checkInDate.setHours(checkInDate.getHours() + 8); 
+
+                    // Format dates as YYYY-MM-DD HH:mm
+                    const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
+
+                    document.getElementById('CheckInDate').value = checkInStr;
+                }
+            },
+            disable: [
+                // Disable dates up to yesterday
+                function(date) {
+                    const today = new Date();
+                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
+
+                    return date < yesterday;
+                },
+                // Disable dates in unavailableDates array
+                <?php if (!empty($unavailableDates)) : ?>
+                    <?php foreach ($unavailableDates as $unavailableDate) : ?>
+                        '<?php echo $unavailableDate ?>',
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            ]
+        });
+    });
+</script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

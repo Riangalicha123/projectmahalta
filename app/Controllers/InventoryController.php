@@ -114,7 +114,68 @@ class InventoryController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Reservation updated successfully.');
     }
-    
-    
+    public function inventoryHotel()
+    {
+        $data = [
+            'adminRoutes' => 'inventoryHotel',
+            'roinvents' => $this->roominventory->findAll(),
+        ];
+        return view('Admin\inventory_hotel', $data);
+    }
+    public function adddinHotel()
+    {
+        helper(['form']);
+        $rules = [
+            'ProductName' => 'required|min_length[3]|max_length[100]',
+            'Quantity' => 'required',
+            'Price' => 'required',
+        ];
+
+        if ($this->validate($rules)){
+            $data = [
+                'ProductName' => $this->request->getVar('ProductName'),
+                'Quantity' => $this->request->getVar('Quantity'),
+                'Price' => $this->request->getVar('Price'),
+                
+            ];
+            $this->roominventory->insert($data);
+            return redirect()->to('admin-inventoryhotel');
+        }else{
+            $data['validation'] = $this->validator;
+            return view('Admin\inventory_hotel',$data);
+        }
+    }
+    public function updateeinHotel($roomInventoryID)
+    {
+        helper(['form']);
+
+        // Validation Rules (you can customize these based on your requirements)
+        $validationRules = [
+            
+            'ProductName' => 'required',
+            'Quantity' => 'required|numeric',
+            'Price' => 'required',
+        ];
+
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            // You might want to handle validation errors here
+            return redirect()->to(base_url("/editReservation/{$roomInventoryID}"))->with('validationErrors', $validationErrors);
+        }
+
+                // Prepare Reservation Data
+                $updateReservationData = [
+                    'ProductName' => $this->request->getPost('ProductName'),
+                    'Quantity' => $this->request->getPost('Quantity'),
+                    'Price' => $this->request->getPost('Price'),
+                ];
+
+        // Update Reservation
+        $this->roominventory->update($roomInventoryID, $updateReservationData);
+
+        // Redirect with appropriate message
+        return redirect()->to(base_url('/admin-inventoryhotel'))->with('success', 'Reservation updated successfully.');
+    }
 
 }

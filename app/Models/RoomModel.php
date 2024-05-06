@@ -92,5 +92,9 @@ class RoomModel extends Model
     
         return $availableRooms;  // Return the complete room details including all unavailable dates
     }
+    public function getRoomTypes()
+    {
+        return $this->distinct()->select('RoomType')->findAll();
+    }
     
 }

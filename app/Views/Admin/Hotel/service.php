@@ -86,15 +86,40 @@
                                 <div class="card-body">
                                 <div class="form-group">
                                     <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" required>
+                                    <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber" required>
+                                        <option value="D1">D1</option>
+                                        <option value="D2">D2</option>
+                                        <option value="D3">D3</option>
+                                        <option value="D4">D4</option>
+                                        <option value="D5">D5</option>
+                                        <option value="D6">D6</option>
+                                        <option value="D7">D7</option>
+                                        <option value="D8">D8</option>
+                                        <option value="S1">S1</option>
+                                        <option value="S2">S2</option>
+                                        <option value="F2">F1</option>
+                                        <option value="F2">F2</option>
+                                        <option value="B1">B1</option>
+                                        <option value="B2">B2</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="RoomType">Room Type</label>
                                     <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                        <option>Deluxe Room</option>
-                                        <option>Jr. Suite Room</option>
-                                        <option>Family Room</option>
-                                        <option>Barkada Room</option>
+                                        <option>Deluxe Room(Ruben)</option>
+                                        <option>Deluxe Room(Baby)</option>
+                                        <option>Deluxe Room(Siony)</option>
+                                        <option>Deluxe Room(Carlo)</option>
+                                        <option>Deluxe Room(Lyra)</option>
+                                        <option>Deluxe Room(Lyca)</option>
+                                        <option>Deluxe Room(Lambert)</option>
+                                        <option>Deluxe Room(Lyza)</option>
+                                        <option>Jr. Suite Room(Lyne)</option>
+                                        <option>Jr. Suite Room(Carl)</option>
+                                        <option>Family Room(Balansig)</option>
+                                        <option>Family Room(Limbaga)</option>
+                                        <option>Barkada Room(Babaylan)</option>
+                                        <option>Barkada Room(Tribo)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -169,10 +194,20 @@
                                 <div class="form-group">
                                     <label for="RoomType">Room Type</label>
                                     <select class="custom-select form-control-border" id="RoomType" name="RoomType" value="<?=$room['RoomType']?>"required>
-                                      <option <?= ($room['RoomType'] == 'Deluxe Room') ? 'selected' : '' ?>>Deluxe Room</option>
-                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room') ? 'selected' : '' ?>>Jr. Suite Room</option>
-                                      <option <?= ($room['RoomType'] == 'Family Room') ? 'selected' : '' ?>>Family Room</option>
-                                      <option <?= ($room['RoomType'] == 'Barkada Room') ? 'selected' : '' ?>>Barkada Room</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Ruben)') ? 'selected' : '' ?>>Deluxe Room(Ruben)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Baby)') ? 'selected' : '' ?>>Deluxe Room(Baby)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Siony)') ? 'selected' : '' ?>>Deluxe Room(Siony)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Carlo)') ? 'selected' : '' ?>>Deluxe Room(Carlo)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyra)') ? 'selected' : '' ?>>Deluxe Room(Lyra)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyca)') ? 'selected' : '' ?>>Deluxe Room(Lyca)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lambert)') ? 'selected' : '' ?>>Deluxe Room(Lambert)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyza)') ? 'selected' : '' ?>>Deluxe Room(Lyza)</option>
+                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room(Lyne)') ? 'selected' : '' ?>>Jr. Suite Room(Lyne)</option>
+                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room(Carl)') ? 'selected' : '' ?>>Jr. Suite Room(Carl)</option>
+                                      <option <?= ($room['RoomType'] == 'Family Room(Balansig)') ? 'selected' : '' ?>>Family Room(Balansig)</option>
+                                      <option <?= ($room['RoomType'] == 'Family Room(Limbaga)') ? 'selected' : '' ?>>Family Room(Limbaga)</option>
+                                      <option <?= ($room['RoomType'] == 'Barkada Room(Babaylan)') ? 'selected' : '' ?>>Barkada Room(Babaylan)</option>
+                                      <option <?= ($room['RoomType'] == 'Barkada Room(Tribo)') ? 'selected' : '' ?>>Barkada Room(Tribo)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

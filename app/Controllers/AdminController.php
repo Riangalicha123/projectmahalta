@@ -211,6 +211,14 @@ class AdminController extends BaseController
         $neutralPercentage = ($neutralCount / $totalRating) * 100;
         $negativePercentage = ($negativeCount / $totalRating) * 100;
 
+        $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, YEAR(reservations.CheckInDate) AS CheckInYear, COUNT(*) AS ReservationCount')
+                                         ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                                         ->where('reservations.Status', 'Confirm')
+                                         ->where('reservations.RoomID IS NOT NULL', null, false)
+                                         ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth, CheckInYear')
+                                         ->findAll();
+    
+
         $regions = $this->regions->findAll();
         $data = [
             'adminRoutes' => 'dashboard',
@@ -244,9 +252,40 @@ class AdminController extends BaseController
             'positivePercentage' => $positivePercentage,
             'neutralPercentage' => $neutralPercentage,
             'negativePercentage' => $negativePercentage,
+            'roomreservations' => $roomreservations,
+            'roomTypes' => $this->rooms->getRoomTypes(),
         ];
         return view('Admin\index', $data);
     }
+    public function getReservationData()
+    {
+        $year = $this->request->getPost('year');
+        $reservations = $this->reservation->where('YEAR(CheckInDate)', $year)
+                                        ->findAll();
+        echo json_encode($reservations);
+    }
+    public function getReservationByYear()
+{
+    // Kunin ang taon mula sa POST request
+    $selectedYear = $this->request->getPost('selectedYear');
+
+    // Query para sa mga reservation base sa hiniling na taon
+    $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, COUNT(*) AS ReservationCount')
+                                         ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                                         ->where('YEAR(reservations.CheckInDate)', $selectedYear)
+                                         ->where('reservations.Status', 'Confirm')
+                                         ->where('reservations.RoomID IS NOT NULL', null, false)
+                                         ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth')
+                                         ->findAll();
+
+    // Ipasa ang mga reservation data pabalik sa View
+    $data['roomreservations'] = $roomreservations;
+
+    // Ibalik ang data sa JSON format
+    return $this->response->setJSON($data);
+}
+
+    
     public function customer()
     {
         $data = [
@@ -1819,6 +1858,36 @@ foreach ($query->getResult() as $row) {
 
         if ($reservationDetails) {
             return view('Hotell/reservation_view', ['reservation' => $reservationDetails, 'amenities' => $amenities]);
+        } else {
+            return redirect()->back()->with('error', 'Reservation not found.');
+        }
+    }
+    public function viewconvetionReservation($reservationID)
+    {
+        $db = \Config\Database::connect(); // Get database connection
+
+        // SQL Query to fetch reservation, user, and room details
+        $query = $db->table('reservations')
+            ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber,convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description, events.Image as event_image ')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->join('convention', 'reservations.conventionID = convention.conventionID')
+            ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+            ->join('events', 'convention.EventID = events.EventID')
+            ->where('reservations.ReservationID', $reservationID)
+            ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, convention_venue.conVenueName, events.EventType, events.Description ')
+            ->get();
+
+        $reservationDetails = $query->getRow();
+
+        // Check if reservation has expired
+        if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
+            $reservationDetails->Status = 'Expired'; // Set status to Expired if checkout date is past
+        } else {
+            $reservationDetails->Status = 'Valid';
+        }
+
+        if ($reservationDetails) {
+            return view('Hotell/conventionreservation_view', ['reservation' => $reservationDetails]); // Load the view and pass the details
         } else {
             return redirect()->back()->with('error', 'Reservation not found.');
         }

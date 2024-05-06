@@ -580,7 +580,7 @@ class GuestController extends BaseController
                         'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                         'ReferenceNumber' => $referenceNumber,
                         'PaymentOption' => $paymentOption,
-                        'Status' => 'Pending',
+                        'Status' => 'Confirm',
                         'RoomID' => $roomSelected['RoomID'],
                         'UserID' => $user['UserID'],
                         'TotalAmount' => $TotalAmount,
@@ -795,8 +795,7 @@ class GuestController extends BaseController
             'FirstName' => 'required',
             'LastName' => 'required',
             'ContactNumber' => 'required',
-            'ArivalDate' => 'required',
-            'ArivalTime' => 'required',
+            'CheckInDate' => 'required',
             'NumberOfGuests' => 'required',
             'VenueName' => 'required',
         ];
@@ -829,10 +828,9 @@ class GuestController extends BaseController
 
                 $restaurantReservation = [
                     'NumberOfGuests' => $numberOfGuests,
-                    'ArivalDate' => $this->request->getPost('ArivalDate'),
-                    'ArivalTime' => $this->request->getPost('ArivalTime'),
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'Note' => $this->request->getPost('Note'),
-                    'Status' => 'Pending',
+                    'Status' => 'Confirm',
                     'VenueName' => $VenueName,
                     'VenueID' => $restaurantVenue['VenueID'],
                     'UserID' => $user['UserID'],
@@ -865,8 +863,7 @@ class GuestController extends BaseController
 
     private function prepareEmail(array $reservationDataa): string // Corrected method name
     {
-        $ArivalDate = $reservationDataa['ArivalDate'];
-        $ArivalTime = $reservationDataa['ArivalTime'];
+        $CheckInDate = $reservationDataa['CheckInDate'];
         $NumberOfGuests = $reservationDataa['NumberOfGuests'];
         $Note = $reservationDataa['Note'];
         $VenueName = $reservationDataa['VenueName'];
@@ -874,8 +871,7 @@ class GuestController extends BaseController
         $message = "Dear customer,<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
         $message .= "Venue Name: {$VenueName}<br>";
-        $message .= "Arrival Date: {$ArivalDate}<br>";
-        $message .= "Arrival Time: {$ArivalTime}<br>";
+        $message .= "Arrival Date and Time: {$CheckInDate}<br>";
         $message .= "Number of Guests: {$NumberOfGuests}<br>";
         $message .= "Note: {$Note}<br>";
         $message .= "<br>We look forward to hosting you.<br>";
@@ -949,7 +945,7 @@ class GuestController extends BaseController
             // Generate period between start and end dates
             $interval = new \DateInterval('P1D');
             $period = new \DatePeriod($startDate, $interval, $endDate);
-            // Only consider dates for reservations with status 'Confirm' or 'Pending'
+            // Only consider dates for reservations with status 'Confirm' or 'Confirm'
             if ($reservation['Status'] === 'Cancel') {
                 continue;
             }
@@ -1161,14 +1157,24 @@ class GuestController extends BaseController
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                             'ReferenceNumber' => $referenceNumber,
                             'PaymentOption' => $paymentOption,
-                            'Status' => 'Pending',
+                            'Status' => 'Confirm',
                             'TotalAmount' => $TotalAmount,
                             'Image' => $newFileName
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
+                            $reservationID = $this->reservation->getInsertID();
+                            // After successful reservation, generate QR Code
+                        // Generate QR Code with the new ReservationID
+                        $qrCodeInfo  = $this->generateeQrCode($reservationID);
+                        $qrCodePath = $qrCodeInfo['file_path'];
+                        $qrCodePath2 = $qrCodeInfo['url'];
+                        // Store QR code path in session
+                        $session->set('qrCodePath', $qrCodePath2);
+                        // Update the reservation record with QR code path
+                        $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
                             $emailMessage = $this->prepareEmailConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected);
-                            $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                            $emailMessage2 = $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                             $fcmToken = $UserData['fcm_token'];
 
                             if (!empty($fcmToken)) {
@@ -1178,7 +1184,7 @@ class GuestController extends BaseController
                             }
                             // Redirect with success message
                             $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                            return redirect()->to('/convention-center');
+                            return redirect()->to('/qrcoventionpath');
                         } else {
                             return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
                         }
@@ -1198,6 +1204,56 @@ class GuestController extends BaseController
             return view('Hotell/conformdetail', $newReservationData);
         }
     }
+    private function generateeQrCode($reservationID)
+    {
+    
+        // Construct the encoded URL with the amenities query parameter
+        $encodedUrl = base_url("conreservation/$reservationID");
+    
+        // Create a new QR code object with the encoded URL
+        $qrCode = new \Endroid\QrCode\QrCode($encodedUrl);
+        $qrCode->setSize(300);
+    
+        // Initialize the QR code writer
+        $writer = new \Endroid\QrCode\Writer\PngWriter();
+    
+        // Ensure the directory exists
+        $dirPath = FCPATH . 'qr-codes';
+        if (!is_dir($dirPath)) {
+            mkdir($dirPath, 0777, true); // Adjust permissions as necessary
+        }
+    
+        // Path where the QR code will be saved
+        $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
+        $result = $writer->write($qrCode);
+        $result->saveToFile($filePath);
+    
+        // Generate the URL to access the QR code image
+        $url = base_url('qr-codes/qr-code-' . $reservationID . '.png');
+    
+        // Return both the URL to the QR code image and the file path
+        return [
+            'url' => $url,
+            'file_path' => $filePath
+        ];
+    }
+    
+
+    public function qrconventionPath()
+    {
+        $session = session();
+        $qrCodePath = $session->get('qrCodePath');
+
+        // Check if QR code path exists
+        if (!$qrCodePath) {
+            // Handle error, e.g., redirect back or show an error message
+            return redirect()->back()->with('error', 'QR code not found.');
+        }
+
+        // Load view with QR code data
+        return view('Hotell/qrpath_convention', ['qrCodePath' => $qrCodePath]);
+    }
+
     private function prepareEmailConventionMessage(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
     {
         $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
@@ -1501,7 +1557,7 @@ class GuestController extends BaseController
         // Retrieve reservations for the logged-in user
         $data = [
             'hotelrevs' => $this->reservation
-                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.QRCodePath, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber')
                 ->join('rooms', 'reservations.RoomID = rooms.RoomID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->where('reservations.Status', 'Confirm')
@@ -1531,55 +1587,59 @@ class GuestController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Cancel'];
-
+    
         if (!in_array($status, $allowedStatuses)) {
             // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-
+    
         // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
             ->where('ReservationID', $reservationID)
             ->first();
-
+    
         if (!$reservation) {
             // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
+    
         // Retrieve user data based on UserID from the reservation
         $user = $this->users
             ->where('UserID', $reservation['UserID'])
             ->first();
-
+    
         if (!$user) {
             // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-
+    
         // Calculate the difference between cancellation time and check-in date
         $checkInDate = new \DateTime($reservation['CheckInDate']);
         $cancellationDate = new \DateTime();
         $difference = $cancellationDate->diff($checkInDate);
         $daysDifference = $difference->days;
-
+    
         // Check if cancellation is within 3 days of check-in date
         if ($daysDifference <= 3) {
             // Calculate refund amount (50% of downorfullPayment)
             $refundAmount = $reservation['downorfullPayment'] * 0.5;
-
+    
             // Update the reservation status and refund amount in the database
             $updateData = ['Status' => $status, 'RefundAmount' => $refundAmount];
             $updated = $this->reservation->update($reservationID, $updateData);
-
+    
             if ($updated) {
                 // Prepare email message about the refund
                 $emailMessage = "Dear customer,<br><br>";
                 $emailMessage .= "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated on 3 days.<br>";
-                $emailMessage .= "If you have any questions, please contact us.<br>";
-
+                $emailMessage .= "If you have any questions, please contact us in our contact below.<br>";
+                $emailMessage .= "099123123123<br>";
+                $emailMessage .= "or<br>";
+                $emailMessage .= "email@gmail.com<br>";
+    
                 // Send email notification to the user
                 $this->sendEmail($user['Email'], 'Reservation Canceled and Refund Initiated on 3 Days', $emailMessage);
-
+    
                 // Notify user via push notification
                 $fcmToken = $user['fcm_token'];
                 if (!empty($fcmToken)) {
@@ -1587,7 +1647,7 @@ class GuestController extends BaseController
                     $notifBody = "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated.";
                     $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                 }
-
+    
                 // Redirect to the reservation page with a success message
                 $session->setFlashdata('success', 'Reservation canceled successfully, and refund initiated.');
                 return redirect()->to('/booking');
@@ -1597,9 +1657,40 @@ class GuestController extends BaseController
             }
         } else {
             // Cancellation period has passed, refund not applicable
-            return redirect()->back()->with('error', 'Refund not applicable as cancellation period has passed.');
+            // Update the reservation status without refund amount
+            $updateData = ['Status' => $status];
+            $updated = $this->reservation->update($reservationID, $updateData);
+    
+            if ($updated) {
+                // Prepare email message about cancellation without refund
+                $emailMessage = "Dear customer,<br><br>";
+                $emailMessage .= "Your reservation has been canceled. Refund is not applicable as the cancellation period has passed.<br>";
+                $emailMessage .= "If you have any questions, please contact us in our contact below.<br>";
+                $emailMessage .= "099123123123<br>";
+                $emailMessage .= "or<br>";
+                $emailMessage .= "email@gmail.com<br>";
+    
+                // Send email notification to the user
+                $this->sendEmail($user['Email'], 'Reservation Canceled', $emailMessage);
+    
+                // Notify user via push notification
+                $fcmToken = $user['fcm_token'];
+                if (!empty($fcmToken)) {
+                    $notifTitle = 'Reservation Canceled';
+                    $notifBody = "Your reservation has been canceled. Refund is not applicable as the cancellation period has passed.";
+                    $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+                }
+    
+                // Redirect to the reservation page with a success message
+                $session->setFlashdata('success', 'Reservation canceled successfully.');
+                return redirect()->to('/booking');
+            } else {
+                // Handle case where update fails
+                return redirect()->back()->with('error', 'Failed to update reservation status');
+            }
         }
     }
+    
     public function bookingrestauupdatestatus($status, $reservationID)
     {
         $session = session();

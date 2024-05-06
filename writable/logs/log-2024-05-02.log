@@ -1,0 +1,78 @@
+ERROR - 2024-05-02 07:22:13 --> mysqli_sql_exception: Unknown column 'feedback.created_at' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `feedbac...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `feedbac...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `feedbac...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `feedbac...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1237): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->feedback()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-05-02 07:22:13 --> Unknown column 'feedback.created_at' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `feedback`.`FeedbackID`, `feedback`.`FeedbackMessage`, `feedback`.`created_at`, `users`.`UserID`, `users`.`Email`
+FROM `feedback`
+JOIN `users` ON `feedback`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(1237): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->feedback()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-02 08:29:44 --> Call to undefined method App\Models\ReservationModel::getConfirmedReservations
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(249): CodeIgniter\Model->__call('getConfirmedReservations', [])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-02 11:17:56 --> mysqli_sql_exception: Unknown column 'restaurant_venue.conVenueID' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT DATE_FOR...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT DATE_FOR...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT DATE_FOR...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT DATE_FOR...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\GuestController.php(157): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\GuestController->mainmenu()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-02 11:17:56 --> Unknown column 'restaurant_venue.conVenueID' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT DATE_FORMAT(CheckInDate, "%Y-%m-%d") as StartDate, `Status`, `restaurant_venue`.`VenueID`, `restaurant_venue`.`conVenueID`
+FROM `reservations`
+JOIN `restaurant_venue` ON `reservations`.`VenueID` = `restaurant_venue`.`VenueID`
+WHERE `restaurant_venue`.`VenueID` IS NULL', [], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\GuestController.php(157): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->mainmenu()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-02 12:07:29 --> Allowed memory size of 536870912 bytes exhausted (tried to allocate 264257536 bytes)
+in APPPATH\Views\Admin\index.php on line 136.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2024-05-02 14:28:35 --> Undefined variable $hotelrev
+in APPPATH\Views\Hotell\booking.php on line 103.
+ 1 APPPATH\Views\Hotell\booking.php(103): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $hotelrev', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 103)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1584): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

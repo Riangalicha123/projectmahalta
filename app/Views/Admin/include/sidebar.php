@@ -102,6 +102,14 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'inventoryHotel') ? 'active' : '' ?> " href="<?= route_to('admin-inventoryhotel') ?>">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                Inventory Management
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'staffAccount') ? 'active' : '' ?> " href="<?= route_to('admin-staffaccounts') ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
@@ -109,6 +117,7 @@
               </p>
             </a>
           </li>
+          
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
               <i class="nav-icon fas fa-comment-alt"></i>

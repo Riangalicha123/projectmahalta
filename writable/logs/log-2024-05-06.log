@@ -1,0 +1,249 @@
+ERROR - 2024-05-06 02:01:13 --> mysqli_sql_exception: Unknown column 'CheckInMonth' in 'group statement' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(267): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-06 02:01:13 --> Unknown column 'CheckInMonth' in 'group statement'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.`RoomID`, `rooms`.`RoomType`, COUNT(*) AS ReservationCount
+FROM `reservations`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND YEAR(CheckInDate) = :YEAR(CheckInDate):
+GROUP BY `reservations`.`RoomID`, `rooms`.`RoomType`, `CheckInMonth`', [...], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(267): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 02:40:43 --> json_encode(): Argument #2 ($flags) must be of type int, array given
+in APPPATH\Controllers\AdminController.php on line 270.
+ 1 APPPATH\Controllers\AdminController.php(270): json_encode([], [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 02:40:53 --> json_encode(): Argument #2 ($flags) must be of type int, array given
+in APPPATH\Controllers\AdminController.php on line 270.
+ 1 APPPATH\Controllers\AdminController.php(270): json_encode([], [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 02:41:06 --> json_encode(): Argument #2 ($flags) must be of type int, array given
+in APPPATH\Controllers\AdminController.php on line 270.
+ 1 APPPATH\Controllers\AdminController.php(270): json_encode([], [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 02:42:01 --> json_encode(): Argument #2 ($flags) must be of type int, array given
+in APPPATH\Controllers\AdminController.php on line 270.
+ 1 APPPATH\Controllers\AdminController.php(270): json_encode([], [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->getroomReservationData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 03:48:11 --> Undefined variable $reservations
+in APPPATH\Views\Admin\index.php on line 467.
+ 1 APPPATH\Views\Admin\index.php(467): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 467)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(252): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 03:48:12 --> Undefined variable $reservations
+in APPPATH\Views\Admin\index.php on line 467.
+ 1 APPPATH\Views\Admin\index.php(467): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 467)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(252): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 03:48:28 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 467.
+ 1 APPPATH\Views\Admin\index.php(467): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 467)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(252): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-06 03:54:56 --> mysqli_sql_exception: Unknown column 'RoomType' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT NULL AS ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT NULL AS ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT NULL AS ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT NULL AS ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(222): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-06 03:54:56 --> Unknown column 'RoomType' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT NULL AS RoomID, RoomType,
+                         MONTH(CheckInDate) AS CheckInMonth,
+                         YEAR(CheckInDate) AS CheckInYear,
+                         COUNT(*) AS ReservationCount
+                  FROM reservations
+                  WHERE Status = \'Confirm\'
+                  GROUP BY RoomType, CheckInMonth, CheckInYear')
+ 2 APPPATH\Controllers\AdminController.php(222): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-06 03:55:06 --> mysqli_sql_exception: Unknown column 'RoomType' in 'group statement' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT NULL AS ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT NULL AS ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT NULL AS ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT NULL AS ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(222): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-05-06 03:55:06 --> Unknown column 'RoomType' in 'group statement'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT NULL AS RoomID,
+                         MONTH(CheckInDate) AS CheckInMonth,
+                         YEAR(CheckInDate) AS CheckInYear,
+                         COUNT(*) AS ReservationCount
+                  FROM reservations
+                  WHERE Status = \'Confirm\'
+                  GROUP BY RoomType, CheckInMonth, CheckInYear')
+ 2 APPPATH\Controllers\AdminController.php(222): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:37:05 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:11 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:11 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:12 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:12 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:12 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:13 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-06 04:38:13 --> Undefined variable $roomreservations
+in APPPATH\Views\Admin\index.php on line 535.
+ 1 APPPATH\Views\Admin\index.php(535): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $roomreservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 535)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

@@ -15,6 +15,7 @@ $routes->get('/bookroom/amenities', 'GuestController::amenities', ['filter' => '
 $routes->post('/addAmenities', 'GuestController::addAmenities', ['filter' => 'noAuth']);
 $routes->get('/bookroom/formdetails', 'GuestController::formdetails', ['filter' => 'noAuth']);
 $routes->get('/qrpath', 'GuestController::qrpath', ['filter' => 'noAuth']);
+$routes->get('/qrcoventionpath', 'GuestController::qrconventionPath', ['filter' => 'noAuth']);
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation', ['filter' => 'noAuth']);
 $routes->get('/roompolicy', 'GuestController::roomPolicy', ['filter' => 'noAuth']);
 $routes->get('/faq', 'GuestController::faq', ['filter' => 'noAuth']);
@@ -118,12 +119,14 @@ $routes->get('/staff-inventory', 'InventoryController::inhome', ['filter' => 'st
 $routes->get('/staff-inventory/hotel', 'InventoryController::inhotel', ['filter' => 'staffGuard']);
 $routes->post('/addinHotel', 'InventoryController::addinHotel', ['filter' => 'staffGuard']);
 $routes->post('/updateinHotel/(:num)', 'InventoryController::updateinHotel/$1', ['filter' => 'staffGuard']);
-$routes->get('/staff-inventory/restaurant', 'InventoryController::inrestaurant', ['filter' => 'staffGuard']);
-$routes->post('/addinRestaurant', 'InventoryController::addinRestaurant', ['filter' => 'staffGuard']);
-$routes->post('/updateinRestaurant/(:num)', 'InventoryController::updateinRestaurant/$1', ['filter' => 'staffGuard']);
 
+$routes->get('/admin-inventoryhotel', 'InventoryController::inventoryHotel', ['filter' => 'adminGuard']);
+$routes->post('/adddinHotel', 'InventoryController::adddinHotel', ['filter' => 'adminGuard']);
+$routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1', ['filter' => 'adminGuard']);
 //Admin-Dashboard
-$routes->get('/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
+$routes->match(['get', 'post'],'/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
+$routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
+$routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-setting', 'AdminController::setting', ['filter' => 'adminGuard']);
 
@@ -146,7 +149,7 @@ $routes->post('/addConReservation', 'AdminController::addConReservation', ['filt
 $routes->post('/updateConReservation/(:num)', 'AdminController::updateConReservation/$1', ['filter' => 'adminGuard']);
 $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2', ['filter' => 'adminGuard']);
 $routes->get('/reservation/(:num)', 'AdminController::viewReservation/$1',); //lagay mo nalang inalis ko for checing  ['filter' => 'adminGuard']
-
+$routes->get('/conreservation/(:num)', 'AdminController::viewconvetionReservation/$1',);
 //Admin-RateManagement
 $routes->get('/admin-rate', 'AdminController::rate', ['filter' => 'adminGuard']);
 $routes->post('/submit-rate-form', 'AdminController::submitRateForm', ['filter' => 'adminGuard']);
@@ -196,3 +199,5 @@ $routes->post('/addCafeMenu', 'RestaurantController::addCafeMenu', ['filter' => 
 $routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu', ['filter' => 'adminGuard']);
 $routes->post('/addCafeMenuIced', 'RestaurantController::addCafeMenuIced', ['filter' => 'adminGuard']);
 $routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced', ['filter' => 'adminGuard']);
+
+
