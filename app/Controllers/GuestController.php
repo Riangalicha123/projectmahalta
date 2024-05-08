@@ -23,6 +23,7 @@ use App\Models\ReservationAmenities;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
 use App\Models\RoomImageModel;
+use App\Models\NewsModel;
 
 class GuestController extends BaseController
 {
@@ -46,6 +47,7 @@ class GuestController extends BaseController
     private $convenues;
     private $conventions;
     private $roomimages;
+    private $news;
 
     function __construct()
     {
@@ -69,6 +71,7 @@ class GuestController extends BaseController
         $this->convenues = new ConventionVenueModel();
         $this->conventions = new ConventionModel();
         $this->roomimages = new RoomImageModel();
+        $this->news = new NewsModel();
     }
     public function index()
     {
@@ -90,7 +93,8 @@ class GuestController extends BaseController
             'feedbacks' => $this->feedbacks
                 ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, users.UserID, users.Email')
                 ->join('users', 'feedback.UserID = users.UserID')
-                ->findAll()
+                ->findAll(),
+            'news' => $this->news->findAll(),
         ];
         return view('Hotell\index', $data);
     }

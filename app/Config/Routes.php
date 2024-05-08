@@ -200,4 +200,8 @@ $routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu', ['filte
 $routes->post('/addCafeMenuIced', 'RestaurantController::addCafeMenuIced', ['filter' => 'adminGuard']);
 $routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced', ['filter' => 'adminGuard']);
 
+$routes->get('/admin-newspromotion', 'AdminController::newsPromotion', ['filter' => 'adminGuard']);
+$routes->post('/admin-addnewspromotion', 'AdminController::addnewsPromotion', ['filter' => 'adminGuard']);
+$routes->post('/admin-editnewspromotion', 'AdminController::editnewsPromotion', ['filter' => 'adminGuard']);
+$routes->get('deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter' => 'adminGuard']);
 

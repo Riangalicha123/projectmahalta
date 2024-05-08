@@ -29,6 +29,7 @@ use App\Traits\EmailTrait;
 use App\Models\ConventionVenueModel;
 use App\Models\RoomImageModel;
 use App\Models\RoomInventoryModel;
+use App\Models\NewsModel;
 use CodeIgniter\API\ResponseTrait;
 use DateTime;
 
@@ -61,6 +62,7 @@ class AdminController extends BaseController
     private $convenues;
     private $roomimages;
     private $roominventory;
+    private $news;
     function __construct()
     {
         helper(['form']);
@@ -89,6 +91,7 @@ class AdminController extends BaseController
         $this->convenues = new ConventionVenueModel();
         $this->roomimages = new RoomImageModel();
         $this->roominventory = new RoomInventoryModel();
+        $this->news = new NewsModel();
     }
     public function index()
     {
@@ -1890,6 +1893,123 @@ foreach ($query->getResult() as $row) {
             return view('Hotell/conventionreservation_view', ['reservation' => $reservationDetails]); // Load the view and pass the details
         } else {
             return redirect()->back()->with('error', 'Reservation not found.');
+        }
+    }
+
+    public function newsPromotion()
+    {
+        $data = [
+            'adminRoutes' => 'newsPromotion',
+            'news' => $this->news->findAll(),
+        ];
+        return view('Admin/news', $data);
+    }
+    public function addnewsPromotion()
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
+        }
+
+        if ($image = $this->request->getFile('Image')) {
+            if ($image->isValid() && !$image->hasMoved()) {
+                $newFileName = $image->getRandomName();
+                $image->move(FCPATH . 'news/', $newFileName);
+            } else {
+                return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Failed to upload image. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Please upload an image.');
+        }
+
+        // Insert new menu item
+        $newNewsData = [
+            'Image' => $newFileName
+        ];
+
+        // Insert menu item
+        $inserted = $this->news->insert($newNewsData);
+        if ($inserted) {
+            return redirect()->to(base_url('admin-newspromotion'))->with('success', 'Menu item added successfully.');
+        } else {
+            return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Failed to add menu item. Please try again.');
+        }
+    }
+    public function editnewsPromotion()
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->to(base_url('/admin-newspromotion'))->with('validationErrors', $validationErrors);
+        }
+    
+        // Retrieve News ID
+        $newsID = $this->request->getPost('NewsID');
+    
+        // Handle Image Upload
+        $newFileName = '';
+        $image = $this->request->getFile('Image');
+        if ($image->isValid() && !$image->hasMoved()) {
+            $newFileName = $image->getRandomName();
+            $image->move(FCPATH . 'news/', $newFileName);
+        } else {
+            return redirect()->to(base_url('/admin-newspromotion'))->with('error', 'Failed to upload image. Please try again.');
+        }
+    
+        // Update News Data
+        $updatedNewsData = ['Image' => $newFileName];
+    
+        // Update News
+        $updated = $this->news->update($newsID, $updatedNewsData);
+        if ($updated) {
+            return redirect()->to(base_url('/admin-newspromotion'))->with('success', 'News updated successfully.');
+        } else {
+            return redirect()->to(base_url('/admin-newspromotion'))->with('error', 'Failed to update news. Please try again.');
+        }
+    }
+    
+    public function deleteNews($newsID)
+    {
+        $newsModel = new NewsModel();
+
+        // Get the news data by ID
+        $news = $newsModel->find($newsID);
+
+        if ($news) {
+            // Delete the news image from the server
+            $imagePath = FCPATH . 'news/' . $news['Image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Delete the news from the database
+            $deleted = $newsModel->delete($newsID);
+
+            if ($deleted) {
+                // Redirect with success message
+                return redirect()->to(base_url('admin-newspromotion'))->with('success', 'News deleted successfully.');
+            } else {
+                // Redirect with error message
+                return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Failed to delete news. Please try again.');
+            }
+        } else {
+            // Redirect with error message
+            return redirect()->to(base_url('admin-newspromotion'))->with('error', 'News not found.');
         }
     }
 }

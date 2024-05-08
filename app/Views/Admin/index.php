@@ -403,7 +403,7 @@ $(function () {
     fetchData(currentYear);
 
     // Change event for year select
-    $('#year-selector').change(function() {
+    $('#yearSelect').change(function() {
         var selectedYear = $(this).val();
         fetchData(selectedYear);
     });

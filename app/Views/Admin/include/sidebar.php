@@ -103,7 +103,7 @@
           </li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'inventoryHotel') ? 'active' : '' ?> " href="<?= route_to('admin-inventoryhotel') ?>">
-              <i class="nav-icon fas fa-user"></i>
+            <i class="nav-icon fas fa-inventory"></i>
               <p>
                 Inventory Management
               </p>
@@ -117,7 +117,14 @@
               </p>
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'newsPromotion') ? 'active' : '' ?> " href="<?= route_to('admin-newspromotion') ?>">
+            <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                News - Promotion
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'feedback') ? 'active' : '' ?> " href="<?= route_to('admin-feedback') ?>">
               <i class="nav-icon fas fa-comment-alt"></i>

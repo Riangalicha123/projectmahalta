@@ -802,7 +802,7 @@ onMessage(messaging, (payload) => {
     
     <!-- loader -->
     <?php include('inc/loader.php') ?>
-
+    <?php include('inc/news.php') ?>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
