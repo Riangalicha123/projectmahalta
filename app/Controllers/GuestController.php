@@ -413,6 +413,10 @@ class GuestController extends BaseController
     
     public function bookroom()
     {
+        // Check if user is logged in
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/'); // Redirect to login page if user is not logged in
+        }
         // Load the session library
         $session = \Config\Services::session();
 
@@ -480,6 +484,10 @@ class GuestController extends BaseController
     }
     public function amenities()
     {
+        // Check if user is logged in
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/'); // Redirect to login page if user is not logged in
+        }
         // Load the session library
         $session = \Config\Services::session();
 
@@ -504,6 +512,10 @@ class GuestController extends BaseController
     }
     public function formdetails()
     {
+        // Check if user is logged in
+        if (!session()->get('isLoggedIn')) {
+            return redirect()->to('/'); // Redirect to login page if user is not logged in
+        }
         // Load the session library
         $session = \Config\Services::session();
     

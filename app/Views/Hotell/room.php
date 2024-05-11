@@ -19,6 +19,29 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <style>
+      /* Add your CSS styles here */
+#search-container {
+    margin-bottom: 20px;
+}
+
+#search-container input[type="number"] {
+    width: 200px;
+    padding: 10px;
+    margin-right: 10px;
+}
+
+#search-container button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+#search-container button:hover {
+    background-color: #0056b3;
+}
+
       /* CSS Styles */
 .floating-card-container {
     position: relative;
@@ -148,7 +171,11 @@
 </section>
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
-          <div class="row">
+            <div id="search-container">
+                <input type="number" id="price-input" placeholder="Enter price range...">
+                <button id="search-btn">Search</button>
+            </div>
+          <div class="row" id="room-container">
           <?php foreach ($rooms as $room): ?>
             <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
               <div class="col-md-4 mb-4">
@@ -184,51 +211,51 @@
                 </div>
               </div>
                <!-- Modal for room details -->
-        <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="roomModalLabel<?=$room['RoomID']?>">Room <?=$room['RoomNumber']?> <strong>||</strong> <?=$room['RoomType']?> Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Carousel for room images -->
-                <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <?php foreach ($roomimages as $roomimage): ?>
-                            <?php if ($roomimage['RoomID'] === $room['RoomID']): ?>
-                                <?php $images = explode(',', $roomimage['Images']); ?>
-                                <?php foreach ($images as $index => $image): ?>
-                                    <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
-                                        <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 100px; height: 300px;">
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </div>
-                    <a class="carousel-control-prev" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-                <p><?=$room['Description']?></p>
-                <p><b>• ROOM INCLUSIONS</b></p>
-                <p>-Complimentary Breakfast(Plated Service)</p>
-                <p>-Free Flow or Brewed Coffee</p>
-                <p>-Complete Amenities</p>
-                <p>-Swimming Pool Access</p>
-                <p>-Stand By Generator Set</p>
-                <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
-            </div>
-        </div>
-    </div>
-</div>
+              <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="roomModalLabel<?=$room['RoomID']?>">Room <?=$room['RoomNumber']?> <strong>||</strong> <?=$room['RoomType']?> Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <!-- Carousel for room images -->
+                              <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
+                                  <div class="carousel-inner">
+                                      <?php foreach ($roomimages as $roomimage): ?>
+                                          <?php if ($roomimage['RoomID'] === $room['RoomID']): ?>
+                                              <?php $images = explode(',', $roomimage['Images']); ?>
+                                              <?php foreach ($images as $index => $image): ?>
+                                                  <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
+                                                      <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 100px; height: 300px;">
+                                                  </div>
+                                              <?php endforeach; ?>
+                                          <?php endif; ?>
+                                      <?php endforeach; ?>
+                                  </div>
+                                  <a class="carousel-control-prev" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                  </a>
+                              </div>
+                              <p><?=$room['Description']?></p>
+                              <p><b>• ROOM INCLUSIONS</b></p>
+                              <p>-Complimentary Breakfast(Plated Service)</p>
+                              <p>-Free Flow or Brewed Coffee</p>
+                              <p>-Complete Amenities</p>
+                              <p>-Swimming Pool Access</p>
+                              <p>-Stand By Generator Set</p>
+                              <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
             <?php endif; ?>
             <?php endforeach; ?>
           </div>
@@ -359,6 +386,35 @@
     
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    // Kunin ang mga kinakailangang elemento
+    var searchInput = document.getElementById('price-input');
+    var searchBtn = document.getElementById('search-btn');
+    var roomContainers = document.querySelectorAll('#room-container .col-md-4');
+
+    // Magdagdag ng event listener sa search button
+    searchBtn.addEventListener('click', function() {
+        var priceRange = parseFloat(searchInput.value); // Kunin ang halaga ng price range
+
+        // Traverse through each room container
+        roomContainers.forEach(function(roomContainer) {
+            var roomPriceElement = roomContainer.querySelector('h5 a'); // Kunin ang element na naglalaman ng presyo
+
+            // Kunin ang presyo ng kuwarto mula sa text
+            var roomPrice = parseFloat(roomPriceElement.innerText.replace('PHP', '').replace('per', '').replace(/\s+/g, ''));
+
+            // Itago o ipakita ang kuwarto base sa presyo
+            if (roomPrice <= priceRange) {
+                roomContainer.style.display = 'block'; // Ipakita ang kuwarto kung ang presyo ay nasa loob ng price range
+            } else {
+                roomContainer.style.display = 'none'; // Itago ang kuwarto kung hindi
+            }
+        });
+    });
+});
+
+    </script>
     <script>
       var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
       viewMoreButtons.forEach(function(button) {
