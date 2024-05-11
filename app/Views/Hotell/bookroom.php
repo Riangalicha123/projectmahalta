@@ -139,7 +139,7 @@
 
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= $room['RoomType'] ?></a></h3>
-                      <h5 class="mt-0"><a href="#">PHP <?= $room['PricePerNight'] ?></a></h5>
+                      <h5 class="mt-0"><a href="#">PHP <?= $room['PricePerNight'] ?> <p>(per <?=$room['PerNightHead']?>)</p></a></h5>
                       <ul class="room-specs">
                         <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                         <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>

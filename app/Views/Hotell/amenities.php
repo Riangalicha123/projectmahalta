@@ -149,7 +149,7 @@ foreach ($roinvents as $roinvent):
                     <?= esc($roomReservationData['roomSelected']['RoomType'] ?? '') ?>
                   </a></h3>
                 <h5 class="mt-0"><a href="#">PHP
-                    <?= esc($roomReservationData['roomSelected']['PricePerNight'] ?? '') ?>/ Night
+                    <?= esc($roomReservationData['roomSelected']['PricePerNight'] ?? '') ?>
                   </a></h5>
                   <p><b>Check-in Date:</b> <?= esc($roomReservationData['reservationData']['CheckInDate'] ?? '') ?></p>
                   <p><b>Check-out Date:</b> <?= esc($roomReservationData['reservationData']['CheckOutDate'] ?? '') ?></p>

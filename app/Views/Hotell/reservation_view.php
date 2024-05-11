@@ -153,54 +153,61 @@
     <?php include('inc/loader.php') ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script>
-    function downloadPDF() {
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
 
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(16);
-        doc.text('Reservation Receipt', 105, 20, null, null, 'center');
+    // Define quarter paper size
+    const paperWidth = 210 / 2; // A4 paper width in mm divided by 2 for quarter size
+    const paperHeight = 297 / 2; // A4 paper height in mm divided by 2 for quarter size
 
-        doc.setFontSize(12);
-        doc.setFont("helvetica", "normal");
-        doc.text(20, 40, 'Guest Information');
-        doc.setFontSize(10);
-        doc.text(`Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>`, 20, 50);
-        doc.text(`Email: <?= $reservation->Email ?>`, 20, 60);
-        doc.text(`Contact Number: <?= $reservation->ContactNumber ?>`, 20, 70);
+    // Calculate scaling factor for document size
+    const scaleFactor = Math.min(paperWidth / 210, paperHeight / 297);
 
-        doc.setFontSize(12);
-        doc.text('Reservation Information', 20, 90);
-        
-        doc.setFontSize(10);
-        doc.text(`Check-In Date: <?= $reservation->CheckInDate ?>`, 20, 100);
-        doc.text(`Check-Out Date: <?= $reservation->CheckOutDate ?>`, 20, 110);
-        doc.text(`Room: <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?> - Total Amount: <?= $reservation->TotalAmount ?>`, 20, 120);
-        doc.text(`Status: <?= $reservation->Status ?>`, 20, 130, {
-            fillColor: (new Date() > new Date('<?= $reservation->CheckOutDate ?>')) ? [255, 0, 0] : [0, 255, 0]
-        });
+    // Create new jsPDF instance with scaled dimensions
+    const doc = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: [paperWidth, paperHeight]
+    });
 
-        doc.setFontSize(12);
-        doc.text('Amenities Details', 20, 150);
-        doc.setFontSize(10);
-        <?php if (!empty($amenities)) : ?>
-            <?php foreach ($amenities as $amenity) : ?>
-                doc.text('<?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?>', 20, 160);
-            <?php endforeach; ?>
-        <?php else : ?>
-            doc.text('No amenities selected', 20, 160);
-        <?php endif; ?>
+    // Calculate scaled font size
+    const baseFontSize = 16; // Base font size for full A4 size
+    const scaledFontSize = baseFontSize * scaleFactor;
 
-        doc.setFontSize(12);
-        doc.text('Payment Details', 20, <?php if (empty($amenities)) echo 160; else echo 180; ?>);
-        doc.setFontSize(10);
-        doc.text(`Payment Option: <?= $reservation->PaymentOption ?>`, 20, <?php if (empty($amenities)) echo 170; else echo 190; ?>);
-        doc.text(`Reference Number: <?= $reservation->ReferenceNumber ?>`, 20, <?php if (empty($amenities)) echo 180; else echo 200; ?>);
-        doc.text(`Payment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`, 20, <?php if (empty($amenities)) echo 190; else echo 210; ?>);
+    // Set font style and size
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(scaledFontSize);
 
-        doc.save('ReservationReceipt.pdf');
-    }
+    // Add logo
+    const logoImg = new Image();
+    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; // Replace 'path/to/your/logo.png' with the actual path to your logo image
+    const logoWidth = 20; // Adjust the width of the logo as needed
+    const logoHeight = (logoWidth / logoImg.width) * logoImg.height; // Maintain aspect ratio
+    doc.addImage(logoImg, 'PNG', paperWidth - logoWidth - 10, scaledFontSize - 5, logoWidth, logoHeight);
+
+    // Define text content
+    const receiptTitle = 'Reservation Receipt';
+    const guestInfoText = `Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>\nEmail: <?= $reservation->Email ?>\nContact Number: <?= $reservation->ContactNumber ?>`;
+    const reservationInfoText = `Check-In Date: <?= $reservation->CheckInDate ?>\nCheck-Out Date: <?= $reservation->CheckOutDate ?>\nRoom: <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?> - Total Amount: <?= $reservation->TotalAmount ?>\nStatus: <?= $reservation->Status ?>`;
+    const amenitiesText = <?php if (!empty($amenities)) : ?> <?php foreach ($amenities as $amenity) : ?> `<?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?>\n` <?php endforeach; ?> <?php else : ?> `No amenities selected` <?php endif; ?>;
+    const paymentDetailsText = `Payment Option: <?= $reservation->PaymentOption ?>\nReference Number: <?= $reservation->ReferenceNumber ?>\nPayment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`;
+
+    // Add text and logo to document
+    doc.text(receiptTitle, paperWidth / 2, scaledFontSize, null, null, 'center');
+    doc.text('Guest Information', 20, scaledFontSize * 2);
+    doc.text(guestInfoText, 20, scaledFontSize * 3);
+    doc.text('Reservation Information', 20, scaledFontSize * 5);
+    doc.text(reservationInfoText, 20, scaledFontSize * 6);
+    doc.text('Amenities Details', 20, scaledFontSize * 8);
+    doc.text(amenitiesText, 20, scaledFontSize * 9);
+    doc.text('Payment Details', 20, scaledFontSize * 11);
+    doc.text(paymentDetailsText, 20, scaledFontSize * 12);
+
+    // Save PDF
+    doc.save('ReservationReceipt.pdf');
+}
 </script>
+
 
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>

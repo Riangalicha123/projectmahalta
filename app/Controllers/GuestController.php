@@ -243,41 +243,50 @@ class GuestController extends BaseController
     {
         $session = \Config\Services::session();
         $selectedRoomID = $this->request->getGet('selectedRoomID');
-
+    
         // Dynamically construct the field names based on the selectedRoomID
         $checkInFieldName = 'CheckInDate' . $selectedRoomID;
         $checkOutFieldName = 'CheckOutDate' . $selectedRoomID;
-
+    
         // Fetch the check-in and check-out dates from the GET parameters
         $checkInDate = $this->request->getGet($checkInFieldName);
         $checkOutDate = $this->request->getGet($checkOutFieldName);
         $reservationData = $session->get('reservationData');
         $numberOfAdults = $reservationData['Adult'] ?? 0;
         $numberOfChildren = $reservationData['Child'] ?? 0;
-
+    
         // Load the RoomModel and find available rooms based on the dynamic dates
         $roomModel = new RoomModel;
         $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
-
+    
         $roomSelected = null;
         $TotalAmount = 0;
-
+    
         if (!empty($selectedRoomID)) {
             // Fetch details for the selected room
             $roomSelected = $roomModel->find($selectedRoomID);
-
+    
             if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
                 if (!empty($checkInDate) && !empty($checkOutDate)) {
                     $checkInDateTime = new \DateTime($checkInDate);
                     $checkOutDateTime = new \DateTime($checkOutDate);
                     $numberOfNights = $checkInDateTime->diff($checkOutDateTime)->days;
-
-                    $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+    
+                    // Calculate the total amount based on the room type
+                    if ($roomSelected['PerNightHead'] === 'Head') {
+                        // For Barkada Room, calculate based on per head rate
+                        $totalGuests = $numberOfAdults + $numberOfChildren;
+                        $TotalAmount = $totalGuests * $roomSelected['PricePerNight'] * $numberOfNights;
+                    } else {
+                        // For other room types, calculate based on the total nights stayed
+                        $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+                    }
+    
                     $totalGuests = (int) $numberOfAdults + (int) $numberOfChildren;
-
+    
                     if ($totalGuests > $roomSelected['minPerson']) {
                         $additionalGuests = $totalGuests - $roomSelected['minPerson'];
-                        $TotalAmount += $additionalGuests * 500;  // Assuming 500 is the charge per extra guest
+                        // Assuming 500 is the charge per extra guest
                     }
                 }
                 $session->set('roomSelected', $roomSelected);
@@ -290,45 +299,56 @@ class GuestController extends BaseController
                 ]);
             }
         }
-
+    
         return view('Hotell/bookroom', [
             'reservationData' => $session->get('reservationData'),
             'availableRooms' => $availableRooms,
             'roomSelected' => $roomSelected,
             'TotalAmount' => $TotalAmount,
             'roomimages' => $this->roomimages
-            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
-            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
-            ->groupBy('rooms.RoomID')
-            ->findAll(),
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
             'rooms' => $this->rooms->findAll(),
         ]);
     }
-
+    
     public function getdataRoomReservation()
     {
         $session = \Config\Services::session();
         $reservationData = $session->get('reservationData');
         $roomSelected = $session->get('roomSelected');
-
-
+    
         if (!empty($reservationData) && !empty($roomSelected)) {
             $checkInDate = new \DateTime($reservationData['CheckInDate']);
             $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
             $numberOfNights = $checkInDate->diff($checkOutDate)->days;
-            $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
-
-
-
+    
+            $TotalAmount = 0; // Initialize total amount
+    
+            if ($roomSelected['PerNightHead'] === 'Head') {
+                // Calculate total amount based on per head rate
+                $numberOfAdults = (int) $reservationData['Adult'];
+                $numberOfChildren = (int) $reservationData['Child'];
+                $totalGuests = $numberOfAdults + $numberOfChildren;
+    
+                $TotalAmount = $totalGuests * $roomSelected['PricePerNight'] * $numberOfNights;
+            } else {
+                // For other room types, calculate based on the total nights stayed
+                $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+            }
+    
             $numberOfAdults = (int) $reservationData['Adult'];
             $numberOfChildren = (int) $reservationData['Child'];
             $totalGuests = $numberOfAdults + $numberOfChildren;
-
+    
             if ($totalGuests > $roomSelected['minPerson']) {
                 $additionalGuests = $totalGuests - $roomSelected['minPerson'];
-                $TotalAmount += $additionalGuests * 500;
+                // Assuming 500 is the charge per extra guest
+                /* $TotalAmount += $additionalGuests * 500; */
             }
-
+    
             // Set roomReservationData including totalExtraPrice
             $session->set('roomReservationData', [
                 'reservationData' => $reservationData,
@@ -340,6 +360,7 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/error'));
         }
     }
+    
 
     public function addAmenities()
     {
@@ -382,7 +403,6 @@ class GuestController extends BaseController
             // Update TotalAmount to include total extra price
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
-            $session->set('roomReservationData', $roomReservationData);
     
             // Redirect to formdetails
             return redirect()->to(base_url('/bookroom/formdetails'));
@@ -433,7 +453,7 @@ class GuestController extends BaseController
                 if ($totalGuests > $roomSelected['minPerson']) {
                     // If the number of guests exceeds the minimum capacity, increase the total amount
                     $additionalGuests = $totalGuests - $roomSelected['minPerson'];
-                    $TotalAmount += $additionalGuests * 500; // PHP 500 per additional guest
+                    /* $TotalAmount += $additionalGuests * 500; */ // PHP 500 per additional guest
                 }
 
                 // Store the data in the session
