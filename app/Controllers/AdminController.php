@@ -2012,4 +2012,125 @@ foreach ($query->getResult() as $row) {
             return redirect()->to(base_url('admin-newspromotion'))->with('error', 'News not found.');
         }
     }
+    public function Report()
+    {
+        $data = [
+            'adminRoutes' => 'report',
+            'hotelrevs' => $this->reservation
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
+            'restrevs' => $this->reservation
+                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
+            'reevents' => $this->reservation
+                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('convention', 'reservations.conventionID = convention.conventionID')
+                ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+                ->join('events', 'convention.EventID = events.EventID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
+
+        ];
+        return view('Admin/report', $data);
+    }
+    public function fetchReportData()
+{
+    // Get start date, end date, and data type from the AJAX request
+    $startDate = $this->request->getPost('start_date');
+    $endDate = $this->request->getPost('end_date');
+    $dataType = $this->request->getPost('data_type'); // Added to determine which data to fetch
+
+    // Initialize an empty array to hold the fetched data
+    $data = [];
+
+    // Determine which data type was requested and fetch the corresponding data
+    if ($dataType === 'hotel') {
+        // Fetch hotel reservation data
+        $data = $this->reservation
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->where('reservations.CheckInDate >=', $startDate)
+            ->where('reservations.CheckInDate <=', $endDate)
+            ->orderBy('reservations.CheckInDate', 'ASC')
+            ->findAll();
+    } elseif ($dataType === 'restaurant') {
+        // Fetch restaurant reservation data
+        $data = $this->reservation
+            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+            ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->where('reservations.CheckInDate >=', $startDate)
+            ->where('reservations.CheckInDate <=', $endDate)
+            ->orderBy('reservations.CheckInDate', 'ASC')
+            ->findAll();
+    } elseif ($dataType === 'convention') {
+        // Fetch convention reservation data
+        $data = $this->reservation
+            ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+            ->join('convention', 'reservations.conventionID = convention.conventionID')
+            ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+            ->join('events', 'convention.EventID = events.EventID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->where('reservations.CheckInDate >=', $startDate)
+            ->where('reservations.CheckInDate <=', $endDate)
+            ->orderBy('reservations.CheckInDate', 'ASC')
+            ->findAll();
+    }
+
+    // Return the fetched data as JSON response
+    return $this->response->setJSON($data);
+}
+
+    public function fetchhotelReportData()
+    {
+        // Get month and day range from AJAX request
+        $startDate = $this->request->getPost('start_date');
+        $endDate = $this->request->getPost('end_date');
+
+        // Fetch data based on the provided date range and order by check-in date
+        $data = $this->reservation
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->where('reservations.CheckInDate >=', $startDate)
+            ->where('reservations.CheckInDate <=', $endDate)
+            ->orderBy('reservations.CheckInDate', 'ASC') // Order by check-in date ascending
+            ->findAll();
+
+        // Return data as JSON
+        return $this->response->setJSON($data);
+    }
+    public function fetchrestaurantReportData()
+    {
+        // Get month and day range from AJAX request
+        $sstartDate = $this->request->getPost('sstart_date');
+        $eendDate = $this->request->getPost('eend_date');
+
+        // Fetch data based on the provided date range and order by check-in date
+        $data = $this->reservation
+            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+            ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->where('reservations.Status', 'Confirm')
+            ->where('reservations.CheckInDate >=', $sstartDate)
+            ->where('reservations.CheckInDate <=', $eendDate)
+            ->orderBy('reservations.CheckInDate', 'ASC') // Order by check-in date ascending
+            ->findAll();
+
+        // Return data as JSON
+        return $this->response->setJSON($data);
+    }
+
 }

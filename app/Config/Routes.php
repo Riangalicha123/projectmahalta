@@ -205,3 +205,5 @@ $routes->post('/admin-addnewspromotion', 'AdminController::addnewsPromotion', ['
 $routes->post('/admin-editnewspromotion', 'AdminController::editnewsPromotion', ['filter' => 'adminGuard']);
 $routes->get('deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter' => 'adminGuard']);
 
+$routes->get('/admin-report', 'AdminController::Report', ['filter' => 'adminGuard']);
+$routes->post('/admin-report/fetch-report-data', 'AdminController::fetchReportData', ['filter' => 'adminGuard']);

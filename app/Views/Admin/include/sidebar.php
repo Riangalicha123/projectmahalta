@@ -35,6 +35,7 @@
               </p>
             </a>
           </li>
+          <li class="nav-header">MANAGEMENT</li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'customer') ? 'active' : '' ?> " href="<?= route_to('admin-customer') ?>">
               <i class="nav-icon fas fa-user"></i>
@@ -44,39 +45,47 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="nav-icon fas fa-copy"></i>
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'staffAccount') ? 'active' : '' ?> " href="<?= route_to('admin-staffaccounts') ?>">
+              <i class="nav-icon fas fa-user"></i>
               <p>
-                Service Management
-                <i class="fas fa-angle-left right "></i>
+                Staff Management
               </p>
             </a>
-            <ul class="nav nav-treeview">
-            <li class="nav-item">
-                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'holService') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/service') ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Hotel</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'restService') ? 'active' : '' ?> " href="<?= route_to('admin-restaurant/service') ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Restaurant</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'conService') ? 'active' : '' ?> " href="<?= route_to('admin-convention/service') ?>">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Convention</p>
-                </a>
-            </li>
-            </ul>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
+          <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'holService' || $adminRoutes === 'restService' || $adminRoutes === 'conService')) ? 'menu-open' : '' ?>">
+              <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'holService' || $adminRoutes === 'restService' || $adminRoutes === 'conService')) ? 'active' : '' ?>" href="#">
+                  <i class="nav-icon fab fa-servicestack"></i>
+                  <p>
+                      Service Management
+                      <i class="fas fa-angle-left right"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'holService') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/service') ?>">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Hotel</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'restService') ? 'active' : '' ?> " href="<?= route_to('admin-restaurant/service') ?>">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Restaurant</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'conService') ? 'active' : '' ?> " href="<?= route_to('admin-convention/service') ?>">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Convention</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
+          <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'menu-open' : '' ?>">
+            <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'active' : '' ?>" href="#">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Reservation
+                Reservation M.
                 <i class="fas fa-angle-left right "></i>
               </p>
             </a>
@@ -109,14 +118,16 @@
               </p>
             </a>
           </li>
+          <li class="nav-header">REPORT</li>
           <li class="nav-item">
-            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'staffAccount') ? 'active' : '' ?> " href="<?= route_to('admin-staffaccounts') ?>">
-              <i class="nav-icon fas fa-user"></i>
+            <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'report') ? 'active' : '' ?> " href="<?= route_to('admin-report') ?>">
+            <i class="nav-icon fas fa-print"></i>
               <p>
-                Staff Management
+                Report Generation
               </p>
             </a>
           </li>
+          <li class="nav-header"><hr></li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'newsPromotion') ? 'active' : '' ?> " href="<?= route_to('admin-newspromotion') ?>">
             <i class="nav-icon fas fa-newspaper"></i>
@@ -133,14 +144,14 @@
               </p>
             </a>
           </li>
-          <!-- <li class="nav-item">
+          <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'chat') ? 'active' : '' ?> " href="<?= route_to('admin-chat') ?>">
             <i class="nav-icon fas fa-robot"></i>
               <p>
                 Chat Bot
               </p>
             </a>
-          </li> -->
+          </li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'qrcode') ? 'active' : '' ?> " href="<?= route_to('admin-qrcode') ?>">
             <i class="nav-icon fas fa-qrcode"></i>
@@ -149,7 +160,7 @@
               </p>
             </a>
           </li>
-
+          
           <hr>
           <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
           <li class="nav-item" >
@@ -173,5 +184,6 @@
           
         </ul>
       </nav>
+      
       <!-- /.sidebar-menu -->
     </div>

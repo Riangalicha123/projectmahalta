@@ -13,6 +13,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
@@ -169,66 +170,39 @@
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
+            <!-- /.card -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-chart-line mr-1"></i>
-                  Sales Reports
+                  <i class="fas fa-chart-bar mr-1"></i>
+                  Room Reservation Chart
                 </h3>
                 <div class="card-tools">
                   <div class="input-group">
-                    <select class="custom-select" id="year-selector">
-                      <option value="2024" selected>2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
+                    <select class="custom-select" id="year-selectorr">
+                      <?php
+                      // Generate options for years based on available data
+                      $currentYear = date('Y');
+                      $startYear = 2024; // Start year
+                      $endYear = $currentYear + 5; // End year (current year)
+                      for ($year = $startYear; $year <= $endYear; $year++) {
+                          echo "<option value='$year'>$year</option>";
+                      }
+                      ?>
                     </select>
                   </div>
                 </div>
               </div><!-- /.card-header -->
               <div class="card-body">
                 <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
+                  <!-- Chart -->
                   <div class="chart tab-pane active" id="reservation-monthly"
                       style="position: relative; height: 300px;">
-                      <canvas id="salesbarchart-monthly" height="300" style="height: 300px;"></canvas>
+                      <canvas id="room" height="300" style="height: 300px;"></canvas>
                   </div>
                 </div>
               </div><!-- /.card-body -->
             </div>
-            <!-- /.card -->
-            <div class="card">
-  <div class="card-header">
-    <h3 class="card-title">
-      <i class="fas fa-chart-bar mr-1"></i>
-      Room Reservation Chart
-    </h3>
-    <div class="card-tools">
-      <div class="input-group">
-        <select class="custom-select" id="year-selectorr">
-          <?php
-          // Generate options for years based on available data
-          $currentYear = date('Y');
-          $startYear = 2024; // Start year
-          $endYear = $currentYear + 5; // End year (current year)
-          for ($year = $startYear; $year <= $endYear; $year++) {
-              echo "<option value='$year'>$year</option>";
-          }
-          ?>
-        </select>
-      </div>
-    </div>
-  </div><!-- /.card-header -->
-  <div class="card-body">
-    <div class="tab-content p-0">
-      <!-- Chart -->
-      <div class="chart tab-pane active" id="reservation-monthly"
-           style="position: relative; height: 300px;">
-          <canvas id="room" height="300" style="height: 300px;"></canvas>
-       </div>
-    </div>
-  </div><!-- /.card-body -->
-</div>
 
 
 
