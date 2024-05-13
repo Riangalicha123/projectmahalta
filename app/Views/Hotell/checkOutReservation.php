@@ -140,22 +140,41 @@
             <hr>
             <h2 class="mb-3">Payment Details</h2>
             <p><b>*Note: 50% down payment is required upon reservation.</b></p>
-            <?php foreach ($qrcodes as $qr): ?>
-              <div class="row">
-                  <div class="col-md-6 form-group">
-                      <label for="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>">
-                          <h4><?php echo ucfirst($qr['PaymentOption']); ?></h4>
-                      </label>
-                      <input type="radio" id="paymentOption<?php echo ucfirst($qr['PaymentOption']); ?>" name="PaymentOption" value="<?php echo $qr['PaymentOption']; ?>" onclick="showQR('<?php echo $qr['PaymentOption']; ?>')" <?php if ($qr['PaymentOption'] === 'gcash') echo 'checked'; ?>>
-                  </div>
-              </div>
-            <?php endforeach; ?>
+            <?php 
+    $gcash = null;
+    $paymaya = null;
+    foreach ($qrcodes as $qr) {
+        if ($qr['PaymentOption'] === 'gcash') {
+            $gcash = $qr;
+        } elseif ($qr['PaymentOption'] === 'paymaya') {
+            $paymaya = $qr;
+        }
+    }
+?>
+
+<div class="row">
+    <div class="col-6 form-group">
+        <label for="paymentOptionGCash">
+            <h4>GCash</h4>
+        </label>
+        <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash') echo 'checked'; ?>>
+    </div>
+    
+    <div class="col-6 form-group">
+        <label for="paymentOptionPayMaya">
+            <h4>PayMaya</h4>
+        </label>
+        <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya'); ?>>
+    </div>
+</div>
 
             <!-- QR Code Image -->
             <div class="row">
-                <div class="col-md-12 form-group">
+              <div class="col-md-1"></div>
+                <div class="col-md-7 form-group">
                     <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
                 </div>
+              <div class="col-md-4"></div>
             </div>
 
             <!-- Reference Number Fields -->
@@ -172,29 +191,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12 form-group">
-                    <label for="downorfullPayment">Down Payment or Full Payment</label>
-                    <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
-                    <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
-                        <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
-                    <?php endif; ?>
-                    <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
-                        <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
-                    <?php endif; ?>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12 form-group">
-              <div class="form-control" id="paymentInputContainer"></div>
-              </div>
-            </div>
-            <div class="row">
             <div class="col-md-12 form-group">
                 <label for="Image">Proof</label>
                 <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
             </div>
             </div>
+            <div class="row">
+    <div class="col-md-6 form-group">
+        <label for="downorfullPayment">Down Payment or Full Payment</label>
+        <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
+            <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
+                <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+            <?php endif; ?>
+            <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+                <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+            <?php endif; ?>
+        </select>
+    </div>
+    <div class="col-md-6 form-group">
+        <label for="paymentInputContainer">Payment</label>
+        <div class="form-control" id="paymentInputContainer"></div>
+    </div>
+</div>
+            
             <div class="row">
               <div class="col-md-6 form-group">
                 <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>

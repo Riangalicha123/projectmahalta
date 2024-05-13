@@ -63,14 +63,16 @@
           <div class="col-md-12">
 
             <h2 class="mb-5 text-center">Reports</h2>
-            <div class="text-center">
-            <input type='text' class="form-control" id='dateRange' placeholder="Check-In-Date to Check-Out-Date" required/>
-            </div>
+            
             <div class="text-center mb-3">
             <div class="btn-group" role="group">
                 <button class="btn btn-primary" onclick="showHotel()">Hotel</button>
                 <button class="btn btn-primary" onclick="showRestaurant()">Restaurant</button>
                 <button class="btn btn-primary" onclick="showConvention()">Convention</button>
+            </div>
+            <button class="btn btn-success" onclick="exportToExcel()">Export to Excel</button>
+            <div class="text-center">
+            <input type='text' class="form-control" id='dateRange' placeholder="Check-In-Date to Check-Out-Date" required/>
             </div>
         </div>
             <table id="hotelreportTable" class="table table-bordered table-striped" style="display: block;">
@@ -208,6 +210,7 @@
 
 <!-- jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -226,7 +229,6 @@
 <script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         flatpickr("#dateRange", {
@@ -235,7 +237,7 @@
             onClose: function(selectedDates, dateStr, instance) {
                 let startDate = selectedDates[0].toISOString().split('T')[0];
                 let endDate = new Date(selectedDates[1]);
-                endDate.setDate(endDate.getDate() + 1);
+                endDate.setDate(endDate.getDate() + 2);
                 endDate = endDate.toISOString().split('T')[0];
 
                 let dataType = getSelectedDataType(); // Get the selected data type
@@ -274,6 +276,8 @@
 
         tableBody.empty();
 
+        let totalPayment = 0; // Initialize total payment variable
+
         data.forEach(function(item) {
             let row = $('<tr>');
             if (dataType === 'hotel') {
@@ -288,10 +292,12 @@
                 row.append($('<td>').text(item.Child));
                 row.append($('<td>').text(item.PaymentOption));
                 row.append($('<td>').text(item.ReferenceNumber));
-                row.append($('<td>').text(item.downorfullPayment));
+                row.append($('<td>').text(item.downorfullPayment)); // Display downorfullPayment
                 let statusBadgeClass = item.Status == 'Confirm' ? 'badge-success' : (item.Status == 'Pending' ? 'badge-warning' : 'badge-danger');
                 let statusBadge = $('<span>').addClass('badge ' + statusBadgeClass).text(item.Status);
                 row.append($('<td>').append(statusBadge));
+
+                totalPayment += parseFloat(item.downorfullPayment); // Add downorfullPayment to totalPayment
             } else if (dataType === 'restaurant') {
                 row.append($('<td>').text(item.FirstName));
                 row.append($('<td>').text(item.LastName));
@@ -313,13 +319,23 @@
                 row.append($('<td>').text(item.NumberOfGuests));
                 row.append($('<td>').text(item.PaymentOption));
                 row.append($('<td>').text(item.ReferenceNumber));
-                row.append($('<td>').text(item.downorfullPayment));
+                row.append($('<td>').text(item.downorfullPayment)); // Display downorfullPayment
                 let statusBadgeClass = item.Status == 'Confirm' ? 'badge-success' : (item.Status == 'Pending' ? 'badge-warning' : 'badge-danger');
                 let statusBadge = $('<span>').addClass('badge ' + statusBadgeClass).text(item.Status);
                 row.append($('<td>').append(statusBadge));
+
+                totalPayment += parseFloat(item.downorfullPayment); // Add downorfullPayment to totalPayment
             }
             tableBody.append(row);
         });
+
+        // Append total payment row at the end of the table
+        if (dataType === 'hotel' || dataType === 'convention') {
+            let totalRow = $('<tr>');
+            totalRow.append($('<td colspan="11">').text('Total Payment'));
+            totalRow.append($('<td>').text(totalPayment.toFixed(2))); // Display total payment
+            tableBody.append(totalRow);
+        }
     }
 
     function getSelectedDataType() {
@@ -331,6 +347,17 @@
         } else if ($('#conventionreportTable').is(':visible')) {
             return 'convention';
         }
+    }
+
+    function exportToExcel() {
+        let dataType = getSelectedDataType();
+        let filename = dataType + '_report.xlsx';
+        let tableId = dataType + 'reportTable';
+        let table = document.getElementById(tableId);
+        let ws = XLSX.utils.table_to_sheet(table);
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+        XLSX.writeFile(wb, filename);
     }
 </script>
 
