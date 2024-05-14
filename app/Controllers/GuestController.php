@@ -1593,7 +1593,7 @@ class GuestController extends BaseController
         // Retrieve reservations for the logged-in user
         $data = [
             'hotelrevs' => $this->reservation
-                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.QRCodePath, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber')
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Image as room_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image as reservation_image, reservations.QRCodePath, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber')
                 ->join('rooms', 'reservations.RoomID = rooms.RoomID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->where('reservations.Status', 'Confirm')
@@ -1609,7 +1609,7 @@ class GuestController extends BaseController
                 ->where('reservations.UserID', $userID) // Filter reservations by user ID
                 ->findAll(),
             'restrevs' => $this->reservation
-                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName,restaurant_venue.Image as venue_image, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
                 ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->where('reservations.Status', 'Confirm')

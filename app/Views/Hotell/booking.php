@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
-
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
@@ -28,140 +28,122 @@
     <!-- END section -->
 <br>
 
-    <section class="site-section"style="background: #FAF2D3;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
 
-            <h2 class="mb-5 text-center">Booking</h2>
-            <div class="text-center">
-              <button class="btn btn-primary" onclick="showHotel()">Hotel</button>
-              <button class="btn btn-primary" onclick="showRestaurant()">Restaurant</button>
-              <button class="btn btn-primary" onclick="showConvention()">Convention</button>
+<section class="site-section" style="background: #FAF2D3;">
+  <div class="container">
+    <h2 class="mb-5 text-center">Booking</h2>
+    <div class="text-center">
+      <button class="btn btn-primary" onclick="showHotel()">Hotel</button>
+      <button class="btn btn-primary" onclick="showRestaurant()">Restaurant</button>
+      <button class="btn btn-primary" onclick="showConvention()">Convention</button>
+    </div>
+    <div class="row" id="hotelTable">
+      <?php foreach ($hotelrevs as $hotelrev): ?>
+      <div class="col-md-4 mb-4">
+        <div class="media d-block room mb-0">
+          <figure>
+            <img src="<?=base_url('/uploads/'.$hotelrev['room_image'])?>" alt="Generic placeholder image" class="img-fluid">
+            <div class="overlap-text">
+              <span>Room <?= $hotelrev['RoomNumber'] ?></span>
             </div>
-            <table id="hotelTable" class="table table-bordered table-striped" style="display: block;">
-            <thead>
-                <tr>
-                    <th>Room Number</th>
-                    <th>Room Type</th>
-                    <th>Arrival</th>
-                    <th>Departure</th>
-                    <th>Adult</th>
-                    <th>Child</th>
-                    <th>Payment Option</th>
-                    <th>Reference No.</th>
-                    <th>Down or Full Payment</th>
-                    <th>Total Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($hotelrevs as $hotelrev): ?>
-                    <tr>
-                        <td><?= $hotelrev['RoomNumber'] ?></td>
-                        <td><?= $hotelrev['RoomType'] ?></td>
-                        <td><?= $hotelrev['CheckInDate'] ?></td>
-                        <td><?= $hotelrev['CheckOutDate'] ?></td>
-                        <td><?= $hotelrev['Adult'] ?></td>
-                        <td><?= $hotelrev['Child'] ?></td>
-                        <td><?= $hotelrev['PaymentOption'] ?></td>
-                        <td><?= $hotelrev['ReferenceNumber'] ?></td>
-                        <td><?= $hotelrev['downorfullPayment'] ?></td>
-                        <td><?= $hotelrev['TotalAmount'] ?></td>
-                        <td class="project-state">
-                            <span class="badge <?= $hotelrev['Status'] == 'Confirm' ? 'badge-success' : ($hotelrev['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
-                                <?= $hotelrev['Status'] ?>
-                            </span>
-                        </td>
-                        <td class="project-state">              
-                        <button class="btn-danger"><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel Reservation</a></button>
-                    </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-                </table>
-            <table id="restaurantTable" class="table table-bordered table-striped" style="display: none;">
-            <thead>
-                  <tr>
-                    <th>Venue</th>
-                    <th>Arrival</th>
-                    <th>Arrival Time</th>
-                    <th>Note</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($restrevs as $restrev): ?>
-                  <tr>
-                    <td><?=$restrev['VenueName']?></td>
-                    <td><?=$restrev['ArivalDate']?></td>
-                    <td><?=$restrev['ArivalTime']?></td>
-                    <td><?=$restrev['Note']?></td>
-                    <td class="project-state">
-                            <span class="badge <?= $hotelrev['Status'] == 'Confirm' ? 'badge-success' : ($hotelrev['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
-                                <?= $hotelrev['Status'] ?>
-                            </span>
-                        </td>
-                        <td class="project-state">              
-                        <button class="btn-danger"><a href="<?= base_url("/cancelbooking/updaterestaustatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel Reservation</a></button>
-                    </td>
-                      
-                  </tr>
-                  <?php endforeach; ?>
-                  
-                  </tbody>
-            </table>
-            <table id="conventionTable" class="table table-bordered table-striped" style="display: none;">
-            <thead>
-                  <tr>
-                    <th>Venue Name</th>
-                    <th>Event Type</th>
-                    <th>Preferred Date</th>
-                    <th>Departure Date</th>
-                    <th>Number of Guests</th>
-                    <th>Payment Option</th>
-                    <th>Reference Number</th>
-                    <th>Down or Full Payment</th>
-                    <th>Total Amount</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($reevents as $reevent): ?>
-                  <tr>
-                    <td><?=$reevent['conVenueName']?></td>
-                    <td><?=$reevent['EventType']?></td>
-                    <td><?=$reevent['CheckInDate']?></td>
-                    <td><?=$reevent['CheckOutDate']?></td>
-                    <td><?=$reevent['NumberOfGuests']?></td>
-                    <td><?=$reevent['PaymentOption']?></td>
-                    <td><?=$reevent['ReferenceNumber']?></td>
-                    <td><?=$reevent['downorfullPayment']?></td>
-                    <td><?=$reevent['TotalAmount']?></td>
-                    <td class="project-state">
-                            <span class="badge <?= $hotelrev['Status'] == 'Confirm' ? 'badge-success' : ($hotelrev['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
-                                <?= $hotelrev['Status'] ?>
-                            </span>
-                        </td>
-                    <td class="project-state">              
-                        <button class="btn-danger"><a href="<?= base_url("/cancelbooking/updateconvenstatus/Cancel/{$reevent['ReservationID']}") ?>">Cancel Reservation</a></button>
-                    </td>
-                    
-                  </tr>
-                  <?php endforeach; ?>
-                  
-                  </tbody>
-            </table>
+          </figure>
+          <div class="media-body">
+            <h3 class="mt-0"><a><?= $hotelrev['RoomType'] ?></a></h3>
+            <ul class="room-specs">
+              <li><span class="fad fa-calendar-check"></span><?= $hotelrev['CheckInDate'] ?></li>
+              <li><span class="fad fa-calendar-times"></span><?= $hotelrev['CheckOutDate'] ?></li>
+            </ul>
+            <div class="room-specs additionalDetails" style="display:none;">
+              <li><span class="fas fa-user-alt"></span>ADULT: <?= $hotelrev['Adult'] ?></li>
+              <li><span class="fas fa-user-alt"></span>KID: <?= $hotelrev['Child'] ?></li>
+              <p><strong>Payment Option: </strong><?= $hotelrev['PaymentOption'] ?></p>
+              <p><strong>Reference No.: </strong><?= $hotelrev['ReferenceNumber'] ?></p>
+              <p><strong>Down or Full Payment: </strong><?= $hotelrev['downorfullPayment'] ?></p>
+              <p><strong>Total Amount: </strong><?= $hotelrev['TotalAmount'] ?></p>
+              <p><span class="badge <?= $hotelrev['Status'] == 'Confirm' ? 'badge-success' : ($hotelrev['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
+                <?= $hotelrev['Status'] ?>
+              </span></p>
             </div>
-            <div class="col-md-3"></div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h6 class="btn-info viewMoreBtn" style="cursor: pointer;"><a>View More Details</a></h6>
+              </div>
+            </div>
+            <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
+          </div>
         </div>
       </div>
-    </section>
-    <!-- END section -->
-
+      <?php endforeach; ?>
+    </div>
+    <div class="row" id="restaurantTable" style="display: none;">
+      <?php foreach ($restrevs as $restrev): ?>
+      <div class="col-md-4 mb-4">
+        <div class="media d-block room mb-0">
+          <figure>
+            <img src="<?=base_url('/uploads/'.$restrev['venue_image'])?>" alt="Generic placeholder image" class="img-fluid">
+          </figure>
+          <div class="media-body">
+            <h3 class="mt-0"><a><?= $restrev['VenueName'] ?></a></h3>
+            <ul class="room-specs">
+              <li><span class="fad fa-calendar-check"></span><?= $restrev['CheckInDate'] ?></li>
+            </ul>
+            <div class="room-specs additionalDetails" style="display:none;">
+              <li><span class="fas fa-user-alt"></span>Guests: <?= $restrev['NumberOfGuests'] ?></li>
+              <p><strong>Note: </strong><?= $restrev['Note'] ?></p>
+              <p><span class="badge <?= $restrev['Status'] == 'Confirm' ? 'badge-success' : ($restrev['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
+                <?= $restrev['Status'] ?>
+              </span></p>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h6 class="btn-info viewMoreBtn" style="cursor: pointer;"><a>View More Details</a></h6>
+              </div>
+            </div>
+            <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$restrev['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+    <div class="row" id="conventionTable" style="display: none;">
+      <?php foreach ($reevents as $reevent): ?>
+      <div class="col-md-4 mb-4">
+        <div class="media d-block room mb-0">
+          <figure>
+            <img src="<?=base_url('/convention/'.$reevent['venue_image'])?>" alt="Generic placeholder image" class="img-fluid">
+            <div class="overlap-text">
+              <span>EVENT <?= $reevent['EventType'] ?></span>
+            </div>
+          </figure>
+          <div class="media-body">
+            <h3 class="mt-0"><a><?= $reevent['conVenueName'] ?></a></h3>
+            <ul class="room-specs">
+              <li><span class="fad fa-calendar-check"></span><?= $reevent['CheckInDate'] ?></li>
+              <li><span class="fad fa-calendar-times"></span><?= $reevent['CheckOutDate'] ?></li>
+            </ul>
+            <div class="room-specs additionalDetails" style="display:none;">
+              <li><span class="fas fa-user-alt"></span>Guests: <?= $reevent['NumberOfGuests'] ?></li>
+              <p><strong>Payment Option: </strong><?= $reevent['PaymentOption'] ?></p>
+              <p><strong>Reference No.: </strong><?= $reevent['ReferenceNumber'] ?></p>
+              <p><strong>Down or Full Payment: </strong><?= $reevent['downorfullPayment'] ?></p>
+              <p><strong>Total Amount: </strong><?= $reevent['TotalAmount'] ?></p>
+              <p><span class="badge <?= $reevent['Status'] == 'Confirm' ? 'badge-success' : ($reevent['Status'] == 'Pending' ? 'badge-warning' : 'badge-danger') ?>">
+                <?= $reevent['Status'] ?>
+              </span></p>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-center">
+                <h6 class="btn-info viewMoreBtn" style="cursor: pointer;"><a>View More Details</a></h6>
+              </div>
+            </div>
+            <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$reevent['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
     
 
     
@@ -194,7 +176,33 @@
         document.getElementById("conventionTable").style.display = "table";
       }
 </script>
+<script>
+  function showHotel() {
+    document.getElementById('hotelTable').style.display = 'flex';
+    document.getElementById('restaurantTable').style.display = 'none';
+    document.getElementById('conventionTable').style.display = 'none';
+  }
 
+  function showRestaurant() {
+    document.getElementById('hotelTable').style.display = 'none';
+    document.getElementById('restaurantTable').style.display = 'flex';
+    document.getElementById('conventionTable').style.display = 'none';
+  }
+
+  function showConvention() {
+    document.getElementById('hotelTable').style.display = 'none';
+    document.getElementById('restaurantTable').style.display = 'none';
+    document.getElementById('conventionTable').style.display = 'flex';
+  }
+
+  document.querySelectorAll('.viewMoreBtn').forEach(button => {
+    button.addEventListener('click', () => {
+      const parentContainer = button.closest('.room');
+      const detailsDiv = parentContainer.querySelector('.additionalDetails');
+      detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
+    });
+  });
+</script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
