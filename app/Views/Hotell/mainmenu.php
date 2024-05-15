@@ -74,10 +74,10 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Dining</a></h3>
+                <h3 class="mt-0"><a href="#">Main Restaurant</a></h3>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
         Make Online Reservation
@@ -86,17 +86,17 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/cafe.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Cafe
+                    Venue 2
                   </span>
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Cafe
+                    Venue 3
                   </span>
                 </div>
             </a>
@@ -417,7 +417,7 @@
             ]
         });
     });
-</script>
+    </script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

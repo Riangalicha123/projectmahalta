@@ -67,12 +67,12 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eexampleModalCenter">
                     Add
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal fade " id="eexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -81,15 +81,14 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?= base_url('/addserviceEvent') ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?= base_url('/addserviceconVenue') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
-                                    <label for="EventType">Event Type</label>
-                                    <select class="custom-select form-control-border" id="EventType" name="EventType" required>
-                                      <option>Wedding</option>
-                                      <option>Team Building</option>
-                                      <option>Meeting</option>
-                                      <option>Proposal</option>
+                                    <label for="conVenueName">Event Type</label>
+                                    <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" required>
+                                      <option>CBRC Hall</option>
+                                      <option>Octagon</option>
+                                      <option>Tamaraw</option>
                                     </select>
                                 </div>
                                 <div class="form-row">
@@ -130,18 +129,16 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateserviceEvent/') ?>" method="post" enctype="multipart/form-data">
+                                <form action="<?= base_url('/updateserviceconVenue/') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="conVenueID" id="conVenueID" value="<?=$convenue['conVenueID']?>">
                                 
                                 <div class="form-group">
                                     <label for="conVenueName">Venue Name</label>
                                     <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" value="<?=$convenue['conVenueName']?>" required>
-                                      <option <?= ($convenue['conVenueName'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
-                                      <option <?= ($convenue['conVenueName'] == 'Birthday') ? 'selected' : '' ?>>Birthday</option>
-                                      <option <?= ($convenue['conVenueName'] == 'Seminar') ? 'selected' : '' ?>>Seminar</option>
-                                      <option <?= ($convenue['conVenueName'] == 'Christening') ? 'selected' : '' ?>>Christening</option>
-                                      <option <?= ($convenue['conVenueName'] == 'Anniversary') ? 'selected' : '' ?>>Anniversary</option>
+                                      <option <?= ($convenue['conVenueName'] == 'CBRC Hall') ? 'selected' : '' ?>>CBRC Hall</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Octagon') ? 'selected' : '' ?>>Octagon</option>
+                                      <option <?= ($convenue['conVenueName'] == 'Tamaraw') ? 'selected' : '' ?>>Tamaraw</option>
                                     </select>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -183,7 +180,7 @@
                     <td><?=$convenue['minGuest']?></td>
                     <td><?=$convenue['maxGuest']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $convenue['conVenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#eeditModal<?=$convenue['conVenueID']?>">Edit</a></th>
+                    <th> <a class="btn btn-danger" href="<?= base_url('/deleteVenue/' . $convenue['conVenueID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#eeditModal<?=$convenue['conVenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   
@@ -216,12 +213,12 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eexampleModalCenter">
                     Add
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal fade " id="eexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -236,9 +233,10 @@
                                     <label for="EventType">Event Type</label>
                                     <select class="custom-select form-control-border" id="EventType" name="EventType" required>
                                       <option>Wedding</option>
-                                      <option>Team Building</option>
-                                      <option>Meeting</option>
-                                      <option>Proposal</option>
+                                      <option>Birthday</option>
+                                      <option>Seminar</option>
+                                      <option>Christening</option>
+                                      <option>Anniversary</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -320,7 +318,7 @@
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $event['EventID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="<?= base_url('/deleteEvent/' . $event['EventID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

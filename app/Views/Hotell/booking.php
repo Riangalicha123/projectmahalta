@@ -15,17 +15,13 @@
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
 
-    
-    <!-- END section -->
 <br>
 
 
@@ -37,6 +33,7 @@
       <button class="btn btn-primary" onclick="showRestaurant()">Restaurant</button>
       <button class="btn btn-primary" onclick="showConvention()">Convention</button>
     </div>
+    <br>
     <div class="row" id="hotelTable">
       <?php foreach ($hotelrevs as $hotelrev): ?>
       <div class="col-md-4 mb-4">
@@ -69,7 +66,11 @@
                 <h6 class="btn-info viewMoreBtn" style="cursor: pointer;"><a>View More Details</a></h6>
               </div>
             </div>
-            <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
+            <div class="row">
+              <div class="col-md-12 text-center">
+              <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
+              </div>
+            </div>  
           </div>
         </div>
       </div>

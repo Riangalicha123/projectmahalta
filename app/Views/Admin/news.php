@@ -64,7 +64,7 @@
         
         <div class="card-body pb-0">
         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addnewsModal">
-            Add Main Menu
+            Add
           </button>
           <div class="row">
           <?php foreach ($news as $new): ?>

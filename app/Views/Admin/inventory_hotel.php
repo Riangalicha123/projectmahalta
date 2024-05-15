@@ -17,6 +17,25 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <style>
+    #messageContainer {
+    display: none; /* Initially hide the message container */
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.success {
+    background-color: #d4edda; /* Green background for success message */
+    color: #155724; /* Dark green text color */
+}
+
+.error {
+    background-color: #f8d7da; /* Red background for error message */
+    color: #721c24; /* Dark red text color */
+}
+
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <!-- Site wrapper -->
@@ -30,7 +49,6 @@
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-
     <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
     <!-- /.sidebar -->
@@ -47,7 +65,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="#">Inventory</a></li>
               <li class="breadcrumb-item active">Products/Stocks</li>
             </ol>
           </div>
@@ -60,7 +78,6 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
 
             <div class="card">
               <div class="card-header">
@@ -68,8 +85,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                     </button>
 
@@ -146,8 +162,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
-                    <th>Product Name</th>
+                  <th>Product Name</th>
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Date-Time Updated</th>
@@ -156,7 +171,6 @@
                   <tbody>
                   <?php foreach ($roinvents as $roinvent): ?>
                   <tr>
-                    <td><?=$roinvent['roomInventoryID']?></td>
                     <td><?=$roinvent['ProductName']?></td>
                     <td><?=$roinvent['Quantity']?></td>
                     <td><?=$roinvent['Price']?></td>
@@ -165,10 +179,10 @@
                   </tr>
                   <?php endforeach; ?>
                   
-                  
                   </tbody>
                   
                 </table>
+                
               </div>
               <!-- /.card-body -->
             </div>
@@ -193,8 +207,30 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+<script>
+  // Function to show a message in the message container
+function showMessage(message, type) {
+    const messageContainer = document.getElementById('messageContainer');
+    messageContainer.textContent = message;
+    messageContainer.className = type;
+    messageContainer.style.display = 'block';
+    // Automatically hide the message after 5 seconds (adjust as needed)
+    setTimeout(function() {
+        messageContainer.style.display = 'none';
+    }, 5000);
+}
 
-<!-- jQuery -->
+// Check if a success message exists in the session and display it
+if (sessionStorage.getItem('success')) {
+    showMessage(sessionStorage.getItem('success'), 'success');
+}
+
+// Check if an error message exists in the session and display it
+if (sessionStorage.getItem('error')) {
+    showMessage(sessionStorage.getItem('error'), 'error');
+}
+
+</script>
 <script>
     <?php foreach ($roinvents as $roinvent): ?>
         <?php if ($roinvent['Quantity'] <= 10): ?>
@@ -202,6 +238,7 @@
         <?php endif; ?>
     <?php endforeach; ?>
 </script>
+<!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -224,7 +261,7 @@
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": [""]
+      "buttons": ["excel", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

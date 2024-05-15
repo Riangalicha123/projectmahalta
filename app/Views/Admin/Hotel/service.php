@@ -128,8 +128,15 @@
                                     <input type="text" class="form-control" id="Description" name="Description" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
+                                    <label for="PricePerNight">Price</label>
                                     <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PerNightHead">Per Night or Head</label>
+                                    <select class="custom-select form-control-border" id="PerNightHead" name="PerNightHead" required>
+                                        <option>Night</option>
+                                        <option>Head</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="minPerson">Min Person</label>
@@ -220,6 +227,13 @@
                                     <input type="text" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="PerNightHead">Per Night or Head</label>
+                                    <select class="custom-select form-control-border" id="PerNightHead" name="PerNightHead"  value="<?=$room['PerNightHead']?>" required>
+                                    <option <?= ($room['PerNightHead'] == 'Night') ? 'selected' : '' ?>>Night</option>
+                                      <option <?= ($room['PerNightHead'] == 'Head') ? 'selected' : '' ?>>Head</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <label for="minPerson">Min Person</label>
                                     <input type="text" class="form-control" id="minPerson" name="minPerson"   value="<?=$room['minPerson']?>"required>
                                 </div>
@@ -254,6 +268,7 @@
                     <th>RoomTypes</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>per Night or Head</th>
                     <th>Min Person</th>
                     <th>Max Person</th>
                     <th>Image</th>
@@ -269,6 +284,7 @@
                     <td><?=$room['RoomType']?></td>
                     <td><?=$room['Description']?></td>
                     <td><?=$room['PricePerNight']?></td>
+                    <td><?=$room['PerNightHead']?></td>
                     <td><?=$room['minPerson']?></td>
                     <td><?=$room['maxPerson']?></td>
                     <td><img style="width: 200px; height: 200px;" src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>

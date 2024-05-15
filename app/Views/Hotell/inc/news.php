@@ -46,9 +46,10 @@
 </style>
 
 <div id="loaderr">
-    <?php foreach ($news as $new): ?>
-    <img src="<?=base_url('/news/'.$new['Image'])?>" alt="user-avatar">
-    <?php endforeach; ?>      
+<?php if (!empty($news)): ?>
+    <img src="<?=base_url('/news/'.$news[0]['Image'])?>" alt="user-avatar">
+<?php endif; ?>
+    
     <button class="exit-button" onclick="hideLoader()">Exit</button>
 </div>
 <script>

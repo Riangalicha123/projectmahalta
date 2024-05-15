@@ -34,7 +34,6 @@ $routes->get('/convention-center/reservation/information', 'GuestController::con
 $routes->post('/convention-center/reservation/information/getVenueDateandGuests', 'GuestController::getVenueDateandGuests', ['filter' => 'noAuth']);
 $routes->get('/convention-center/reservation/getdataconVenueReservation', 'GuestController::getdataconVenueReservation', ['filter' => 'noAuth']);
 $routes->post('/conventionReservation', 'GuestController::conventionReservation', ['filter' => 'noAuth']);
-
 $routes->get('/convention-center/reservation/formdetails', 'GuestController::conventionformdetails', ['filter' => 'noAuth']);
 $routes->get('/conpackage', 'GuestController::conPackage', ['filter' => 'noAuth']);
 $routes->get('/profile', 'GuestController::profile', ['filter' => 'noAuth']);
@@ -54,23 +53,23 @@ $routes->post('/postFeedback', 'GuestController::postFeedback', ['filter' => 'no
 
 $routes->post('/get_chat_data', 'GuestController::get_chat_data', ['filter' => 'noAuth']);
 
-$routes->get('/register', 'UserController::register', ['filter' => 'noAuth']);
-$routes->post('/api/fetch-province', 'UserController::fetchProvince', ['filter' => 'noAuth']);
-$routes->post('/api/fetch-city', 'UserController::fetchCity', ['filter' => 'noAuth']);
-$routes->post('/api/fetch-barangay', 'UserController::fetchBarangay', ['filter' => 'noAuth']);
-$routes->match(['get', 'post'], '/registerAuth', 'UserController::registerAuth', ['filter' => 'noAuth']);
-$routes->get('/login', 'UserController::login');
-$routes->post('/loginAuth', 'UserController::loginAuth');
+$routes->get('/register', 'UserController::register', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-province', 'UserController::fetchProvince', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-city', 'UserController::fetchCity', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-barangay', 'UserController::fetchBarangay', ['filter' => 'reslogGuard']);
+$routes->match(['get', 'post'], '/registerAuth', 'UserController::registerAuth');
+$routes->get('/login', 'UserController::login', ['filter' => 'reslogGuard']);
+$routes->post('/loginAuth', 'UserController::loginAuth', ['filter' => 'reslogGuard']);
 $routes->get('/logout', 'UserController::logout');
-$routes->get('/verify/(:any)', 'UserController::verifyEmail/$1');
-$routes->post('/saveToken', 'UserController::saveToken');
+$routes->get('/verify/(:any)', 'UserController::verifyEmail/$1', ['filter' => 'reslogGuard']);
+$routes->post('/saveToken', 'UserController::saveToken', ['filter' => 'reslogGuard']);
 
-$routes->get('/admin-login', 'AdminController::login');
-$routes->post('/adminloginAuth', 'AdminController::loginAuth');
+$routes->get('/admin-login', 'AdminController::login', ['filter' => 'reslogGuard']);
+$routes->post('/adminloginAuth', 'AdminController::loginAuth', ['filter' => 'reslogGuard']);
 $routes->get('/admin-logout', 'AdminController::logout');
 
-$routes->get('/staff-login', 'StaffController::login');
-$routes->post('/staffloginAuth', 'StaffController::loginAuth');
+$routes->get('/staff-login', 'StaffController::login', ['filter' => 'reslogGuard']);
+$routes->post('/staffloginAuth', 'StaffController::loginAuth', ['filter' => 'reslogGuard']);
 $routes->get('/staff-logout', 'StaffController::logout');
 
 
@@ -183,7 +182,11 @@ $routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' 
 $routes->post('/updateserviceTable', 'AdminController::updateserviceTable', ['filter' => 'adminGuard']);
 //Convention
 $routes->get('/admin-convention/service', 'AdminController::conService', ['filter' => 'adminGuard']);
+$routes->post('/addserviceconVenue', 'AdminController::addserviceconVenue', ['filter' => 'adminGuard']);
+$routes->get('/deleteVenue/(:num)', 'AdminController::deleteServiceConVenue/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateserviceconVenue', 'AdminController::updateserviceconVenue', ['filter' => 'adminGuard']);
 $routes->post('/addserviceEvent', 'AdminController::addserviceEvent', ['filter' => 'adminGuard']);
+$routes->get('/deleteEvent/(:num)', 'AdminController::deleteServiceConEvent/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceEvent', 'AdminController::updateserviceEvent', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-qrcode', 'AdminController::Qrcode', ['filter' => 'adminGuard']);

@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
@@ -65,7 +65,7 @@
         </div>
       </div>
     </section>
-<section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
         </div>
@@ -73,10 +73,10 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Dining</a></h3>
+                <h3 class="mt-0"><a href="#">Main Restaurant</a></h3>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
         Make Online Reservation
@@ -85,24 +85,24 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/cafe.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Cafe
+                    Venue 2
                   </span>
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Cafe
+                    Venue 3
                   </span>
                 </div>
             </a>
           </div>
         </div>
       </div>
-</section>
+    </section>
     <!-- Add Form Modal -->
     <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -117,16 +117,15 @@
                 <!-- Add your form here -->
                 <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
                 <div id="page1">
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                    <label for="ArivalDate">Arrival Date</label>
-                    <input type='date' class="form-control" id='ArivalDate' name='ArivalDate' required/>
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label for="CheckInDate">Arrival Date</label>
+                    <div style="position: relative;">
+                      <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                    </div>
+                  </div>
+                  
                 </div>
-                <div class="col-sm-6 form-group">
-                    <label for="ArivalTime">Arrival Time</label>
-                    <input type='time' class="form-control" id='ArivalTime' name='ArivalTime' required/>
-                </div>
-            </div>
             <div class="row">
             <div class="col-md-6 form-group">
                 <label for="NumberOfGuests">Number Of Guests</label>
@@ -183,11 +182,7 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label>Arrival Date:</label>
-                    <span id="displayDate"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Arrival Time:</label>
-                    <span id="displayTime"></span>
+                    <span id="displayCheckInDate"></span>
                 </div>
             </div>
             <div class="row">
@@ -227,6 +222,7 @@
     <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
     <button type="submit" class="btn btn-primary">Submit</button>
 </div>
+
         </div>
                 </form>
             </div>
@@ -324,8 +320,7 @@
     }
 
     function displayFormData() {
-        document.getElementById('displayDate').innerText = document.getElementById('Date').value;
-        document.getElementById('displayTime').innerText = document.getElementById('Time').value;
+        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; // Corrected ID
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;
         document.getElementById('displayVenue').innerText = document.getElementById('VenueName').value;
         document.getElementById('displayNote').innerText = document.getElementById('Note').value;
@@ -340,6 +335,7 @@
         $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
@@ -352,6 +348,44 @@
     <script src="/guest/js/magnific-popup-options.js"></script>
 
     <script src="/guest/js/main.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#CheckInDate", {
+            mode: "single",
+            dateFormat: "Y-m-d H:i",
+            enableTime: true,
+            onClose: function(selectedDates, dateStr, instance) {
+                if (selectedDates.length > 1) {
+                    // Convert selected dates to Philippines timezone
+                    const checkInDate = new Date(selectedDates[0]);
+                    checkInDate.setHours(checkInDate.getHours() + 8); 
+
+                    // Format dates as YYYY-MM-DD HH:mm
+                    const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
+
+                    document.getElementById('CheckInDate').value = checkInStr;
+                }
+            },
+            disable: [
+                // Disable dates up to yesterday
+                function(date) {
+                    const today = new Date();
+                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    const yesterday = new Date(today);
+                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
+
+                    return date < yesterday;
+                },
+                // Disable dates in unavailableDates array
+                <?php if (!empty($unavailableDates)) : ?>
+                    <?php foreach ($unavailableDates as $unavailableDate) : ?>
+                        '<?php echo $unavailableDate ?>',
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            ]
+        });
+    });
+    </script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

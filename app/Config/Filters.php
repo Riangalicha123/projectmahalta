@@ -25,9 +25,10 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'adminGuard' => \App\Filters\AdminGuard::class,
-        'staffGuard' => \App\Filters\StaffGuard::class,
-        'noAuth' => \App\Filters\NoAuth::class,
+        'adminGuard'    => \App\Filters\AdminGuard::class,
+        'staffGuard'    => \App\Filters\StaffGuard::class,
+        'noAuth'        => \App\Filters\NoAuth::class,
+        'reslogGuard'   => \App\Filters\ResLogGuard::class,
 
     ];
 

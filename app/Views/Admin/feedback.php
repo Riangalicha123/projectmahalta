@@ -72,19 +72,19 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>Email</th>
+                    <th>Feedback Rating</th>
                     <th>Feedback Message</th>
-                    <th>created_at</th>
+                    <th>datetime</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php foreach ($feedbacks as $feedback): ?>
                   <tr>
-                    <td><?=$feedback['FeedbackID']?></td>
                     <td><?=$feedback['Email']?></td>
+                    <td><?=$feedback['UserRating']?></td>
                     <td><?=$feedback['FeedbackMessage']?></td>
-                    <td><?=$feedback['created_at']?></td>
+                    <td><?=$feedback['datetime']?></td>
                   </tr>
                   <?php endforeach; ?>
                   

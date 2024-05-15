@@ -98,9 +98,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button> -->
+                    </button>
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -124,15 +124,30 @@
                                           <input type="text" class="form-control" id="LastName" name="LastName" required>
                                       </div>
                                   </div>
-                                <div class="form-row">
+                                  <div class="form-row">
                                       <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="Address">Address</label>
-                                          <input type="text" class="form-control" id="Address" name="Address" required>
-                                      </div>
+                                      <label for="Address">Address</label>
+                                      <select id="Region" class="form-control form-control-lg" name="Region">
+                                          <option value="">Select Region</option>
+                                          <?php foreach ($regions as $region): ?>
+                                              <option value="<?= $region['regCode'] ?>"><?= $region['regDesc'] ?></option>
+                                          <?php endforeach ?>
+                                      </select>
+
+                                      <select id="province_id" class="form-control form-control-lg" name="Province">
+                                          <option value="">Select Province</option>
+                                      </select>
+                                      <select id="cities_id" class="form-control form-control-lg" name="City">
+                                          <option value="">Select City/Municipality</option>
+                                      </select>
+                                      <select id="barangay_id" class="form-control form-control-lg" name="Barangay">
+                                          <option value="">Select Barangay</option>
+                                      </select>
+                                  </div>
                                 </div>
                                 <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -167,30 +182,51 @@
                                       <div class="form-group col-md-6">
                                         <label for="RoomType">Room Type</label>
                                             <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                              <option>Deluxe Room</option>
-                                              <option>Jr. Suite Room</option>
-                                              <option>Family Room</option>
-                                              <option>Barkada Room</option>
+                                              <option>Deluxe Room(Ruben)</option>
+                                              <option>Deluxe Room(Baby)</option>
+                                              <option>Deluxe Room(Siony)</option>
+                                              <option>Deluxe Room(Carlo)</option>
+                                              <option>Deluxe Room(Lyra)</option>
+                                              <option>Deluxe Room(Lyca)</option>
+                                              <option>Deluxe Room(Lambert)</option>
+                                              <option>Deluxe Room(Lyza)</option>
+                                              <option>Jr. Suite Room(Lyne)</option>
+                                              <option>Jr. Suite Room(Carl)</option>
+                                              <option>Family Room(Balansig)</option>
+                                              <option>Family Room(Limbaga)</option>
+                                              <option>Barkada Room(Babaylan)</option>
+                                              <option>Barkada Room(Tribo)</option>
                                             </select>
                                       </div>
                                 </div>
                                 <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="NumberOfGuests">Number of Guests</label>
-                                                <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests" required>
+                                                <label for="Adult">Adult</label>
+                                                <input type="number" class="form-control" id="Adult" name="Adult" value="0" required>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="ReferenceNumber">Reference No.</label>
-                                                <input type="number" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required>
+                                                <label for="Child">Child</label>
+                                                <input type="number" class="form-control" id="Child" name="Child" value="0" required>
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                        <div class="form-group col-md-6">
+                                        <label for="PaymentOption">Payment Option</label>
+                                            <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
+                                              <option>gcash</option>
+                                              <option>paymaya</option>
+                                            </select>
+                                      </div>
+                                        <div class="form-group col-md-6">
+                                                <label for="ReferenceNumber">Reference No.</label>
+                                                <input type="text" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="form-group col-md-6">
                                                 <label for="downorfullPayment">Down or Full Payment</label>
                                                 <input type="number" class="form-control" id="downorfullPayment" name="downorfullPayment" required>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="TotalAmount">Total Amounts</label>
                                                 <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required>
@@ -459,6 +495,65 @@ if (sessionStorage.getItem('error')) {
       "responsive": true,
     });
   });
+</script>
+<script>
+    $(document).ready(function(){
+        $('#Region').change(function(event){
+            var idRegion = this.value; // Change variable name to idRegion
+            $('#province_id').html(''); // Clear province dropdown
+
+            $.ajax({
+                url: "/fetch-province",
+                type: 'POST',
+                dataType: 'json',
+                data: {regCode: idRegion}, // Pass idRegion
+                success:function(response){
+                    $('#province_id').html('<option value="">Select Province</option>'); // Change to 'Select Province'
+                    $.each(response.provinces,function(index, val){
+                        $('#province_id').append('<option value="'+val.provCode+'">'+val.provDesc+'</option>'); // Correct variable names
+                    });
+
+                }
+            });
+        });
+
+        $('#province_id').change(function(event){
+            var idProvince = this.value; // Change variable name to idProvince
+            $('#cities_id').html(''); // Clear city dropdown
+
+            $.ajax({
+                url: "/fetch-city",
+                type: 'POST',
+                dataType: 'json',
+                data: {provCode: idProvince}, // Pass idProvince
+                success:function(response){
+                    $('#cities_id').html('<option value="">Select City/Municipality</option>'); // Change to 'Select City/Municipality'
+                    $.each(response.cities,function(index, val){
+                        $('#cities_id').append('<option value="'+val.citymunCode+'">'+val.citymunDesc+'</option>'); // Correct variable names
+                    });
+                }
+            });
+        });
+
+        $('#cities_id').change(function(event){
+            var idCity = this.value; 
+            $('#barangay_id').html(''); 
+
+            $.ajax({
+                url: "/fetch-barangay",
+                type: 'POST',
+                dataType: 'json',
+                data: {citymunCode: idCity}, 
+                success:function(response){
+                    $('#barangay_id').html('<option value="">Select Barangay</option>'); // Change to 'Select Barangay'
+                    $.each(response.barangays,function(index, val){
+                        $('#barangay_id').append('<option value="'+val.brgyCode+'">'+val.brgyDesc+'</option>'); // Correct variable names
+                    });
+                    
+                }
+            });
+        });
+    });
 </script>
 </body>
 </html>

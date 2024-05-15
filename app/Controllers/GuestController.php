@@ -1372,9 +1372,9 @@ class GuestController extends BaseController
         if ($this->request->getPost('action')) {
             $feedbackModel = new FeedbackModel();
             $reviews = $feedbackModel->orderBy('FeedbackID', 'DESC')->findAll();
-
+    
             $averageRating = 0;
-            $totalReview = count($reviews);
+            $totalReview = 0;
             $fiveStarReview = 0;
             $fourStarReview = 0;
             $threeStarReview = 0;
@@ -1382,14 +1382,30 @@ class GuestController extends BaseController
             $oneStarReview = 0;
             $totalUserRating = 0;
             $reviewContent = [];
-
+    
             // Assuming UserModel is used for fetching user data
             $userModel = new UserModel();
-
+    
+            // List of "bad" keywords
+            $badKeywords = ['bad', 'terrible', 'awful', 'poor'];
+    
             foreach ($reviews as $row) {
+                // Check if the feedback message contains any bad keywords
+                $containsBadKeyword = false;
+                foreach ($badKeywords as $keyword) {
+                    if (stripos($row['FeedbackMessage'], $keyword) !== false) {
+                        $containsBadKeyword = true;
+                        break;
+                    }
+                }
+    
+                if ($containsBadKeyword) {
+                    continue; // Skip this review if it contains a bad keyword
+                }
+    
                 // Fetch user data based on UserID
                 $user = $userModel->find($row['UserID']);
-
+    
                 // Check if user exists and has an email address
                 if ($user && isset($user['Email'])) {
                     $email = $user['Email'];
@@ -1397,14 +1413,14 @@ class GuestController extends BaseController
                     // If user or email is not found, set a default value or handle accordingly
                     $email = "Unknown";
                 }
-
+    
                 $reviewContent[] = [
                     'Email' => $email, // Update email here
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
                     'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
                 ];
-
+    
                 switch ($row['UserRating']) {
                     case 5:
                         $fiveStarReview++;
@@ -1422,12 +1438,13 @@ class GuestController extends BaseController
                         $oneStarReview++;
                         break;
                 }
-
+    
                 $totalUserRating += $row['UserRating'];
+                $totalReview++; // Only count reviews that are not skipped
             }
-
-            $averageRating = $totalUserRating / $totalReview;
-
+    
+            $averageRating = $totalReview > 0 ? $totalUserRating / $totalReview : 0;
+    
             $output = [
                 'average_rating' => number_format($averageRating, 1),
                 'total_review' => $totalReview,
@@ -1438,10 +1455,11 @@ class GuestController extends BaseController
                 'one_star_review' => $oneStarReview,
                 'review_data' => $reviewContent
             ];
-
+    
             return json_encode($output);
         }
     }
+    
 
     public function postFeedback()
     {

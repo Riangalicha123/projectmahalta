@@ -20,6 +20,18 @@
 
   <!-- Theme Style -->
   <link rel="stylesheet" href="/guest/css/style.css">
+  <style>
+    /* CSS for rounded borders */
+    .form-group input[type="text"],
+    .form-group input[type="file"],
+    .form-group select {
+        border-radius: 5px; /* Adjust the value to change the roundness of the borders */
+    }
+    #paymentInputContainer {
+        border-radius: 5px;
+        border: 1px solid #ced4da; /* Optional: Add border for better visibility */
+    }
+</style>
 </head>
 
 <body>
@@ -141,78 +153,75 @@
             <h2 class="mb-3">Payment Details</h2>
             <p><b>*Note: 50% down payment is required upon reservation.</b></p>
             <?php 
-    $gcash = null;
-    $paymaya = null;
-    foreach ($qrcodes as $qr) {
-        if ($qr['PaymentOption'] === 'gcash') {
-            $gcash = $qr;
-        } elseif ($qr['PaymentOption'] === 'paymaya') {
-            $paymaya = $qr;
-        }
-    }
-?>
+                $gcash = null;
+                $paymaya = null;
+                foreach ($qrcodes as $qr) {
+                    if ($qr['PaymentOption'] === 'gcash') {
+                        $gcash = $qr;
+                    } elseif ($qr['PaymentOption'] === 'paymaya') {
+                        $paymaya = $qr;
+                    }
+                }
+            ?>
 
-<div class="row">
-    <div class="col-6 form-group">
-        <label for="paymentOptionGCash">
-            <h4>GCash</h4>
-        </label>
-        <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash') echo 'checked'; ?>>
-    </div>
-    
-    <div class="col-6 form-group">
-        <label for="paymentOptionPayMaya">
-            <h4>PayMaya</h4>
-        </label>
-        <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya'); ?>>
-    </div>
-</div>
-
-            <!-- QR Code Image -->
             <div class="row">
-              <div class="col-md-1"></div>
-                <div class="col-md-7 form-group">
-                    <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px;">
+                <div class="col-6 form-group">
+                    <label for="paymentOptionGCash">
+                        <h4>GCash</h4>
+                    </label>
+                    <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash') echo 'checked'; ?>>
                 </div>
-              <div class="col-md-4"></div>
-            </div>
-
-            <!-- Reference Number Fields -->
-            <div class="row">
-                <!-- Gcash Reference Number -->
-                <div class="col-md-12 form-group" id="gcashReferenceDiv" style="display: block;">
-                    <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
-                </div>
-                <!-- Paymaya Reference Number -->
-                <div class="col-md-12 form-group" id="paymayaReferenceDiv" style="display: none;">
-                    <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
+                
+                <div class="col-6 form-group">
+                    <label for="paymentOptionPayMaya">
+                        <h4>PayMaya</h4>
+                    </label>
+                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya'); ?>>
                 </div>
             </div>
+
             <div class="row">
-            <div class="col-md-12 form-group">
+                <!-- Reference Number Fields -->
+                <div class="col-md-6 form-group">
+                    <!-- Gcash Reference Number -->
+                    <div class="form-group" id="gcashReferenceDiv" style="display: block;">
+                        <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
+                        <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
+                    </div>
+                    <!-- Paymaya Reference Number -->
+                    <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
+                        <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
+                        <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
+                    </div>
+                    <!-- Down or Full Payment Selection -->
+                    <div class="form-group">
+                    <label for="downorfullPayment">Down Payment or Full Payment</label>
+                    <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
+                        <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
+                            <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+                        <?php endif; ?>
+                        <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+                            <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <div class="form-control" id="paymentInputContainer"></div>
+                </div>
+                <div class="form-group">
                 <label for="Image">Proof</label>
                 <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
+                </div>
+                </div>
+                
+                
+                <!-- QR Code Image -->
+                <div class="col-md-6 form-group">
+                    <div class="form-group">
+                        <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px; float: right;">
+                    </div>
+                </div>
             </div>
-            </div>
-            <div class="row">
-    <div class="col-md-6 form-group">
-        <label for="downorfullPayment">Down Payment or Full Payment</label>
-        <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
-            <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
-                <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
-            <?php endif; ?>
-            <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
-                <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
-            <?php endif; ?>
-        </select>
-    </div>
-    <div class="col-md-6 form-group">
-        <label for="paymentInputContainer">Payment</label>
-        <div class="form-control" id="paymentInputContainer"></div>
-    </div>
-</div>
             
             <div class="row">
               <div class="col-md-6 form-group">
