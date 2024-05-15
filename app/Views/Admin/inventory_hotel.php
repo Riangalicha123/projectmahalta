@@ -65,7 +65,7 @@
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Inventory</a></li>
+              <li class="breadcrumb-item"><a href="<?route_to('admin-dashboard')?>">Home</a></li>
               <li class="breadcrumb-item active">Products/Stocks</li>
             </ol>
           </div>
@@ -166,6 +166,7 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Date-Time Updated</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -175,7 +176,7 @@
                     <td><?=$roinvent['Quantity']?></td>
                     <td><?=$roinvent['Price']?></td>
                     <td><?=$roinvent['updated_at']?></td>
-                    <th><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
+                    <td><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></td>
                   </tr>
                   <?php endforeach; ?>
                   
@@ -261,7 +262,7 @@ if (sessionStorage.getItem('error')) {
   $(function () {
     $("#example1").DataTable({
       "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["excel", "colvis"]
+      "buttons": ["excel"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
