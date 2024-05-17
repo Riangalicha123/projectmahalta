@@ -203,6 +203,10 @@ function downloadPDF() {
     doc.text('Payment Details', 20, scaledFontSize * 11);
     doc.text(paymentDetailsText, 20, scaledFontSize * 12);
 
+    // Add footer
+    const footerText = 'Mahalta Resorts and Convention Center\nBrgy,Parang Calapan City,Oriental Mindoro,5200-Philippines\nMobile no.096812480329,Email:mahaltaresorts@gmail.com';
+    doc.text(footerText, paperWidth / 2, paperHeight - scaledFontSize, null, null, 'center');
+
     // Save PDF
     doc.save('ReservationReceipt.pdf');
 }

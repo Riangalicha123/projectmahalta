@@ -74,32 +74,38 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
+                <?php if (!empty($venues)): ?>
+                <img src="<?=base_url('/uploads/'.$venues[0]['Image'])?>" alt="Generic placeholder image" class="img-fluid">
+                <?php endif; ?>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Main Restaurant</a></h3>
+                <?php if (!empty($venues)): ?>
+                <h3 class="mt-0"><a ><?=$venues[0]['VenueName']?></a></h3>
+                <?php endif; ?>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
         Make Online Reservation
-    </button></p>
+    </button></p> 
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
+          <?php if (!empty($venues)): ?>
+            <a class="media d-block room bg first-room" style="background-image: url(<?=base_url('/uploads/'.$venues[1]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Venue 2
+                  <?=$venues[1]['VenueName']?>
                   </span>
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
+            <a class="media d-block room bg second-room" style="background-image: url(<?=base_url('/uploads/'.$venues[2]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Venue 3
+                  <?=$venues[2]['VenueName']?>
                   </span>
                 </div>
             </a>
+            <?php endif; ?>
           </div>
         </div>
       </div>
@@ -274,9 +280,9 @@
       <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
       <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
       <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
-      <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
+      <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
     Order Menu Online
-</button> 
+</button>  -->
 
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <!-- Menu Records -->

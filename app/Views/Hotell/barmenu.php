@@ -270,9 +270,9 @@
         <button onclick="showCategory('19')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Red Wines</button>
         <button onclick="showCategory('20')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Bear</button>
         <button onclick="showCategory('21')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Bucket Beers</button>
-        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
     Order Menu Online
-</button> 
+</button> --> 
       </div>
         
         <div class="row">

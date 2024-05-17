@@ -59,7 +59,7 @@
               <br>
               <div style="text-align: center;">
   <p class="" style="color: black; font-size: 20px;">
-    <span style="color: black; font-size: 20px;">The room policy specifies a minimum capacity of 150 to 300 persons, with a rate of ₱999 per head for a 6-hour duration,</span>
+    <span style="color: black; font-size: 20px;">The convention center policy specifies a minimum capacity of 150 to 300 persons, with a rate of ₱999 per head for a 6-hour duration,</span>
   </p>
   <p class="" style="color: black; font-size: 20px;">
     <span style="color: black; font-size: 20px;">and an additional charge of ₱1000 for every exceeding hour and person.</span>

@@ -44,7 +44,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Report</h1>
+            <h1>Reports</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -62,7 +62,7 @@
       <div class="row">
           <div class="col-md-12">
 
-            <h2 class="mb-5 text-center">Reports</h2>
+           <!--  <h2 class="mb-5 text-center">Reports</h2> -->
             
             <div class="text-center mb-3">
             <div class="btn-group" role="group">

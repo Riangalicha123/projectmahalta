@@ -80,7 +80,7 @@
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
         Make Online Reservation
-    </button></p>
+    </button></p> 
               </div>
             </div>
           </div>
@@ -263,9 +263,9 @@
         <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
         <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
         <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
-        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
+        <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
     Order Menu Online
-</button> 
+</button> --> 
       </div>
         <div class="row">
         <?php foreach ($menuices as $menuice): ?>

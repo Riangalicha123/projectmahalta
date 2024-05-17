@@ -114,7 +114,7 @@
                             </div>
                             <form action="<?= base_url('/addHotelReservation') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
-                                  <div class="form-row">
+                                    <div class="form-row">
                                       <div class="form-group col-md-6">
                                           <label for="FirstName">First Name</label>
                                           <input type="text" class="form-control" id="FirstName" name="FirstName" required>
@@ -123,33 +123,32 @@
                                           <label for="LastName">Last Name</label>
                                           <input type="text" class="form-control" id="LastName" name="LastName" required>
                                       </div>
-                                  </div>
-                                  <div class="form-row">
+                                    </div>
+                                    <div class="form-row">
                                       <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
-                                      <div class="form-group col-md-6">
-                                      <label for="Address">Address</label>
-                                      <select id="Region" class="form-control form-control-lg" name="Region">
-                                          <option value="">Select Region</option>
-                                          <?php foreach ($regions as $region): ?>
-                                              <option value="<?= $region['regCode'] ?>"><?= $region['regDesc'] ?></option>
-                                          <?php endforeach ?>
-                                      </select>
-
-                                      <select id="province_id" class="form-control form-control-lg" name="Province">
-                                          <option value="">Select Province</option>
-                                      </select>
-                                      <select id="cities_id" class="form-control form-control-lg" name="City">
-                                          <option value="">Select City/Municipality</option>
-                                      </select>
-                                      <select id="barangay_id" class="form-control form-control-lg" name="Barangay">
-                                          <option value="">Select Barangay</option>
-                                      </select>
-                                  </div>
-                                </div>
-                                <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label for="Address">Address</label>
+                                            <select id="Region" class="form-control form-control-lg" name="Region">
+                                                <option value="">Select Region</option>
+                                                <?php foreach ($regions as $region): ?>
+                                                    <option value="<?= $region['regCode'] ?>"><?= $region['regDesc'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                            <select id="province_id" class="form-control form-control-lg" name="Province">
+                                                <option value="">Select Province</option>
+                                            </select>
+                                            <select id="cities_id" class="form-control form-control-lg" name="City">
+                                                <option value="">Select City/Municipality</option>
+                                            </select>
+                                            <select id="barangay_id" class="form-control form-control-lg" name="Barangay">
+                                                <option value="">Select Barangay</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="CheckInDate">Arrival</label>
                                                 <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required>
@@ -159,7 +158,7 @@
                                                 <input type="datetime-local" class="form-control" id="CheckOutDate" name="CheckOutDate" required>
                                             </div>
                                         </div>
-                                <div class="form-row">
+                                    <div class="form-row">
                                       <div class="form-group col-md-6">
                                         <label for="RoomNumber">Room Type</label>
                                           <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber" required>
@@ -198,18 +197,18 @@
                                               <option>Barkada Room(Tribo)</option>
                                             </select>
                                       </div>
-                                </div>
-                                <div class="form-row">
-                                            <div class="form-group col-md-6">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
                                                 <label for="Adult">Adult</label>
                                                 <input type="number" class="form-control" id="Adult" name="Adult" value="0" required>
-                                            </div>
+                                        </div>
                                             <div class="form-group col-md-6">
                                                 <label for="Child">Child</label>
                                                 <input type="number" class="form-control" id="Child" name="Child" value="0" required>
                                             </div>
-                                        </div>
-                                        <div class="form-row">
+                                    </div>
+                                    <div class="form-row">
                                         <div class="form-group col-md-6">
                                         <label for="PaymentOption">Payment Option</label>
                                             <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
@@ -232,7 +231,6 @@
                                                 <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required>
                                             </div>
                                         </div>
-                                
                                 </div>
                                 <!-- /.card-body -->
 
@@ -258,6 +256,23 @@
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $hotelrev['ReservationID'] ?>">
                                         <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="FirstName">First Name</label>
+                                          <input type="text" class="form-control" id="FirstName" name="FirstName" value="<?= $hotelrev['FirstName'] ?>" required>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="LastName">Last Name</label>
+                                          <input type="text" class="form-control" id="LastName" name="LastName" value="<?= $hotelrev['LastName'] ?>" required>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                          <label for="ContactNumber">Contact Number</label>
+                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" value="<?= $hotelrev['ContactNumber'] ?>" required>
+                                      </div>
+                                      
+                                  </div>
+                                        <div class="form-row">
                                             <div class="form-group col-md-6">
                                             <label for="RoomNumber">Room No.</label>
                                             <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber" required>
@@ -279,12 +294,22 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                             <label for="RoomType">Room Type</label>
-                                            <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                                <option <?= ($hotelrev['RoomType'] == 'Deluxe Room') ? 'selected' : '' ?>>Deluxe Room</option>
-                                                <option <?= ($hotelrev['RoomType'] == 'Jr. Suite Room') ? 'selected' : '' ?>>Jr. Suite Room</option>
-                                                <option <?= ($hotelrev['RoomType'] == 'Family Room') ? 'selected' : '' ?>>Family Room</option>
-                                                <option <?= ($hotelrev['RoomType'] == 'Barkada Room') ? 'selected' : '' ?>>Barkada Room</option>
-                                            </select>
+                                            <select class="custom-select form-control-border" id="RoomType" name="RoomType" value="<?=$hotelrev['RoomType']?>"required>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Ruben)') ? 'selected' : '' ?>>Deluxe Room(Ruben)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Baby)') ? 'selected' : '' ?>>Deluxe Room(Baby)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Siony)') ? 'selected' : '' ?>>Deluxe Room(Siony)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Carlo)') ? 'selected' : '' ?>>Deluxe Room(Carlo)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Lyra)') ? 'selected' : '' ?>>Deluxe Room(Lyra)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Lyca)') ? 'selected' : '' ?>>Deluxe Room(Lyca)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Lambert)') ? 'selected' : '' ?>>Deluxe Room(Lambert)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Deluxe Room(Lyza)') ? 'selected' : '' ?>>Deluxe Room(Lyza)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Jr. Suite Room(Lyne)') ? 'selected' : '' ?>>Jr. Suite Room(Lyne)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Jr. Suite Room(Carl)') ? 'selected' : '' ?>>Jr. Suite Room(Carl)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Family Room(Balansig)') ? 'selected' : '' ?>>Family Room(Balansig)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Family Room(Limbaga)') ? 'selected' : '' ?>>Family Room(Limbaga)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Barkada Room(Babaylan)') ? 'selected' : '' ?>>Barkada Room(Babaylan)</option>
+                                      <option <?= ($hotelrev['RoomType'] == 'Barkada Room(Tribo)') ? 'selected' : '' ?>>Barkada Room(Tribo)</option>
+                                    </select>
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -298,13 +323,26 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                                <label for="Adult">Adult</label>
+                                                <input type="number" class="form-control" id="Adult" name="Adult" value="<?= $hotelrev['Adult'] ?>" required>
+                                        </div>
                                             <div class="form-group col-md-6">
-                                                <label for="NumberOfGuests">Number of Guests</label>
-                                                <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests" required value="<?= $hotelrev['NumberOfGuests'] ?>">
+                                                <label for="Child">Child</label>
+                                                <input type="number" class="form-control" id="Child" name="Child" value="<?= $hotelrev['Child'] ?>" required>
                                             </div>
-                                            <div class="form-group col-md-6">
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                        <label for="PaymentOption">Payment Option</label>
+                                            <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
+                                            <option <?= ($hotelrev['PaymentOption'] == 'gcash') ? 'selected' : '' ?>>gcash</option>
+                                                <option <?= ($hotelrev['PaymentOption'] == 'paymaya') ? 'selected' : '' ?>>paymaya</option>
+                                            </select>
+                                      </div>
+                                        <div class="form-group col-md-6">
                                                 <label for="ReferenceNumber">Reference No.</label>
-                                                <input type="number" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required value="<?= $hotelrev['ReferenceNumber'] ?>">
+                                                <input type="text" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required value="<?= $hotelrev['ReferenceNumber'] ?>">
                                             </div>
                                         </div>
                                         <div class="form-row">

@@ -134,54 +134,54 @@
               
             </div>
 </div>
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="media-body">
-                  <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                    <div class="row">
-                      <div class="col-sm-3 form-group"></div>
-                      <div class="col-md-3 form-group">
-                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                        <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                      </div>
-                      <div class="col-md-3 form-group">
-                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                        <input type="number" class="form-control" id="Child" name="Child" value="0">
-                      </div>
-                      <div class="col-sm-3 form-group"></div>
-                    </div>
-                    <input type="hidden" id="CheckInDate" name="CheckInDate">
-                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                    <div class="row">
-                      <div class="col-md-12 form-group text-center">
-                        <button type="submit" class="btn btn-primary">Check Availability</button>
-                      </div>
-                    </div>
-                  </form>
+                    <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                        <div class="row">
+                            <div class="col-sm-6 form-group">
+                                <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                                <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                            </div>
+                            <div class="col-sm-6 form-group">
+                                <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                                <input type="number" class="form-control" id="Child" name="Child" value="0">
+                            </div>
+                        </div>
+                        <input type="hidden" id="CheckInDate" name="CheckInDate">
+                        <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                        <div class="row">
+                            <div class="col-sm-12 form-group text-center">
+                                <button type="submit" class="btn btn-primary">Check Availability</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
+    </div>
+</div>
+
       </div>
     </div>
   </div>
 </section>
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
-            <div id="search-container">
-                <input type="number" id="price-input" placeholder="Enter price range...">
-                <button id="search-btn">Search</button>
-            </div>
+        <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
+    <input type="number" id="price-input" placeholder="Enter price range...">
+    <button id="search-btn">Search</button>
+</div>
+
           <div class="row" id="room-container">
           <?php foreach ($rooms as $room): ?>
             <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
               <div class="col-md-4 mb-4">
                 <div class="media d-block room mb-0">
                   <figure>
-                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid">
+                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height:300 px; width:788px;">
                     <div class="overlap-text">
                       <span>
                       Room<?=$room['RoomNumber']?> 

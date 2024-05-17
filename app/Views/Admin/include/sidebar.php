@@ -7,7 +7,7 @@
         <div class="info">
           <a href="<?= route_to('admin-dashboard') ?>" class="d-block"><?= esc(session()->get('firstname')) ?> <?= esc(session()->get('lastname')) ?></a>
         </div>
-      </div>
+      </div> 
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">

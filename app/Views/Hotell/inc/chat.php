@@ -50,17 +50,18 @@
         <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px;"></div>
         <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
         <form id="chatForm">
-            <div class="row">
-                <div class="col-md-10 form-group" style="padding-right: 0;">
-                    <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="1" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 2px;"></textarea>
-                </div>
-                <div class="col-md-2 form-group" style="padding-left: 0;">
-                    <button type="submit" class="btn" style="background-color: #4e8cff; color: #fff; padding: 8px 20px; border-radius: 5px; cursor: pointer;">
-                        <i class="fas fa-paper-plane"></i> <!-- FontAwesome Send Icon -->
-                    </button>
-                </div>
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-8 col-sm-9 form-group" style="padding-right: 5px;">
+            <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="1" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 2px;"></textarea>
+        </div>
+        <div class="col-md-4 col-sm-3 form-group" style="padding-left: 5px; display: flex; align-items: center; justify-content: flex-start;">
+            <button type="submit" class="btn btn-primary" style="padding: 5px 5px; border-radius: 5px; cursor: pointer;">
+                Send
+            </button>
+        </div>
+    </div>
+</form>
+
     </div>
 </div>
 

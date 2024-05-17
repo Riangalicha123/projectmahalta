@@ -170,6 +170,34 @@
           <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="fas fa-chart-line mr-1"></i>
+                  Inventory Report
+                </h3>
+                <div class="card-tools">
+                  <div class="input-group">
+                    <select class="custom-select" id="year-selector">
+                      <option value="2024" selected>2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content p-0">
+                  <!-- Morris chart - Sales -->
+                  <div class="chart tab-pane active" id="reservation-monthly"
+                      style="position: relative; height: 300px;">
+                      <canvas id="salesbarchart-monthly" height="300" style="height: 300px;"></canvas>
+                  </div>
+                </div>
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
             <!-- /.card -->
             <div class="card">
               <div class="card-header">
@@ -396,19 +424,86 @@ $(function () {
       var barChartCanvas = $('#salesbarchart-monthly').get(0).getContext('2d');
       var barChartDataMonthly = {
           labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [ 
-              {
-                  label: 'Restaurant Reservation',
-                  backgroundColor: '',
-                  borderColor: 'green',
-                  pointRadius: true,
-                  pointColor: '#36A2EB',
-                    pointStrokeColor: 'rgba(54, 162, 235, 1)',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-                  data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
-              },
-          ]
+          datasets: [
+    {
+        label: 'Towel',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'green',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
+    },
+    {
+        label: 'Soap',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
+        borderColor: 'blue',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [12, 32, 56, 29, 77, 38, 85, 24, 75, 30, 29, 60]
+    },
+    {
+        label: 'Toothpaste',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        borderColor: 'red',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [15, 35, 45, 25, 95, 20, 65, 30, 70, 40, 20, 55]
+    },
+    {
+        label: 'Toothbrush',
+        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        borderColor: 'yellow',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [5, 45, 25, 35, 75, 15, 85, 25, 60, 35, 25, 50]
+    },
+    {
+        label: 'Shampoo',
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'blue',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [10, 40, 20, 30, 70, 10, 60, 20, 55, 25, 15, 45]
+    },
+    {
+        label: 'Pillow Case',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'pink',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [20, 25, 35, 15, 80, 35, 95, 18, 85, 27, 18, 65]
+    },
+    {
+        label: 'Bed',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'teal',
+        pointRadius: true,
+        pointColor: '#36A2EB',
+        pointStrokeColor: 'rgba(54, 162, 235, 1)',
+        pointHighlightFill: '#fff',
+        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
+        data: [30, 50, 40, 20, 90, 28, 100, 22, 88, 29, 22, 70]
+    }
+]
+
       };
 
       var barChartOptionsMonthly = {

@@ -33,7 +33,8 @@
             <div class="col-md-3"></div>
           <div class="col-md-6">
 
-            <h2 class="mb-5">Profile</h2>
+          <h2 class="mb-5" style="text-align: center; font-size: 34px;">Guest Profile</h2>
+
             <form action="<?= base_url('updateProfile/' . $_SESSION['id']) ?>" method="post">
                 <div class="row">
                     <div class="col-md-6 form-group">

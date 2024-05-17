@@ -482,57 +482,68 @@ class AdminController extends BaseController
     public function updateHotelReservation($reservationID)
     {
         helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
-        $validationRules = [
-
-            'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'RoomNumber' => 'required',
-            'RoomType' => 'required',
-            'NumberOfGuests' => 'required|numeric',
-            'downorfullPayment' => 'required|numeric',
-            'TotalAmount' => 'required|numeric',
-            'ReferenceNumber' => 'required|numeric',
+        
+        // Retrieve user data from the request
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
-            return redirect()->to(base_url("/editReservation/{$reservationID}"))->with('validationErrors', $validationErrors);
+        
+        // Retrieve the existing reservation to get the UserID
+        $reservation = $this->reservation->find($reservationID);
+        if (!$reservation) {
+            return redirect()->to(base_url('/admin-hotel/reservation'))->with('error', 'Reservation not found.');
         }
-
-
-        $inputRoomType = $this->request->getPost('RoomType');
-        $inputRoomNumber = $this->request->getPost('RoomNumber');
-
-        $roomData = $this->rooms->where('RoomType', $inputRoomType)
-            ->where('RoomNumber', $inputRoomNumber)
-            ->first();
-
-        // Update Reservation Data
-        if ($roomData) {
-            // Prepare Reservation Data
-            $updateReservationData = [
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
-                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                'TotalAmount' => $this->request->getPost('TotalAmount'),
-                'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
-                'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
-            ];
-
-            // Update Reservation
-            $this->reservation->update($reservationID, $updateReservationData);
-
-            // Redirect with appropriate message
-            return redirect()->to(base_url('/admin-hotel/reservation'))->with('success', 'Reservation updated successfully.');
+    
+        $userID = $reservation['UserID'];
+        
+        // Update user data in the database
+        $updateUserResult = $this->users->update($userID, $userData);
+    
+        if ($updateUserResult) {
+            // Retrieve room data from the request
+            $inputRoomType = $this->request->getPost('RoomType');
+            $inputRoomNumber = $this->request->getPost('RoomNumber');
+            
+            // Find the room data by type and number
+            $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
+            $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
+            
+            // Check if both room type and number are valid and match
+            if ($roomDataByType && $roomDataByNumber && $roomDataByType['RoomID'] === $roomDataByNumber['RoomID']) {
+                // Prepare the new reservation data
+                $newReservationData = [
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
+                    'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomDataByType['RoomID'],
+                    'UserID' => $userID,
+                ];
+                
+                // Update the reservation
+                $updateReservationResult = $this->reservation->update($reservationID, $newReservationData);
+                
+                if ($updateReservationResult) {
+                    return redirect()->to(base_url('/admin-hotel/reservation'))->with('success', 'Reservation updated successfully.');
+                } else {
+                    return redirect()->to(base_url('/admin-hotel/reservation'))->with('error', 'Failed to update reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/admin-hotel'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            }
         } else {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
+    
+    
     public function updateStatus($status, $reservationID)
     {
         $session = session();

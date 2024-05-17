@@ -39,7 +39,7 @@
       <div class="col-md-4 mb-4">
         <div class="media d-block room mb-0">
           <figure>
-            <img src="<?=base_url('/uploads/'.$hotelrev['room_image'])?>" alt="Generic placeholder image" class="img-fluid">
+            <img src="<?=base_url('/uploads/'.$hotelrev['room_image'])?>" alt="Generic placeholder image" class="img-fluid" style="height:300 px; width:788px;">
             <div class="overlap-text">
               <span>Room <?= $hotelrev['RoomNumber'] ?></span>
             </div>
@@ -111,7 +111,7 @@
       <div class="col-md-4 mb-4">
         <div class="media d-block room mb-0">
           <figure>
-            <img src="<?=base_url('/convention/'.$reevent['venue_image'])?>" alt="Generic placeholder image" class="img-fluid">
+            <img src="<?=base_url('/convention/'.$reevent['venue_image'])?>" alt="Generic placeholder image" class="img-fluid" >
             <div class="overlap-text">
               <span>EVENT <?= $reevent['EventType'] ?></span>
             </div>
