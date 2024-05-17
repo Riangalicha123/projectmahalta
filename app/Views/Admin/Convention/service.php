@@ -84,7 +84,7 @@
                             <form action="<?= base_url('/addserviceconVenue') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <div class="form-group">
-                                    <label for="conVenueName">Event Type</label>
+                                    <label for="conVenueName">Venue Name</label>
                                     <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" required>
                                       <option>CBRC Hall</option>
                                       <option>Octagon</option>

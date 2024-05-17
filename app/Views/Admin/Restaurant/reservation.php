@@ -68,9 +68,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button> -->
+                    </button>
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -100,17 +100,17 @@
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
                                       <div class="form-group col-md-6">
-                                          <label for="Address">Address</label>
-                                          <input type="text" class="form-control" id="Address" name="Address" required>
-                                      </div>
+                                                <label for="NumberOfGuests">Guest</label>
+                                                <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests"  required>
+                                        </div>
                                 </div>
                                 <div class="form-row">
                                             <div class="form-group col-md-6">
-                                            <label for="TableNumber">Room No.</label>
-                                            <select class="custom-select form-control-border" id="TableNumber" name="TableNumber" required>
-                                                <option>T1</option>
-                                                <option>T2</option>
-                                                <option>T3</option>
+                                            <label for="VenueName">Room No.</label>
+                                            <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
+                                                <option>Main Restaurant</option>
+                                                <option>Venue 2</option>
+                                                <option>Venue 3</option>
                                             </select>
                                             </div>
                                             <div class="form-group col-md-6">
@@ -124,11 +124,8 @@
                                                 <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"></textarea>
                                             </div>
                                         </div>
-                                        
-                                
                                 </div>
                                 <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -151,13 +148,30 @@
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $restrev['ReservationID'] ?>">
                                         <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="FirstName">First Name</label>
+                                          <input type="text" class="form-control" id="FirstName" name="FirstName" value="<?= $restrev['FirstName'] ?>" required>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="LastName">Last Name</label>
+                                          <input type="text" class="form-control" id="LastName" name="LastName" value="<?= $restrev['LastName'] ?>" required>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                          <label for="ContactNumber">Contact Number</label>
+                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" value="<?= $restrev['ContactNumber'] ?>" required>
+                                      </div>
+                                      
+                                  </div>
+                                        <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label for="arrivalDate">Arrival Date</label>
-                                            <input type="date" class="form-control" id="arrivalDate" name="arrivalDate" required value="<?= date('Y-m-d', strtotime($restrev['ArivalDate'])) ?>">
+                                                <label for="CheckInDate">Arrival</label>
+                                                <input type="datetime-local" class="form-control" id="CheckInDate" name="CheckInDate" required value="<?= date('Y-m-d\TH:i', strtotime($restrev['CheckInDate'])) ?>">
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label for="arrivalTime">Arrival Time</label>
-                                            <input type="time" class="form-control" id="arrivalTime" name="arrivalTime" required value="<?= date('H:i', strtotime($restrev['ArivalTime'])) ?>">
+                                                <label for="NumberOfGuests">Guest</label>
+                                                <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests" value="<?= $restrev['NumberOfGuests'] ?>" required>
                                         </div>
                                         </div>
                                         <div class="form-row">
@@ -193,10 +207,9 @@
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact No.</th>
-                    <th>Address</th>
                     <th>Venue</th>
                     <th>Arrival</th>
-                    <th>Arrival Time</th>
+                    <th>Guest</th>
                     <th>Note</th>
                     <th>Status</th>
                     <th>Status Action</th>
@@ -210,10 +223,9 @@
                     <td><?=$restrev['FirstName']?></td>
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
-                    <td><?=$restrev['Address']?></td>
                     <td><?=$restrev['VenueName']?></td>
-                    <td><?=$restrev['ArivalDate']?></td>
-                    <td><?=$restrev['ArivalTime']?></td>
+                    <td><?=$restrev['CheckInDate']?></td>
+                    <td><?=$restrev['NumberOfGuests']?></td>
                     <td><?=$restrev['Note']?></td>
                     <td class="project-state">
                         <?php
