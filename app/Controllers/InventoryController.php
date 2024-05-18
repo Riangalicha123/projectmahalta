@@ -145,6 +145,27 @@ class InventoryController extends BaseController
             return view('Admin\inventory_hotel',$data);
         }
     }
+    
+    public function deleteAmenitiesItem($roomInventoryID)
+    {
+        // Retrieve the product by ID
+        $roominventory = $this->roominventory->find($roomInventoryID);
+        
+        // Check if the roominventory exists
+        if ($roominventory) {
+            // Delete the roominventory
+            $deleted = $this->roominventory->delete($roomInventoryID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-inventoryhotel'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-inventoryhotel'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-inventoryhotel'))->with('error', 'Menu item not found.');
+        }
+    }
     public function updateeinHotel($roomInventoryID)
     {
         helper(['form']);

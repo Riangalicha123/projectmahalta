@@ -163,7 +163,7 @@
                     <td><?=$chat['Answer']?></td>
                     <td><?=$chat['datetime_created']?></td>
                     <td><?=$chat['datetime_updated']?></td>
-                    <th><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$chat['ChatID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="/admin-chat/delete/<?= $chat['ChatID']; ?>" onclick="return confirm('Are you sure you want to delete this chat?');">Delete</a><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$chat['ChatID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

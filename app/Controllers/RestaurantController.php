@@ -85,6 +85,26 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
+    public function deleteMainMenu($productID)
+    {
+        // Retrieve the product by ID
+        $product = $this->products->find($productID);
+        
+        // Check if the product exists
+        if ($product) {
+            // Delete the product
+            $deleted = $this->products->delete($productID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Menu item not found.');
+        }
+    }
     public function updateMainMenu()
     {
         helper(['form']);
@@ -211,6 +231,26 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
+    public function deleteBarMenu($productID)
+    {
+        // Retrieve the product by ID
+        $product = $this->products->find($productID);
+        
+        // Check if the product exists
+        if ($product) {
+            // Delete the product
+            $deleted = $this->products->delete($productID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Menu item not found.');
+        }
+    }
     public function updateBarMenu()
     {
         helper(['form']);
@@ -335,6 +375,26 @@ class RestaurantController extends BaseController
             }
         } else {
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
+        }
+    }
+    public function deleteCafeMenu($productID)
+    {
+        // Retrieve the product by ID
+        $product = $this->products->find($productID);
+        
+        // Check if the product exists
+        if ($product) {
+            // Delete the product
+            $deleted = $this->products->delete($productID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Menu item not found.');
         }
     }
     public function updateCafeMenu()
@@ -465,6 +525,27 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
+    public function deleteCafeMenuIced($icedID)
+    {
+        // Retrieve the product by ID
+        $iced = $this->iced->find($icedID);
+        
+        // Check if the iced exists
+        if ($iced) {
+            // Delete the iced
+            $deleted = $this->iced->delete($icedID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Menu item not found.');
+        }
+    }
+
     public function updateCafeMenuIced()
     {
         helper(['form']);

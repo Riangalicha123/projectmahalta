@@ -94,11 +94,11 @@
                                       </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="VenueCapacity" >Status</label >
+                                    <label for="VenueCapacity" >Venue Capacity</label >
                                     <input type="number" class="form-control" id="VenueCapacity" name="VenueCapacity"  required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="AvailableCapacity" >Status</label >
+                                    <label for="AvailableCapacity" >Available Capacity</label >
                                     <input type="number" class="form-control" id="AvailableCapacity" name="AvailableCapacity"  required>
                                 </div>
                                 <div class="form-group">
@@ -184,7 +184,7 @@
                     <td><?=$venue['VenueCapacity']?></td>
                     <td><?=$venue['AvailableCapacity']?></td>
                     <td><img  style="width: 300px; height: 250px;" src="<?=base_url('/uploads/'.$venue['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $venue['VenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="/admin-convention/service/delete/<?= $venue['VenueID']; ?>" onclick="return confirm('Are you sure you want to delete this Venue?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   
@@ -249,6 +249,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
+                  <button class="btn btn-sm btn-danger" onclick="deleteMenuMain(<?= $menumain['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reformModal<?=$menumain['ProductID']?>">
                     Update 
                   </button>
@@ -400,7 +401,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                  <button class="btn btn-sm btn-danger" onclick="deleteMenuBar(<?= $menubar['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#rreformModal<?=$menubar['ProductID']?>">
                     Update 
                   </button>
@@ -555,7 +556,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                  <button class="btn btn-sm btn-danger" onclick="deleteMenuIced(<?= $menuice['IcedID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#rrreeeformModal<?=$menuice['IcedID']?>">
                     Update 
                   </button>
@@ -675,7 +676,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                  <button class="btn btn-sm btn-danger" onclick="deleteMenuCafe(<?= $menucafe['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reeeformModal<?=$menucafe['ProductID']?>">
                     Update 
                   </button>
@@ -847,6 +848,28 @@
       "responsive": true,
     });
   });
+</script>
+<script>
+function deleteMenuMain(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenumain') ?>/' + productID;
+    }
+}
+function deleteMenuBar(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenubar') ?>/' + productID;
+    }
+}
+function deleteMenuCafe(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenucafe') ?>/' + productID;
+    }
+}
+function deleteMenuIced(icedID) {
+    if (confirm('Are you sure you want to delete this item?')) {
+        window.location.href = '<?= base_url("/deletemenucafeiced") ?>/' + icedID;
+    }
+}
 </script>
 </body>
 </html>

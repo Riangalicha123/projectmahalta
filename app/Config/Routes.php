@@ -121,6 +121,7 @@ $routes->post('/updateinHotel/(:num)', 'InventoryController::updateinHotel/$1', 
 
 $routes->get('/admin-inventoryhotel', 'InventoryController::inventoryHotel', ['filter' => 'adminGuard']);
 $routes->post('/adddinHotel', 'InventoryController::adddinHotel', ['filter' => 'adminGuard']);
+$routes->get('/admin-inventoryhotel/delete/(:num)', 'InventoryController::deleteAmenitiesItem/$1');
 $routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1', ['filter' => 'adminGuard']);
 //Admin-Dashboard
 $routes->match(['get', 'post'],'/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
@@ -167,6 +168,7 @@ $routes->get('/admin-feedback', 'AdminController::feedback', ['filter' => 'admin
 //Admin-ChatBot
 $routes->get('/admin-chat', 'AdminController::chat', ['filter' => 'adminGuard']);
 $routes->post('/addChat', 'AdminController::addChat', ['filter' => 'adminGuard']);
+$routes->get('/admin-chat/delete/(:num)', 'AdminController::deleteChat/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1', ['filter' => 'adminGuard']);
 
 
@@ -174,11 +176,13 @@ $routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1', ['filter' 
 //Hotel
 $routes->get('/admin-hotel/service', 'AdminController::holService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceRoom', 'AdminController::addserviceRoom', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/service/delete/(:num)', 'AdminController::deleteServiceRoom/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom', ['filter' => 'adminGuard']);
 $routes->post('/room-image/add', 'AdminController::addserviceRoomImage',['filter' => 'adminGuard']);
 //Restaurant
 $routes->get('/admin-restaurant/service', 'AdminController::restService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' => 'adminGuard']);
+$routes->get('/admin-convention/service/delete/(:num)', 'AdminController::deleteServiceTable/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceTable', 'AdminController::updateserviceTable', ['filter' => 'adminGuard']);
 //Convention
 $routes->get('/admin-convention/service', 'AdminController::conService', ['filter' => 'adminGuard']);
@@ -193,14 +197,18 @@ $routes->get('/admin-qrcode', 'AdminController::Qrcode', ['filter' => 'adminGuar
 $routes->post('/updateQrcode', 'AdminController::updateQrcode', ['filter' => 'adminGuard']);
 
 $routes->post('/addMainMenu', 'RestaurantController::addMainMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenumain/(:num)', 'RestaurantController::deleteMainMenu/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateMainMenu', 'RestaurantController::updateMainMenu', ['filter' => 'adminGuard']);
 
 $routes->post('/addBarMenu', 'RestaurantController::addBarMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenubar/(:num)', 'RestaurantController::deleteBarMenu/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateBarMenu', 'RestaurantController::updateBarMenu', ['filter' => 'adminGuard']);
 
 $routes->post('/addCafeMenu', 'RestaurantController::addCafeMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenucafe/(:num)', 'RestaurantController::deleteCafeMenu/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu', ['filter' => 'adminGuard']);
 $routes->post('/addCafeMenuIced', 'RestaurantController::addCafeMenuIced', ['filter' => 'adminGuard']);
+$routes->get('/deletemenucafeiced/(:num)', 'RestaurantController::deleteCafeMenuIced/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-newspromotion', 'AdminController::newsPromotion', ['filter' => 'adminGuard']);

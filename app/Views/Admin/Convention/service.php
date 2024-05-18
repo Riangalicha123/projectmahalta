@@ -213,12 +213,12 @@
               <!-- /.card-header -->
               <div class="card-body">
                 <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eexampleModalCenter">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eeexampleModalCenter">
                     Add
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade " id="eexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal fade " id="eeexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
                             <div class="modal-header">
@@ -304,7 +304,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
+                    
                     <th>Event Type</th>
                     <th>Description</th>
                     <th>Image</th>
@@ -314,7 +314,7 @@
                   <tbody>
                   <?php foreach ($events as $event): ?>
                   <tr>
-                    <td><?=$event['EventID']?></td>
+                    
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>

@@ -300,7 +300,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'customer',
             'guests' => $this->guest
-                ->select('guest.GuestID,guest.Status, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
+                ->select('guest.GuestID, users.UserID,  users.FirstName,  users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address')
                 ->join('users', 'guest.UserID = users.UserID')
                 ->findAll()
         ];
@@ -313,7 +313,6 @@ class AdminController extends BaseController
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
             'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]',
-            'Password' => 'required|min_length[4]|max_length[50]',
             'ContactNumber' => 'required|max_length[11]',
             'Address' => 'required|min_length[4]|max_length[100]',
             'confirmPassword' => 'matches[Password]',
@@ -326,10 +325,11 @@ class AdminController extends BaseController
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'Email' => $this->request->getVar('Email'),
-            'Password' => password_hash($this->request->getVar('Password'), PASSWORD_DEFAULT),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
             'Address' => $this->request->getVar('Address'),
             'UserRoleID' => 1,
+            'verification_token' => bin2hex(random_bytes(16)),
+            'is_verified' => 1,
         ];
         if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['Email'])) {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Incomplete user details. Please provide all required information.');
@@ -444,6 +444,11 @@ class AdminController extends BaseController
         $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
     
         if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
+            ];
+            $this->guest->insert($guestData);
+
             // Retrieve Room Data
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
@@ -671,6 +676,10 @@ class AdminController extends BaseController
         $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
     
         if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
+            ];
+            $this->guest->insert($guestData);
             $VenueName = $this->request->getPost('VenueName');
             $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
     
@@ -873,6 +882,10 @@ class AdminController extends BaseController
         $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
     
         if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
+            ];
+            $this->guest->insert($guestData);
             $inputVenueName = $this->request->getPost('conVenueName');
             $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
             $inputEventType = $this->request->getPost('EventType');
@@ -1376,6 +1389,26 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-chat'))->with('error', 'Failed to add reservation. Please try again.');
         }
     }
+    public function deleteChat($chatID)
+    {
+        // Retrieve the product by ID
+        $chat = $this->chat->find($chatID);
+        
+        // Check if the chat exists
+        if ($chat) {
+            // Delete the roominventory
+            $deleted = $this->chat->delete($chatID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/admin-chat'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/admin-chat'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-chat'))->with('error', 'Menu item not found.');
+        }
+    }
     public function updateChat($ChatID)
     {
         helper(['form']);
@@ -1454,7 +1487,7 @@ class AdminController extends BaseController
                 // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
                     // Move the file to the 'uploads' directory
-                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                    if ($file->move(FCPATH . 'uploads', $newFileName)) {
                         // Save product data to the database
                         $this->rooms->save($data);
                     } else {
@@ -1507,7 +1540,7 @@ class AdminController extends BaseController
                 // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
                     // Move the file to the 'uploads' directory
-                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
+                    if ($file->move(FCPATH . 'uploads', $newFileName)) {
                         // Save product data to the database
                         $this->rooms->save($data);
                     } else {
@@ -1523,6 +1556,26 @@ class AdminController extends BaseController
             echo ('error');
         }
         return redirect()->to('/admin-hotel/service');
+    }
+    public function deleteServiceRoom($id)
+    {
+        // Find the room by ID
+        $room = $this->rooms->find($id);
+
+        if ($room) {
+            // Delete room image file
+            $imagePath = FCPATH . 'uploads/' . $room['Image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Delete the room record from the database
+            $this->rooms->delete($id);
+
+            return redirect()->to('/admin-hotel/service')->with('status', 'Room deleted successfully');
+        } else {
+            return redirect()->to('/admin-hotel/service')->with('error', 'Room not found');
+        }
     }
     public function addserviceRoomImage()
     {
@@ -1651,6 +1704,26 @@ class AdminController extends BaseController
         }
 
         return redirect()->to('/admin-restaurant/service');
+    }
+    public function deleteServiceTable($id)
+    {
+        // Find the room by ID
+        $table = $this->venues->find($id);
+
+        if ($table) {
+            // Delete table image file
+            $imagePath = FCPATH . 'uploads/' . $table['Image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Delete the table record from the database
+            $this->venues->delete($id);
+
+            return redirect()->to('/admin-convention/service')->with('status', 'Room deleted successfully');
+        } else {
+            return redirect()->to('/admin-convention/service')->with('error', 'Room not found');
+        }
     }
     public function updateserviceTable()
     {

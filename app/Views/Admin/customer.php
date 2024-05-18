@@ -101,16 +101,6 @@
                                 </div>
                                 <div class="form-row">
                                       <div class="form-group col-md-6">
-                                          <label for="Password">Password</label>
-                                          <input type="password" class="form-control" id="Password" name="Password" required>
-                                      </div>
-                                      <div class="form-group col-md-6">
-                                          <label for="confirmPassword">Confirm Password</label>
-                                          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
-                                      </div>
-                                </div>
-                                <div class="form-row">
-                                      <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
@@ -181,7 +171,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -193,7 +182,6 @@
                   <tbody>
                   <?php foreach ($guests as $guest): ?>
                   <tr>
-                    <td><?=$guest['GuestID']?></td>
                     <td><?=$guest['FirstName']?></td>
                     <td><?=$guest['LastName']?></td>
                     <td><?=$guest['Email']?></td>
