@@ -37,4 +37,30 @@ class ReservationAmenities extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getMonthlyInventoryData($year)
+    {
+        $db = \Config\Database::connect();
+
+        $query = $db->query("
+            SELECT 
+                room_inventory.ProductName,
+                SUM(reservation_amenities.insertQuantity) AS TotalQuantity,
+                MONTH(reservations.CheckInDate) AS ReservationMonth,
+                YEAR(reservations.CheckInDate) AS ReservationYear
+            FROM 
+                reservation_amenities
+            JOIN 
+                reservations ON reservation_amenities.ReservationID = reservations.ReservationID
+            JOIN 
+                room_inventory ON reservation_amenities.roomInventoryID = room_inventory.roomInventoryID
+            WHERE 
+                YEAR(reservations.CheckInDate) = ?
+            GROUP BY 
+                room_inventory.ProductName, ReservationMonth, ReservationYear
+            ORDER BY 
+                room_inventory.ProductName", [$year]);
+
+        return $query->getResult();
+    }
 }

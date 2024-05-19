@@ -127,6 +127,7 @@ $routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1'
 $routes->match(['get', 'post'],'/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
+$routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-setting', 'AdminController::setting', ['filter' => 'adminGuard']);
 

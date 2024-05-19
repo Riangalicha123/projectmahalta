@@ -171,32 +171,36 @@
           <section class="col-lg-6 connectedSortable">
             <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
-              <div class="card-header">
+            <div class="card-header">
                 <h3 class="card-title">
-                  <i class="fas fa-chart-line mr-1"></i>
-                  Inventory Report
+                    <i class="fas fa-chart-line mr-1"></i>
+                    Inventory Report
                 </h3>
                 <div class="card-tools">
-                  <div class="input-group">
-                    <select class="custom-select" id="year-selector">
-                      <option value="2024" selected>2024</option>
-                      <option value="2025">2025</option>
-                      <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                    </select>
-                  </div>
+                    <div class="input-group">
+                        <select class="custom-select" id="year-sselectorr">
+                            <?php
+                            // Generate options for years based on available data
+                            $currentYear = date('Y');
+                            $startYear = 2024; // Start year
+                            $endYear = $currentYear + 5; // End year (current year)
+                            for ($year = $startYear; $year <= $endYear; $year++) {
+                                echo "<option value='$year'>$year</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
                 </div>
-              </div><!-- /.card-header -->
-              <div class="card-body">
+            </div><!-- /.card-header -->
+            <div class="card-body">
                 <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="reservation-monthly"
-                      style="position: relative; height: 300px;">
-                      <canvas id="salesbarchart-monthly" height="300" style="height: 300px;"></canvas>
-                  </div>
+                    <div class="chart tab-pane active" id="reservation-monthly"
+                         style="position: relative; height: 300px;">
+                        <canvas id="inventoryreportchart-monthly" height="300" style="height: 300px;"></canvas>
+                    </div>
                 </div>
-              </div><!-- /.card-body -->
-            </div>
+            </div><!-- /.card-body -->
+        </div>
             <!-- /.card -->
             <!-- /.card -->
             <div class="card">
@@ -309,220 +313,180 @@
         });
 </script>
 <script>
-$(function () {
-    // Function to fetch data based on selected year
-    function fetchData(year) {
-        $.ajax({
-            url: '<?php echo base_url('admin/getReservationData'); ?>', // Change the URL accordingly
-            method: 'POST',
-            data: { year: year },
-            success: function (response) {
-                var reservations = JSON.parse(response);
-                var hotelReservations = [];
-                var restaurantReservations = [];
-                var conventionReservations = [];
+  $(function () {
+      // Function to fetch data based on selected year
+      function fetchData(year) {
+          $.ajax({
+              url: '<?php echo base_url('admin/getReservationData'); ?>', // Change the URL accordingly
+              method: 'POST',
+              data: { year: year },
+              success: function (response) {
+                  var reservations = JSON.parse(response);
+                  var hotelReservations = [];
+                  var restaurantReservations = [];
+                  var conventionReservations = [];
 
-                reservations.forEach(function(reservation) {
-                    if (reservation.Status === 'Confirm') { // Only process confirmed reservations
-                        var checkInDate = new Date(reservation.CheckInDate);
-                        var month = checkInDate.getMonth();
+                  reservations.forEach(function(reservation) {
+                      if (reservation.Status === 'Confirm') { // Only process confirmed reservations
+                          var checkInDate = new Date(reservation.CheckInDate);
+                          var month = checkInDate.getMonth();
 
-                        if (reservation.RoomID != null) {
-                            hotelReservations[month] = hotelReservations[month] ? hotelReservations[month] + 1 : 1;
-                        } else if (reservation.VenueID != null) {
-                            restaurantReservations[month] = restaurantReservations[month] ? restaurantReservations[month] + 1 : 1;
-                        } else if (reservation.conventionID != null) {
-                            conventionReservations[month] = conventionReservations[month] ? conventionReservations[month] + 1 : 1;
-                        }
-                    }
-                });
+                          if (reservation.RoomID != null) {
+                              hotelReservations[month] = hotelReservations[month] ? hotelReservations[month] + 1 : 1;
+                          } else if (reservation.VenueID != null) {
+                              restaurantReservations[month] = restaurantReservations[month] ? restaurantReservations[month] + 1 : 1;
+                          } else if (reservation.conventionID != null) {
+                              conventionReservations[month] = conventionReservations[month] ? conventionReservations[month] + 1 : 1;
+                          }
+                      }
+                  });
 
-                var barChartCanvas = $('#reservationbarchart-monthly').get(0).getContext('2d');
-                var barChartDataMonthly = {
-                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                    datasets: [
-                        {
-                            label: 'Hotel Reservation',
-                            backgroundColor: 'rgba(60,141,188,0.9)',
-                            borderColor: 'rgba(60,141,188,0.8)',
-                            pointRadius: false,
-                            pointColor: '#3b8bba',
-                            pointStrokeColor: 'rgba(60,141,188,1)',
-                            pointHighlightFill: '#fff',
-                            pointHighlightStroke: 'rgba(60,141,188,1)',
-                            data: hotelReservations
-                        },
-                        {
-                            label: 'Restaurant Reservation',
-                            backgroundColor: 'rgba(60,0,188,0.9)',
-                            borderColor: 'rgba(60,141,188,0.8)',
-                            pointRadius: false,
-                            pointColor: '#3b8bba',
-                            pointStrokeColor: 'rgba(60,141,188,1)',
-                            pointHighlightFill: '#fff',
-                            pointHighlightStroke: 'rgba(60,141,188,1)',
-                            data: restaurantReservations
-                        },
-                        {
-                            label: 'Convention Reservation',
-                            backgroundColor: 'rgba(210, 214, 222, 1)',
-                            borderColor: 'rgba(210, 214, 222, 1)',
-                            pointRadius: false,
-                            pointColor: 'rgba(210, 214, 222, 1)',
-                            pointStrokeColor: '#c1c7d1',
-                            pointHighlightFill: '#fff',
-                            pointHighlightStroke: 'rgba(220,220,220,1)',
-                            data: conventionReservations
-                        },
-                    ]
-                };
+                  var barChartCanvas = $('#reservationbarchart-monthly').get(0).getContext('2d');
+                  var barChartDataMonthly = {
+                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                      datasets: [
+                          {
+                              label: 'Hotel Reservation',
+                              backgroundColor: 'rgba(60,141,188,0.9)',
+                              borderColor: 'rgba(60,141,188,0.8)',
+                              pointRadius: false,
+                              pointColor: '#3b8bba',
+                              pointStrokeColor: 'rgba(60,141,188,1)',
+                              pointHighlightFill: '#fff',
+                              pointHighlightStroke: 'rgba(60,141,188,1)',
+                              data: hotelReservations
+                          },
+                          {
+                              label: 'Restaurant Reservation',
+                              backgroundColor: 'rgba(60,0,188,0.9)',
+                              borderColor: 'rgba(60,141,188,0.8)',
+                              pointRadius: false,
+                              pointColor: '#3b8bba',
+                              pointStrokeColor: 'rgba(60,141,188,1)',
+                              pointHighlightFill: '#fff',
+                              pointHighlightStroke: 'rgba(60,141,188,1)',
+                              data: restaurantReservations
+                          },
+                          {
+                              label: 'Convention Reservation',
+                              backgroundColor: 'rgba(210, 214, 222, 1)',
+                              borderColor: 'rgba(210, 214, 222, 1)',
+                              pointRadius: false,
+                              pointColor: 'rgba(210, 214, 222, 1)',
+                              pointStrokeColor: '#c1c7d1',
+                              pointHighlightFill: '#fff',
+                              pointHighlightStroke: 'rgba(220,220,220,1)',
+                              data: conventionReservations
+                          },
+                      ]
+                  };
 
-                var barChartOptionsMonthly = {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    datasetFill: false,
-                    scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true, // Ensure the scale starts at zero
-                                suggestedMin: 0 // Set the suggested minimum value to zero
-                            }
-                        }]
-                    }
-                };
+                  var barChartOptionsMonthly = {
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      datasetFill: false,
+                      scales: {
+                          yAxes: [{
+                              ticks: {
+                                  beginAtZero: true, // Ensure the scale starts at zero
+                                  suggestedMin: 0 // Set the suggested minimum value to zero
+                              }
+                          }]
+                      }
+                  };
 
-                new Chart(barChartCanvas, {
-                    type: 'bar',
-                    data: barChartDataMonthly,
-                    options: barChartOptionsMonthly
-                });
-            }
-        });
-    }
+                  new Chart(barChartCanvas, {
+                      type: 'bar',
+                      data: barChartDataMonthly,
+                      options: barChartOptionsMonthly
+                  });
+              }
+          });
+      }
 
-    // Initial fetch for current year
-    var currentYear = new Date().getFullYear();
-    fetchData(currentYear);
+      // Initial fetch for current year
+      var currentYear = new Date().getFullYear();
+      fetchData(currentYear);
 
-    // Change event for year select
-    $('#yearSelect').change(function() {
-        var selectedYear = $(this).val();
-        fetchData(selectedYear);
-    });
-});
+      // Change event for year select
+      $('#yearSelect').change(function() {
+          var selectedYear = $(this).val();
+          fetchData(selectedYear);
+      });
+  });
 </script>
 
 <script>
-  $(function () {
-    $('#year-selector').change(function(){
-      var selectedYear = $(this).val();
-      updateMonthlyChart(selectedYear);
-    });
+        $(function () {
+            $('#year-sselectorr').change(function () {
+                var selectedYear = $(this).val();
+                updateMonthlyChart(selectedYear);
+            });
 
-    function updateMonthlyChart(year) {
-      // Get context with jQuery - using jQuery's .get() method.
-      var barChartCanvas = $('#salesbarchart-monthly').get(0).getContext('2d');
-      var barChartDataMonthly = {
-          labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-          datasets: [
-    {
-        label: 'Towel',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'green',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [28, 48, 40, 19, 86, 27, 90, 19, 86, 27, 23, 64]
-    },
-    {
-        label: 'Soap',
-        backgroundColor: 'rgba(153, 102, 255, 0.2)',
-        borderColor: 'blue',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [12, 32, 56, 29, 77, 38, 85, 24, 75, 30, 29, 60]
-    },
-    {
-        label: 'Toothpaste',
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-        borderColor: 'red',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [15, 35, 45, 25, 95, 20, 65, 30, 70, 40, 20, 55]
-    },
-    {
-        label: 'Toothbrush',
-        backgroundColor: 'rgba(255, 206, 86, 0.2)',
-        borderColor: 'yellow',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [5, 45, 25, 35, 75, 15, 85, 25, 60, 35, 25, 50]
-    },
-    {
-        label: 'Shampoo',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        borderColor: 'blue',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [10, 40, 20, 30, 70, 10, 60, 20, 55, 25, 15, 45]
-    },
-    {
-        label: 'Pillow Case',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        borderColor: 'pink',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [20, 25, 35, 15, 80, 35, 95, 18, 85, 27, 18, 65]
-    },
-    {
-        label: 'Bed',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: 'teal',
-        pointRadius: true,
-        pointColor: '#36A2EB',
-        pointStrokeColor: 'rgba(54, 162, 235, 1)',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(54, 162, 235, 1)',
-        data: [30, 50, 40, 20, 90, 28, 100, 22, 88, 29, 22, 70]
-    }
-]
+            function updateMonthlyChart(year) {
+                $.ajax({
+                    url: '<?= base_url('admin/getMonthlyData') ?>',
+                    type: 'POST',
+                    data: { year: year },
+                    dataType: 'json',
+                    success: function (data) {
+                        var productNames = [];
+                        var monthlyData = {};
 
-      };
+                        // Initialize monthly data for each product
+                        data.forEach(function (item) {
+                            if (!monthlyData[item.ProductName]) {
+                                monthlyData[item.ProductName] = Array(12).fill(0);
+                            }
+                            monthlyData[item.ProductName][item.ReservationMonth - 1] = item.TotalQuantity;
+                        });
 
-      var barChartOptionsMonthly = {
-          responsive: true,
-          maintainAspectRatio: false,
-          datasetFill: false
-      };
+                        var datasets = [];
 
-      new Chart(barChartCanvas, {
-          type: 'line',
-          data: barChartDataMonthly,
-          options: barChartOptionsMonthly
-      });
-    }
+                        for (var productName in monthlyData) {
+                            productNames.push(productName);
+                            datasets.push({
+                                label: productName,
+                                backgroundColor: getRandomColor(),
+                                borderColor: getRandomColor(),
+                                data: monthlyData[productName]
+                            });
+                        }
 
-    // Initialize the monthly chart with the default year (2024)
-    updateMonthlyChart('2024');
-  })
-</script>
+                        var barChartDataMonthly = {
+                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                            datasets: datasets
+                        };
+
+                        var barChartOptionsMonthly = {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            datasetFill: false
+                        };
+
+                        var barChartCanvas = $('#inventoryreportchart-monthly').get(0).getContext('2d');
+                        new Chart(barChartCanvas, {
+                            type: 'line',
+                            data: barChartDataMonthly,
+                            options: barChartOptionsMonthly
+                        });
+                    }
+                });
+            }
+
+            function getRandomColor() {
+                var letters = '0123456789ABCDEF';
+                var color = '#';
+                for (var i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            // Initialize the monthly chart with the default year (2024)
+            updateMonthlyChart('2024');
+        });
+    </script>
 <script>
 $(function () {
   

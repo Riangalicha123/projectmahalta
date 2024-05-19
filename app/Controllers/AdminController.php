@@ -234,7 +234,7 @@ class AdminController extends BaseController
             'roinvents' => $this->roominventory->findAll(),
             'regions' => $regions,
             'customers' => $this->guest
-                ->select('guest.GuestID, guest.Status, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->select('guest.GuestID, users.UserID, users.FirstName, users.LastName, users.Email, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
                 ->join('users', 'guest.UserID = users.UserID')
                 ->findAll(),
             'hotelrevs' => $this->reservation
@@ -257,6 +257,13 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->where('reservations.Status', 'Confirm')
                 ->findAll(),
+            'reseraminities' => $this->reseraminities
+                ->select('reservations.ReservationID, reservations.CheckOutDate, reservations.UserID, room_inventory.roomInventoryID, room_inventory.ProductName, reservation_amenities.AmenitiesID, reservation_amenities.InsertQuantity')
+                ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID')
+                ->join('users', 'reservation_amenities.UserID = users.UserID')
+                ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID')
+                ->where('reservations.Status', 'Confirm')
+                ->findAll(),
             'feedback' => $this->feedbacks->findAll(),
             'positivePercentage' => $positivePercentage,
             'neutralPercentage' => $neutralPercentage,
@@ -274,26 +281,32 @@ class AdminController extends BaseController
         echo json_encode($reservations);
     }
     public function getReservationByYear()
-{
-    // Kunin ang taon mula sa POST request
-    $selectedYear = $this->request->getPost('selectedYear');
+    {
+        // Kunin ang taon mula sa POST request
+        $selectedYear = $this->request->getPost('selectedYear');
 
-    // Query para sa mga reservation base sa hiniling na taon
-    $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, COUNT(*) AS ReservationCount')
-                                         ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-                                         ->where('YEAR(reservations.CheckInDate)', $selectedYear)
-                                         ->where('reservations.Status', 'Confirm')
-                                         ->where('reservations.RoomID IS NOT NULL', null, false)
-                                         ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth')
-                                         ->findAll();
+        // Query para sa mga reservation base sa hiniling na taon
+        $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, COUNT(*) AS ReservationCount')
+                                            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                                            ->where('YEAR(reservations.CheckInDate)', $selectedYear)
+                                            ->where('reservations.Status', 'Confirm')
+                                            ->where('reservations.RoomID IS NOT NULL', null, false)
+                                            ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth')
+                                            ->findAll();
 
-    // Ipasa ang mga reservation data pabalik sa View
-    $data['roomreservations'] = $roomreservations;
+        // Ipasa ang mga reservation data pabalik sa View
+        $data['roomreservations'] = $roomreservations;
 
-    // Ibalik ang data sa JSON format
-    return $this->response->setJSON($data);
-}
+        // Ibalik ang data sa JSON format
+        return $this->response->setJSON($data);
+    }
+    public function getMonthlyData()
+    {
+        $year = $this->request->getPost('year');
+        $data = $this->reseraminities->getMonthlyInventoryData($year);
 
+        return $this->response->setJSON($data);
+    }
     
     public function customer()
     {
