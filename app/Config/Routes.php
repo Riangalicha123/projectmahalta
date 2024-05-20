@@ -124,7 +124,7 @@ $routes->post('/adddinHotel', 'InventoryController::adddinHotel', ['filter' => '
 $routes->get('/admin-inventoryhotel/delete/(:num)', 'InventoryController::deleteAmenitiesItem/$1');
 $routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1', ['filter' => 'adminGuard']);
 //Admin-Dashboard
-$routes->match(['get', 'post'],'/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
+$routes->match(['get', 'post'], '/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
 $routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);
@@ -179,7 +179,7 @@ $routes->get('/admin-hotel/service', 'AdminController::holService', ['filter' =>
 $routes->post('/addserviceRoom', 'AdminController::addserviceRoom', ['filter' => 'adminGuard']);
 $routes->get('/admin-hotel/service/delete/(:num)', 'AdminController::deleteServiceRoom/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom', ['filter' => 'adminGuard']);
-$routes->post('/room-image/add', 'AdminController::addserviceRoomImage',['filter' => 'adminGuard']);
+$routes->post('/room-image/add', 'AdminController::addserviceRoomImage', ['filter' => 'adminGuard']);
 //Restaurant
 $routes->get('/admin-restaurant/service', 'AdminController::restService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' => 'adminGuard']);
@@ -219,3 +219,4 @@ $routes->get('deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter
 
 $routes->get('/admin-report', 'AdminController::Report', ['filter' => 'adminGuard']);
 $routes->post('/admin-report/fetch-report-data', 'AdminController::fetchReportData', ['filter' => 'adminGuard']);
+$routes->get('process-jobs', 'GuestController::processJobs');

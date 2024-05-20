@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Jobs\SendReminderEmail;
 use App\Models\UserModel;
 use App\Models\RoomModel;
 use App\Models\TableModel;
@@ -22,6 +23,7 @@ use App\Models\RoomInventoryModel;
 use App\Models\ReservationAmenities;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
+use App\Models\JobModel;
 use App\Models\RoomImageModel;
 use App\Models\NewsModel;
 
@@ -77,6 +79,10 @@ class GuestController extends BaseController
     {
         //
     }
+    public function processJobs()
+    {
+        var_dump($this->processPendingJobs());
+    }
 
     /* public function home()
     {
@@ -115,10 +121,10 @@ class GuestController extends BaseController
             'activePage' => 'Room',
             'rooms' => $this->rooms->findAll(),
             'roomimages' => $this->roomimages
-            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
-            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
-            ->groupBy('rooms.RoomID')
-            ->findAll(),
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
             'chats' => $this->chat->findAll(),
         ];
         return view('Hotell\room', $data);
@@ -232,10 +238,10 @@ class GuestController extends BaseController
             'reservationData' => $reservationData,
             'availableRooms' => $availableRooms,
             'roomimages' => $this->roomimages
-            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
-            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
-            ->groupBy('rooms.RoomID')
-            ->findAll(),
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
             'rooms' => $this->rooms->findAll(),
         ]);
     }
@@ -243,35 +249,35 @@ class GuestController extends BaseController
     {
         $session = \Config\Services::session();
         $selectedRoomID = $this->request->getGet('selectedRoomID');
-    
+
         // Dynamically construct the field names based on the selectedRoomID
         $checkInFieldName = 'CheckInDate' . $selectedRoomID;
         $checkOutFieldName = 'CheckOutDate' . $selectedRoomID;
-    
+
         // Fetch the check-in and check-out dates from the GET parameters
         $checkInDate = $this->request->getGet($checkInFieldName);
         $checkOutDate = $this->request->getGet($checkOutFieldName);
         $reservationData = $session->get('reservationData');
         $numberOfAdults = $reservationData['Adult'] ?? 0;
         $numberOfChildren = $reservationData['Child'] ?? 0;
-    
+
         // Load the RoomModel and find available rooms based on the dynamic dates
         $roomModel = new RoomModel;
         $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
-    
+
         $roomSelected = null;
         $TotalAmount = 0;
-    
+
         if (!empty($selectedRoomID)) {
             // Fetch details for the selected room
             $roomSelected = $roomModel->find($selectedRoomID);
-    
+
             if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
                 if (!empty($checkInDate) && !empty($checkOutDate)) {
                     $checkInDateTime = new \DateTime($checkInDate);
                     $checkOutDateTime = new \DateTime($checkOutDate);
                     $numberOfNights = $checkInDateTime->diff($checkOutDateTime)->days;
-    
+
                     // Calculate the total amount based on the room type
                     if ($roomSelected['PerNightHead'] === 'Head') {
                         // For Barkada Room, calculate based on per head rate
@@ -281,9 +287,9 @@ class GuestController extends BaseController
                         // For other room types, calculate based on the total nights stayed
                         $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
                     }
-    
+
                     $totalGuests = (int) $numberOfAdults + (int) $numberOfChildren;
-    
+
                     if ($totalGuests > $roomSelected['minPerson']) {
                         $additionalGuests = $totalGuests - $roomSelected['minPerson'];
                         // Assuming 500 is the charge per extra guest
@@ -299,7 +305,7 @@ class GuestController extends BaseController
                 ]);
             }
         }
-    
+
         return view('Hotell/bookroom', [
             'reservationData' => $session->get('reservationData'),
             'availableRooms' => $availableRooms,
@@ -313,42 +319,42 @@ class GuestController extends BaseController
             'rooms' => $this->rooms->findAll(),
         ]);
     }
-    
+
     public function getdataRoomReservation()
     {
         $session = \Config\Services::session();
         $reservationData = $session->get('reservationData');
         $roomSelected = $session->get('roomSelected');
-    
+
         if (!empty($reservationData) && !empty($roomSelected)) {
             $checkInDate = new \DateTime($reservationData['CheckInDate']);
             $checkOutDate = new \DateTime($reservationData['CheckOutDate']);
             $numberOfNights = $checkInDate->diff($checkOutDate)->days;
-    
+
             $TotalAmount = 0; // Initialize total amount
-    
+
             if ($roomSelected['PerNightHead'] === 'Head') {
                 // Calculate total amount based on per head rate
                 $numberOfAdults = (int) $reservationData['Adult'];
                 $numberOfChildren = (int) $reservationData['Child'];
                 $totalGuests = $numberOfAdults + $numberOfChildren;
-    
+
                 $TotalAmount = $totalGuests * $roomSelected['PricePerNight'] * $numberOfNights;
             } else {
                 // For other room types, calculate based on the total nights stayed
                 $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
             }
-    
+
             $numberOfAdults = (int) $reservationData['Adult'];
             $numberOfChildren = (int) $reservationData['Child'];
             $totalGuests = $numberOfAdults + $numberOfChildren;
-    
+
             if ($totalGuests > $roomSelected['minPerson']) {
                 $additionalGuests = $totalGuests - $roomSelected['minPerson'];
                 // Assuming 500 is the charge per extra guest
                 /* $TotalAmount += $additionalGuests * 500; */
             }
-    
+
             // Set roomReservationData including totalExtraPrice
             $session->set('roomReservationData', [
                 'reservationData' => $reservationData,
@@ -360,24 +366,24 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/error'));
         }
     }
-    
+
 
     public function addAmenities()
     {
         $session = \Config\Services::session();
-    
+
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
         $amenitiesData = [];
-    
+
         if (!empty($roomInventoryIDs)) {
             foreach ($roomInventoryIDs as $index => $roomInventoryID) {
                 if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
                     $productName = isset($roinvents[$roomInventoryID]['ProductName']) ? $roinvents[$roomInventoryID]['ProductName'] : 'Unknown Product';
                     $price = isset($roinvents[$roomInventoryID]['Price']) ? $roinvents[$roomInventoryID]['Price'] : 'Unknown Price';
                     $insertQuantity = isset($insertQuantities[$roomInventoryID]) ? $insertQuantities[$roomInventoryID] : 0;
-    
+
                     // Build amenities data array
                     $amenitiesData[] = [
                         'roomInventoryID' => $roomInventoryID,
@@ -387,30 +393,30 @@ class GuestController extends BaseController
                     ];
                 }
             }
-    
+
             $session->set('amenitiesData', $amenitiesData);
-    
+
             $amenitiesData = $session->get('amenitiesData'); // Retrieve amenities data from session
             $totalExtraPrice = 0; // Initialize total extra price
-    
+
             // Calculate total extra price for amenities
             if (!empty($amenitiesData)) {
                 foreach ($amenitiesData as $amenity) {
                     $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
                 }
             }
-    
+
             // Update TotalAmount to include total extra price
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
-    
+
             // Redirect to formdetails
             return redirect()->to(base_url('/bookroom/formdetails'));
         } else {
             return redirect()->to(base_url('/bookroom/amenities'))->with('error', 'Please select at least one amenity.');
         }
     }
-    
+
     public function bookroom()
     {
         // Check if user is logged in
@@ -470,10 +476,10 @@ class GuestController extends BaseController
             'activePage' => 'Reservation',
             'rooms' => $this->rooms->findAll(),
             'roomimages' => $this->roomimages
-            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
-            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
-            ->groupBy('rooms.RoomID')
-            ->findAll(),
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
             'reservationData' => $reservationData,
             /* 'availableRooms' => $availableRooms, */
             'roomSelected' => $roomSelected,
@@ -518,12 +524,12 @@ class GuestController extends BaseController
         }
         // Load the session library
         $session = \Config\Services::session();
-    
+
         // Retrieve necessary data from session
         $userID = $session->get('userID');
         $amenitiesData = $session->get('amenitiesData');
         $roomReservationData = $session->get('roomReservationData');
-    
+
         // Calculate total extra price for amenities
         $totalExtraPrice = 0;
         if (isset($amenitiesData) && !empty($amenitiesData)) {
@@ -533,19 +539,19 @@ class GuestController extends BaseController
                 $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
             }
         }
-    
+
         // Update TotalAmount in roomReservationData
         $roomReservationData['TotalAmount'] += $totalExtraPrice;
         $session->set('roomReservationData', $roomReservationData);
-    
+
         // Calculate down payment and full payment amounts
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
-    
+
         // Add calculated amounts to roomReservationData
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
-    
+
         // Prepare data to pass to the view
         $data = [
             'activePage' => 'Reservation',
@@ -557,7 +563,7 @@ class GuestController extends BaseController
             'amenitiesData' => $amenitiesData,
             'totalExtraPrice' => $totalExtraPrice,
         ];
-    
+
         // Pass data to the view
         return view('Hotell\checkOutReservation', $data);
     }
@@ -576,10 +582,10 @@ class GuestController extends BaseController
             ->where('LastName', $LastName)
             ->where('ContactNumber', $ContactNumber)
             ->first();
-        $roomSelected = session()->get('roomSelected');
-        $reservationData = session()->get('reservationData');
-        $amenitiesData = session()->get('amenitiesData');
-        $totalExtraPrice = session()->get('totalExtraPrice');
+        $roomSelected = $session->get('roomSelected');
+        $reservationData = $session->get('reservationData');
+        $amenitiesData = $session->get('amenitiesData');
+        $totalExtraPrice = $session->get('totalExtraPrice');
         $roomReservationData = $session->get('roomReservationData');
         $TotalAmount = $roomReservationData['TotalAmount'] + $totalExtraPrice;
 
@@ -587,8 +593,6 @@ class GuestController extends BaseController
         $skipAmenities = $this->request->getGet('skip') === 'true';
 
         if ($roomSelected && $reservationData && $user && $TotalAmount) {
-            
-
             // Prepare reservation data
             $paymentOption = $this->request->getPost('PaymentOption');
             $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
@@ -605,7 +609,8 @@ class GuestController extends BaseController
                     $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
                     $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
 
-
+                    // Calculate email send date (one day before the check-in date)
+                    $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
 
                     // Insert reservation data
                     $newReservationData = [
@@ -621,10 +626,11 @@ class GuestController extends BaseController
                         'UserID' => $user['UserID'],
                         'TotalAmount' => $TotalAmount,
                         'Image' => $newFileName,
-
+                        'email_send_date' => $emailSendDate, // Add email send date
+                        'email_sent' => 0 // Initial email sent status
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
-
+                    $reservationID = $this->reservation->getInsertID(); // Retrieve the inserted ID
 
                     if ($inserted) {
                         if (!$skipAmenities && $amenitiesData) {
@@ -634,11 +640,11 @@ class GuestController extends BaseController
                                 $amenity['UserID'] = $user['UserID'];
                                 $amenitiesWithUserID[] = $amenity;
                             }
-            
+
                             // Insert amenities data and update room inventory
                             foreach ($amenitiesWithUserID as $amenity) {
                                 $amenityData = [
-                                    'ReservationID' => $inserted,
+                                    'ReservationID' => $reservationID,
                                     'roomInventoryID' => $amenity['roomInventoryID'],
                                     'insertQuantity' => $amenity['insertQuantity'],
                                     'UserID' => $amenity['UserID'],
@@ -654,10 +660,9 @@ class GuestController extends BaseController
                                 }
                             }
                         }
-                        $reservationID = $this->reservation->getInsertID();
+
                         // After successful reservation, generate QR Code
-                        // Generate QR Code with the new ReservationID
-                        $qrCodeInfo  = $this->generateQrCode($reservationID, $amenitiesData);
+                        $qrCodeInfo = $this->generateQrCode($reservationID, $amenitiesData);
                         $qrCodePath = $qrCodeInfo['file_path'];
                         $qrCodePath2 = $qrCodeInfo['url'];
                         // Store QR code path in session
@@ -665,17 +670,33 @@ class GuestController extends BaseController
                         // Update the reservation record with QR code path
                         $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
 
+                        // Send confirmation email
                         $emailMessage = $this->prepareEmailMessage($newReservationData, $roomSelected, $user, $amenitiesData);
-                        $emailMessage2 =       $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage, $qrCodePath);
+                        $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage, $qrCodePath);
+
+                        // Schedule reminder email
+                        $jobModel = new JobModel();
+                        $jobModel->insert([
+                            'type' => SendReminderEmail::class,
+                            'payload' => json_encode([
+                                'to' => $email,
+                                'subject' => 'Reservation Reminder',
+                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'attachmentPath' => null
+                            ]),
+                            'run_at' => $emailSendDate
+                        ]);
+
+                        // Send push notification if user has FCM token
                         $fcmToken = $user['fcm_token'];
                         if (!empty($fcmToken)) {
                             $notifTitle = 'Reservation Confirmation';
                             $notifBody = 'Your reservation has been successfully added.';
                             $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                         }
+
                         // Redirect with success message
-                        $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                        //   var_dump($emailMessage2, $qrCodePath);
+                        $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
                         return redirect()->to('/qrpath');
                     } else {
                         return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
@@ -690,42 +711,43 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
+
     private function generateQrCode($reservationID, $amenitiesData)
     {
         // Convert amenitiesData array to a string if it's not null
         $amenitiesQueryParam = !is_null($amenitiesData) ? http_build_query(['amenities' => $amenitiesData]) : '';
-    
+
         // Construct the encoded URL with the amenities query parameter
         $encodedUrl = base_url("reservation/$reservationID") . ($amenitiesQueryParam ? "?$amenitiesQueryParam" : '');
-    
+
         // Create a new QR code object with the encoded URL
         $qrCode = new \Endroid\QrCode\QrCode($encodedUrl);
         $qrCode->setSize(300);
-    
+
         // Initialize the QR code writer
         $writer = new \Endroid\QrCode\Writer\PngWriter();
-    
+
         // Ensure the directory exists
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
             mkdir($dirPath, 0777, true); // Adjust permissions as necessary
         }
-    
+
         // Path where the QR code will be saved
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
         $result->saveToFile($filePath);
-    
+
         // Generate the URL to access the QR code image
         $url = base_url('qr-codes/qr-code-' . $reservationID . '.png');
-    
+
         // Return both the URL to the QR code image and the file path
         return [
             'url' => $url,
             'file_path' => $filePath
         ];
     }
-    
+
 
     public function qrPath()
     {
@@ -1201,14 +1223,14 @@ class GuestController extends BaseController
                         if ($inserted) {
                             $reservationID = $this->reservation->getInsertID();
                             // After successful reservation, generate QR Code
-                        // Generate QR Code with the new ReservationID
-                        $qrCodeInfo  = $this->generateeQrCode($reservationID);
-                        $qrCodePath = $qrCodeInfo['file_path'];
-                        $qrCodePath2 = $qrCodeInfo['url'];
-                        // Store QR code path in session
-                        $session->set('qrCodePath', $qrCodePath2);
-                        // Update the reservation record with QR code path
-                        $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
+                            // Generate QR Code with the new ReservationID
+                            $qrCodeInfo  = $this->generateeQrCode($reservationID);
+                            $qrCodePath = $qrCodeInfo['file_path'];
+                            $qrCodePath2 = $qrCodeInfo['url'];
+                            // Store QR code path in session
+                            $session->set('qrCodePath', $qrCodePath2);
+                            // Update the reservation record with QR code path
+                            $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
                             $emailMessage = $this->prepareEmailConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected);
                             $emailMessage2 = $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                             $fcmToken = $UserData['fcm_token'];
@@ -1242,38 +1264,38 @@ class GuestController extends BaseController
     }
     private function generateeQrCode($reservationID)
     {
-    
+
         // Construct the encoded URL with the amenities query parameter
         $encodedUrl = base_url("conreservation/$reservationID");
-    
+
         // Create a new QR code object with the encoded URL
         $qrCode = new \Endroid\QrCode\QrCode($encodedUrl);
         $qrCode->setSize(300);
-    
+
         // Initialize the QR code writer
         $writer = new \Endroid\QrCode\Writer\PngWriter();
-    
+
         // Ensure the directory exists
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
             mkdir($dirPath, 0777, true); // Adjust permissions as necessary
         }
-    
+
         // Path where the QR code will be saved
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
         $result->saveToFile($filePath);
-    
+
         // Generate the URL to access the QR code image
         $url = base_url('qr-codes/qr-code-' . $reservationID . '.png');
-    
+
         // Return both the URL to the QR code image and the file path
         return [
             'url' => $url,
             'file_path' => $filePath
         ];
     }
-    
+
 
     public function qrconventionPath()
     {
@@ -1372,7 +1394,7 @@ class GuestController extends BaseController
         if ($this->request->getPost('action')) {
             $feedbackModel = new FeedbackModel();
             $reviews = $feedbackModel->orderBy('FeedbackID', 'DESC')->findAll();
-    
+
             $averageRating = 0;
             $totalReview = 0;
             $fiveStarReview = 0;
@@ -1382,13 +1404,13 @@ class GuestController extends BaseController
             $oneStarReview = 0;
             $totalUserRating = 0;
             $reviewContent = [];
-    
+
             // Assuming UserModel is used for fetching user data
             $userModel = new UserModel();
-    
+
             // List of "bad" keywords
             $badKeywords = ['bad', 'terrible', 'awful', 'poor'];
-    
+
             foreach ($reviews as $row) {
                 // Check if the feedback message contains any bad keywords
                 $containsBadKeyword = false;
@@ -1398,14 +1420,14 @@ class GuestController extends BaseController
                         break;
                     }
                 }
-    
+
                 if ($containsBadKeyword) {
                     continue; // Skip this review if it contains a bad keyword
                 }
-    
+
                 // Fetch user data based on UserID
                 $user = $userModel->find($row['UserID']);
-    
+
                 // Check if user exists and has an email address
                 if ($user && isset($user['Email'])) {
                     $email = $user['Email'];
@@ -1413,14 +1435,14 @@ class GuestController extends BaseController
                     // If user or email is not found, set a default value or handle accordingly
                     $email = "Unknown";
                 }
-    
+
                 $reviewContent[] = [
                     'Email' => $email, // Update email here
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
                     'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
                 ];
-    
+
                 switch ($row['UserRating']) {
                     case 5:
                         $fiveStarReview++;
@@ -1438,13 +1460,13 @@ class GuestController extends BaseController
                         $oneStarReview++;
                         break;
                 }
-    
+
                 $totalUserRating += $row['UserRating'];
                 $totalReview++; // Only count reviews that are not skipped
             }
-    
+
             $averageRating = $totalReview > 0 ? $totalUserRating / $totalReview : 0;
-    
+
             $output = [
                 'average_rating' => number_format($averageRating, 1),
                 'total_review' => $totalReview,
@@ -1455,11 +1477,11 @@ class GuestController extends BaseController
                 'one_star_review' => $oneStarReview,
                 'review_data' => $reviewContent
             ];
-    
+
             return json_encode($output);
         }
     }
-    
+
 
     public function postFeedback()
     {
@@ -1641,47 +1663,47 @@ class GuestController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Cancel'];
-    
+
         if (!in_array($status, $allowedStatuses)) {
             // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-    
+
         // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
             ->where('ReservationID', $reservationID)
             ->first();
-    
+
         if (!$reservation) {
             // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-    
+
         // Retrieve user data based on UserID from the reservation
         $user = $this->users
             ->where('UserID', $reservation['UserID'])
             ->first();
-    
+
         if (!$user) {
             // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-    
+
         // Calculate the difference between cancellation time and check-in date
         $checkInDate = new \DateTime($reservation['CheckInDate']);
         $cancellationDate = new \DateTime();
         $difference = $cancellationDate->diff($checkInDate);
         $daysDifference = $difference->days;
-    
+
         // Check if cancellation is within 3 days of check-in date
         if ($daysDifference <= 3) {
             // Calculate refund amount (50% of downorfullPayment)
             $refundAmount = $reservation['downorfullPayment'] * 0.5;
-    
+
             // Update the reservation status and refund amount in the database
             $updateData = ['Status' => $status, 'RefundAmount' => $refundAmount];
             $updated = $this->reservation->update($reservationID, $updateData);
-    
+
             if ($updated) {
                 // Prepare email message about the refund
                 $emailMessage = "Dear customer,<br><br>";
@@ -1690,10 +1712,10 @@ class GuestController extends BaseController
                 $emailMessage .= "099123123123<br>";
                 $emailMessage .= "or<br>";
                 $emailMessage .= "email@gmail.com<br>";
-    
+
                 // Send email notification to the user
                 $this->sendEmail($user['Email'], 'Reservation Canceled and Refund Initiated on 3 Days', $emailMessage);
-    
+
                 // Notify user via push notification
                 $fcmToken = $user['fcm_token'];
                 if (!empty($fcmToken)) {
@@ -1701,7 +1723,7 @@ class GuestController extends BaseController
                     $notifBody = "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated.";
                     $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                 }
-    
+
                 // Redirect to the reservation page with a success message
                 $session->setFlashdata('success', 'Reservation canceled successfully, and refund initiated.');
                 return redirect()->to('/booking');
@@ -1714,7 +1736,7 @@ class GuestController extends BaseController
             // Update the reservation status without refund amount
             $updateData = ['Status' => $status];
             $updated = $this->reservation->update($reservationID, $updateData);
-    
+
             if ($updated) {
                 // Prepare email message about cancellation without refund
                 $emailMessage = "Dear customer,<br><br>";
@@ -1723,10 +1745,10 @@ class GuestController extends BaseController
                 $emailMessage .= "099123123123<br>";
                 $emailMessage .= "or<br>";
                 $emailMessage .= "email@gmail.com<br>";
-    
+
                 // Send email notification to the user
                 $this->sendEmail($user['Email'], 'Reservation Canceled', $emailMessage);
-    
+
                 // Notify user via push notification
                 $fcmToken = $user['fcm_token'];
                 if (!empty($fcmToken)) {
@@ -1734,7 +1756,7 @@ class GuestController extends BaseController
                     $notifBody = "Your reservation has been canceled. Refund is not applicable as the cancellation period has passed.";
                     $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                 }
-    
+
                 // Redirect to the reservation page with a success message
                 $session->setFlashdata('success', 'Reservation canceled successfully.');
                 return redirect()->to('/booking');
@@ -1744,7 +1766,7 @@ class GuestController extends BaseController
             }
         }
     }
-    
+
     public function bookingrestauupdatestatus($status, $reservationID)
     {
         $session = session();

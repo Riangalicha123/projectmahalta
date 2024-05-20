@@ -17,12 +17,13 @@ use App\Models\RegionModel;
 use App\Models\ProvinceModel;
 use App\Models\CityModel;
 use App\Models\BarangayModel;
+use App\Models\LoginAttempModel;
 use App\Traits\EmailTrait;
 use CodeIgniter\API\ResponseTrait;
 
 
 class UserController extends BaseController
-{   
+{
     use ResponseTrait;
     use EmailTrait;
     private $rooms;
@@ -40,7 +41,8 @@ class UserController extends BaseController
     private $cities;
     private $barangay;
 
-    function __construct(){
+    function __construct()
+    {
         helper(['form']);
         $this->rooms = new RoomModel();
         $this->tables = new TableModel();
@@ -57,69 +59,71 @@ class UserController extends BaseController
         $this->cities = new CityModel();
         $this->barangay = new BarangayModel();
     }
-    
+
     public function index()
     {
         //
     }
 
-    public function register(){
+    public function register()
+    {
         helper(['form']);
-    
+
         // Fetch regions from the model
         $regions = $this->regions->findAll();
-    
+
         $data = [
             'activePage' => 'Register',
             'regions' => $regions,
         ];
-    
+
         return view('Register', $data);
     }
     public function fetchProvince()
     {
         $request = service('request');
-    
+
         // Ensure regCode is set in the request
         $regCode = $request->getVar('regCode');
-    
+
         // Load the model or service responsible for fetching provinces
         $provinces = $this->province->where('regCode', $regCode)->findAll();
-    
+
         $data['provinces'] = $provinces;
-    
+
         return $this->respond($data);
     }
     public function fetchCity()
     {
         $request = service('request');
-    
+
         // Ensure regCode is set in the request
         $provCode = $request->getVar('provCode');
-    
+
         // Load the model or service responsible for fetching provinces
         $cities = $this->cities->where('provCode', $provCode)->findAll();
-    
+
         $data['cities'] = $cities;
-    
+
         return $this->respond($data);
     }
     public function fetchBarangay()
     {
         $request = service('request');
-    
+
         // Ensure regCode is set in the request
         $cityCode = $request->getVar('citymunCode');
-    
+
         // Load the model or service responsible for fetching provinces
         $barangay = $this->barangay->where('citymunCode', $cityCode)->findAll();
-    
+
         $data['barangay'] = $barangay;
-    
+
         return $this->respond($data);
     }
-    public function registerAuth(){
-        helper(['form','url']);
+    public function registerAuth()
+    {
+        helper(['form', 'url']);
         $rules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[3]|max_length[100]',
@@ -169,17 +173,17 @@ class UserController extends BaseController
                 'required' => 'The barangay field is required.',
             ],
         ];
-        if ($this->validate($rules, $errors)){
+        if ($this->validate($rules, $errors)) {
             $regionCode = $this->request->getVar('Region');
             $provinceCode = $this->request->getVar('Province');
             $cityCode = $this->request->getVar('City');
             $barangayCode = $this->request->getVar('Barangay');
-    
+
             $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'];
             $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'];
             $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'];
             $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'];
-    
+
             $data = [
                 'FirstName' => $this->request->getVar('FirstName'),
                 'LastName' => $this->request->getVar('LastName'),
@@ -196,10 +200,12 @@ class UserController extends BaseController
             $data['verification_token'] = $verificationToken;
             $data['is_verified'] = 0;
             $userId = $this->users->insert($data);
-            if ($userId) { $newGuestData = ['UserID' => $userId,];
+            if ($userId) {
+                $newGuestData = ['UserID' => $userId,];
                 $insertedGuestID = $this->guest->insert($newGuestData);
                 $insertedGuestDetails = $this->guest->find($insertedGuestID);
-                if($insertedGuestDetails) { $verificationUrl = base_url("verify/{$verificationToken}");
+                if ($insertedGuestDetails) {
+                    $verificationUrl = base_url("verify/{$verificationToken}");
                     $emailMessage = "Please click on the following link to verify your email address: <a href='{$verificationUrl}'>Verify Email</a>";
                     $this->sendEmail($data['Email'], 'Verify Your Email Address', $emailMessage);
                     session()->setFlashdata('success', 'Successfully Registered. Please check your email to verify your account.');
@@ -208,10 +214,9 @@ class UserController extends BaseController
                     session()->setFlashdata('error', 'Registration failed. Please try again.');
                     return redirect()->back()->withInput();
                 }
-            }else{
+            } else {
                 return redirect()->to(base_url('/register'))->with('error', 'Failed to add reservation. Please try again.');
             }
-            
         } else {
             $data['validation'] = $this->validator;
             $data['activePage'] = 'Register';
@@ -219,19 +224,37 @@ class UserController extends BaseController
             return view('Register', $data);
         }
     }
-    
-    public function login(){
+
+    public function login()
+    {
         helper(['form']);
         $data = [
             'activePage' => 'Login',
         ];
-        return view('Login',$data);
+        return view('Login', $data);
     }
     public function LoginAuth()
     {
         $session = session();
         $email = $this->request->getVar('Email');
         $password = $this->request->getVar('Password');
+        $ipAddress = $this->request->getIPAddress();
+        $maxAttempts = 5; // Maximum number of allowed attempts
+        $lockoutTime = 15; // Lockout time in minutes
+
+        $loginAttemptModel = new LoginAttempModel();
+
+        // Check for previous login attempts
+        $attempts = $loginAttemptModel->where('email', $email)
+            ->where('ip_address', $ipAddress)
+            ->where('attempt_time >', date('Y-m-d H:i:s', strtotime("-$lockoutTime minutes")))
+            ->countAllResults();
+
+        if ($attempts >= $maxAttempts) {
+            // Too many attempts, lock the account temporarily
+            $session->setFlashdata('msg', 'Too many failed login attempts. Please try again after ' . $lockoutTime . ' minutes.');
+            return redirect()->to('/login');
+        }
 
         // Retrieve user data from the database based on the provided email
         $data = $this->users->where('Email', $email)->first();
@@ -240,7 +263,7 @@ class UserController extends BaseController
             // Verify the provided password against the hashed password in the database
             $pass = $data['Password'];
             $authenticatedPassword = password_verify($password, $pass);
-    
+
             if ($authenticatedPassword) {
                 // Check if user is verified
                 if ($data['is_verified'] == 0) {
@@ -248,7 +271,7 @@ class UserController extends BaseController
                     $session->setFlashdata('msg', 'Account is not verified. Please check your email.');
                     return redirect()->to('/login');
                 }
-    
+
                 // User is verified, proceed with setting session data
                 $ses_data = [
                     'id' => $data['UserID'],
@@ -264,7 +287,7 @@ class UserController extends BaseController
                     'userRole' => $data['UserRoleID'],
                     'address' => $data['Region'] . ', ' . $data['Province'] . ', ' . $data['City'] . ', ' . $data['Barangay'],
                 ];
-    
+
                 $session->set($ses_data);
 
                 // Redirect based on user role, staff details, and admin
@@ -308,23 +331,35 @@ class UserController extends BaseController
                                 return redirect()->to('/');
                         }
                     } else {
-                        // Handle missing staff details
+                        // Handle missing admin details
                         return redirect()->to('/');
                     }
                 }
             } else {
-                // Incorrect password
+                // Incorrect password, log the attempt
+                $loginAttemptModel->insert([
+                    'email' => $email,
+                    'attempt_time' => date('Y-m-d H:i:s'),
+                    'ip_address' => $ipAddress,
+                ]);
+
                 $session->setFlashdata('msg', 'Password is incorrect');
                 return redirect()->to('/login');
             }
         } else {
-            // Email not found
+            // Email not found, log the attempt
+            $loginAttemptModel->insert([
+                'email' => $email,
+                'attempt_time' => date('Y-m-d H:i:s'),
+                'ip_address' => $ipAddress,
+            ]);
+
             $session->setFlashdata('msg', 'Email does not exist');
             return redirect()->to('/login');
         }
     }
 
-    
+
     public function logout()
     {
         $session = session();
@@ -339,14 +374,14 @@ class UserController extends BaseController
             // No token provided, show an error or redirect
             return redirect()->to('/login')->with('msg', 'Verification token is missing.');
         }
-    
+
         $user = $this->users->where('verification_token', $token)->first();
-    
+
         if ($user) {
             // User found with the token, verify the account
             $data = ['is_verified' => 1, 'verification_token' => null]; // Mark as verified and clear the token
             $this->users->update($user['UserID'], $data);
-    
+
             // Show a success message or redirect
             return redirect()->to('/login')->with('msg', 'Your account has been successfully verified. You can now login.');
         } else {
@@ -359,34 +394,29 @@ class UserController extends BaseController
     {
         $session = session();
         $userId = $session->get('id');
-    
+
         if (!$userId) {
             return $this->response->setJSON(['success' => false, 'message' => 'User not logged in.']);
         }
-    
+
         $request = \Config\Services::request();
         $tokenData = $request->getJSON();
-    
-    
-            // Initialize your UserDeviceModel
 
-    
-            // Check for an existin    if ($tokenData && property_exists($tokenData, 'fcm_token')) {g token for the user to avoid duplicate
-                // Assuming 'user_id' is the primary key in your 'users' table.
-                // If your primary key is different, replace 'user_id' with the actual primary key column name.
-                $saved = $this->users->update($userId, [
-                    'fcm_token' => $tokenData->fcm_token,
-                ]);
-            
-                if ($saved) {
-                    return $this->response->setJSON(['success' => true, 'message' => 'Device token updated successfully.']);
-                } else {
-                    return $this->response->setJSON(['success' => false, 'message' => 'Failed to update device token.']);
-                }
-            
-        
+
+        // Initialize your UserDeviceModel
+
+
+        // Check for an existin    if ($tokenData && property_exists($tokenData, 'fcm_token')) {g token for the user to avoid duplicate
+        // Assuming 'user_id' is the primary key in your 'users' table.
+        // If your primary key is different, replace 'user_id' with the actual primary key column name.
+        $saved = $this->users->update($userId, [
+            'fcm_token' => $tokenData->fcm_token,
+        ]);
+
+        if ($saved) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Device token updated successfully.']);
+        } else {
+            return $this->response->setJSON(['success' => false, 'message' => 'Failed to update device token.']);
+        }
     }
-    
-
-
 }
