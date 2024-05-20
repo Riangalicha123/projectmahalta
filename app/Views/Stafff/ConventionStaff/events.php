@@ -85,14 +85,15 @@
                                 </button>
                             </div>
                             <form action="<?= base_url('/addEvent') ?>" method="post" enctype="multipart/form-data">
-                                <div class="card-body">
+                            <div class="card-body">
                                 <div class="form-group">
                                     <label for="EventType">Event Type</label>
                                     <select class="custom-select form-control-border" id="EventType" name="EventType" required>
                                       <option>Wedding</option>
-                                      <option>Team Building</option>
-                                      <option>Meeting</option>
-                                      <option>Proposal</option>
+                                      <option>Birthday</option>
+                                      <option>Seminar</option>
+                                      <option>Christening</option>
+                                      <option>Anniversary</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -133,9 +134,10 @@
                                     <label for="EventType">Event Type</label>
                                     <select class="custom-select form-control-border" id="EventType" name="EventType" value="<?=$event['EventType']?>" required>
                                       <option <?= ($event['EventType'] == 'Wedding') ? 'selected' : '' ?>>Wedding</option>
-                                      <option <?= ($event['EventType'] == 'Team Building') ? 'selected' : '' ?>>Team Building</option>
-                                      <option <?= ($event['EventType'] == 'Meeting') ? 'selected' : '' ?>>Meeting</option>
-                                      <option <?= ($event['EventType'] == 'Proposal') ? 'selected' : '' ?>>Proposal</option>
+                                      <option <?= ($event['EventType'] == 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+                                      <option <?= ($event['EventType'] == 'Seminar') ? 'selected' : '' ?>>Seminar</option>
+                                      <option <?= ($event['EventType'] == 'Christening') ? 'selected' : '' ?>>Christening</option>
+                                      <option <?= ($event['EventType'] == 'Anniversary') ? 'selected' : '' ?>>Anniversary</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -171,7 +173,7 @@
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
                     <td><img style="width: 300px; height: 250px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $event['EventID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="<?= base_url('/staff/deleteEvent/' . $event['EventID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

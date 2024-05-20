@@ -86,6 +86,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
+                <button class="btn btn-sm btn-danger" onclick="deleteMenuMain(<?= $menumain['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reformModal<?=$menumain['ProductID']?>">
                     Update 
                   </button>
@@ -237,7 +238,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                <button class="btn btn-sm btn-danger" onclick="deleteMenuBar(<?= $menubar['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#rreformModal<?=$menubar['ProductID']?>">
                     Update 
                   </button>
@@ -392,7 +393,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                <button class="btn btn-sm btn-danger" onclick="deleteMenuIced(<?= $menuice['IcedID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#rrreeeformModal<?=$menuice['IcedID']?>">
                     Update 
                   </button>
@@ -512,7 +513,7 @@
                   </div>
                 <div class="card-footer">
                 <div class="text-right">
-                  
+                <button class="btn btn-sm btn-danger" onclick="deleteMenuCafe(<?= $menucafe['ProductID'] ?>)">Delete</button>
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#reeeformModal<?=$menucafe['ProductID']?>">
                     Update 
                   </button>
@@ -683,6 +684,28 @@
       "responsive": true,
     });
   });
+</script>
+<script>
+function deleteMenuMain(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenumain') ?>/' + productID;
+    }
+}
+function deleteMenuBar(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenubar') ?>/' + productID;
+    }
+}
+function deleteMenuCafe(productID) {
+    if (confirm('Are you sure you want to delete this menu item?')) {
+        window.location.href = '<?= base_url('/deletemenucafe') ?>/' + productID;
+    }
+}
+function deleteMenuIced(icedID) {
+    if (confirm('Are you sure you want to delete this item?')) {
+        window.location.href = '<?= base_url("/deletemenucafeiced") ?>/' + icedID;
+    }
+}
 </script>
 </body>
 </html>

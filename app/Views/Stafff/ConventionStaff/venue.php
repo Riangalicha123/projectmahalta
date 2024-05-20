@@ -179,7 +179,7 @@
                     <td><?=$convenue['minGuest']?></td>
                     <td><?=$convenue['maxGuest']?></td>
                     <td><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="#" style="width: 300px; height: 250px;"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $convenue['conVenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$convenue['conVenueID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="<?= base_url('/staff/deleteVenue/' . $convenue['conVenueID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$convenue['conVenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

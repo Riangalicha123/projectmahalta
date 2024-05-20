@@ -185,7 +185,7 @@
                     <td><?=$venue['VenueCapacity']?></td>
                     <td><?=$venue['AvailableCapacity']?></td>
                     <td><img  style="width: 300px; height: 250px;" src="<?=base_url('/uploads/'.$venue['Image'])?>" alt="#"/></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $venue['VenueID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="/staff-restaurant/service/delete/<?= $venue['VenueID']; ?>" onclick="return confirm('Are you sure you want to delete this Venue?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

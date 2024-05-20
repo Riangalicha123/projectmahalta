@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta Admin</title>
+  <title>Mahalta Staff</title>
 
   <link rel="stylesheet"  href="<?= base_url() ?>guest/images/logomahalta.png">
   <!-- Google Font: Source Sans Pro -->
@@ -17,17 +17,16 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-<?php include('include/loader.php') ?>
-  <!-- Navbar -->
   
   <?php include('include/navbar.php') ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <?php include('include/logo.php') ?>
-
+  <a href="<?=base_url()?>admin/index3.html" class="brand-link elevation-4">
+      <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
+    </a>
     <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
     <!-- /.sidebar -->
@@ -119,7 +118,7 @@
             <?= $validation->listErrors() ?>
         </div>
     <?php endif; ?>
-                    <form class="form-horizontal" action="<?= base_url('/update-password') ?>" method="post">
+                    <form class="form-horizontal" action="<?= base_url('/staff/restaurant/update-password') ?>" method="post">
                       <div class="form-group row">
                         <label for="oldpassword" class="col-sm-2 col-form-label">Old Password</label>
                         <div class="col-sm-10">
@@ -133,7 +132,7 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="confirmpassword" class="col-sm-2 col-form-label">Cofirm Password</label>
+                        <label for="confirmpassword" class="col-sm-2 col-form-label">Confirm Password</label>
                         <div class="col-sm-10">
                         <input type="password" name="confirmpassword" class="form-control" id="confirmpassword" required>
                         </div>

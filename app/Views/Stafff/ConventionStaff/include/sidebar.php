@@ -59,9 +59,18 @@
             </a>
           </li>
           <br>
-          <br>
+          <hr>
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>
           <li class="nav-item" >
-            <a class="nav-link" href="<?= route_to('staff-logout') ?>" >
+            <a class="nav-link <?= (isset($currenttRoute) && $currenttRoute === 'consetting') ? 'active' : '' ?> " href="<?= route_to('staff-consetting') ?>">
+            <i class="nav-icon fas fa-user-cog"></i>
+              <p>
+                SETTING
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a class="nav-link" href="<?= route_to('staff-logout') ?>">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 LOG OUT

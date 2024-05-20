@@ -69,9 +69,9 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button> -->
+                    </button>
 
                     <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -95,29 +95,30 @@
                                           <input type="text" class="form-control" id="LastName" name="LastName" required>
                                       </div>
                                   </div>
-                                <div class="form-group">
-                                    <label for="Email">Email</label>
-                                    <input type="email" class="form-control" id="Email" name="Email" required>
-                                </div>
                                 <div class="form-row">
                                       <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
                                           <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required>
                                       </div>
-                                      <div class="form-group col-md-6">
-                                          <label for="Address">Address</label>
-                                          <input type="text" class="form-control" id="Address" name="Address" required>
-                                      </div>
                                 </div>
                                 <div class="form-row">
                                             <div class="form-group col-md-6">
-                                              <label for="EventType">Event Type</label>
-                                              <select class="custom-select form-control-border" id="EventType" name="EventType" required>
-                                                <option>Wedding</option>
-                                                <option>Team Building</option>
-                                                <option>Meeting</option>
-                                                <option>Proposal</option>
+                                              <label for="conVenueName">Venue Name</label>
+                                              <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" required>
+                                              <option>CBRC Hall</option>
+                                              <option>Octagon</option>
+                                              <option>Tamaraw</option>
                                               </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                            <label for="EventType">Event Type</label>
+                                            <select class="custom-select form-control-border" id="EventType" name="EventType" required>
+                                              <option>Wedding</option>
+                                              <option>Birthday</option>
+                                              <option>Seminar</option>
+                                              <option>Christening</option>
+                                              <option>Anniversary</option>
+                                            </select>
                                             </div>
                                         </div>
                                         <div class="form-row">
@@ -137,7 +138,27 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                           
+                                        <div class="form-group col-md-6">
+                                        <label for="PaymentOption">Payment Option</label>
+                                            <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
+                                              <option>gcash</option>
+                                              <option>paymaya</option>
+                                            </select>
+                                      </div>
+                                        <div class="form-group col-md-6">
+                                                <label for="ReferenceNumber">Reference No.</label>
+                                                <input type="text" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                                <label for="downorfullPayment">Down or Full Payment</label>
+                                                <input type="number" class="form-control" id="downorfullPayment" name="downorfullPayment" required>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="TotalAmount">Total Amounts</label>
+                                                <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required>
+                                            </div>
                                         </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -164,8 +185,25 @@
                                     <div class="card-body">
                                         <input type="hidden" name="ReservationID" id="ReservationID" value="<?= $reevent['ReservationID'] ?>">
                                         <div class="form-row">
+                                      <div class="form-group col-md-6">
+                                          <label for="FirstName">First Name</label>
+                                          <input type="text" class="form-control" id="FirstName" name="FirstName" value="<?= $reevent['FirstName'] ?>" required>
+                                      </div>
+                                      <div class="form-group col-md-6">
+                                          <label for="LastName">Last Name</label>
+                                          <input type="text" class="form-control" id="LastName" name="LastName" value="<?= $reevent['LastName'] ?>" required>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                          <label for="ContactNumber">Contact Number</label>
+                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" value="<?= $reevent['ContactNumber'] ?>" required>
+                                      </div>
+                                      
+                                  </div>
+                                        <div class="form-row">
                                         <div class="form-group col-md-6">
-                                              <label for="conVenueName">Event Type</label>
+                                              <label for="conVenueName">Venue Name</label>
                                               <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" value="<?=$reevent['conVenueName']?>" required>
                                                 <option <?= ($reevent['conVenueName'] == 'CBRC Hall') ? 'selected' : '' ?>>CBRC Hall</option>
                                                 <option <?= ($reevent['conVenueName'] == 'Tamaraw') ? 'selected' : '' ?>>Tamaraw</option>
@@ -201,7 +239,29 @@
                                             </div>
                                         </div>
                                         <div class="form-row">
-                                            
+                                        <div class="form-group col-md-6">
+                                        <label for="PaymentOption">Payment Option</label>
+                                            <select class="custom-select form-control-border" id="PaymentOption" name="PaymentOption" required>
+                                            <option <?= ($reevent['PaymentOption'] == 'gcash') ? 'selected' : '' ?>>gcash</option>
+                                                <option <?= ($reevent['PaymentOption'] == 'paymaya') ? 'selected' : '' ?>>paymaya</option>
+                                            </select>
+                                      </div>
+                                        <div class="form-group col-md-6">
+                                                <label for="ReferenceNumber">Reference No.</label>
+                                                <input type="text" class="form-control" id="ReferenceNumber" name="ReferenceNumber" required value="<?= $reevent['ReferenceNumber'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="downorfullPayment">Down or Full Payment</label>
+                                                <input type="number" class="form-control" id="downorfullPayment" name="downorfullPayment" required value="<?= $reevent['downorfullPayment'] ?>">
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <label for="TotalAmount">Total Amounts</label>
+                                                <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required value="<?= $reevent['TotalAmount'] ?>">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
@@ -229,7 +289,7 @@
                     <th>Reference Number</th>
                     <th>Down or Full Payment</th>
                     <th>Total Amount</th>
-                    <th>Image</th>
+                    <th>Proof Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
                     <th>Action</th>

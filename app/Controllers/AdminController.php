@@ -179,6 +179,38 @@ class AdminController extends BaseController
             return redirect()->to('/admin-login');
         }
     }
+
+    public function updatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
+
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/admin-setting');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/admin-setting');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Admin\setting', $data);
+        }
+    }
     public function logout()
     {
         $session = session();
@@ -948,81 +980,81 @@ class AdminController extends BaseController
         }
     }
     public function updateConReservation($reservationID)
-{
-    helper(['form']);
+    {
+        helper(['form']);
 
-    // Retrieve existing reservation
-    $existingReservation = $this->reservation->find($reservationID);
+        // Retrieve existing reservation
+        $existingReservation = $this->reservation->find($reservationID);
 
-    if (!$existingReservation) {
-        return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Reservation not found.');
-    }
+        if (!$existingReservation) {
+            return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Reservation not found.');
+        }
 
-    // Retrieve existing user associated with the reservation
-    $userID = $existingReservation['UserID'];
-    $existingUser = $this->users->find($userID);
+        // Retrieve existing user associated with the reservation
+        $userID = $existingReservation['UserID'];
+        $existingUser = $this->users->find($userID);
 
-    if (!$existingUser) {
-        return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'User associated with the reservation not found.');
-    }
+        if (!$existingUser) {
+            return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'User associated with the reservation not found.');
+        }
 
-    // Update user data
-    $userData = [
-        'FirstName' => $this->request->getVar('FirstName'),
-        'LastName' => $this->request->getVar('LastName'),
-        'ContactNumber' => $this->request->getVar('ContactNumber'),
-    ];
+        // Update user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
 
-    $userUpdated = $this->users->update($userID, $userData);
+        $userUpdated = $this->users->update($userID, $userData);
 
-    if ($userUpdated) {
-        $inputVenueName = $this->request->getPost('conVenueName');
-        $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
-        $inputEventType = $this->request->getPost('EventType');
-        $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
+        if ($userUpdated) {
+            $inputVenueName = $this->request->getPost('conVenueName');
+            $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
+            $inputEventType = $this->request->getPost('EventType');
+            $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
 
-        if ($venueDataByName && $eventDataByType) {
-            $conventionData = [
-                'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
-                'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
-            ];
-
-            // Update convention data
-            $conventionID = $existingReservation['conventionID'];
-            $conventionUpdated = $this->conventions->update($conventionID, $conventionData);
-
-            if ($conventionUpdated) {
-                // Prepare updated Reservation Data
-                $updatedReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
-                    'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                    'TotalAmount' => $this->request->getPost('TotalAmount'),
-                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
-                    'PaymentOption' => $this->request->getPost('PaymentOption'),
-                    'Status' => 'Confirm',
+            if ($venueDataByName && $eventDataByType) {
+                $conventionData = [
+                    'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
+                    'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
                 ];
 
-                // Update Reservation
-                $reservationUpdated = $this->reservation->update($reservationID, $updatedReservationData);
+                // Update convention data
+                $conventionID = $existingReservation['conventionID'];
+                $conventionUpdated = $this->conventions->update($conventionID, $conventionData);
 
-                // Redirect with appropriate message
-                if ($reservationUpdated) {
-                    return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation updated successfully.');
+                if ($conventionUpdated) {
+                    // Prepare updated Reservation Data
+                    $updatedReservationData = [
+                        'CheckInDate' => $this->request->getPost('CheckInDate'),
+                        'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                        'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                        'TotalAmount' => $this->request->getPost('TotalAmount'),
+                        'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                        'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                        'PaymentOption' => $this->request->getPost('PaymentOption'),
+                        'Status' => 'Confirm',
+                    ];
+
+                    // Update Reservation
+                    $reservationUpdated = $this->reservation->update($reservationID, $updatedReservationData);
+
+                    // Redirect with appropriate message
+                    if ($reservationUpdated) {
+                        return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation updated successfully.');
+                    } else {
+                        return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Failed to update reservation. Please try again.');
+                    }
                 } else {
-                    return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Failed to update reservation. Please try again.');
+                    return redirect()->to(base_url('/admin-convention'))->with('error', 'Failed to update convention. Please check your input.');
                 }
             } else {
-                return redirect()->to(base_url('/admin-convention'))->with('error', 'Failed to update convention. Please check your input.');
+                return redirect()->to(base_url('/admin-convention'))->with('error', 'Invalid Event Type or Venue Name. Please check your input.');
             }
         } else {
-            return redirect()->to(base_url('/admin-convention'))->with('error', 'Invalid Event Type or Venue Name. Please check your input.');
+            return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Failed to update user. Please try again.');
         }
-    } else {
-        return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Failed to update user. Please try again.');
     }
-}
 
     public function updateconStatus($status, $reservationID)
     {
@@ -1500,7 +1532,7 @@ class AdminController extends BaseController
                 // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
                     // Move the file to the 'uploads' directory
-                    if ($file->move(FCPATH . 'uploads', $newFileName)) {
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
                         $this->rooms->save($data);
                     } else {
@@ -1553,7 +1585,7 @@ class AdminController extends BaseController
                 // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
                     // Move the file to the 'uploads' directory
-                    if ($file->move(FCPATH . 'uploads', $newFileName)) {
+                    if ($file->move(FCPATH . 'uploads/', $newFileName)) {
                         // Save product data to the database
                         $this->rooms->save($data);
                     } else {

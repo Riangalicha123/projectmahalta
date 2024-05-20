@@ -162,7 +162,7 @@
                     <td><?=$roinvent['Quantity']?></td>
                     <td><?=$roinvent['Price']?></td>
                     <td><?=$roinvent['updated_at']?></td>
-                    <th><a class="btn btn-danger" href="/deleteProduct/<?= $roinvent['roomInventoryID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
+                    <th><a class="btn btn-danger" href="/staff-inventoryhotel/delete/<?= $roinvent['roomInventoryID']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

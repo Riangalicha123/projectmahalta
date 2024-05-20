@@ -82,6 +82,26 @@ class InventoryController extends BaseController
             return view('Stafff\Inventory\hotel',$data);
         }
     }
+    public function deleteAmenitiesItemm($roomInventoryID)
+    {
+        // Retrieve the product by ID
+        $roominventory = $this->roominventory->find($roomInventoryID);
+        
+        // Check if the roominventory exists
+        if ($roominventory) {
+            // Delete the roominventory
+            $deleted = $this->roominventory->delete($roomInventoryID);
+            
+            // Check if deletion was successful
+            if ($deleted) {
+                return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Menu item deleted successfully.');
+            } else {
+                return redirect()->to(base_url('/staff-inventory/hotel'))->with('error', 'Failed to delete menu item. Please try again.');
+            }
+        } else {
+            return redirect()->to(base_url('/staff-inventory/hotel'))->with('error', 'Menu item not found.');
+        }
+    }
     public function updateinHotel($roomInventoryID)
     {
         helper(['form']);
@@ -114,6 +134,46 @@ class InventoryController extends BaseController
         // Redirect with appropriate message
         return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Reservation updated successfully.');
     }
+    public function invensetting()
+    {
+        $data = [
+            'currenttRoute' => 'invensetting',
+        ];
+        return view('Stafff\Inventory\setting', $data);
+    }
+    public function invenupdatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
+
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/staff-invensetting');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/staff-invensetting');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Stafff\Inventory\setting', $data);
+        }
+    }
+
+
     public function inventoryHotel()
     {
         $data = [
@@ -166,6 +226,7 @@ class InventoryController extends BaseController
             return redirect()->to(base_url('/admin-inventoryhotel'))->with('error', 'Menu item not found.');
         }
     }
+    
     public function updateeinHotel($roomInventoryID)
     {
         helper(['form']);

@@ -1541,6 +1541,7 @@ class GuestController extends BaseController
     {
         return view('Hotell\profile');
     }
+    
     public function updateProfile($userID)
     {
         helper(['form']);
@@ -1574,6 +1575,41 @@ class GuestController extends BaseController
 
         // Redirect with appropriate message
         return redirect()->to(base_url('/profile'))->with('success', 'Guest details updated successfully.');
+    }
+    public function changePassword()
+    {
+        return view('Hotell/changepassword');
+    }
+    public function updatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
+
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/change-password');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/change-password');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Hotell\changepassword', $data);
+        }
     }
     public function get_chat_data()
     {

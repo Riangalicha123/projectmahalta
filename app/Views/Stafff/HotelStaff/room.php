@@ -88,15 +88,40 @@
                                 <div class="card-body">
                                 <div class="form-group">
                                     <label for="RoomNumber">Room Number</label>
-                                    <input type="text" class="form-control" id="RoomNumber" name="RoomNumber" required>
+                                    <select class="custom-select form-control-border" id="RoomNumber" name="RoomNumber" required>
+                                        <option value="D1">D1</option>
+                                        <option value="D2">D2</option>
+                                        <option value="D3">D3</option>
+                                        <option value="D4">D4</option>
+                                        <option value="D5">D5</option>
+                                        <option value="D6">D6</option>
+                                        <option value="D7">D7</option>
+                                        <option value="D8">D8</option>
+                                        <option value="S1">S1</option>
+                                        <option value="S2">S2</option>
+                                        <option value="F2">F1</option>
+                                        <option value="F2">F2</option>
+                                        <option value="B1">B1</option>
+                                        <option value="B2">B2</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="RoomType">Room Type</label>
                                     <select class="custom-select form-control-border" id="RoomType" name="RoomType" required>
-                                        <option>Deluxe Room</option>
-                                        <option>Jr. Suite Room</option>
-                                        <option>Family Room</option>
-                                        <option>Barkada Room</option>
+                                        <option>Deluxe Room(Ruben)</option>
+                                        <option>Deluxe Room(Baby)</option>
+                                        <option>Deluxe Room(Siony)</option>
+                                        <option>Deluxe Room(Carlo)</option>
+                                        <option>Deluxe Room(Lyra)</option>
+                                        <option>Deluxe Room(Lyca)</option>
+                                        <option>Deluxe Room(Lambert)</option>
+                                        <option>Deluxe Room(Lyza)</option>
+                                        <option>Jr. Suite Room(Lyne)</option>
+                                        <option>Jr. Suite Room(Carl)</option>
+                                        <option>Family Room(Balansig)</option>
+                                        <option>Family Room(Limbaga)</option>
+                                        <option>Barkada Room(Babaylan)</option>
+                                        <option>Barkada Room(Tribo)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -104,8 +129,23 @@
                                     <input type="text" class="form-control" id="Description" name="Description" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="PricePerNight">Price per Night</label>
+                                    <label for="PricePerNight">Price</label>
                                     <input type="number" class="form-control" id="PricePerNight" name="PricePerNight" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PerNightHead">Per Night or Head</label>
+                                    <select class="custom-select form-control-border" id="PerNightHead" name="PerNightHead" required>
+                                        <option>Night</option>
+                                        <option>Head</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="minPerson">Min Person</label>
+                                    <input type="number" class="form-control" id="minPerson" name="minPerson" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxPerson">Max Person</label>
+                                    <input type="number" class="form-control" id="maxPerson" name="maxPerson" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
@@ -163,10 +203,20 @@
                                 <div class="form-group">
                                     <label for="RoomType">Room Type</label>
                                     <select class="custom-select form-control-border" id="RoomType" name="RoomType" value="<?=$room['RoomType']?>"required>
-                                      <option <?= ($room['RoomType'] == 'Deluxe Room') ? 'selected' : '' ?>>Deluxe Room</option>
-                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room') ? 'selected' : '' ?>>Jr. Suite Room</option>
-                                      <option <?= ($room['RoomType'] == 'Family Room') ? 'selected' : '' ?>>Family Room</option>
-                                      <option <?= ($room['RoomType'] == 'Barkada Room') ? 'selected' : '' ?>>Barkada Room</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Ruben)') ? 'selected' : '' ?>>Deluxe Room(Ruben)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Baby)') ? 'selected' : '' ?>>Deluxe Room(Baby)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Siony)') ? 'selected' : '' ?>>Deluxe Room(Siony)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Carlo)') ? 'selected' : '' ?>>Deluxe Room(Carlo)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyra)') ? 'selected' : '' ?>>Deluxe Room(Lyra)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyca)') ? 'selected' : '' ?>>Deluxe Room(Lyca)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lambert)') ? 'selected' : '' ?>>Deluxe Room(Lambert)</option>
+                                      <option <?= ($room['RoomType'] == 'Deluxe Room(Lyza)') ? 'selected' : '' ?>>Deluxe Room(Lyza)</option>
+                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room(Lyne)') ? 'selected' : '' ?>>Jr. Suite Room(Lyne)</option>
+                                      <option <?= ($room['RoomType'] == 'Jr. Suite Room(Carl)') ? 'selected' : '' ?>>Jr. Suite Room(Carl)</option>
+                                      <option <?= ($room['RoomType'] == 'Family Room(Balansig)') ? 'selected' : '' ?>>Family Room(Balansig)</option>
+                                      <option <?= ($room['RoomType'] == 'Family Room(Limbaga)') ? 'selected' : '' ?>>Family Room(Limbaga)</option>
+                                      <option <?= ($room['RoomType'] == 'Barkada Room(Babaylan)') ? 'selected' : '' ?>>Barkada Room(Babaylan)</option>
+                                      <option <?= ($room['RoomType'] == 'Barkada Room(Tribo)') ? 'selected' : '' ?>>Barkada Room(Tribo)</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -176,6 +226,13 @@
                                 <div class="form-group">
                                     <label for="PricePerNight">Price</label>
                                     <input type="text" class="form-control" id="PricePerNight" name="PricePerNight"   value="<?=$room['PricePerNight']?>"required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="PerNightHead">Per Night or Head</label>
+                                    <select class="custom-select form-control-border" id="PerNightHead" name="PerNightHead"  value="<?=$room['PerNightHead']?>" required>
+                                    <option <?= ($room['PerNightHead'] == 'Night') ? 'selected' : '' ?>>Night</option>
+                                      <option <?= ($room['PerNightHead'] == 'Head') ? 'selected' : '' ?>>Head</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="minPerson">Min Person</label>
@@ -212,6 +269,7 @@
                     <th>RoomTypes</th>
                     <th>Description</th>
                     <th>Price</th>
+                    <th>per Night or Head</th>
                     <th>Min Person</th>
                     <th>Max Person</th>
                     <th>Image</th>
@@ -227,11 +285,12 @@
                     <td><?=$room['RoomType']?></td>
                     <td><?=$room['Description']?></td>
                     <td><?=$room['PricePerNight']?></td>
+                    <td><?=$room['PerNightHead']?></td>
                     <td><?=$room['minPerson']?></td>
                     <td><?=$room['maxPerson']?></td>
-                    <td><img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 200px; height: 200px;" src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>
                     <td style="color: red; background-border: #0056b3;" ><?=$room['AvailabilityStatus']?></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $room['RoomID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
+                    <th> <a class="btn btn-danger" href="/staff-hotel/service/delete/<?= $room['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

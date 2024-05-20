@@ -22,7 +22,9 @@ use App\Models\MenuCategoryModel;
 use App\Models\MenuProductIcedModel;
 use App\Models\RestaurantVenueModel;
 use App\Models\ConventionVenueModel;
+use App\Models\ConventionModel;
 use App\Traits\EmailTrait;
+use App\Models\GuestModel;
 use CodeIgniter\API\ResponseTrait;
 
 class StaffController extends BaseController
@@ -47,7 +49,9 @@ class StaffController extends BaseController
     private $province;
     private $cities;
     private $barangay;
+    private $guest;
     private $convenues;
+    private $conventions;
 
     function __construct(){
         helper(['form']);
@@ -70,6 +74,8 @@ class StaffController extends BaseController
         $this->categories = new MenuCategoryModel();
         $this->iced = new MenuProductIcedModel();
         $this->convenues = new ConventionVenueModel();
+        $this->conventions = new ConventionModel();
+        $this->guest = new GuestModel();
     }
     public function login(){
         helper(['form']);
@@ -192,139 +198,172 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'hotel',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false )
+            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
             ->join('rooms', 'reservations.RoomID = rooms.RoomID')
             ->join('users', 'reservations.UserID = users.UserID')
-            ->findAll()
+            ->findAll(),
+            'regions' => $this->regions->findAll(),
         ]; 
         return view('Stafff\HotelStaff\reservation', $data);
     }
     public function addhotelReservation()
     {
         helper(['form']);
-
-        // Validation Rules
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'ContactNumber' => 'required',
-            'Address' => 'required',
-            'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'RoomNumber' => 'required',
-            'RoomType' => 'required',
-            'NumberOfGuests' => 'required',
-            'downorfullPayment' => 'required',
-            'TotalAmount' => 'required',
-            'ReferenceNumber' => 'required',
+    
+        // Retrieve and map region, province, city, and barangay descriptions
+        $regionCode = $this->request->getVar('Region');
+        $provinceCode = $this->request->getVar('Province');
+        $cityCode = $this->request->getVar('City');
+        $barangayCode = $this->request->getVar('Barangay');
+    
+        $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
+        $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
+        $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
+        $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
+    
+        // Construct user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Region' => $regionDesc,
+            'Province' => $provinceDesc,
+            'City' => $cityDesc,
+            'Barangay' => $barangayDesc,
+            'UserRoleID' => 1,
+            'verification_token' => bin2hex(random_bytes(16)),
+            'is_verified' => 1,
         ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/bookroom', ['validationErrors' => $validationErrors]);
-        }
-
-        // Retrieve Post Data
-        $FirstName = $this->request->getPost('FirstName');
-        $LastName = $this->request->getPost('LastName');
-        $ContactNumber = $this->request->getPost('ContactNumber');
-        $Address = $this->request->getPost('Address');
-
-        // Use a single query to get the user based on both first name and last name
-        $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
-                            ->first();
-
-        // Retrieve Room Data
-        $inputRoomType = $this->request->getPost('RoomType');
-        $inputRoomNumber = $this->request->getPost('RoomNumber');
-
-        $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
-        $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
-
-        // Check both conditions for roomData
-        if ($roomDataByType && $roomDataByNumber && $user) {
-            // Prepare Reservation Data
-            $newReservationData = [
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'CheckOutDate' => $this->request->getPost('CheckOutDate'),
-                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                'downorfullPayment' => $this->request->getPost('downorfullPayment'),
-                'TotalAmount' => $this->request->getPost('TotalAmount'),
-                'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
-                'Status' => 'Pending',
-                'RoomID' => $roomDataByType['RoomID'], // Use the RoomID from RoomType
-                'UserID' => $user['UserID'],
+    
+        // Insert user data into the database and retrieve the new UserID
+        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
+    
+        if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
             ];
+            $this->guest->insert($guestData);
 
-            // Insert Reservation
-            $inserted = $this->reservation->insert($newReservationData);
-
-            // Redirect with appropriate message
-            if ($inserted) {
-                return redirect()->to(base_url('/staff-hotelreservation'))->with('success', 'Reservation added successfully.');
+            // Retrieve Room Data
+            $inputRoomType = $this->request->getPost('RoomType');
+            $inputRoomNumber = $this->request->getPost('RoomNumber');
+    
+            $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
+            $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
+    
+            // Check both conditions for roomData
+            if ($roomDataByType && $roomDataByNumber) {
+                // Prepare Reservation Data
+                $newReservationData = [
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
+                    'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomDataByType['RoomID'], 
+                    'UserID' => $UserID, 
+                ];
+                // Insert Reservation
+                $inserted = $this->reservation->insert($newReservationData);
+    
+                // Redirect with appropriate message
+                if ($inserted) {
+                    return redirect()->to(base_url('/staff-hotelreservation'))->with('success', 'Reservation added successfully.');
+                } else {
+                    return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to add reservation. Please try again.');
+                }
             } else {
-                return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
             }
         } else {
-            return redirect()->to(base_url('/staff-hotel'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to create user. Please try again.');
         }
     }
+    public function deleteServiceRoom($id)
+    {
+        // Find the room by ID
+        $room = $this->rooms->find($id);
+
+        if ($room) {
+            // Delete room image file
+            $imagePath = FCPATH . 'uploads/' . $room['Image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Delete the room record from the database
+            $this->rooms->delete($id);
+
+            return redirect()->to('/staff-hotelroom')->with('status', 'Room deleted successfully');
+        } else {
+            return redirect()->to('/staff-hotelroom')->with('error', 'Room not found');
+        }
+    }    
     public function updatehotelReservation($reservationID)
     {
         helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
-        $validationRules = [
-            
-            'CheckInDate' => 'required',
-            'CheckOutDate' => 'required',
-            'RoomNumber' => 'required',
-            'RoomType' => 'required',
-            'NumberOfGuests' => 'required|numeric',
-            'downorfullPayment' => 'required|numeric',
-            'TotalAmount' => 'required|numeric',
-            'ReferenceNumber' => 'required|numeric',
+        
+        // Retrieve user data from the request
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
-            return redirect()->to(base_url("/editReservation/{$reservationID}"))->with('validationErrors', $validationErrors);
+        
+        // Retrieve the existing reservation to get the UserID
+        $reservation = $this->reservation->find($reservationID);
+        if (!$reservation) {
+            return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Reservation not found.');
         }
-
-
-        $inputRoomType = $this->request->getPost('RoomType');
-        $inputRoomNumber = $this->request->getPost('RoomNumber');
-
-        $roomData = $this->rooms->where('RoomType', $inputRoomType)
-                                ->where('RoomNumber', $inputRoomNumber)
-                                ->first();
-
-        // Update Reservation Data
-        if ($roomData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
+    
+        $userID = $reservation['UserID'];
+        
+        // Update user data in the database
+        $updateUserResult = $this->users->update($userID, $userData);
+    
+        if ($updateUserResult) {
+            // Retrieve room data from the request
+            $inputRoomType = $this->request->getPost('RoomType');
+            $inputRoomNumber = $this->request->getPost('RoomNumber');
+            
+            // Find the room data by type and number
+            $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
+            $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
+            
+            // Check if both room type and number are valid and match
+            if ($roomDataByType && $roomDataByNumber && $roomDataByType['RoomID'] === $roomDataByNumber['RoomID']) {
+                // Prepare the new reservation data
+                $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
-                    'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
                     'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                     'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
-                    'RoomID' => $roomData['RoomID'], // Use the RoomID from RoomType
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomDataByType['RoomID'],
+                    'UserID' => $userID,
                 ];
-
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
-
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/staff-hotelreservation'))->with('success', 'Reservation updated successfully.');
+                
+                // Update the reservation
+                $updateReservationResult = $this->reservation->update($reservationID, $newReservationData);
+                
+                if ($updateReservationResult) {
+                    return redirect()->to(base_url('/staff-hotelreservation'))->with('success', 'Reservation updated successfully.');
+                } else {
+                    return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to update reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            }
         } else {
-            return redirect()->to(base_url('/staff-hotel'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
 
@@ -430,7 +469,6 @@ class StaffController extends BaseController
         ]; 
         return view('Stafff\HotelStaff\room', $data);
     }
-    
     public function addRoom(){
         $file = $this->request->getFile('Image');
     
@@ -480,11 +518,43 @@ class StaffController extends BaseController
     
         return redirect()->to('/staff-hotelroom');
     }
-    
+    public function hotelsetting()
+    {
+        $data = [
+            'currenttRoute' => 'hotelsetting',
+        ];
+        return view('Stafff\HotelStaff\setting', $data);
+    }
+    public function hotelupdatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
 
-    public function deleteRoom($RoomID = null){
-        $this->rooms->delete($RoomID);
-        return redirect()->to('/staff-hotelroom');
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/staff-hotelsetting');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/staff-hotelsetting');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Stafff\HotelStaff\setting', $data);
+        }
     }
 
 
@@ -551,113 +621,139 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'restaurant',
             'restrevs' => $this->reservation
-            ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
-            ->join ('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->findAll()
+                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+                ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll()
         ]; 
         return view('Stafff\RestaurantStaff\reservation',$data);
     }
-    public function addrestauReservation(){
+
+    public function addrestauReservation()
+    {
         helper(['form']);
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'ContactNumber' => 'required',
-            'Address' => 'required',
-            'CheckInDate' => 'required',
-            'Venue' => 'required',
-            'Note' => 'required',
+        // Construct user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'verification_token' => bin2hex(random_bytes(16)),
+            'is_verified' => 1,
         ];
-
-        if (!$this->validate($validationRules)) {
-            // Validation failed, return with validation errors
-            $validationErrors = $this->validator->getErrors();
-            return view('/room', ['validationErrors' => $validationErrors]);
-        }
-        $FirstName = $this->request->getPost('FirstName');
-        $LastName = $this->request->getPost('LastName');
-        $ContactNumber = $this->request->getPost('ContactNumber');
-        $Address = $this->request->getPost('Address');
-
-        // Use a single query to get the user based on both first name and last name
-        $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->where('Address', $Address)
-                            ->first();
-
-        // Retrieve Room Data
-        $inputTable = $this->request->getPost('Venue');
-
-        $restaurantTable = $this->tables->where('Venue', $inputTable)->first();
-
-        // Check both conditions for roomData
-        if ($restaurantTable && $user) {
-            // Prepare Reservation Data
-            $newReservationData = [
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'Note' => $this->request->getPost('Note'),
-                'Status' => 'Pending',
-                'TableID' => $restaurantTable['TableID'], // Use the RoomID from RoomType
-                'UserID' => $user['UserID'],
+    
+        // Insert user data into the database and retrieve the new UserID
+        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
+    
+        if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
             ];
-
-            // Insert Reservation
-            $inserted = $this->reservation->insert($newReservationData);
-
-            // Redirect with appropriate message
-            if ($inserted) {
-                return redirect()->to(base_url('/staff-restaurant-reservation'))->with('success', 'Reservation added successfully.');
+            $this->guest->insert($guestData);
+            $VenueName = $this->request->getPost('VenueName');
+            $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
+    
+            if ($restaurantVenue ) {
+                $availableCapacity = $restaurantVenue['AvailableCapacity'];
+                $numberOfGuests = $this->request->getPost('NumberOfGuests');
+    
+                if ($availableCapacity >= $numberOfGuests) {
+                    $newAvailableCapacity = $availableCapacity - $numberOfGuests;
+                    $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
+    
+                    $restaurantReservation = [
+                        'NumberOfGuests' => $numberOfGuests,
+                        'CheckInDate' => $this->request->getPost('CheckInDate'),
+                        'Note' => $this->request->getPost('Note'),
+                        'Status' => 'Confirm',
+                        'VenueName' => $VenueName,
+                        'VenueID' => $restaurantVenue['VenueID'],
+                        'UserID' => $UserID,
+                    ];
+    
+                    $inserted = $this->reservation->insert($restaurantReservation);
+    
+                    if ($inserted) {
+                        return redirect()->to(base_url('/staff-restaurant-reservation'))->with('success', 'Reservation updated successfully.');
+                    } else {
+                        return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Failed to add reservation. Please try again.');
+                    }
+                } else {
+                    return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Not enough available capacity. Please select a different venue or reduce the number of guests.');
+                }
             } else {
-                return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Invalid user or venue information. Please check your input.');
             }
+    
         } else {
-            return redirect()->to(base_url('/staff-restaurant'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to create user. Please try again.');
         }
     }
     public function updaterestauReservation($reservationID)
     {
         helper(['form']);
-
+    
         // Validation Rules (you can customize these based on your requirements)
-        $validationRules = [
-            
-            'CheckInDate' => 'required',
-            'Venue' => 'required',
-            'Note' => 'required',
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
-            return redirect()->to(base_url("/editReservation/{$reservationID}"))->with('validationErrors', $validationErrors);
-        }
-
-
         
-        $inputTableNumber = $this->request->getPost('Venue');
-
-        $tableData = $this->tables->where('Venue', $inputTableNumber)
-                                ->first();
-
-        // Update Reservation Data
-        if ($tableData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'Note' => $this->request->getPost('Note'),
-                    'TableID' => $tableData['TableID'], // Use the RoomID from RoomType
-                ];
-
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
-
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/staff-restaurant-reservation'))->with('success', 'Reservation updated successfully.');
+        // Retrieve the existing reservation to get the UserID
+        $reservation = $this->reservation->find($reservationID);
+        if (!$reservation) {
+            return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Reservation not found.');
+        }
+    
+        $userID = $reservation['UserID'];
+        
+        // Update user data in the database
+        $updateUserResult = $this->users->update($userID, $userData);
+    
+        if ($updateUserResult) {
+            $VenueName = $this->request->getPost('VenueName');
+            $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
+    
+            if ($restaurantVenue) {
+                $availableCapacity = $restaurantVenue['AvailableCapacity'];
+                $numberOfGuests = $this->request->getPost('NumberOfGuests');
+    
+                if ($availableCapacity >= $numberOfGuests) {
+                    // Calculate new available capacity
+                    $newAvailableCapacity = $availableCapacity - $numberOfGuests;
+    
+                    // Update the venue's available capacity
+                    $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
+    
+                    // Prepare data to update the reservation
+                    $restaurantReservation = [
+                        'NumberOfGuests' => $numberOfGuests,
+                        'CheckInDate' => $this->request->getPost('CheckInDate'),
+                        'Note' => $this->request->getPost('Note'),
+                        'Status' => 'Confirm', // Fixed typo here
+                        'VenueName' => $VenueName,
+                        'VenueID' => $restaurantVenue['VenueID'],
+                        'UserID' => $userID,
+                    ];
+    
+                    // Update the reservation in the database
+                    $updated = $this->reservation->update($reservationID, $restaurantReservation);
+    
+                    if ($updated) {
+                        return redirect()->to(base_url('/staff-restaurant-reservation'))->with('success', 'Reservation updated successfully.');
+                    } else {
+                        // Roll back the venue capacity update in case of reservation update failure
+                        $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $availableCapacity]);
+                        return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Failed to update reservation. Please try again.');
+                    }
+                } else {
+                    return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Not enough available capacity. Please select a different venue or reduce the number of guests.');
+                }
+            } else {
+                return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Invalid venue information. Please check your input.');
+            }
         } else {
-            return redirect()->to(base_url('/staff-restaurant'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
 
@@ -723,6 +819,44 @@ class StaffController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
+    public function ressetting()
+    {
+        $data = [
+            'currenttRoute' => 'ressetting',
+        ];
+        return view('Stafff\RestaurantStaff\setting', $data);
+    }
+    public function resupdatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
+
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/staff-ressetting');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/staff-ressetting');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Stafff\RestaurantStaff\setting', $data);
+        }
+    }
     public function resVenue()
     {
 
@@ -776,9 +910,26 @@ class StaffController extends BaseController
     
         return redirect()->to('/staff-restaurant-venue');
     }
-    
+    public function deleteServiceTable($id)
+    {
+        // Find the room by ID
+        $table = $this->venues->find($id);
 
+        if ($table) {
+            // Delete table image file
+            $imagePath = FCPATH . 'uploads/' . $table['Image'];
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
 
+            // Delete the table record from the database
+            $this->venues->delete($id);
+
+            return redirect()->to('/staff-restaurant-venue')->with('status', 'Room deleted successfully');
+        } else {
+            return redirect()->to('/staff-restaurant-venue')->with('error', 'Room not found');
+        }
+    }
     public function updateVenue(){
 
         $file = $this->request->getFile('Image');
@@ -874,123 +1025,160 @@ class StaffController extends BaseController
         $data = [
             'currentttRoute' => 'convention',
             'reevents' => $this->reservation
-            ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
-            ->join ('convention', 'reservations.conventionID = convention.conventionID')
-            ->join ('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
-            ->join ('events', 'convention.EventID = events.EventID')
-            ->join ('users', 'reservations.UserID = users.UserID')
-            ->findAll()
+                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
+                ->join('convention', 'reservations.conventionID = convention.conventionID')
+                ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
+                ->join('events', 'convention.EventID = events.EventID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll()
         ]; 
         return view('Stafff\ConventionStaff\reservation', $data);
     }
     public function addconReservation()
     {
         helper(['form']);
-
-        // Validation Rules
-        $validationRules = [
-            'FirstName' => 'required',
-            'LastName' => 'required',
-            'Email' => 'required',
-            'ContactNumber' => 'required',
-            'CheckInDate' => 'required',
-            'EventType' => 'required',
-            'NumberOfGuests' => 'required',
-            'Note' => 'required',
+    
+        // Construct user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'UserRoleID' => 1,
+            'verification_token' => bin2hex(random_bytes(16)),
+            'is_verified' => 1,
         ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/bookroom', ['validationErrors' => $validationErrors]);
-        }
-
-        // Retrieve Post Data
-        $FirstName = $this->request->getPost('FirstName');
-        $LastName = $this->request->getPost('LastName');
-        $Email = $this->request->getPost('Email');
-        $ContactNumber = $this->request->getPost('ContactNumber');
-
-        // Use a single query to get the user based on both first name and last name
-        $user = $this->users->where('FirstName', $FirstName)
-                            ->where('LastName', $LastName)
-                            ->where('Email', $Email)
-                            ->where('ContactNumber', $ContactNumber)
-                            ->first();
-
-        // Retrieve Room Data
-        $inputEventType = $this->request->getPost('EventType');
-
-        $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
-
-        // Check both conditions for eventData
-        if ($eventDataByType && $user) {
-            // Prepare Reservation Data
-            $newReservationData = [
-                'CheckInDate' => $this->request->getPost('CheckInDate'),
-                'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                'Note' => $this->request->getPost('Note'),
-                'Status' => 'Pending',
-                'EventID' => $eventDataByType['EventID'], // Use the RoomID from RoomType
-                'UserID' => $user['UserID'],
+    
+        // Insert user data into the database and retrieve the new UserID
+        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
+    
+        if ($UserID) {
+            $guestData = [
+                'UserID' => $UserID,
             ];
-
-            // Insert Reservation
-            $inserted = $this->reservation->insert($newReservationData);
-
-            // Redirect with appropriate message
-            if ($inserted) {
-                return redirect()->to(base_url('/staff-convention-reservation'))->with('success', 'Reservation added successfully.');
+            $this->guest->insert($guestData);
+            $inputVenueName = $this->request->getPost('conVenueName');
+            $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
+            $inputEventType = $this->request->getPost('EventType');
+            $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
+    
+            // Ensure only the necessary IDs are passed
+            if ($venueDataByName && $eventDataByType) {
+                $conventionData = [
+                    'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
+                    'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
+                ];
+    
+                $conventionID = $this->conventions->insert($conventionData);
+                
+                if ($conventionID) {
+                    // Prepare Reservation Data
+                    $newReservationData = [
+                        'CheckInDate' => $this->request->getPost('CheckInDate'),
+                        'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                        'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                        'TotalAmount' => $this->request->getPost('TotalAmount'),
+                        'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                        'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                        'PaymentOption' => $this->request->getPost('PaymentOption'),
+                        'Status' => 'Confirm',
+                        'conventionID' => $conventionID, 
+                        'UserID' => $UserID, 
+                    ];
+    
+                    // Insert Reservation
+                    $inserted = $this->reservation->insert($newReservationData);
+    
+                    // Redirect with appropriate message
+                    if ($inserted) {
+                        return redirect()->to(base_url('/staff-convention-reservation'))->with('success', 'Reservation added successfully.');
+                    } else {
+                        return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to add reservation. Please try again.');
+                    }
+                } else {
+                    return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to add convention. Please check your input.');
+                }
             } else {
-                return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to add reservation. Please try again.');
+                return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Invalid Event Type or Venue Name. Please check your input.');
             }
         } else {
-            return redirect()->to(base_url('/staff-convention'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to create user. Please try again.');
         }
     }
+
     public function updateconReservation($reservationID)
     {
         helper(['form']);
 
-        // Validation Rules (you can customize these based on your requirements)
-        $validationRules = [
-            'EventType' => 'required',
-            'CheckInDate' => 'required',
-            'NumberOfGuests' => 'required',
-            'Note' => 'required',
-        ];
+        // Retrieve existing reservation
+        $existingReservation = $this->reservation->find($reservationID);
 
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
-            return redirect()->to(base_url("/editReservation/{$reservationID}"))->with('validationErrors', $validationErrors);
+        if (!$existingReservation) {
+            return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Reservation not found.');
         }
 
+        // Retrieve existing user associated with the reservation
+        $userID = $existingReservation['UserID'];
+        $existingUser = $this->users->find($userID);
 
-        
-        $inputEventType = $this->request->getPost('EventType');
+        if (!$existingUser) {
+            return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'User associated with the reservation not found.');
+        }
 
-        $eventData = $this->events->where('EventType', $inputEventType)
-                                ->first();
+        // Update user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
 
-        // Update Reservation Data
-        if ($eventData) {
-                // Prepare Reservation Data
-                $updateReservationData = [
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
-                    'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
-                    'Note' => $this->request->getPost('Note'),
-                    'EventID' => $eventData['EventID'], // Use the RoomID from RoomType
+        $userUpdated = $this->users->update($userID, $userData);
+
+        if ($userUpdated) {
+            $inputVenueName = $this->request->getPost('conVenueName');
+            $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
+            $inputEventType = $this->request->getPost('EventType');
+            $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
+
+            if ($venueDataByName && $eventDataByType) {
+                $conventionData = [
+                    'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
+                    'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
                 ];
 
-        // Update Reservation
-        $this->reservation->update($reservationID, $updateReservationData);
+                // Update convention data
+                $conventionID = $existingReservation['conventionID'];
+                $conventionUpdated = $this->conventions->update($conventionID, $conventionData);
 
-        // Redirect with appropriate message
-        return redirect()->to(base_url('/staff-convention-reservation'))->with('success', 'Reservation updated successfully.');
+                if ($conventionUpdated) {
+                    // Prepare updated Reservation Data
+                    $updatedReservationData = [
+                        'CheckInDate' => $this->request->getPost('CheckInDate'),
+                        'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                        'NumberOfGuests' => $this->request->getPost('NumberOfGuests'),
+                        'TotalAmount' => $this->request->getPost('TotalAmount'),
+                        'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                        'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                        'PaymentOption' => $this->request->getPost('PaymentOption'),
+                        'Status' => 'Confirm',
+                    ];
+
+                    // Update Reservation
+                    $reservationUpdated = $this->reservation->update($reservationID, $updatedReservationData);
+
+                    // Redirect with appropriate message
+                    if ($reservationUpdated) {
+                        return redirect()->to(base_url('/staff-convention-reservation'))->with('success', 'Reservation updated successfully.');
+                    } else {
+                        return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to update reservation. Please try again.');
+                    }
+                } else {
+                    return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to update convention. Please check your input.');
+                }
+            } else {
+                return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Invalid Event Type or Venue Name. Please check your input.');
+            }
         } else {
-            return redirect()->to(base_url('/staff-convention'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            return redirect()->to(base_url('/staff-convention-reservation'))->with('error', 'Failed to update user. Please try again.');
         }
     }
     
@@ -1110,6 +1298,32 @@ class StaffController extends BaseController
     
         return redirect()->to('/staff-convention-venue');
     }
+    public function deleteServiceConVenue($conVenueID)
+    {
+        // Find the venue by ID
+        $conVenue = $this->convenues->find($conVenueID);
+
+        if ($conVenue) {
+            // Get the image file path
+            $imagePath = FCPATH . 'convention/' . $conVenue['Image'];
+
+            // Delete the venue record from the database
+            $this->convenues->delete($conVenueID);
+
+            // Delete the image file if it exists
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Set a success message
+            session()->setFlashdata('success', 'Venue deleted successfully.');
+        } else {
+            // Set an error message
+            session()->setFlashdata('error', 'Venue not found.');
+        }
+
+        return redirect()->to('/staff-convention-venue');
+    }
     public function updateconVenue(){
 
         $file = $this->request->getFile('Image');
@@ -1211,6 +1425,32 @@ class StaffController extends BaseController
     
         return redirect()->to('/staff-convention-event');
     }
+    public function deleteServiceConEvent($EventID)
+    {
+        // Find the venue by ID
+        $conEvent = $this->events->find($EventID);
+
+        if ($conEvent) {
+            // Get the image file path
+            $imagePath = FCPATH . 'uploads/' . $conEvent['Image'];
+
+            // Delete the venue record from the database
+            $this->events->delete($EventID);
+
+            // Delete the image file if it exists
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+
+            // Set a success message
+            session()->setFlashdata('success', 'Venue deleted successfully.');
+        } else {
+            // Set an error message
+            session()->setFlashdata('error', 'Venue not found.');
+        }
+
+        return redirect()->to('/staff-convention-event');
+    }
     public function updateEvent(){
 
         $file = $this->request->getFile('Image');
@@ -1256,6 +1496,44 @@ class StaffController extends BaseController
             echo('error');
         }
         return redirect()->to('/staff-convention-event');
+    }
+    public function consetting()
+    {
+        $data = [
+            'currenttRoute' => 'consetting',
+        ];
+        return view('Stafff\ConventionStaff\setting', $data);
+    }
+    public function conupdatePassword()
+    {
+        $session = session();
+        $userModel = new UserModel();
+        $userID = $session->get('id');
+
+        // Validate form input
+        $rules = [
+            'oldpassword' => 'required',
+            'newpassword' => 'required|min_length[8]',
+            'confirmpassword' => 'required|matches[newpassword]'
+        ];
+
+        if ($this->validate($rules)) {
+            $oldPassword = $this->request->getPost('oldpassword');
+            $newPassword = $this->request->getPost('newpassword');
+            $user = $userModel->find($userID);
+
+            if (password_verify($oldPassword, $user['Password'])) {
+                $userModel->updatePassword($userID, $newPassword);
+                $session->setFlashdata('msg', 'Password successfully updated');
+                return redirect()->to('/staff-consetting');
+            } else {
+                $session->setFlashdata('msg', 'Old password is incorrect');
+                return redirect()->to('/staff-consetting');
+            }
+        } else {
+            $data['validation'] = $this->validator;
+            return view('Stafff\ConventionStaff\setting', $data);
+        }
     }
 }
 

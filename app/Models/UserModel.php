@@ -37,4 +37,12 @@ class UserModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function updatePassword($userID, $newPassword)
+    {
+        $data = [
+            'Password' => password_hash($newPassword, PASSWORD_DEFAULT)
+        ];
+        return $this->update($userID, $data);
+    }
 }
