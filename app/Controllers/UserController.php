@@ -20,6 +20,7 @@ use App\Models\BarangayModel;
 use App\Models\LoginAttempModel;
 use App\Traits\EmailTrait;
 use CodeIgniter\API\ResponseTrait;
+use Config\Services;
 
 
 class UserController extends BaseController
@@ -419,4 +420,110 @@ class UserController extends BaseController
             return $this->response->setJSON(['success' => false, 'message' => 'Failed to update device token.']);
         }
     }
+    public function recover()
+    {
+        $data = [
+            'activePage' => 'Recover',
+        ];
+        return view('Recover', $data);
+    }
+
+    public function recoverPassword()
+{
+    $email = $this->request->getPost('email');
+    $userModel = new UserModel();
+
+    // Check if email exists in the database
+    if ($userModel->where('Email', $email)->first()) {
+        // Generate temporary password
+        $tempPass = md5(uniqid());
+
+        // Send email with the tempPass as a link
+        $verificationUrl = base_url("resetPassword/$tempPass");
+        $emailMessage = "Please click on the following link to reset your password: <a href='{$verificationUrl}'>Reset Password</a>";
+        $this->sendEmail($email, 'Reset Your Password', $emailMessage);
+
+        // Update the user record with the tempPass
+        if ($userModel->update($userModel->where('Email', $email)->first()['UserID'], ['verification_token' => $tempPass])) {
+            // Send push notification
+            $user = $userModel->where('Email', $email)->first();
+            if (!empty($user['fcm_token'])) {
+                $this->sendPushNotification($user['fcm_token'], 'Password Reset Request', 'Please check your email to reset your password.');
+            }
+            return view('Recover');
+        }
+    } else {
+        echo "Your email is not in our database.";
+    }
+}
+protected function sendPushNotification($fcmToken, $title, $body)
+    {
+        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
+        $postData = [
+            'to' => $fcmToken,
+            'notification' => [
+                'title' => $title,
+                'body' => $body,
+            ],
+        ];
+        $headers = [
+            'Authorization: key=' . $firebaseServerKey,
+            'Content-Type: application/json',
+        ];
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        $result = curl_exec($ch);
+        curl_close($ch);
+    }
+
+    public function resetPassword($tempPass)
+    {
+        $userModel = new UserModel();
+        $user = $userModel->where('verification_token', $tempPass)->first();
+        
+        if ($user) {
+            echo view('Forgot', ['temp_pass' => $tempPass]);
+        } else {
+            echo "The key is not valid.";
+        }
+    }
+    public function updatePassword()
+    {
+        $tempPass = $this->request->getPost('temp_pass');
+        $password = $this->request->getPost('password');
+        $cpassword = $this->request->getPost('cpassword');
+    
+        if ($password === $cpassword) {
+            $userModel = new UserModel();
+            $user = $userModel->where('verification_token', $tempPass)->first();
+    
+            if ($user) {
+                $userModel->update($user['UserID'], [
+                    'Password' => password_hash($password, PASSWORD_DEFAULT),
+                    'verification_token' => null
+                ]);
+                
+                // Send email confirmation
+                $emailMessage = "Your password has been successfully updated.";
+                $this->sendEmail($user['Email'], 'Password Updated', $emailMessage);
+    
+                // Send push notification
+                if (!empty($user['fcm_token'])) {
+                    $this->sendPushNotification($user['fcm_token'], 'Password Updated', 'Your password has been successfully updated.');
+                }
+    
+                echo view('Login');
+            } else {
+                echo "Invalid token.";
+            }
+        } else {
+            echo "Passwords do not match.";
+        }
+    }
+    
 }

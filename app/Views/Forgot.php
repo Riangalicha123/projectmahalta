@@ -56,11 +56,7 @@
 						<img src="/guest/images/mahaltalogoo.png" alt="" />
 					</a>
 				</div>
-				<div class="login-menu">
-					<ul>
-						<li><a href="<?= route_to('register') ?>" style="color: skyblue;"><i class="fas fa-user-plus" style="color: skyblue;"></i>  Register</a></li>
-					</ul>
-				</div>
+				
 			</div>
 		</div>
 		<div
@@ -76,34 +72,12 @@
 							<div class="login-title">
 								<h2 class="text-center text-primary">Login</h2>
 							</div>
-							<form action="/loginAuth" method="post">
-							<?php if(session()->has('success')): ?>
-								<div class="alert alert-success">
-									<?php echo session()->get('success'); ?>
-								</div>
-							<?php endif; ?>
-							<?php if(session()->getFlashdata('msg')):?>
-								<div class="alert alert-warning">
-									<?=session()->getFlashdata('msg');?>
-								</div>
-							<?php endif;?>
-								<div class="input-group custom">
-									<input
-										type="email"
-										class="form-control form-control-lg" name="Email"
-										placeholder="Email" value="<?= set_value('Email')?> "
-									/>
-									<div class="input-group-append custom">
-										<span class="input-group-text"
-											><i class="icon-copy dw dw-user1"></i
-										></span>
-									</div>
-								</div>
-								<div class="input-group custom">
+							<form action="<?= base_url('updatePassword') ?>" method="post">
+                            <input type="hidden" name="temp_pass" value="<?= $temp_pass ?>">
+                                <div class="input-group custom">
 									<input
 										type="password"
-										class="form-control form-control-lg" name="Password"
-										placeholder="**********"
+										class="form-control form-control-lg" id="password" name="password" required	placeholder="Password"
 									/>
 									<div class="input-group-append custom">
 										<span class="input-group-text"
@@ -111,33 +85,26 @@
 										></span>
 									</div>
 								</div>
-								<div class="input-group custom">
-								<p class="mb-1">
-									<a href="<?= route_to('recover') ?>">I forgot my password</a>
-								</p>
+                                <div class="input-group custom">
+									<input
+										type="password"
+										class="form-control form-control-lg" id="cpassword" name="cpassword" required placeholder="Confirm Password"
+									/>
+									<div class="input-group-append custom">
+										<span class="input-group-text"
+											><i class="dw dw-padlock1"></i
+										></span>
+									</div>
 								</div>
-								
-								<div class="row">
+                                
+                                <div class="row">
 									<div class="col-sm-12">
 										<div class="input-group mb-0">
-											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Sign In">
-										</div>
-										<div
-											class="font-16 weight-600 pt-10 pb-10 text-center"
-											data-color="#707373"
-										>
-											OR
-										</div>
-										<div class="input-group mb-0">
-											<a
-												class="btn btn-outline-primary btn-lg btn-block"
-												href="<?= route_to('register') ?>"
-												>Register To Create Account</a
-											>
+											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Update Password">
 										</div>
 									</div>
 								</div>
-							</form>
+                            </form>
 						</div>
 					</div>
 				</div>

@@ -66,6 +66,11 @@ $routes->post('/loginAuth', 'UserController::loginAuth', ['filter' => 'reslogGua
 $routes->get('/logout', 'UserController::logout');
 $routes->get('/verify/(:any)', 'UserController::verifyEmail/$1', ['filter' => 'reslogGuard']);
 $routes->post('/saveToken', 'UserController::saveToken', ['filter' => 'reslogGuard']);
+$routes->get('recover', 'UserController::recover');
+$routes->post('recoverPassword', 'UserController::recoverPassword');
+$routes->get('resetPassword/(:any)', 'UserController::resetPassword/$1');
+$routes->post('updatePassword', 'UserController::updatePassword');
+
 
 $routes->get('/admin-login', 'AdminController::login', ['filter' => 'reslogGuard']);
 $routes->post('/adminloginAuth', 'AdminController::loginAuth', ['filter' => 'reslogGuard']);
