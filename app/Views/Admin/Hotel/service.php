@@ -289,7 +289,7 @@
                     <td><?=$room['maxPerson']?></td>
                     <td><img style="width: 200px; height: 200px;" src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>
                     <td style="color: red; background-border: #0056b3;" ><?=$room['AvailabilityStatus']?></td>
-                    <th> <a class="btn btn-danger" href="/admin-hotel/service/delete/<?= $room['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
+                    <th> <a class="btn btn-danger" href="/s/delete/<?= $room['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   
@@ -369,7 +369,7 @@
                             </div>
                         </div>
                     </div>
-                                    
+                      
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
@@ -411,6 +411,7 @@
                             <span class="sr-only">Next</span>
                         </a>
                     </div></td>
+                    <th><a class="btn btn-danger" href="/services/delete/<?= $roomimage['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this Room Carousel?');">Delete</a></th>
                   </tr>
                   <?php endforeach; ?>
                   

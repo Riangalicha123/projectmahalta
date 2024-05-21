@@ -206,6 +206,7 @@ $routes->post('/addserviceRoom', 'AdminController::addserviceRoom', ['filter' =>
 $routes->get('/admin-hotel/service/delete/(:num)', 'AdminController::deleteServiceRoom/$1', ['filter' => 'adminGuard']);
 $routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom', ['filter' => 'adminGuard']);
 $routes->post('/room-image/add', 'AdminController::addserviceRoomImage', ['filter' => 'adminGuard']);
+$routes->get('services/delete/(:num)', 'AdminController::deleteServiceRoomImage/$1', ['filter' => 'adminGuard']);
 //Restaurant
 $routes->get('/admin-restaurant/service', 'AdminController::restService', ['filter' => 'adminGuard']);
 $routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' => 'adminGuard']);

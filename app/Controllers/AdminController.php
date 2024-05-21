@@ -1666,6 +1666,18 @@ class AdminController extends BaseController
         // If not POST request, redirect back
         return redirect()->back();
     }
+    public function deleteServiceRoomImage($roomID)
+    {
+        // Check if room ID is provided
+        if (empty($roomID)) {
+            return redirect()->back()->with('error', 'Room ID is required.');
+        }
+
+        // Delete the room image from the database
+        $this->roomimages->where('RoomID', $roomID)->delete();
+
+        return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Room image deleted successfully.');
+    }
     public function restService()
     {
         $data = [
