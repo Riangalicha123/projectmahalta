@@ -40,7 +40,7 @@
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'customer') ? 'active' : '' ?> " href="<?= route_to('admin-customer') ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>
-                Customer Management
+                Guest Management
               </p>
             </a>
           </li>

@@ -93,7 +93,8 @@
 										</div>
 										<div class="input-group mb-0">
                                         <p class="mb-1">
-									<a href="<?= route_to('login') ?>">Login</a>
+										<a href="<?= route_to('login') ?>">Login</a>
+
 								</p>
 										</div>
 									</div>

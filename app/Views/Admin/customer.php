@@ -132,37 +132,33 @@
                                     </button>
                                 </div>
                                 <form action="<?= base_url('/updateCustomer/' . $guest['GuestID']) ?>" method="post" enctype="multipart/form-data">
-                                    <div class="card-body">
-                                        <input type="hidden" name="GuestID" id="GuestID" value="<?= $guest['GuestID'] ?>">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="FirstName">First Name</label>
-                                                <input type="text" class="form-control" id="FirstName" name="FirstName" required value="<?= $guest['FirstName'] ?>">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="LastName">Last Name</label>
-                                                <input type="text" class="form-control" id="LastName" name="LastName" required value="<?= $guest['LastName'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Email">Email</label>
-                                            <input type="email" class="form-control" id="Email" name="Email" required value="<?= $guest['Email'] ?>">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="ContactNumber">Contact Number</label>
-                                                <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required value="<?= $guest['ContactNumber'] ?>">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="Address">Address</label>
-                                                <input type="text" class="form-control" id="Address" name="Address" required value="<?= $guest['Address'] ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
+    <div class="card-body">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="FirstName">First Name</label>
+                <input type="text" class="form-control" id="FirstName" name="FirstName" required value="<?= $guest['FirstName'] ?>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="LastName">Last Name</label>
+                <input type="text" class="form-control" id="LastName" name="LastName" required value="<?= $guest['LastName'] ?>">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input type="email" class="form-control" id="Email" name="Email" required value="<?= $guest['Email'] ?>">
+        </div>
+        <div class="form-group">
+            <label for="ContactNumber">Contact Number</label>
+            <input type="text" class="form-control" id="ContactNumber" name="ContactNumber" required value="<?= $guest['ContactNumber'] ?>">
+        </div>
+        <input type="hidden" name="UserID" value="<?= $guest['UserID'] ?>">
+    </div>
+    <div class="card-footer">
+        <button type="submit" class="btn btn-primary">Update</button>
+    </div>
+</form>
+
+
 
                             </div>
                         </div>

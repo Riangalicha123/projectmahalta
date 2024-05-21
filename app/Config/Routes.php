@@ -156,6 +156,7 @@ $routes->post('/admin/getReservationByYear', 'AdminController::getReservationByY
 $routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-setting', 'AdminController::setting', ['filter' => 'adminGuard']);
+$routes->post('/updateadminProfile/(:num)', 'AdminController::updateadminProfile/$1', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-customer', 'AdminController::customer', ['filter' => 'adminGuard']);
 $routes->post('/admin-addCustomer', 'AdminController::addCustomer', ['filter' => 'adminGuard']);

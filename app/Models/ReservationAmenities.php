@@ -63,4 +63,5 @@ class ReservationAmenities extends Model
 
         return $query->getResult();
     }
+    
 }

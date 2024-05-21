@@ -179,6 +179,42 @@ class AdminController extends BaseController
             return redirect()->to('/admin-login');
         }
     }
+    public function updateadminProfile($userID)
+    {
+        helper(['form']);
+    
+        // Validation Rules
+        $validationRules = [
+            'FirstName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
+            'LastName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]', // Adjusted max_length from 11 to match typical phone numbers
+        ];
+    
+        // Validate Input
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->back()->withInput()->with('validationErrors', $validationErrors); // Redirect back with input and validation errors
+        }
+    
+        // Prepare Updated User Data
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
+    
+        // Update User Details
+        $this->users->update($userID, $updatedUserData);
+    
+        // Set flash message for success
+        session()->setFlashdata('success', 'Profile updated successfully.');
+    
+        // Redirect to admin setting page
+        return redirect()->to(base_url('/admin-setting'));
+    }
+    
 
     public function updatePassword()
     {
@@ -351,98 +387,34 @@ class AdminController extends BaseController
         ];
         return view('Admin\customer', $data);
     }
-    public function addCustomer()
+    public function updateCustomer($guestID)
     {
+        // Load necessary helpers
         helper(['form']);
-        $validationRules = [
-            'FirstName' => 'required|min_length[4]|max_length[100]',
-            'LastName' => 'required|min_length[4]|max_length[100]',
-            'Email' => 'required|min_length[4]|max_length[100]|valid_email|is_unique[users.Email]',
-            'ContactNumber' => 'required|max_length[11]',
-            'Address' => 'required|min_length[4]|max_length[100]',
-            'confirmPassword' => 'matches[Password]',
-        ];
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
-        }
-        $user = [
-            'FirstName' => $this->request->getVar('FirstName'),
-            'LastName' => $this->request->getVar('LastName'),
-            'Email' => $this->request->getVar('Email'),
-            'ContactNumber' => $this->request->getVar('ContactNumber'),
-            'Address' => $this->request->getVar('Address'),
-            'UserRoleID' => 1,
-            'verification_token' => bin2hex(random_bytes(16)),
-            'is_verified' => 1,
-        ];
-        if (empty($user['FirstName']) || empty($user['LastName']) || empty($user['Email'])) {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Incomplete user details. Please provide all required information.');
-        }
-        if (!$this->isEmailUnique($user['Email'])) {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Email address is already in use. Please choose a different one.');
-        }
-        $insertedUserID = $this->users->insert($user);
-        if ($insertedUserID) {
-            $newGuestData = [
-                'UserID' => $insertedUserID,
-            ];
-            $insertedGuestID = $this->guest->insert($newGuestData);
-            $insertedGuestDetails = $this->guest->find($insertedGuestID);
-            if ($insertedGuestID) {
-                return redirect()->to(base_url('/admin-customer'))->with('success', 'Reservation added successfully.')->with('staffDetails', $insertedGuestDetails);
-            } else {
-                return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add reservation. Please try again.');
-            }
-        } else {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid Username, RoomType, or RoomNumber. Please check your input.');
-        }
-    }
-
-    public function updateCustomer($userID)
-    {
-        helper(['form']);
-
-        // Validation Rules
-        $validationRules = [
-            'FirstName' => 'required|min_length[4]|max_length[100]',
-            'LastName' => 'required|min_length[4]|max_length[100]',
-            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
-            'ContactNumber' => 'required|max_length[11]',
-            'Address' => 'required|min_length[4]|max_length[100]',
-        ];
-
-        // Validate Input
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
-        }
-
-        // Prepare Updated Staff Data
-        $updatedGuestData = [
-            'UserID' => $userID,
-        ];
-
-        // Update Staff Details
-        $this->guest->update($userID, $updatedGuestData);
-
-        // Prepare Updated User Data
+    
+        // Get form input data
         $updatedUserData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'Email' => $this->request->getVar('Email'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
-            'Address' => $this->request->getVar('Address'),
         ];
-
-        // Update User Details
-        $this->users->update($userID, $updatedUserData);
-
-        // Redirect with appropriate message
+    
+        // Update user details
+        $this->users->update($this->request->getVar('UserID'), $updatedUserData);
+    
+        // Prepare updated guest data
+        $updatedGuestData = [
+            'UserID' => $this->request->getVar('UserID'), // Assuming UserID is what identifies a guest
+        ];
+    
+        // Update guest details
+        $this->guest->update($guestID, $updatedGuestData);
+    
+        // Redirect back to the customer page with a success message
         return redirect()->to(base_url('/admin-customer'))->with('success', 'Guest details updated successfully.');
     }
-
-
+    
     public function holReservation()
     {
         $data = [

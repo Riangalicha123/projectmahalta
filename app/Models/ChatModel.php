@@ -40,7 +40,7 @@ class ChatModel extends Model
 
     public function getAllChatbot()
     {
-        // Retrieve all records from the chatbot table, ordered by ChatID in descending order
+        // Retrieve all records from the chatbot table
         return $this->orderBy('ChatID', 'desc')->findAll();
     }
 }
