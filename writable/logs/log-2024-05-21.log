@@ -269,3 +269,7 @@ in SYSTEMPATH\Model.php on line 873.
  4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
  5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-21 08:17:03 --> Mailer Error: SMTP Error: Could not authenticate.
+ERROR - 2024-05-21 08:22:31 --> Mailer Error: SMTP Error: Could not authenticate.
+ERROR - 2024-05-21 08:30:13 --> Mailer Error: SMTP Error: Could not authenticate.
+ERROR - 2024-05-21 09:03:16 --> Mailer Error: SMTP Error: Could not authenticate.

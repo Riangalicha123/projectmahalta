@@ -16,8 +16,8 @@ trait EmailTrait
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com"; // Use your SMTP host
             $mail->SMTPAuth = true;
-            $mail->Username = 'mimong241@gmail.com';
-            $mail->Password = 'lbtx jaes xlnn etqh';
+            $mail->Username = 'mahaltaresortsconventioncenter@gmail.com';
+            $mail->Password = 'qplh vyeb vtbe rssk';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Encryption - ssl or tls
             $mail->Port = 587; // TCP port to connect to
 

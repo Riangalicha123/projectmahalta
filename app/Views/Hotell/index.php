@@ -736,15 +736,27 @@ $(document).ready(function(){
 
   // Your web app's Firebase configuration
   // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  // const firebaseConfig = {
+  //   apiKey: "AIzaSyALSiPzYneokQ4vA8eQNkbcuuud8lPzNpg",
+  //   authDomain: "push-notif-16cb3.firebaseapp.com",
+  //   projectId: "push-notif-16cb3",
+  //   storageBucket: "push-notif-16cb3.appspot.com",
+  //   messagingSenderId: "182663808079",
+  //   appId: "1:182663808079:web:1e41d21168a7073c58d63a",
+  //   measurementId: "G-JXC6YLCSYQ"
+  // };
+
   const firebaseConfig = {
-    apiKey: "AIzaSyALSiPzYneokQ4vA8eQNkbcuuud8lPzNpg",
-    authDomain: "push-notif-16cb3.firebaseapp.com",
-    projectId: "push-notif-16cb3",
-    storageBucket: "push-notif-16cb3.appspot.com",
-    messagingSenderId: "182663808079",
-    appId: "1:182663808079:web:1e41d21168a7073c58d63a",
-    measurementId: "G-JXC6YLCSYQ"
+    apiKey: "AIzaSyA_Fj0RAUYZ2O7JuAVGfQFue5xkC7Y5t24",
+    authDomain: "notif-push-e8316.firebaseapp.com",
+    projectId: "notif-push-e8316",
+    storageBucket: "notif-push-e8316.appspot.com",
+    messagingSenderId: "123246185063",
+    appId: "1:123246185063:web:bc242678e6f96c722822c2",
+    measurementId: "G-2KNZPFX21X"
   };
+
+
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -758,7 +770,7 @@ Notification.requestPermission().then((permission) => {
     console.log('Notification permission granted.');
 
     // Get registration token
-getToken(messaging, { vapidKey: 'BKHl5MWDw3tkJ9UkZxJX7Z6nUpqzyon0VKP1V512J1z-SY_ljeLc9UF78pumnFHAeq6TEohLwtO3QNjrM9jZano' }).then((currentToken) => {
+getToken(messaging, { vapidKey: 'BAYMqX4JtgCLcrBWd0uFHa2fTwU6QmiA3yfEyBme9Bq_PxOs9r4vo8cXTfinw8OkRTzpbyU7qCLA3eFZOg33MTA' }).then((currentToken) => {
     if (currentToken) {
         console.log('Token retrieved:', currentToken);
 
