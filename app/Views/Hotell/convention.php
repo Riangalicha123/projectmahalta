@@ -39,9 +39,16 @@
               <h1>Convention Center</h1>
                <p>Welcome to our premier convention center—where sophistication meets innovation. We offer the perfect venue for your events, from corporate conferences to grand expos. </p> 
             </div>
-            <div class="col-md-12 form-group text-center">
+           
+                              <?php if(session()->get('isLoggedIn')): ?>
+                                <div class="col-md-12 form-group text-center">
                                 <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
                               </div>
+    <?php else: ?>
+      <div class="col-md-12 form-group text-center">
+                                <a href="<?= route_to('login') ?>" class="btn btn-primary">Reservation</a>
+                              </div>
+    <?php endif; ?>
           </div>
         </div>
       </div>

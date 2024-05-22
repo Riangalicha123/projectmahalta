@@ -67,7 +67,23 @@
                 <div class="tab-content">
 
                   <div class="active tab-pane" id="settings">
-                    <form class="form-horizontal">
+                  <?php if (session()->has('success')) : ?>
+                      <div class="alert alert-success">
+                          <?= session()->get('success') ?>
+                      </div>
+                  <?php endif ?>
+
+                  <!-- Add this block to display validation errors -->
+                  <?php if (isset($validationErrors)) : ?>
+                      <div class="alert alert-danger">
+                          <ul>
+                              <?php foreach ($validationErrors as $error) : ?>
+                                  <li><?= esc($error) ?></li>
+                              <?php endforeach ?>
+                          </ul>
+                      </div>
+                  <?php endif ?>
+                    <form class="form-horizontal" action="<?= base_url('updateconventionProfile/' . $_SESSION['id']) ?>" method="post">
                       <div class="form-group row">
                         <label for="FirstName" class="col-sm-2 col-form-label">First Name</label>
                         <div class="col-sm-10">
@@ -87,21 +103,16 @@
                         </div>
                       </div>
                       <div class="form-group row">
-                        <label for="ContactNumber" class="col-sm-2 col-form-label">Name</label>
+                        <label for="ContactNumber" class="col-sm-2 col-form-label">Contact Number</label>
                         <div class="col-sm-10">
                           <input type="number" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>">
                         </div>
                       </div>
-                      <div class="form-group row">
-                        <label for="Address" class="col-sm-2 col-form-label">Name</label>
-                        <div class="col-sm-10">
-                          <input type="number" id="Address" name="Address" class="form-control" value="<?= $_SESSION['address'] ?? ''; ?>">
-                        </div>
-                      </div>
+
                      
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
-                          <button type="submit" class="btn btn-danger">Submit</button>
+                          <button type="submit" class="btn btn-info">Update</button>
                         </div>
                       </div>
                     </form>

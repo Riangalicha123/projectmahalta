@@ -273,3 +273,14 @@ ERROR - 2024-05-21 08:17:03 --> Mailer Error: SMTP Error: Could not authenticate
 ERROR - 2024-05-21 08:22:31 --> Mailer Error: SMTP Error: Could not authenticate.
 ERROR - 2024-05-21 08:30:13 --> Mailer Error: SMTP Error: Could not authenticate.
 ERROR - 2024-05-21 09:03:16 --> Mailer Error: SMTP Error: Could not authenticate.
+CRITICAL - 2024-05-21 18:02:21 --> filter_var(): Unknown filter with ID 0
+in SYSTEMPATH\HTTP\RequestTrait.php on line 325.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'filter_var(): Unknown filter with ID 0', 'C:\\laragon\\www\\projectmahalta\\system\\HTTP\\RequestTrait.php', 325)
+ 2 SYSTEMPATH\HTTP\RequestTrait.php(325): filter_var('0', 0, 0)
+ 3 SYSTEMPATH\HTTP\IncomingRequest.php(734): CodeIgniter\HTTP\Request->fetchGlobal('get', 'AddAdult', 0, 0)
+ 4 APPPATH\Controllers\GuestController.php(265): CodeIgniter\HTTP\IncomingRequest->getGet('AddAdult', 0)
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

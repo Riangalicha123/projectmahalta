@@ -140,7 +140,6 @@ class AdminController extends BaseController
                     return redirect()->to('/');
                 } elseif ($data['UserRoleID'] == 2) {
                     $staffDetails = $this->staffDetail->where('UserID', $data['UserID'])->first();
-
                     if ($staffDetails) {
                         switch ($staffDetails['DepartmentID']) {
                             case 1:
@@ -182,58 +181,40 @@ class AdminController extends BaseController
     public function updateadminProfile($userID)
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
-            'FirstName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
-            'LastName' => 'required|min_length[2]|max_length[100]', // Adjusted min_length from 4 to 2
+            'FirstName' => 'required|min_length[2]|max_length[100]',
+            'LastName' => 'required|min_length[2]|max_length[100]',
             'Email' => 'required|min_length[4]|max_length[100]|valid_email',
-            'ContactNumber' => 'required|max_length[11]', // Adjusted max_length from 11 to match typical phone numbers
+            'ContactNumber' => 'required|max_length[11]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
-            return redirect()->back()->withInput()->with('validationErrors', $validationErrors); // Redirect back with input and validation errors
+            return redirect()->back()->withInput()->with('validationErrors', $validationErrors);
         }
-    
-        // Prepare Updated User Data
         $updatedUserData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'Email' => $this->request->getVar('Email'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-    
-        // Update User Details
         $this->users->update($userID, $updatedUserData);
-    
-        // Set flash message for success
         session()->setFlashdata('success', 'Profile updated successfully.');
-    
-        // Redirect to admin setting page
         return redirect()->to(base_url('/admin-setting'));
     }
-    
-
     public function updatePassword()
     {
         $session = session();
         $userModel = new UserModel();
         $userID = $session->get('id');
-
-        // Validate form input
         $rules = [
             'oldpassword' => 'required',
             'newpassword' => 'required|min_length[8]',
             'confirmpassword' => 'required|matches[newpassword]'
         ];
-
         if ($this->validate($rules)) {
             $oldPassword = $this->request->getPost('oldpassword');
             $newPassword = $this->request->getPost('newpassword');
             $user = $userModel->find($userID);
-
             if (password_verify($oldPassword, $user['Password'])) {
                 $userModel->updatePassword($userID, $newPassword);
                 $session->setFlashdata('msg', 'Password successfully updated');
@@ -255,16 +236,12 @@ class AdminController extends BaseController
     }
     public function dashboard()
     {
-        // Initialize counts for positive, neutral, and negative ratings
         $positiveCount = 0;
         $neutralCount = 0;
         $negativeCount = 0;
 
         $feedbackData = $this->feedbacks->findAll();
-
-        // Iterate through each feedback entry
         foreach ($feedbackData as $feedback) {
-            // Categorize ratings
             switch ($feedback['UserRating']) {
                 case '1':
                 case '2':
@@ -279,23 +256,11 @@ class AdminController extends BaseController
                     break;
             }
         }
-
-        // Compute total number of ratings
         $totalRating = count($feedbackData);
-
-        // Compute percentages
         $positivePercentage = ($positiveCount / $totalRating) * 100;
         $neutralPercentage = ($neutralCount / $totalRating) * 100;
         $negativePercentage = ($negativeCount / $totalRating) * 100;
-
-        $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, YEAR(reservations.CheckInDate) AS CheckInYear, COUNT(*) AS ReservationCount')
-                                         ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-                                         ->where('reservations.Status', 'Confirm')
-                                         ->where('reservations.RoomID IS NOT NULL', null, false)
-                                         ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth, CheckInYear')
-                                         ->findAll();
-    
-
+        $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, YEAR(reservations.CheckInDate) AS CheckInYear, COUNT(*) AS ReservationCount')->join('rooms', 'reservations.RoomID = rooms.RoomID')->where('reservations.Status', 'Confirm')->where('reservations.RoomID IS NOT NULL', null, false)->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth, CheckInYear')->findAll();
         $regions = $this->regions->findAll();
         $data = [
             'adminRoutes' => 'dashboard',
@@ -350,10 +315,7 @@ class AdminController extends BaseController
     }
     public function getReservationByYear()
     {
-        // Kunin ang taon mula sa POST request
         $selectedYear = $this->request->getPost('selectedYear');
-
-        // Query para sa mga reservation base sa hiniling na taon
         $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, COUNT(*) AS ReservationCount')
                                             ->join('rooms', 'reservations.RoomID = rooms.RoomID')
                                             ->where('YEAR(reservations.CheckInDate)', $selectedYear)
@@ -361,21 +323,15 @@ class AdminController extends BaseController
                                             ->where('reservations.RoomID IS NOT NULL', null, false)
                                             ->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth')
                                             ->findAll();
-
-        // Ipasa ang mga reservation data pabalik sa View
         $data['roomreservations'] = $roomreservations;
-
-        // Ibalik ang data sa JSON format
         return $this->response->setJSON($data);
     }
     public function getMonthlyData()
     {
         $year = $this->request->getPost('year');
         $data = $this->reseraminities->getMonthlyInventoryData($year);
-
         return $this->response->setJSON($data);
     }
-    
     public function customer()
     {
         $data = [
@@ -389,32 +345,20 @@ class AdminController extends BaseController
     }
     public function updateCustomer($guestID)
     {
-        // Load necessary helpers
         helper(['form']);
-    
-        // Get form input data
         $updatedUserData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'Email' => $this->request->getVar('Email'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-    
-        // Update user details
         $this->users->update($this->request->getVar('UserID'), $updatedUserData);
-    
-        // Prepare updated guest data
         $updatedGuestData = [
-            'UserID' => $this->request->getVar('UserID'), // Assuming UserID is what identifies a guest
+            'UserID' => $this->request->getVar('UserID'),
         ];
-    
-        // Update guest details
         $this->guest->update($guestID, $updatedGuestData);
-    
-        // Redirect back to the customer page with a success message
         return redirect()->to(base_url('/admin-customer'))->with('success', 'Guest details updated successfully.');
     }
-    
     public function holReservation()
     {
         $data = [
@@ -431,19 +375,14 @@ class AdminController extends BaseController
     public function addHotelReservation()
     {
         helper(['form']);
-    
-        // Retrieve and map region, province, city, and barangay descriptions
         $regionCode = $this->request->getVar('Region');
         $provinceCode = $this->request->getVar('Province');
         $cityCode = $this->request->getVar('City');
         $barangayCode = $this->request->getVar('Barangay');
-    
         $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
         $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
         $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
         $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
-    
-        // Construct user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -456,26 +395,17 @@ class AdminController extends BaseController
             'verification_token' => bin2hex(random_bytes(16)),
             'is_verified' => 1,
         ];
-    
-        // Insert user data into the database and retrieve the new UserID
-        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
-    
+        $UserID = $this->users->insert($userData, true);
         if ($UserID) {
             $guestData = [
                 'UserID' => $UserID,
             ];
             $this->guest->insert($guestData);
-
-            // Retrieve Room Data
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
-    
             $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
             $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
-    
-            // Check both conditions for roomData
             if ($roomDataByType && $roomDataByNumber) {
-                // Prepare Reservation Data
                 $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -489,10 +419,7 @@ class AdminController extends BaseController
                     'RoomID' => $roomDataByType['RoomID'], 
                     'UserID' => $UserID, 
                 ];
-                // Insert Reservation
                 $inserted = $this->reservation->insert($newReservationData);
-    
-                // Redirect with appropriate message
                 if ($inserted) {
                     return redirect()->to(base_url('/admin-hotel/reservation'))->with('success', 'Reservation added successfully.');
                 } else {
@@ -508,37 +435,23 @@ class AdminController extends BaseController
     public function updateHotelReservation($reservationID)
     {
         helper(['form']);
-        
-        // Retrieve user data from the request
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-        
-        // Retrieve the existing reservation to get the UserID
         $reservation = $this->reservation->find($reservationID);
         if (!$reservation) {
             return redirect()->to(base_url('/admin-hotel/reservation'))->with('error', 'Reservation not found.');
         }
-    
         $userID = $reservation['UserID'];
-        
-        // Update user data in the database
         $updateUserResult = $this->users->update($userID, $userData);
-    
         if ($updateUserResult) {
-            // Retrieve room data from the request
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
-            
-            // Find the room data by type and number
             $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
             $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
-            
-            // Check if both room type and number are valid and match
             if ($roomDataByType && $roomDataByNumber && $roomDataByType['RoomID'] === $roomDataByNumber['RoomID']) {
-                // Prepare the new reservation data
                 $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -552,8 +465,6 @@ class AdminController extends BaseController
                     'RoomID' => $roomDataByType['RoomID'],
                     'UserID' => $userID,
                 ];
-                
-                // Update the reservation
                 $updateReservationResult = $this->reservation->update($reservationID, $newReservationData);
                 
                 if ($updateReservationResult) {
@@ -568,44 +479,28 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
-    
-    
     public function updateStatus($status, $reservationID)
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-
-        // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
             ->where('ReservationID', $reservationID)
             ->first();
-
         if (!$reservation) {
-            // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-
-        // Retrieve user data based on UserID from the reservation
         $user = $this->users
             ->where('UserID', $reservation['UserID'])
             ->first();
-
         if (!$user) {
-            // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-
-        // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-
         if ($updated) {
-            // Prepare the email message with reservation details
             $emailMessage = "Dear customer,<br><br>";
             $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
             $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
@@ -618,9 +513,6 @@ class AdminController extends BaseController
             $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
             $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
             $emailMessage .= "If you have any questions, please contact us.<br>";
-
-
-            // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -628,18 +520,15 @@ class AdminController extends BaseController
                 $notifBody = "Your reservation status has been updated to {$status}.";
                 $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
             }
-            // Redirect to the reservation page with a success message
             $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
             return redirect()->to('/admin-hotel/reservation');
         } else {
-            // Handle case where update fails
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
     protected function sendPushNotification($fcmToken, $title, $body)
     {
         $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-
         $postData = [
             'to' => $fcmToken,
             'notification' => [
@@ -647,12 +536,10 @@ class AdminController extends BaseController
                 'body' => $body,
             ],
         ];
-
         $headers = [
             'Authorization: key=' . $firebaseServerKey,
             'Content-Type: application/json',
         ];
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
         curl_setopt($ch, CURLOPT_POST, true);
@@ -662,8 +549,6 @@ class AdminController extends BaseController
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
         $result = curl_exec($ch);
         curl_close($ch);
-
-        // Log or handle the response as needed
     }
     public function resReservation()
     {
@@ -680,7 +565,6 @@ class AdminController extends BaseController
     public function addRestauReservation()
     {
         helper(['form']);
-        // Construct user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -688,10 +572,7 @@ class AdminController extends BaseController
             'verification_token' => bin2hex(random_bytes(16)),
             'is_verified' => 1,
         ];
-    
-        // Insert user data into the database and retrieve the new UserID
-        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
-    
+        $UserID = $this->users->insert($userData, true);
         if ($UserID) {
             $guestData = [
                 'UserID' => $UserID,
@@ -699,15 +580,12 @@ class AdminController extends BaseController
             $this->guest->insert($guestData);
             $VenueName = $this->request->getPost('VenueName');
             $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
-    
             if ($restaurantVenue ) {
                 $availableCapacity = $restaurantVenue['AvailableCapacity'];
                 $numberOfGuests = $this->request->getPost('NumberOfGuests');
-    
                 if ($availableCapacity >= $numberOfGuests) {
                     $newAvailableCapacity = $availableCapacity - $numberOfGuests;
                     $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
-    
                     $restaurantReservation = [
                         'NumberOfGuests' => $numberOfGuests,
                         'CheckInDate' => $this->request->getPost('CheckInDate'),
@@ -717,9 +595,7 @@ class AdminController extends BaseController
                         'VenueID' => $restaurantVenue['VenueID'],
                         'UserID' => $UserID,
                     ];
-    
                     $inserted = $this->reservation->insert($restaurantReservation);
-    
                     if ($inserted) {
                         return redirect()->to(base_url('/admin-restaurant/reservation'))->with('success', 'Reservation updated successfully.');
                     } else {
@@ -731,7 +607,6 @@ class AdminController extends BaseController
             } else {
                 return redirect()->to(base_url('/admin-restaurant/reservation'))->with('error', 'Invalid user or venue information. Please check your input.');
             }
-    
         } else {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to create user. Please try again.');
         }
@@ -739,58 +614,38 @@ class AdminController extends BaseController
     public function updateRestauReservation($reservationID)
     {
         helper(['form']);
-    
-        // Validation Rules (you can customize these based on your requirements)
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-        
-        // Retrieve the existing reservation to get the UserID
         $reservation = $this->reservation->find($reservationID);
         if (!$reservation) {
             return redirect()->to(base_url('/admin-restaurant/reservation'))->with('error', 'Reservation not found.');
         }
-    
         $userID = $reservation['UserID'];
-        
-        // Update user data in the database
         $updateUserResult = $this->users->update($userID, $userData);
-    
         if ($updateUserResult) {
             $VenueName = $this->request->getPost('VenueName');
             $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
-    
             if ($restaurantVenue) {
                 $availableCapacity = $restaurantVenue['AvailableCapacity'];
                 $numberOfGuests = $this->request->getPost('NumberOfGuests');
-    
                 if ($availableCapacity >= $numberOfGuests) {
-                    // Calculate new available capacity
                     $newAvailableCapacity = $availableCapacity - $numberOfGuests;
-    
-                    // Update the venue's available capacity
                     $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
-    
-                    // Prepare data to update the reservation
                     $restaurantReservation = [
                         'NumberOfGuests' => $numberOfGuests,
                         'CheckInDate' => $this->request->getPost('CheckInDate'),
                         'Note' => $this->request->getPost('Note'),
-                        'Status' => 'Confirm', // Fixed typo here
                         'VenueName' => $VenueName,
                         'VenueID' => $restaurantVenue['VenueID'],
                         'UserID' => $userID,
                     ];
-    
-                    // Update the reservation in the database
                     $updated = $this->reservation->update($reservationID, $restaurantReservation);
-    
                     if ($updated) {
                         return redirect()->to(base_url('/admin-restaurant/reservation'))->with('success', 'Reservation updated successfully.');
                     } else {
-                        // Roll back the venue capacity update in case of reservation update failure
                         $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $availableCapacity]);
                         return redirect()->to(base_url('/admin-restaurant/reservation'))->with('error', 'Failed to update reservation. Please try again.');
                     }
@@ -804,43 +659,28 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/reservation'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
-    
     public function updateResStatus($status, $reservationID)
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-
-        // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
             ->where('ReservationID', $reservationID)
             ->first();
-
         if (!$reservation) {
-            // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-
-        // Retrieve user data based on UserID from the reservation
         $user = $this->users
             ->where('UserID', $reservation['UserID'])
             ->first();
-
         if (!$user) {
-            // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-
-        // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-
         if ($updated) {
-            // Prepare the email message with reservation details
             $emailMessage = "Dear customer,<br><br>";
             $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
             $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
@@ -849,9 +689,6 @@ class AdminController extends BaseController
             $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
             $emailMessage .= "Note : {$reservation['Note']}<br>";
             $emailMessage .= "If you have any questions, please contact us.<br>";
-
-
-            // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -859,11 +696,9 @@ class AdminController extends BaseController
                 $notifBody = "Your reservation status has been updated to {$status}.";
                 $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
             }
-            // Redirect to the reservation page with a success message
             $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
             return redirect()->to('/admin-restaurant/reservation');
         } else {
-            // Handle case where update fails
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
@@ -884,8 +719,6 @@ class AdminController extends BaseController
     public function addConReservation()
     {
         helper(['form']);
-    
-        // Construct user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -894,10 +727,7 @@ class AdminController extends BaseController
             'verification_token' => bin2hex(random_bytes(16)),
             'is_verified' => 1,
         ];
-    
-        // Insert user data into the database and retrieve the new UserID
-        $UserID = $this->users->insert($userData, true);  // The second parameter 'true' retrieves the insert ID
-    
+        $UserID = $this->users->insert($userData, true);
         if ($UserID) {
             $guestData = [
                 'UserID' => $UserID,
@@ -907,18 +737,13 @@ class AdminController extends BaseController
             $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
             $inputEventType = $this->request->getPost('EventType');
             $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
-    
-            // Ensure only the necessary IDs are passed
             if ($venueDataByName && $eventDataByType) {
                 $conventionData = [
-                    'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
-                    'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
+                    'EventID' => $eventDataByType['EventID'], 
+                    'conVenueID' => $venueDataByName['conVenueID'],
                 ];
-    
                 $conventionID = $this->conventions->insert($conventionData);
-                
                 if ($conventionID) {
-                    // Prepare Reservation Data
                     $newReservationData = [
                         'CheckInDate' => $this->request->getPost('CheckInDate'),
                         'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -931,11 +756,7 @@ class AdminController extends BaseController
                         'conventionID' => $conventionID, 
                         'UserID' => $UserID, 
                     ];
-    
-                    // Insert Reservation
                     $inserted = $this->reservation->insert($newReservationData);
-    
-                    // Redirect with appropriate message
                     if ($inserted) {
                         return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation added successfully.');
                     } else {
@@ -954,49 +775,35 @@ class AdminController extends BaseController
     public function updateConReservation($reservationID)
     {
         helper(['form']);
-
-        // Retrieve existing reservation
         $existingReservation = $this->reservation->find($reservationID);
 
         if (!$existingReservation) {
             return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Reservation not found.');
         }
-
-        // Retrieve existing user associated with the reservation
         $userID = $existingReservation['UserID'];
         $existingUser = $this->users->find($userID);
-
         if (!$existingUser) {
             return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'User associated with the reservation not found.');
         }
-
-        // Update user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-
         $userUpdated = $this->users->update($userID, $userData);
-
         if ($userUpdated) {
             $inputVenueName = $this->request->getPost('conVenueName');
             $venueDataByName = $this->convenues->where('conVenueName', $inputVenueName)->first();
             $inputEventType = $this->request->getPost('EventType');
             $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
-
             if ($venueDataByName && $eventDataByType) {
                 $conventionData = [
-                    'EventID' => $eventDataByType['EventID'], // Ensure 'EventID' is fetched correctly
-                    'conVenueID' => $venueDataByName['conVenueID'], // Ensure 'conVenueID' is fetched correctly
+                    'EventID' => $eventDataByType['EventID'], 
+                    'conVenueID' => $venueDataByName['conVenueID'],
                 ];
-
-                // Update convention data
                 $conventionID = $existingReservation['conventionID'];
                 $conventionUpdated = $this->conventions->update($conventionID, $conventionData);
-
                 if ($conventionUpdated) {
-                    // Prepare updated Reservation Data
                     $updatedReservationData = [
                         'CheckInDate' => $this->request->getPost('CheckInDate'),
                         'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -1007,11 +814,7 @@ class AdminController extends BaseController
                         'PaymentOption' => $this->request->getPost('PaymentOption'),
                         'Status' => 'Confirm',
                     ];
-
-                    // Update Reservation
                     $reservationUpdated = $this->reservation->update($reservationID, $updatedReservationData);
-
-                    // Redirect with appropriate message
                     if ($reservationUpdated) {
                         return redirect()->to(base_url('/admin-convention/reservation'))->with('success', 'Reservation updated successfully.');
                     } else {
@@ -1027,43 +830,28 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-convention/reservation'))->with('error', 'Failed to update user. Please try again.');
         }
     }
-
     public function updateconStatus($status, $reservationID)
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-
         if (!in_array($status, $allowedStatuses)) {
-            // Handle invalid status
             return redirect()->back()->with('error', 'Invalid status');
         }
-
-        // Retrieve the reservation and associated user's email address
         $reservation = $this->reservation
             ->where('ReservationID', $reservationID)
             ->first();
-
         if (!$reservation) {
-            // Handle case where reservation doesn't exist
             return redirect()->back()->with('error', 'Reservation not found');
         }
-
-        // Retrieve user data based on UserID from the reservation
         $user = $this->users
             ->where('UserID', $reservation['UserID'])
             ->first();
-
         if (!$user) {
-            // Handle case where user doesn't exist
             return redirect()->back()->with('error', 'User not found for the reservation');
         }
-
-        // Update the reservation status in the database
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
-
         if ($updated) {
-            // Prepare the email message with reservation details
             $emailMessage = "Dear customer,<br><br>";
             $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
             $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
@@ -1072,9 +860,6 @@ class AdminController extends BaseController
             $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
             $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
             $emailMessage .= "If you have any questions, please contact us.<br>";
-
-
-            // Send the email to the user
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -1082,11 +867,9 @@ class AdminController extends BaseController
                 $notifBody = "Your reservation status has been updated to {$status}.";
                 $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
             }
-            // Redirect to the reservation page with a success message
             $session->setFlashdata('success', 'Reservation status updated successfully and email sent.');
             return redirect()->to('/admin-hotel/reservation');
         } else {
-            // Handle case where update fails
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
@@ -1103,56 +886,34 @@ class AdminController extends BaseController
         ];
         return view('Admin\staffAccount', $data);
     }
-
     public function fetchProvince()
     {
         $request = service('request');
-
-        // Ensure regCode is set in the request
         $regCode = $request->getPost('regCode');
-
-        // Load the model or service responsible for fetching provinces
         $provinces = $this->province->where('regCode', $regCode)->findAll();
-
         $data['provinces'] = $provinces;
-
         return $this->response->setJSON($data);
     }
-
     public function fetchCity()
     {
         $request = service('request');
-
-        // Ensure provCode is set in the request
         $provCode = $request->getPost('provCode');
-
-        // Load the model or service responsible for fetching cities
         $cities = $this->cities->where('provCode', $provCode)->findAll();
-
         $data['cities'] = $cities;
-
         return $this->response->setJSON($data);
     }
 
     public function fetchBarangay()
     {
         $request = service('request');
-
-        // Ensure citymunCode is set in the request
         $citymunCode = $request->getPost('citymunCode');
-
-        // Load the model or service responsible for fetching barangays
         $barangays = $this->barangay->where('citymunCode', $citymunCode)->findAll();
-
         $data['barangays'] = $barangays;
-
         return $this->response->setJSON($data);
     }
     public function addStaffDetails()
     {
         helper(['form']);
-
-        // Validation Rules and Messages
         $validationRules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
@@ -1166,7 +927,6 @@ class AdminController extends BaseController
             'Barangay' => 'required',
             'DepartmentName' => 'required',
         ];
-
         $validationMessages = [
             'FirstName' => [
                 'required' => 'The first name field is required.',
@@ -1213,22 +973,15 @@ class AdminController extends BaseController
                 'required' => 'The barangay field is required.',
             ],
         ];
-
-        // Validate Input
         if ($this->validate($validationRules, $validationMessages)) {
-
-
             $regionCode = $this->request->getVar('Region');
             $provinceCode = $this->request->getVar('Province');
             $cityCode = $this->request->getVar('City');
             $barangayCode = $this->request->getVar('Barangay');
-
             $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'];
             $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'];
             $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'];
             $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'];
-
-            // Construct user data
             $userData = [
                 'FirstName' => $this->request->getVar('FirstName'),
                 'LastName' => $this->request->getVar('LastName'),
@@ -1239,48 +992,31 @@ class AdminController extends BaseController
                 'Province' => $provinceDesc,
                 'City' => $cityDesc,
                 'Barangay' => $barangayDesc,
-                'UserRoleID' => 2, // Assuming 2 is the role ID for staff
+                'UserRoleID' => 2,
             ];
             $verificationToken = bin2hex(random_bytes(16));
             $userData['verification_token'] = $verificationToken;
             $userData['is_verified'] = 1;
-
-            // Insert user data into the database
             $insertedUserID = $this->users->insert($userData);
-
-            // Handle database insertion errors
             if (!$insertedUserID) {
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
             }
-
-            // Retrieve department ID based on department name
             $inputDepartmentName = $this->request->getPost('DepartmentName');
             $departmentData = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-
             if (!$departmentData) {
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid department selected.');
             }
-
-            // Construct staff data
             $staffData = [
                 'DepartmentID' => $departmentData['DepartmentID'],
                 'UserID' => $insertedUserID,
             ];
-
-            // Insert staff data into the database
             $insertedStaffID = $this->staffDetail->insert($staffData);
-
-            // Handle staff insertion errors
             if (!$insertedStaffID) {
-                // Rollback user insertion
                 $this->users->delete($insertedUserID);
                 return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to add staff. Please try again.');
             }
-
-            // Redirect with success message
             return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff added successfully.');
         } else {
-            // If validation fails, return to the registration form with errors
             $data['validation'] = $this->validator;
             $data['activePage'] = 'Register';
             $data['regions'] = $this->regions->findAll();
@@ -1289,7 +1025,6 @@ class AdminController extends BaseController
                 ->join('departments', 'staff_details.DepartmentID = departments.DepartmentID')
                 ->join('users', 'staff_details.UserID = users.UserID')
                 ->findAll();
-
             return view('Admin\staffAccount', $data);
         }
     }
@@ -1301,8 +1036,6 @@ class AdminController extends BaseController
     public function updateStaffDetails($userID)
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'FirstName' => 'required|min_length[4]|max_length[100]',
             'LastName' => 'required|min_length[4]|max_length[100]',
@@ -1311,32 +1044,20 @@ class AdminController extends BaseController
             'Address' => 'required|min_length[4]|max_length[100]',
             'DepartmentName' => 'required',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
         }
-
-        // Retrieve Room Data
         $inputDepartmentName = $this->request->getPost('DepartmentName');
         $staffDataByType = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-
-        // Check if the department exists
         if (!$staffDataByType) {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid DepartmentName. Please check your input.');
         }
-
-        // Prepare Updated Staff Data
         $updatedStaffData = [
             'DepartmentID' => $staffDataByType['DepartmentID'],
             'UserID' => $userID,
         ];
-
-        // Update Staff Details
         $this->staffDetail->update($userID, $updatedStaffData);
-
-        // Prepare Updated User Data
         $updatedUserData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -1344,11 +1065,7 @@ class AdminController extends BaseController
             'ContactNumber' => $this->request->getVar('ContactNumber'),
             'Address' => $this->request->getVar('Address'),
         ];
-
-        // Update User Details
         $this->users->update($userID, $updatedUserData);
-
-        // Redirect with appropriate message
         return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
     }
     public function feedback()
@@ -1364,42 +1081,28 @@ class AdminController extends BaseController
     }
     public function chat()
     {
-
         $data = [
             'adminRoutes' => 'chat',
             'chats' => $this->chat->findAll()
         ];
-
-        // Load the view with the data
         return view('Admin/chat', $data);
     }
     public function addChat()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'Question' => 'required',
             'Answer' => 'required',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return view('/bookroom', ['validationErrors' => $validationErrors]);
         }
-
-
-
         $newReservationData = [
             'Question' => $this->request->getPost('Question'),
             'Answer' => $this->request->getPost('Answer'),
         ];
-
-        // Insert Reservation
         $inserted = $this->chat->insert($newReservationData);
-
-        // Redirect with appropriate message
         if ($inserted) {
             return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation added successfully.');
         } else {
@@ -1408,15 +1111,9 @@ class AdminController extends BaseController
     }
     public function deleteChat($chatID)
     {
-        // Retrieve the product by ID
         $chat = $this->chat->find($chatID);
-        
-        // Check if the chat exists
         if ($chat) {
-            // Delete the roominventory
             $deleted = $this->chat->delete($chatID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-chat'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -1429,31 +1126,19 @@ class AdminController extends BaseController
     public function updateChat($ChatID)
     {
         helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
         $validationRules = [
             'Question' => 'required',
             'Answer' => 'required',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
             return redirect()->to(base_url("/editReservation/{$ChatID}"))->with('validationErrors', $validationErrors);
         }
-
-
-        // Prepare Reservation Data
         $updateReservationData = [
             'Question' => $this->request->getPost('Question'),
             'Answer' => $this->request->getPost('Answer'),
         ];
-
-        // Update Reservation
         $this->chat->update($ChatID, $updateReservationData);
-
-        // Redirect with appropriate message
         return redirect()->to(base_url('/admin-chat'))->with('success', 'Reservation updated successfully.');
     }
     public function holService()
@@ -1467,18 +1152,13 @@ class AdminController extends BaseController
             ->groupBy('rooms.RoomID')
             ->findAll(),
         ];
-
-        // Load the view with the data
         return view('Admin/Hotel/service', $data);
     }
     public function addserviceRoom()
     {
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'RoomNumber' => $this->request->getVar('RoomNumber'),
                 'RoomType' => $this->request->getVar('RoomType'),
@@ -1490,47 +1170,34 @@ class AdminController extends BaseController
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]' 
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->rooms->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
             echo ('error');
         }
-
         return redirect()->to('/admin-hotel/service');
     }
     public function updateserviceRoom()
     {
-
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'RoomID' => $this->request->getVar('RoomID'),
                 'RoomNumber' => $this->request->getVar('RoomNumber'),
@@ -1543,30 +1210,22 @@ class AdminController extends BaseController
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]'
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->rooms->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
@@ -1576,19 +1235,13 @@ class AdminController extends BaseController
     }
     public function deleteServiceRoom($id)
     {
-        // Find the room by ID
         $room = $this->rooms->find($id);
-
         if ($room) {
-            // Delete room image file
             $imagePath = FCPATH . 'uploads/' . $room['Image'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
-            // Delete the room record from the database
             $this->rooms->delete($id);
-
             return redirect()->to('/admin-hotel/service')->with('status', 'Room deleted successfully');
         } else {
             return redirect()->to('/admin-hotel/service')->with('error', 'Room not found');
@@ -1596,58 +1249,37 @@ class AdminController extends BaseController
     }
     public function addserviceRoomImage()
     {
-        // Check if form is submitted
         if ($this->request->getMethod() === 'post') {
-            // Get selected room type from form
             $roomNumber = $this->request->getPost('RoomNumber');
-
-            // Validate room type
             if (empty($roomNumber)) {
                 return redirect()->back()->with('error', 'Please select a room type.');
             }
-
-            // Get room ID based on selected room type
             $room = $this->rooms->where('RoomNumber', $roomNumber)->first();
             if (!$room) {
                 return redirect()->back()->with('error', 'Room not found for the selected room type.');
             }
-
             $roomID = $room['RoomID'];
-
-            // Handle image upload
             $uploadedFiles = $this->request->getFiles();
-
             foreach ($uploadedFiles['Images'] as $image) {
-                // Check if file is valid
                 if ($image->isValid() && !$image->hasMoved()) {
-                    // Move the file to the upload directory
                     $newName = $image->getRandomName();
                     $image->move(ROOTPATH . 'public/uploads', $newName);
-
-                    // Save image details to database
                     $this->roomimages->save([
                         'RoomID' => $roomID,
                         'Image' => $newName,
                     ]);
                 }
             }
-
             return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.'); // Redirect to room details page
         }
-
-        // If not POST request, redirect back
         return redirect()->back();
     }
     public function deleteServiceRoomImage($roomID)
     {
-        // Check if room ID is provided
         if (empty($roomID)) {
             return redirect()->back()->with('error', 'Room ID is required.');
         }
-
-        // Delete the room image from the database
         $this->roomimages->where('RoomID', $roomID)->delete();
-
         return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Room image deleted successfully.');
     }
     public function restService()
@@ -1683,18 +1315,14 @@ class AdminController extends BaseController
                 ->where('menu_category.CategoryID', 22)
                 ->where('menu.MenuType', 'Cafe Menu')
                 ->findAll(),
-
         ];
         return view('Admin/Restaurant/service', $data);
     }
     public function addserviceTable()
     {
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
                 'VenueName' => $this->request->getVar('VenueName'),
@@ -1702,53 +1330,38 @@ class AdminController extends BaseController
                 'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]'
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->venues->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
             echo ('error');
         }
-
         return redirect()->to('/admin-restaurant/service');
     }
     public function deleteServiceTable($id)
     {
-        // Find the room by ID
         $table = $this->venues->find($id);
-
         if ($table) {
-            // Delete table image file
             $imagePath = FCPATH . 'uploads/' . $table['Image'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
-            // Delete the table record from the database
             $this->venues->delete($id);
-
             return redirect()->to('/admin-convention/service')->with('status', 'Room deleted successfully');
         } else {
             return redirect()->to('/admin-convention/service')->with('error', 'Room not found');
@@ -1756,13 +1369,9 @@ class AdminController extends BaseController
     }
     public function updateserviceTable()
     {
-
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
                 'VenueName' => $this->request->getVar('VenueName'),
@@ -1770,30 +1379,22 @@ class AdminController extends BaseController
                 'AvailableCapacity' => $this->request->getVar('AvailableCapacity'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]',
+                    'ext_in[Image,png,jpg,gif]' 
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->venues->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
@@ -1808,92 +1409,62 @@ class AdminController extends BaseController
             'events' => $this->events->findAll(),
             'convenues' => $this->convenues->findAll(),
         ];
-
-        // Load the view with the data
         return view('Admin/Convention/service', $data);
     }
     public function addserviceconVenue()
     {
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'conVenueName' => $this->request->getVar('conVenueName'),
                 'minGuest' => $this->request->getVar('minGuest'),
                 'maxGuest' => $this->request->getVar('maxGuest'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]' 
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'convention/', $newFileName)) {
-                        // Save product data to the database
                         $this->convenues->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
             echo ('error');
         }
-
         return redirect()->to('/admin-convention/service');
     }
     public function deleteServiceConVenue($conVenueID)
     {
-        // Find the venue by ID
         $conVenue = $this->convenues->find($conVenueID);
-
         if ($conVenue) {
-            // Get the image file path
             $imagePath = FCPATH . 'convention/' . $conVenue['Image'];
-
-            // Delete the venue record from the database
             $this->convenues->delete($conVenueID);
-
-            // Delete the image file if it exists
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
-            // Set a success message
             session()->setFlashdata('success', 'Venue deleted successfully.');
         } else {
-            // Set an error message
             session()->setFlashdata('error', 'Venue not found.');
         }
-
         return redirect()->to('/admin-convention/service');
     }
-
     public function updateserviceconVenue()
     {
-
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'conVenueID' => $this->request->getVar('conVenueID'),
                 'conVenueName' => $this->request->getVar('conVenueName'),
@@ -1901,30 +1472,22 @@ class AdminController extends BaseController
                 'maxGuest' => $this->request->getVar('maxGuest'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]',
+                    'ext_in[Image,png,jpg,gif]'
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'convention' directory
                     if ($file->move(FCPATH . 'convention/', $newFileName)) {
-                        // Save product data to the database
                         $this->convenues->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
@@ -1935,113 +1498,78 @@ class AdminController extends BaseController
     public function addserviceEvent()
     {
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'EventType' => $this->request->getVar('EventType'),
                 'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]'
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->events->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
             echo ('error');
         }
-
         return redirect()->to('/admin-convention/service');
     }
     public function deleteServiceConEvent($EventID)
     {
-        // Find the venue by ID
         $conEvent = $this->events->find($EventID);
-
         if ($conEvent) {
-            // Get the image file path
             $imagePath = FCPATH . 'uploads/' . $conEvent['Image'];
-
-            // Delete the venue record from the database
             $this->events->delete($EventID);
-
-            // Delete the image file if it exists
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
-            // Set a success message
             session()->setFlashdata('success', 'Venue deleted successfully.');
         } else {
-            // Set an error message
             session()->setFlashdata('error', 'Venue not found.');
         }
-
         return redirect()->to('/admin-convention/service');
     }
     public function updateserviceEvent()
     {
-
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'EventID' => $this->request->getVar('EventID'),
                 'EventType' => $this->request->getVar('EventType'),
                 'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]' 
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Save product data to the database
                         $this->events->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
@@ -2049,55 +1577,40 @@ class AdminController extends BaseController
         }
         return redirect()->to('/admin-convention/service');
     }
-
     public function Qrcode()
     {
         $data = [
             'adminRoutes' => 'qrcode',
             'qrcodes' => $this->qr->findAll(),
         ];
-
-        // Load the view with the data
         return view('Admin/qrcode', $data);
     }
     public function updateQrcode()
     {
-
         $file = $this->request->getFile('Image');
-
-        // Check if a file is uploaded
         if ($file) {
             $newFileName = $file->getRandomName();
-
             $data = [
                 'QrcodeID' => $this->request->getVar('QrcodeID'),
                 'PaymentOption' => $this->request->getVar('PaymentOption'),
                 'Image'                => $newFileName
             ];
-
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', // Maximum file size in kilobytes (adjust as needed)
-                    'ext_in[Image,png,jpg,gif]' // Allow only files with the specified extensions
+                    'max_size[Image,10240]', 
+                    'ext_in[Image,png,jpg,gif]' 
                 ]
             ];
-
-            // Validate the file and other form data
             if ($this->validate($rules)) {
-                // Check if the file is valid and has not been moved
                 if ($file->isValid() && !$file->hasMoved()) {
-                    // Move the file to the 'uploads' directory
                     if ($file->move(FCPATH . 'qrimage/', $newFileName)) {
-                        // Save product data to the database
                         $this->qr->save($data);
                     } else {
-                        // Handle file move error
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
                 }
             } else {
-                // Handle validation errors
                 $data['validation'] = $this->validator;
             }
         } else {
@@ -2114,9 +1627,7 @@ class AdminController extends BaseController
     }
     public function viewReservation($reservationID)
     {
-        $db = \Config\Database::connect(); // Get database connection
-
-        // SQL Query to fetch reservation, user, and room details
+        $db = \Config\Database::connect(); 
         $query = $db->table('reservations')
         ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, GROUP_CONCAT(reservation_amenities.AmenitiesID) as AmenitiesID, room_inventory.ProductName, reservation_amenities.insertQuantity')
         ->join('users', 'reservations.UserID = users.UserID')
@@ -2126,13 +1637,9 @@ class AdminController extends BaseController
         ->where('reservations.ReservationID', $reservationID)
         ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, room_inventory.ProductName, reservation_amenities.insertQuantity')
         ->get();
-    
         $reservationDetails = $query->getRow();
-    
-
-        // Check if reservation has expired
         if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
-            $reservationDetails->Status = 'Expired'; // Set status to Expired if checkout date is past
+            $reservationDetails->Status = 'Expired';
         } else {
             $reservationDetails->Status = 'Valid';
         }
@@ -2140,7 +1647,7 @@ class AdminController extends BaseController
             $amenitiesArray = explode(',', $reservationDetails->AmenitiesID);
             $reservationDetails->AmenitiesID = $amenitiesArray;
         } else {
-            $reservationDetails->AmenitiesID = []; // Set it to an empty array if no amenities selected
+            $reservationDetails->AmenitiesID = [];
         }
         $amenities = [];
         foreach ($query->getResult() as $row) {
@@ -2150,8 +1657,6 @@ class AdminController extends BaseController
             ];
             $amenities[] = $amenity;
         }
-        
-
         if ($reservationDetails) {
             return view('Hotell/reservation_view', ['reservation' => $reservationDetails, 'amenities' => $amenities]);
         } else {
@@ -2160,9 +1665,7 @@ class AdminController extends BaseController
     }
     public function viewconvetionReservation($reservationID)
     {
-        $db = \Config\Database::connect(); // Get database connection
-
-        // SQL Query to fetch reservation, user, and room details
+        $db = \Config\Database::connect(); 
         $query = $db->table('reservations')
             ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber,convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description, events.Image as event_image ')
             ->join('users', 'reservations.UserID = users.UserID')
@@ -2172,23 +1675,18 @@ class AdminController extends BaseController
             ->where('reservations.ReservationID', $reservationID)
             ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, convention_venue.conVenueName, events.EventType, events.Description ')
             ->get();
-
         $reservationDetails = $query->getRow();
-
-        // Check if reservation has expired
         if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
-            $reservationDetails->Status = 'Expired'; // Set status to Expired if checkout date is past
+            $reservationDetails->Status = 'Expired';
         } else {
             $reservationDetails->Status = 'Valid';
         }
-
         if ($reservationDetails) {
-            return view('Hotell/conventionreservation_view', ['reservation' => $reservationDetails]); // Load the view and pass the details
+            return view('Hotell/conventionreservation_view', ['reservation' => $reservationDetails]);
         } else {
             return redirect()->back()->with('error', 'Reservation not found.');
         }
     }
-
     public function newsPromotion()
     {
         $data = [
@@ -2200,18 +1698,13 @@ class AdminController extends BaseController
     public function addnewsPromotion()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-
         if ($image = $this->request->getFile('Image')) {
             if ($image->isValid() && !$image->hasMoved()) {
                 $newFileName = $image->getRandomName();
@@ -2222,13 +1715,9 @@ class AdminController extends BaseController
         } else {
             return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Please upload an image.');
         }
-
-        // Insert new menu item
         $newNewsData = [
             'Image' => $newFileName
         ];
-
-        // Insert menu item
         $inserted = $this->news->insert($newNewsData);
         if ($inserted) {
             return redirect()->to(base_url('admin-newspromotion'))->with('success', 'Menu item added successfully.');
@@ -2239,22 +1728,14 @@ class AdminController extends BaseController
     public function editnewsPromotion()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-newspromotion'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve News ID
         $newsID = $this->request->getPost('NewsID');
-    
-        // Handle Image Upload
         $newFileName = '';
         $image = $this->request->getFile('Image');
         if ($image->isValid() && !$image->hasMoved()) {
@@ -2263,11 +1744,7 @@ class AdminController extends BaseController
         } else {
             return redirect()->to(base_url('/admin-newspromotion'))->with('error', 'Failed to upload image. Please try again.');
         }
-    
-        // Update News Data
         $updatedNewsData = ['Image' => $newFileName];
-    
-        // Update News
         $updated = $this->news->update($newsID, $updatedNewsData);
         if ($updated) {
             return redirect()->to(base_url('/admin-newspromotion'))->with('success', 'News updated successfully.');
@@ -2279,29 +1756,19 @@ class AdminController extends BaseController
     public function deleteNews($newsID)
     {
         $newsModel = new NewsModel();
-
-        // Get the news data by ID
         $news = $newsModel->find($newsID);
-
         if ($news) {
-            // Delete the news image from the server
             $imagePath = FCPATH . 'news/' . $news['Image'];
             if (file_exists($imagePath)) {
                 unlink($imagePath);
             }
-
-            // Delete the news from the database
             $deleted = $newsModel->delete($newsID);
-
             if ($deleted) {
-                // Redirect with success message
                 return redirect()->to(base_url('admin-newspromotion'))->with('success', 'News deleted successfully.');
             } else {
-                // Redirect with error message
                 return redirect()->to(base_url('admin-newspromotion'))->with('error', 'Failed to delete news. Please try again.');
             }
         } else {
-            // Redirect with error message
             return redirect()->to(base_url('admin-newspromotion'))->with('error', 'News not found.');
         }
     }
@@ -2329,23 +1796,16 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->where('reservations.Status', 'Confirm')
                 ->findAll(),
-
         ];
         return view('Admin/report', $data);
     }
     public function fetchReportData()
     {
-        // Get start date, end date, and data type from the AJAX request
         $startDate = $this->request->getPost('start_date');
         $endDate = $this->request->getPost('end_date');
-        $dataType = $this->request->getPost('data_type'); // Added to determine which data to fetch
-
-        // Initialize an empty array to hold the fetched data
+        $dataType = $this->request->getPost('data_type');
         $data = [];
-
-        // Determine which data type was requested and fetch the corresponding data
         if ($dataType === 'hotel') {
-            // Fetch hotel reservation data
             $data = $this->reservation
                 ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
                 ->join('rooms', 'reservations.RoomID = rooms.RoomID')
@@ -2356,7 +1816,6 @@ class AdminController extends BaseController
                 ->orderBy('reservations.CheckInDate', 'ASC')
                 ->findAll();
         } elseif ($dataType === 'restaurant') {
-            // Fetch restaurant reservation data
             $data = $this->reservation
                 ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
                 ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
@@ -2367,7 +1826,6 @@ class AdminController extends BaseController
                 ->orderBy('reservations.CheckInDate', 'ASC')
                 ->findAll();
         } elseif ($dataType === 'convention') {
-            // Fetch convention reservation data
             $data = $this->reservation
                 ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
                 ->join('convention', 'reservations.conventionID = convention.conventionID')
@@ -2380,10 +1838,6 @@ class AdminController extends BaseController
                 ->orderBy('reservations.CheckInDate', 'ASC')
                 ->findAll();
         }
-
-        // Return the fetched data as JSON response
         return $this->response->setJSON($data);
     }
-
-
 }

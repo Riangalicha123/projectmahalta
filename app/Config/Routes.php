@@ -18,7 +18,6 @@ $routes->get('/qrpath', 'GuestController::qrpath', ['filter' => 'noAuth']);
 $routes->get('/qrcoventionpath', 'GuestController::qrconventionPath', ['filter' => 'noAuth']);
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation', ['filter' => 'noAuth']);
 $routes->get('/roompolicy', 'GuestController::roomPolicy', ['filter' => 'noAuth']);
-$routes->get('/faq', 'GuestController::faq', ['filter' => 'noAuth']);
 $routes->get('/restaurantt', 'GuestController::restaurantt', ['filter' => 'noAuth']);
 $routes->get('/mainmenu', 'GuestController::mainmenu', ['filter' => 'noAuth']);
 $routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions', ['filter' => 'noAuth']);
@@ -93,6 +92,7 @@ $routes->get('/staff-hotel/service/delete/(:num)', 'AdminController::deleteServi
 $routes->post('/updateRoom', 'StaffController::updateRoom', ['filter' => 'staffGuard']);
 $routes->get('/staff-hotelsetting', 'StaffController::hotelsetting', ['filter' => 'staffGuard']);
 $routes->post('/staff/hotel/update-password', 'StaffController::hotelupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updatehotelProfile/(:num)', 'StaffController::updatehotelProfile/$1', ['filter' => 'staffGuard']);
 
 $routes->get('/staff-restaurant', 'StaffController::reshome', ['filter' => 'staffGuard']);
 $routes->get('/staff-restaurant-reservation', 'StaffController::resReservation', ['filter' => 'staffGuard']);
@@ -118,6 +118,7 @@ $routes->get('/deletemenucafeicedd/(:num)', 'RestaurantController::deleteCafeMen
 $routes->post('/updateCafeMenuIcedd', 'RestaurantController::updateCafeMenuIcedd', ['filter' => 'staffGuard']);
 $routes->get('/staff-ressetting', 'StaffController::ressetting', ['filter' => 'staffGuard']);
 $routes->post('/staff/restaurant/update-password', 'StaffController::resupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updaterestaurantProfile/(:num)', 'StaffController::updaterestaurantProfile/$1', ['filter' => 'staffGuard']);
 
 
 $routes->get('/staff-convention', 'StaffController::conhome', ['filter' => 'staffGuard']);
@@ -135,6 +136,8 @@ $routes->get('/staff/deleteVenue/(:num)', 'StaffController::deleteServiceConVenu
 $routes->post('/updateconVenue', 'StaffController::updateconVenue', ['filter' => 'staffGuard']);
 $routes->get('/staff-consetting', 'StaffController::consetting', ['filter' => 'staffGuard']);
 $routes->post('/staff/convention/update-password', 'StaffController::conupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updateconventionProfile/(:num)', 'StaffController::updateconventionProfile/$1', ['filter' => 'staffGuard']);
+
 
 $routes->get('/staff-inventory', 'InventoryController::inhome', ['filter' => 'staffGuard']);
 $routes->get('/staff-inventory/hotel', 'InventoryController::inhotel', ['filter' => 'staffGuard']);
@@ -143,6 +146,7 @@ $routes->get('/staff-inventoryhotel/delete/(:num)', 'InventoryController::delete
 $routes->post('/updateinHotel/(:num)', 'InventoryController::updateinHotel/$1', ['filter' => 'staffGuard']);
 $routes->get('/staff-invensetting', 'InventoryController::invensetting', ['filter' => 'staffGuard']);
 $routes->post('/staff/inven/update-password', 'InventoryController::invenupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updateinventoryProfile/(:num)', 'InventoryController::updateinventoryProfile/$1', ['filter' => 'staffGuard']);
 
 $routes->get('/admin-inventoryhotel', 'InventoryController::inventoryHotel', ['filter' => 'adminGuard']);
 $routes->post('/adddinHotel', 'InventoryController::adddinHotel', ['filter' => 'adminGuard']);

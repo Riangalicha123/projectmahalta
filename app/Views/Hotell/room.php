@@ -66,41 +66,6 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-
-    
-    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/big_image_1.jpg); background-repeat: no-repeat; background-image: cover;">
-      <div class="container">
-        <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-12 text-center">
-          <br>
-          <br>
-          <div class="mb-7 element-animate" style="text-align: center;">
-            <h1 style="font-size: 3em; margin-bottom: -5px;">Rooms</h1>
-            <p>Cozy room with modern amenities for a comfortable stay.</p>
-            
-          </div>
-                      <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-            <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
-            <div style="display: flex; flex-wrap: wrap;">
-              <div style="flex: 0 0 100%; margin-bottom: 10px;">
-                <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
-              </div>
-              <div style="flex: 0 0 100%; margin-bottom: 10px;">
-                <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
-              </div>
-              
-            </div>
-            
-          </div>
-
-          </div>
-        </div>
-      </div>
-    </section> -->
-    <!-- END section -->
-
     <?php if(session()->get('isLoggedIn')): ?>
       <?php
             // Retrieve flash messages from session
@@ -117,66 +82,65 @@
             <?php endif; ?>
  
             <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
-  <div class="container">
-    <div class="row align-items-center site-hero-inner justify-content-center">
-     
-      <div class="col-md-12 text-center">
-      <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
-    <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
-    <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
-            <div style="display: flex; flex-wrap: wrap;">
-              <div style="flex: 0 0 100%; margin-bottom: 10px;">
-                <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
-              </div>
-              <div style="flex: 0 0 100%; margin-bottom: 10px;">
-                <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
-              </div>
-              
+              <div class="container">
+                <div class="row align-items-center site-hero-inner justify-content-center">
+                
+                  <div class="col-md-12 text-center">
+                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
+                <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+                <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
+                        <div style="display: flex; flex-wrap: wrap;">
+                          <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                            <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
+                          </div>
+                          <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                            <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
+                          </div>
+                          
+                        </div>
             </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 ">
-            <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                <div class="media-body">
-                    <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                        <div class="row">
-                            <div class="col-sm-6 form-group">
-                                <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                                <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                            </div>
-                            <div class="col-sm-6 form-group">
-                                <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                                <input type="number" class="form-control" id="Child" name="Child" value="0">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                            <div class="media-body">
+                                <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                                            <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                                            <input type="number" class="form-control" id="Child" name="Child" value="0">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="CheckInDate" name="CheckInDate">
+                                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group text-center">
+                                            <button type="submit" class="btn btn-primary">Check Availability</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                        <input type="hidden" id="CheckInDate" name="CheckInDate">
-                        <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                        <div class="row">
-                            <div class="col-sm-12 form-group text-center">
-                                <button type="submit" class="btn btn-primary">Check Availability</button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
-      </div>
-    </div>
-  </div>
-</section>
+                  </div>
+                </div>
+              </div>
+            </section>
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
-        <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
-    <input type="number" id="price-input" placeholder="Enter price range...">
-    <button id="search-btn">Search</button>
-</div>
+          <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
+            <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
+          </div>
 
           <div class="row" id="room-container">
-          <?php foreach ($rooms as $room): ?>
+            <?php foreach ($rooms as $room): ?>
             <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
               <div class="col-md-4 mb-4">
                 <div class="media d-block room mb-0">
@@ -262,109 +226,142 @@
         </div>
       </section>  
     <?php else: ?>
+      <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
+              <div class="container">
+                <div class="row align-items-center site-hero-inner justify-content-center">
+                
+                  <div class="col-md-12 text-center">
+                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
+                <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+                <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
+                        <div style="display: flex; flex-wrap: wrap;">
+                          <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                            <p style="font-size: 1.2em; text-align: center;">Check In Time: 2:00 PM</p>
+                          </div>
+                          <div style="flex: 0 0 100%; margin-bottom: 10px;">
+                            <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
+                          </div>
+                          
+                        </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 ">
+                        <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                            <div class="media-body">
+                                    <div class="row">
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                                            <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                                        </div>
+                                        <div class="col-sm-6 form-group">
+                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                                            <input type="number" class="form-control" id="Child" name="Child" value="0">
+                                        </div>
+                                    </div>
+                                    <input type="hidden" id="CheckInDate" name="CheckInDate">
+                                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                                    <div class="row">
+                                        <div class="col-sm-12 form-group text-center">
+                                            <a href="<?= base_url('/login') ?>" class="btn btn-primary">Check Availability</a>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+                  </div>
+                </div>
+              </div>
+            </section>
     <section class="site-section"style="background: #FAF2D3;">
       <div class="container">
-        <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/room5.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Deluxe Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p>Indulge in comfort and style with our Jr. Suite Rooms. </p>
-                <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/room6.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Jr. Suite Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p>Indulge in comfort and style with our Jr. Suite Rooms. </p>
-                <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/room1.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Family Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p>Create lasting family memories in our spacious Family Rooms. </p>
-                <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
-              </div>
-            </div>
-          </div>
+      <div class="row" id="room-container">
+            <?php foreach ($rooms as $room): ?>
+            <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
+              <div class="col-md-4 mb-4">
+                <div class="media d-block room mb-0">
+                  <figure>
+                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height:300 px; width:788px;">
+                    <div class="overlap-text">
+                      <span>
+                      Room<?=$room['RoomNumber']?> 
+                      <h6><b><?= $room['AvailabilityStatus'] ?></b></h6>
+                      </span>
+                    </div>
+                  </figure>
+                  <div class="media-body">
+                    <h3 class="mt-0"><a href="#"><?=$room['RoomType']?></a></h3>
+                    <h5 class="mt-0"><a href="#">PHP <?=$room['PricePerNight']?> (per<?=$room['PerNightHead']?>)</a></h5>
+                    <ul class="room-specs">
+                                      <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
+                                      <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
+                                    </ul>
+                      
 
-
-          <div class="col-md-4 mb-4">
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="/guest/images/room4.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
+                      <!-- View More Button -->
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                        <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$room['RoomID']?>" style="cursor: pointer;">View More Details</a></h6>
+                        </div>
+                      </div>
+                    
+                    
+                    <!-- <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary btn-sm">Book Now</a></p> -->
+                  </div>
                 </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">Barkada Room</a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
-                </ul>
-                <p> Our Barkada Rooms offer the ideal setting for a memorable and shared experience. </p>
-                <p><a href="<?= route_to('login') ?>" class="btn btn-primary btn-sm">Book Now</a></p>
               </div>
-            </div>
+               <!-- Modal for room details -->
+              <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="roomModalLabel<?=$room['RoomID']?>">Room <?=$room['RoomNumber']?> <strong>||</strong> <?=$room['RoomType']?> Details</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <!-- Carousel for room images -->
+                              <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
+                                  <div class="carousel-inner">
+                                      <?php foreach ($roomimages as $roomimage): ?>
+                                          <?php if ($roomimage['RoomID'] === $room['RoomID']): ?>
+                                              <?php $images = explode(',', $roomimage['Images']); ?>
+                                              <?php foreach ($images as $index => $image): ?>
+                                                  <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
+                                                      <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 100px; height: 300px;">
+                                                  </div>
+                                              <?php endforeach; ?>
+                                          <?php endif; ?>
+                                      <?php endforeach; ?>
+                                  </div>
+                                  <a class="carousel-control-prev" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#imageCarousel<?=$room['RoomID']?>" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                  </a>
+                              </div>
+                              <p><?=$room['Description']?></p>
+                              <p><b>• ROOM INCLUSIONS</b></p>
+                              <p>-Complimentary Breakfast(Plated Service)</p>
+                              <p>-Free Flow or Brewed Coffee</p>
+                              <p>-Complete Amenities</p>
+                              <p>-Swimming Pool Access</p>
+                              <p>-Stand By Generator Set</p>
+                              <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+            <?php endif; ?>
+            <?php endforeach; ?>
           </div>
-        </div>
       </div>
     </section>
     <?php endif; ?>

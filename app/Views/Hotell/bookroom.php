@@ -191,10 +191,12 @@
                                       <p>-Swimming Pool Access</p>
                                       <p>-Stand By Generator Set</p>
                                       <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
+                                      
                                   </div>
                               </div>
                           </div>
                       </div>
+                      <br>
                       <div class="row">
                         <div class="col-md-12 text-center">
                           <?php if ($room['AvailabilityStatus'] == 'Not Available') : ?>
@@ -204,6 +206,15 @@
                             <input type="text" id="dateRange<?= $room['RoomID'] ?>" class="form-control" placeholder="Select dates">
                             <input type="hidden" id="CheckInDate<?= $room['RoomID'] ?>" name="CheckInDate<?= $room['RoomID'] ?>">
                             <input type="hidden" id="CheckOutDate<?= $room['RoomID'] ?>" name="CheckOutDate<?= $room['RoomID'] ?>">
+                            <p style="color: black">Note: Optional if you want to add guests. Extra person will be charged PHP 500.00 per head</p>
+                              <div>
+                          <label for="addAdult" style="color: black; font-size: 18px; font-weight: bold;">Add Adult</label>
+                          <input type="number" class="form-control" id="addAdult<?= $room['RoomID'] ?>" name="addAdult<?= $room['RoomID'] ?>" value="0">
+                      </div>
+                      <div>
+                          <label for="addChild" style="color: black; font-size: 18px; font-weight: bold;">Add Child</label>
+                          <input type="number" class="form-control" id="addChild<?= $room['RoomID'] ?>" name="addChild<?= $room['RoomID'] ?>" value="0">
+                      </div>
                             <br>
                             <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary">Select</button>
                           <?php endif; ?>
@@ -239,7 +250,7 @@
 
               <div class="media-body">
                 <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
-                <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?>/ Night</a></h5>
+                <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?></a></h5>
                 <?php if (isset($reservationData)) : ?>
                   <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
                   <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>

@@ -26,7 +26,6 @@ class InventoryController extends BaseController
     private $admin;
     private $reservation;
     private $roominventory;
-
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -39,10 +38,6 @@ class InventoryController extends BaseController
         $this->admin = new AdminModel();
         $this->reservation = new ReservationModel();
         $this->roominventory = new RoomInventoryModel();
-    }
-    public function index()
-    {
-        //
     }
     public function inhome()
     {
@@ -67,7 +62,6 @@ class InventoryController extends BaseController
             'Quantity' => 'required',
             'Price' => 'required',
         ];
-
         if ($this->validate($rules)){
             $data = [
                 'ProductName' => $this->request->getVar('ProductName'),
@@ -84,15 +78,9 @@ class InventoryController extends BaseController
     }
     public function deleteAmenitiesItemm($roomInventoryID)
     {
-        // Retrieve the product by ID
         $roominventory = $this->roominventory->find($roomInventoryID);
-        
-        // Check if the roominventory exists
         if ($roominventory) {
-            // Delete the roominventory
             $deleted = $this->roominventory->delete($roomInventoryID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -105,33 +93,22 @@ class InventoryController extends BaseController
     public function updateinHotel($roomInventoryID)
     {
         helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
         $validationRules = [
             
             'ProductName' => 'required',
             'Quantity' => 'required|numeric',
             'Price' => 'required',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
             return redirect()->to(base_url("/editReservation/{$roomInventoryID}"))->with('validationErrors', $validationErrors);
         }
-
-                // Prepare Reservation Data
                 $updateReservationData = [
                     'ProductName' => $this->request->getPost('ProductName'),
                     'Quantity' => $this->request->getPost('Quantity'),
                     'Price' => $this->request->getPost('Price'),
                 ];
-
-        // Update Reservation
         $this->roominventory->update($roomInventoryID, $updateReservationData);
-
-        // Redirect with appropriate message
         return redirect()->to(base_url('/staff-inventory/hotel'))->with('success', 'Reservation updated successfully.');
     }
     public function invensetting()
@@ -146,14 +123,11 @@ class InventoryController extends BaseController
         $session = session();
         $userModel = new UserModel();
         $userID = $session->get('id');
-
-        // Validate form input
         $rules = [
             'oldpassword' => 'required',
             'newpassword' => 'required|min_length[8]',
             'confirmpassword' => 'required|matches[newpassword]'
         ];
-
         if ($this->validate($rules)) {
             $oldPassword = $this->request->getPost('oldpassword');
             $newPassword = $this->request->getPost('newpassword');
@@ -172,8 +146,29 @@ class InventoryController extends BaseController
             return view('Stafff\Inventory\setting', $data);
         }
     }
-
-
+    public function updateinventoryProfile($userID)
+    {
+        helper(['form']);
+        $validationRules = [
+            'FirstName' => 'required|min_length[2]|max_length[100]',
+            'LastName' => 'required|min_length[2]|max_length[100]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]',
+        ];
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return redirect()->back()->withInput()->with('validationErrors', $validationErrors);
+        }
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
+        $this->users->update($userID, $updatedUserData);
+        session()->setFlashdata('success', 'Profile updated successfully.');
+        return redirect()->to(base_url('/staff-invensetting'));
+    }
     public function inventoryHotel()
     {
         $data = [
@@ -190,7 +185,6 @@ class InventoryController extends BaseController
             'Quantity' => 'required',
             'Price' => 'required',
         ];
-
         if ($this->validate($rules)){
             $data = [
                 'ProductName' => $this->request->getVar('ProductName'),
@@ -205,18 +199,11 @@ class InventoryController extends BaseController
             return view('Admin\inventory_hotel',$data);
         }
     }
-    
     public function deleteAmenitiesItem($roomInventoryID)
     {
-        // Retrieve the product by ID
         $roominventory = $this->roominventory->find($roomInventoryID);
-        
-        // Check if the roominventory exists
         if ($roominventory) {
-            // Delete the roominventory
             $deleted = $this->roominventory->delete($roomInventoryID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-inventoryhotel'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -226,38 +213,24 @@ class InventoryController extends BaseController
             return redirect()->to(base_url('/admin-inventoryhotel'))->with('error', 'Menu item not found.');
         }
     }
-    
     public function updateeinHotel($roomInventoryID)
     {
         helper(['form']);
-
-        // Validation Rules (you can customize these based on your requirements)
         $validationRules = [
-            
             'ProductName' => 'required',
             'Quantity' => 'required|numeric',
             'Price' => 'required',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
-            // You might want to handle validation errors here
             return redirect()->to(base_url("/editReservation/{$roomInventoryID}"))->with('validationErrors', $validationErrors);
         }
-
-                // Prepare Reservation Data
                 $updateReservationData = [
                     'ProductName' => $this->request->getPost('ProductName'),
                     'Quantity' => $this->request->getPost('Quantity'),
                     'Price' => $this->request->getPost('Price'),
                 ];
-
-        // Update Reservation
         $this->roominventory->update($roomInventoryID, $updateReservationData);
-
-        // Redirect with appropriate message
         return redirect()->to(base_url('/admin-inventoryhotel'))->with('success', 'Reservation updated successfully.');
     }
-
 }

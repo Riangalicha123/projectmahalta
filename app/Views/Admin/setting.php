@@ -69,21 +69,21 @@
 
                   <div class="active tab-pane" id="settings">
                   <?php if (session()->has('success')) : ?>
-    <div class="alert alert-success">
-        <?= session()->get('success') ?>
-    </div>
-<?php endif ?>
+                      <div class="alert alert-success">
+                          <?= session()->get('success') ?>
+                      </div>
+                  <?php endif ?>
 
-<!-- Add this block to display validation errors -->
-<?php if (isset($validationErrors)) : ?>
-    <div class="alert alert-danger">
-        <ul>
-            <?php foreach ($validationErrors as $error) : ?>
-                <li><?= esc($error) ?></li>
-            <?php endforeach ?>
-        </ul>
-    </div>
-<?php endif ?>
+                  <!-- Add this block to display validation errors -->
+                  <?php if (isset($validationErrors)) : ?>
+                      <div class="alert alert-danger">
+                          <ul>
+                              <?php foreach ($validationErrors as $error) : ?>
+                                  <li><?= esc($error) ?></li>
+                              <?php endforeach ?>
+                          </ul>
+                      </div>
+                  <?php endif ?>
                     <form class="form-horizontal" action="<?= base_url('updateadminProfile/' . $_SESSION['id']) ?>" method="post">
                       <div class="form-group row">
                         <label for="FirstName" class="col-sm-2 col-form-label">First Name</label>

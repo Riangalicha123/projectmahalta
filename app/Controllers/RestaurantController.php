@@ -8,7 +8,6 @@ use App\Models\MenuProductModel;
 use App\Models\MenuCategoryModel;
 use App\Models\MenuProductIcedModel;
 use App\Traits\EmailTrait;
-
 class RestaurantController extends BaseController
 {
     use EmailTrait;
@@ -16,7 +15,6 @@ class RestaurantController extends BaseController
     private $products;
     private $categories;
     private $iced;
-    
     function __construct(){
         helper(['form']);
         $this->menus = new MenuModel();
@@ -27,32 +25,21 @@ class RestaurantController extends BaseController
     public function addMainMenu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Main Menu
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
-    
-        // Check if both category and main menu exist
         if ($menuCategory && $menuMain) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -63,8 +50,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -73,8 +58,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuMain['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item added successfully.');
@@ -87,15 +70,9 @@ class RestaurantController extends BaseController
     }
     public function deleteMainMenu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -108,35 +85,22 @@ class RestaurantController extends BaseController
     public function updateMainMenu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Main Menu
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
-
-        // Check if both category and main menu exist
         if ($menuCategory && $menuMain) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -145,11 +109,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -158,8 +119,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuMain['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
@@ -173,32 +132,21 @@ class RestaurantController extends BaseController
     public function addBarMenu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Bar Menu
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
-    
-        // Check if both category and Bar menu exist
         if ($menuCategory && $menuBar) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -209,8 +157,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -219,8 +165,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuBar['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item added successfully.');
@@ -233,15 +177,9 @@ class RestaurantController extends BaseController
     }
     public function deleteBarMenu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -254,35 +192,22 @@ class RestaurantController extends BaseController
     public function updateBarMenu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Bar Menu
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
-
-        // Check if both category and Bar menu exist
         if ($menuCategory && $menuBar) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -291,11 +216,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -304,8 +226,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuBar['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
@@ -319,32 +239,21 @@ class RestaurantController extends BaseController
     public function addCafeMenu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -355,8 +264,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -365,8 +272,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item added successfully.');
@@ -379,15 +284,9 @@ class RestaurantController extends BaseController
     }
     public function deleteCafeMenu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -400,35 +299,22 @@ class RestaurantController extends BaseController
     public function updateCafeMenu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -437,11 +323,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -450,8 +333,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
@@ -465,8 +346,6 @@ class RestaurantController extends BaseController
     public function addCafeMenuIced()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             
             'IcedName' => 'required',
@@ -474,24 +353,15 @@ class RestaurantController extends BaseController
             'PriceGrande' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = 'Iced Coffee';
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -502,8 +372,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'IcedName' => $this->request->getPost('IcedName'),
@@ -513,8 +381,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->iced->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item added successfully.');
@@ -527,15 +393,9 @@ class RestaurantController extends BaseController
     }
     public function deleteCafeMenuIced($icedID)
     {
-        // Retrieve the product by ID
         $iced = $this->iced->find($icedID);
-        
-        // Check if the iced exists
         if ($iced) {
-            // Delete the iced
             $deleted = $this->iced->delete($icedID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -545,39 +405,25 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Menu item not found.');
         }
     }
-
     public function updateCafeMenuIced()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'IcedName' => 'required',
             'PriceTall' => 'required',
             'PriceGrande' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Product ID
-        $productID = $this->request->getPost('IcedID'); // Corrected to retrieve IcedID instead of ProductID
-    
-        // Retrieve Category ID
+        $productID = $this->request->getPost('IcedID'); 
         $inputCategoryName = 'Iced Coffee';
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -586,11 +432,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-    
-            // Update menu item data
             $updatedMenuData = [
                 'IcedName' => $this->request->getPost('IcedName'),
                 'PriceTall' => $this->request->getPost('PriceTall'),
@@ -599,8 +442,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Update menu item
             $updated = $this->iced->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
@@ -611,39 +452,25 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
-    
-
     //Staff
-
     public function addMainMenuu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Main Menu
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
-    
-        // Check if both category and main menu exist
         if ($menuCategory && $menuMain) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -654,8 +481,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -664,8 +489,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuMain['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item added successfully.');
@@ -678,15 +501,9 @@ class RestaurantController extends BaseController
     }
     public function deleteMainMenuu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -699,35 +516,22 @@ class RestaurantController extends BaseController
     public function updateMainMenuu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Main Menu
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
-
-        // Check if both category and main menu exist
         if ($menuCategory && $menuMain) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -736,11 +540,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -749,8 +550,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuMain['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item updated successfully.');
@@ -764,32 +563,21 @@ class RestaurantController extends BaseController
     public function addBarMenuu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Bar Menu
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
-    
-        // Check if both category and Bar menu exist
         if ($menuCategory && $menuBar) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -800,8 +588,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -810,8 +596,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuBar['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item added successfully.');
@@ -824,15 +608,9 @@ class RestaurantController extends BaseController
     }
     public function deleteBarMenuu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -845,35 +623,22 @@ class RestaurantController extends BaseController
     public function updateBarMenuu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Bar Menu
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
-
-        // Check if both category and Bar menu exist
         if ($menuCategory && $menuBar) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -882,11 +647,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -895,8 +657,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuBar['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item updated successfully.');
@@ -910,32 +670,21 @@ class RestaurantController extends BaseController
     public function addCafeMenuu()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -946,8 +695,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -956,8 +703,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->products->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item added successfully.');
@@ -970,15 +715,9 @@ class RestaurantController extends BaseController
     }
     public function deleteCafeMenuu($productID)
     {
-        // Retrieve the product by ID
         $product = $this->products->find($productID);
-        
-        // Check if the product exists
         if ($product) {
-            // Delete the product
             $deleted = $this->products->delete($productID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -991,35 +730,22 @@ class RestaurantController extends BaseController
     public function updateCafeMenuu()
     {
         helper(['form']);
-
-        // Validation Rules
         $validationRules = [
             'CategoryName' => 'required',
             'ProductName' => 'required',
             'ProductPrice' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-
-        // Retrieve Product ID
         $productID = $this->request->getPost('ProductID');
-
-        // Retrieve Category ID
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -1028,11 +754,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-
-            // Update menu item data
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -1041,8 +764,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-
-            // Update menu item
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item updated successfully.');
@@ -1056,8 +777,6 @@ class RestaurantController extends BaseController
     public function addCafeMenuIcedd()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             
             'IcedName' => 'required',
@@ -1065,24 +784,15 @@ class RestaurantController extends BaseController
             'PriceGrande' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Category ID
         $inputCategoryName = 'Iced Coffee';
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -1093,8 +803,6 @@ class RestaurantController extends BaseController
             } else {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Please upload an image.');
             }
-    
-            // Insert new menu item
             $newMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'IcedName' => $this->request->getPost('IcedName'),
@@ -1104,8 +812,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Insert menu item
             $inserted = $this->iced->insert($newMenuData);
             if ($inserted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item added successfully.');
@@ -1118,15 +824,9 @@ class RestaurantController extends BaseController
     }
     public function deleteCafeMenuIcedd($icedID)
     {
-        // Retrieve the product by ID
         $iced = $this->iced->find($icedID);
-        
-        // Check if the iced exists
         if ($iced) {
-            // Delete the iced
             $deleted = $this->iced->delete($icedID);
-            
-            // Check if deletion was successful
             if ($deleted) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item deleted successfully.');
             } else {
@@ -1139,35 +839,22 @@ class RestaurantController extends BaseController
     public function updateCafeMenuIcedd()
     {
         helper(['form']);
-    
-        // Validation Rules
         $validationRules = [
             'IcedName' => 'required',
             'PriceTall' => 'required',
             'PriceGrande' => 'required',
             'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
         ];
-    
-        // Validate Input
         if (!$this->validate($validationRules)) {
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('validationErrors', $validationErrors);
         }
-    
-        // Retrieve Product ID
-        $productID = $this->request->getPost('IcedID'); // Corrected to retrieve IcedID instead of ProductID
-    
-        // Retrieve Category ID
+        $productID = $this->request->getPost('IcedID'); 
         $inputCategoryName = 'Iced Coffee';
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
-    
-        // Retrieve Menu ID for Cafe Menu
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
-    
-        // Check if both category and Cafe menu exist
         if ($menuCategory && $menuCafe) {
-            // Upload and process image
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
                     $newFileName = $image->getRandomName();
@@ -1176,11 +863,8 @@ class RestaurantController extends BaseController
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
-                // If no new image is uploaded, retain the existing image filename
                 $newFileName = $this->request->getPost('Image');
             }
-    
-            // Update menu item data
             $updatedMenuData = [
                 'IcedName' => $this->request->getPost('IcedName'),
                 'PriceTall' => $this->request->getPost('PriceTall'),
@@ -1189,8 +873,6 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuCafe['MenuID'],
                 'Image' => $newFileName
             ];
-    
-            // Update menu item
             $updated = $this->iced->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/staff-restaurant-menu'))->with('success', 'Menu item updated successfully.');
@@ -1201,7 +883,4 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
-    
-
-    
 }

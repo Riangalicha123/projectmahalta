@@ -78,9 +78,14 @@
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Main Restaurant</a></h3>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
+                <?php if(session()->get('isLoggedIn')): ?>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
         Make Online Reservation
-    </button></p>
+    </button></p> 
+    <?php else: ?>
+        <p> 
+    <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
+    <?php endif; ?>
               </div>
             </div>
           </div>
