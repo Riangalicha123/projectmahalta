@@ -22,7 +22,6 @@
   <link rel="stylesheet" href="/guest/css/style.css">
   <style>
     
-/* Style the buttons */
 .btn-info, .btn-secondary {
   display: inline-block;
   padding: 10px 20px;
@@ -45,24 +44,19 @@
 <body>
 
   <?php include('inc/header.php') ?>
-  <!-- END header -->
 
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(/guest/images/3.jpg);">
     <div class="container">
       <div class="row align-items-center site-hero-inner justify-content-center">
         <div class="col-md-12 text-center">
-
           <div class="mb-5 element-animate">
             <h1>Amenities</h1>
-            <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
           </div>
-
         </div>
       </div>
     </div>
   </section>
-  <!-- END section -->
   
   <section class="site-section"style="background: #FAF2D3;">
     <div class="container">
@@ -113,26 +107,21 @@ foreach ($roinvents as $roinvent):
             </td>
         </tr>
     <?php endif; ?>
-<?php endforeach; ?>
-            </tbody>
-        </table>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary" style="width: 250px;">Submit</button>
-        <a class="btn btn-primary" href="<?= route_to('bookroom/formdetails') ?>?skip=true" style="width: 250px;">Skip</a>
-    </div>
-</form>
-
-
-
+        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" style="width: 250px;">Submit</button>
+                <a class="btn btn-primary" href="<?= route_to('bookroom/formdetails') ?>?skip=true" style="width: 250px;">Skip</a>
+            </div>
+        </form>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-4">
           <h1 class="mb-5">Featured Room</h1>
-
           <?php if (isset($roomReservationData)): ?>
             <div class="media d-block room mb-0">
-
               <figure>
                 <img src="<?= base_url('/uploads/' . esc($roomReservationData['roomSelected']['Image'] ?? '')) ?>"
                   alt="Generic placeholder image" class="img-fluid">
@@ -208,7 +197,6 @@ foreach ($roinvents as $roinvent):
       <?php endforeach; ?>
   }
   </script>
-
   <script>
       function updatePaymentInputContainer() {
           var selectedOption = document.getElementById("downorfullPayment").value;
@@ -271,15 +259,9 @@ foreach ($roinvents as $roinvent):
   <script src="/guest/js/magnific-popup-options.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-
   <script>
-
     $('#arrival_date, #departure_date').datepicker({});
-
   </script>
-
-
-
   <script src="/guest/js/main.js"></script>
 </body>
 

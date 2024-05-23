@@ -1,5 +1,4 @@
 <header role="banner" style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom,  #3085C3, #00BFFF,#FAF2D3);color: white; padding: 20px; text-align: center; z-index: 1000;">
-     
       <nav class="navbar navbar-expand-md navbar-dark bg-light">
         <div class="container">
         <a class="navbar-brand" href="<?= route_to('/') ?>">

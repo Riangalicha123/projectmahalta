@@ -19,26 +19,14 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include('include/loader.php') ?>
-  <!-- Navbar -->
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,21 +40,16 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Rates</h3>
-              </div>
-              <!-- /.card-header -->
+              </div>>
               <div class="card-body">
                 <label for="month">Select Month:</label>
                 <select id="month">
@@ -80,18 +63,14 @@
                     <option value="January">January</option>
                     <option value="January">January</option>
                     <option value="January">January</option>
-                    <!-- Add options for other months -->
                 </select>
-
                 <label for="year">Select Year:</label>
                 <select id="year">
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
-                    <!-- Add options for other years -->
                 </select>
                 <table id="example1" class="table table-bordered table-striped">
-                
                   <thead>
                   <tr>
                     <th>RoomType</th>
@@ -100,44 +79,26 @@
                   </tr>
                   </thead>
                   <tbody>
-                  
                   <tr>
-                    
                     <td>Room</td>
                     <td></td>
                     <td></td>
                     <td></td>
                   </tr>
-                  
-                  
-                  
                   </tbody>
-                  
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

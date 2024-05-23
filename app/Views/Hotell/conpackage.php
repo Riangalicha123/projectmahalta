@@ -31,8 +31,7 @@
   transform: scale(1.05);
 }
   </style>
-  <body>
-    
+  <body> 
   <?php include('inc/header.php') ?>
     <!-- END header -->
 
@@ -43,7 +42,7 @@
 
             <div class="mb-5 element-animate">
               <h1>Room Policy</h1>
-              <p>Stay updated with our reservation policies <!-- and events. --></p>
+              <p>Stay updated with our reservation policies and events. </p>
             </div>
 
           </div>
@@ -58,66 +57,61 @@
               <h4 style="text-align: center;font-size: 30px;"><strong>Convention Center Reservations Package</strong></h4>
               <br>
               <div style="text-align: center;">
-  <p class="" style="color: black; font-size: 20px;">
-    <span style="color: black; font-size: 20px;">The convention center policy specifies a minimum capacity of 150 to 300 persons, with a rate of ₱999 per head for a 6-hour duration,</span>
-  </p>
-  <p class="" style="color: black; font-size: 20px;">
-    <span style="color: black; font-size: 20px;">and an additional charge of ₱1000 for every exceeding hour and person.</span>
-  </p>
-</div>
-
+              <p class="" style="color: black; font-size: 20px;">
+                <span style="color: black; font-size: 20px;">The convention center policy specifies a minimum capacity of 150 to 300 persons, with a rate of ₱999 per head for a 6-hour duration,</span>
+              </p>
+              <p class="" style="color: black; font-size: 20px;">
+                <span style="color: black; font-size: 20px;">and an additional charge of ₱1000 for every exceeding hour and person.</span>
+              </p>
+            </div>
               <div class="three-column-container">
               <br>
               <div class="container">
-    
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-           
-            <ul>
-              <li>AM Snacks</li>
-              <li>PM Snack</li>
-              <li>Lunch (meat, veggies, soup ,and drinks)</li>
-              <li>Brewed Coffee</li>
-              <li>Pica-Pica and Candies</li>
-            </ul>
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+                  
+                    <ul>
+                      <li>AM Snacks</li>
+                      <li>PM Snack</li>
+                      <li>Lunch (meat, veggies, soup ,and drinks)</li>
+                      <li>Brewed Coffee</li>
+                      <li>Pica-Pica and Candies</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+                    <ul>
+                      <li>Parking Area</li>
+                      <li>Beach View and Tour to Mahalta's facilities</li>
+                      <li>Sound System w/ microphone</li>
+                      <li>Technical Support</li>
+                      <li>24Hours CCTV</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+
+                    <ul>
+                      <li>Projector</li>
+                      <li>Venue with fully air-conditioned</li>
+                      <li>Stand-by generator</li>
+                      <li>Seminar Set-up (table and chairs)</li>
+                      <li>Assisted by Fully Vaccinated and trained Staff</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-        
-            <ul>
-              <li>Parking Area</li>
-              <li>Beach View and Tour to Mahalta's facilities</li>
-              <li>Sound System w/ microphone</li>
-              <li>Technical Support</li>
-              <li>24Hours CCTV</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="card">
-          <div class="card-body">
-
-            <ul>
-              <li>Projector</li>
-              <li>Venue with fully air-conditioned</li>
-              <li>Stand-by generator</li>
-              <li>Seminar Set-up (table and chairs)</li>
-              <li>Assisted by Fully Vaccinated and trained Staff</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
             </div>
           </div>
           

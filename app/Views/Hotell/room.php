@@ -19,7 +19,6 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
     <style>
-      /* Add your CSS styles here */
 #search-container {
     margin-bottom: 20px;
 }
@@ -42,10 +41,9 @@
     background-color: #0056b3;
 }
 
-      /* CSS Styles */
 .floating-card-container {
     position: relative;
-    margin-top: 50px; /* Adjust as needed */
+    margin-top: 50px; 
 }
 
 .floating-card {
@@ -57,24 +55,18 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 20px;
-    z-index: 1000; /* Ensure the card appears above other content */
+    z-index: 1000;
 }
-  
     </style>
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
-    
   <?php include('inc/header.php') ?>
     <?php if(session()->get('isLoggedIn')): ?>
       <?php
-            // Retrieve flash messages from session
             $session = session();
             $successMessage = $session->getFlashdata('success');
             ?>
-
-            
-            <!-- Check if there's a success message and display it -->
             <?php if($successMessage): ?>
                 <div class="alert alert-success">
                     <?= $successMessage ?>
@@ -96,39 +88,37 @@
                           <div style="flex: 0 0 100%; margin-bottom: 10px;">
                             <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
                           </div>
-                          
                         </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                            <div class="media-body">
-                                <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                                    <div class="row">
-                                        <div class="col-sm-6 form-group">
-                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                                            <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                                            <input type="number" class="form-control" id="Child" name="Child" value="0">
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="CheckInDate" name="CheckInDate">
-                                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                                    <div class="row">
-                                        <div class="col-sm-12 form-group text-center">
-                                            <button type="submit" class="btn btn-primary">Check Availability</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+                          </div>
+                          <div class="container">
+                              <div class="row">
+                                  <div class="col-lg-12 ">
+                                      <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                                          <div class="media-body">
+                                              <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                                                  <div class="row">
+                                                      <div class="col-sm-6 form-group">
+                                                          <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
+                                                          <input type="number" class="form-control" id="Adult" name="Adult" value="0">
+                                                      </div>
+                                                      <div class="col-sm-6 form-group">
+                                                          <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
+                                                          <input type="number" class="form-control" id="Child" name="Child" value="0">
+                                                      </div>
+                                                  </div>
+                                                  <input type="hidden" id="CheckInDate" name="CheckInDate">
+                                                  <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                                                  <div class="row">
+                                                      <div class="col-sm-12 form-group text-center">
+                                                          <button type="submit" class="btn btn-primary">Check Availability</button>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
                   </div>
                 </div>
               </div>
@@ -138,7 +128,6 @@
           <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
             <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
           </div>
-
           <div class="row" id="room-container">
             <?php foreach ($rooms as $room): ?>
             <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
@@ -160,21 +149,15 @@
                                       <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                                       <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
                                     </ul>
-                      
-
-                      <!-- View More Button -->
                       <div class="row">
                         <div class="col-md-12 text-center">
                         <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$room['RoomID']?>" style="cursor: pointer;">View More Details</a></h6>
                         </div>
                       </div>
-                    
-                    
                     <!-- <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary btn-sm">Book Now</a></p> -->
                   </div>
                 </div>
               </div>
-               <!-- Modal for room details -->
               <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
@@ -185,7 +168,6 @@
                               </button>
                           </div>
                           <div class="modal-body">
-                              <!-- Carousel for room images -->
                               <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
                                   <div class="carousel-inner">
                                       <?php foreach ($roomimages as $roomimage): ?>
@@ -299,21 +281,15 @@
                                       <li><span class="ion-ios-people-outline"></span>Min <?= $room['minPerson'] ?></li>
                                       <li><span class="ion-ios-people-outline"></span>Max <?= $room['maxPerson'] ?></li>
                                     </ul>
-                      
-
-                      <!-- View More Button -->
                       <div class="row">
                         <div class="col-md-12 text-center">
                         <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$room['RoomID']?>" style="cursor: pointer;">View More Details</a></h6>
                         </div>
                       </div>
-                    
-                    
                     <!-- <p><a href="<?= route_to('bookroom') ?>" class="btn btn-primary btn-sm">Book Now</a></p> -->
                   </div>
                 </div>
               </div>
-               <!-- Modal for room details -->
               <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
                   <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
@@ -324,7 +300,6 @@
                               </button>
                           </div>
                           <div class="modal-body">
-                              <!-- Carousel for room images -->
                               <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
                                   <div class="carousel-inner">
                                       <?php foreach ($roomimages as $roomimage): ?>
@@ -365,10 +340,6 @@
       </div>
     </section>
     <?php endif; ?>
-
-   
-   
-
     <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/MahaltaPic/25.jpg);">
       <div class="container">
         <div class="row justify-content-center align-items-center intro">
@@ -380,32 +351,22 @@
         </div>
       </div>
     </section>
-    
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-    // Kunin ang mga kinakailangang elemento
     var searchInput = document.getElementById('price-input');
     var searchBtn = document.getElementById('search-btn');
     var roomContainers = document.querySelectorAll('#room-container .col-md-4');
-
-    // Magdagdag ng event listener sa search button
     searchBtn.addEventListener('click', function() {
-        var priceRange = parseFloat(searchInput.value); // Kunin ang halaga ng price range
-
-        // Traverse through each room container
+        var priceRange = parseFloat(searchInput.value); 
         roomContainers.forEach(function(roomContainer) {
-            var roomPriceElement = roomContainer.querySelector('h5 a'); // Kunin ang element na naglalaman ng presyo
-
-            // Kunin ang presyo ng kuwarto mula sa text
+            var roomPriceElement = roomContainer.querySelector('h5 a'); 
             var roomPrice = parseFloat(roomPriceElement.innerText.replace('PHP', '').replace('per', '').replace(/\s+/g, ''));
-
-            // Itago o ipakita ang kuwarto base sa presyo
             if (roomPrice <= priceRange) {
-                roomContainer.style.display = 'block'; // Ipakita ang kuwarto kung ang presyo ay nasa loob ng price range
+                roomContainer.style.display = 'block'; 
             } else {
-                roomContainer.style.display = 'none'; // Itago ang kuwarto kung hindi
+                roomContainer.style.display = 'none'; 
             }
         });
     });

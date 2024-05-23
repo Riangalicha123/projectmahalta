@@ -20,26 +20,14 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include('include/loader.php') ?>
-  <!-- Navbar -->
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -53,15 +41,10 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
-
-      <!-- Default box -->
       <div class="card card-solid">
-        
         <div class="card-body pb-0">
         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addnewsModal">
             Add
@@ -73,17 +56,14 @@
                 <div class="card-header text-muted border-bottom-0">
                 <img src="<?=base_url('/news/'.$new['Image'])?>" alt="user-avatar" style="width:350px;height:380px;">
                 </div>
-                
                 <div class="card-footer">
                   <div class="text-right">
-                   
                   <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#editnewsModal<?=$new['NewsID']?>">
                     Update 
                   </button>
                   <button type="button" class="btn btn-sm btn-danger" onclick="confirmDelete(<?= $new['NewsID'] ?>)">
-    Delete
-</button>
-
+                  Delete
+                  </button>
                   </div>
                   <div class="modal fade" id="addnewsModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -95,13 +75,11 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('admin-addnewspromotion/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
                             <input type="hidden" class="form-control" id="NewsID" name="NewsID" placeholder="Enter Name" >
-                          </div>
-                          
+                          </div> 
                           <div class="form-group">
                             <label for="Image">Upload</label>
                             <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" >
@@ -117,7 +95,6 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="editnewsModal<?=$new['NewsID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$new['NewsID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -128,24 +105,20 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/admin-editnewspromotion/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
-    <div class="card-body">
-        <input type="hidden" name="NewsID" id="NewsID" value="<?=$new['NewsID']?>">
-        <!-- Remove duplicate id attribute here -->
-        <div class="form-group">
-            <label for="Image">Upload</label>
-            <input type="file" class="form-control" id="inputImage" name="Image" accept="image/*" value="<?=$new['Image']?>">
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary">Save changes</button>
-    </div>
-</form>
-
+                          <div class="card-body">
+                              <input type="hidden" name="NewsID" id="NewsID" value="<?=$new['NewsID']?>">
+                              <div class="form-group">
+                                  <label for="Image">Upload</label>
+                                  <input type="file" class="form-control" id="inputImage" name="Image" accept="image/*" value="<?=$new['Image']?>">
+                              </div>
+                          </div>
+                          <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="submit" class="btn btn-primary">Save changes</button>
+                          </div>
+                      </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
@@ -155,24 +128,13 @@
             <?php endforeach; ?>  
           </div>
         </div>
-        <!-- /.card-footer -->
       </div>
-      <!-- /.card -->
-
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

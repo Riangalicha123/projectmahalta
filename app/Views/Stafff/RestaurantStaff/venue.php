@@ -18,28 +18,15 @@
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="<?=base_url()?>/staff-hotel" class="brand-link elevation-4">
       <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
     </a>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -53,28 +40,20 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Restaurant Services</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
-                <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -106,12 +85,7 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
                                 </div>
-                                
-                                
-                                
                                 </div>
-                                <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -119,7 +93,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Edit Room Modal -->
                     <?php foreach ($venues as $venue): ?>
                     <div class="modal fade" id="editModal<?=$venue['VenueID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$venue['VenueID']?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -154,9 +127,6 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$venue['Image']?>" required>
                                 </div>
-                                
-                              
-                                
                                 </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>
@@ -188,35 +158,19 @@
                     <th><a class="btn btn-danger" href="/staff-restaurant/service/delete/<?= $venue['VenueID']; ?>" onclick="return confirm('Are you sure you want to delete this Venue?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
-                  
-                  
                   </tbody>
-                  
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

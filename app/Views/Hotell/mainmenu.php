@@ -85,12 +85,12 @@
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <?php if(session()->get('isLoggedIn')): ?>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
-        Make Online Reservation
-    </button></p> 
-    <?php else: ?>
-        <p> 
-    <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
-    <?php endif; ?>
+                    Make Online Reservation
+                </button></p> 
+                <?php else: ?>
+                    <p> 
+                <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
+                <?php endif; ?>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@
         </div>
       </div>
     </section>
-    <!-- Add Form Modal -->
+
     <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -126,7 +126,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Add your form here -->
                 <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
                 <div id="page1">
                 <div class="row">
@@ -136,7 +135,6 @@
                       <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
                     </div>
                   </div>
-                  
                 </div>
             <div class="row">
             <div class="col-md-6 form-group">
@@ -154,12 +152,10 @@
             </div>
             </div>
             <div style="text-align: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
-</div>
+                <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
+            </div>
         </div>
-
         <div id="page2" style="display: none;">
-            
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label for="FirstName">First Name</label>
@@ -184,10 +180,9 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
-    <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
-</div>
-
+                <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+                <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+            </div>
         </div>
 
         <div id="page3" style="display: none;">
@@ -231,10 +226,9 @@
                 </div>
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</div>
-
+                <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
         </div>
                 </form>
             </div>
@@ -245,11 +239,6 @@
     <div class="menu-title">
       <h1>Main Menu</h1>
     </div>
-    <!-- <div class="order-online" style="margin-top: 20px; text-align: center;">
-        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
-            Order Menu Online
-        </button>
-    </div> -->
     <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -260,14 +249,12 @@
             </button>
         </div>
         <div class="modal-body">
-    <!-- Your form content goes here -->
     <form style="text-align: center;">
         <button type="button" class="btn btn-primary">
             <i class="ion-knife ion-md-outline"></i> Dine-In
         </button>
     </form>
-</div>
-
+    </div>
         </div>
     </div>
     </div>
@@ -285,53 +272,35 @@
       <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
       <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
       <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
-      <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
-    Order Menu Online
-</button>  -->
-
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-        <!-- Menu Records -->
-<div class="row">
-    <?php foreach ($menumains as $menumain): ?>
-        <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
-            <div class="col-md-3 menu-record" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menumain['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-                <h2 style="color: #333; margin-bottom: 10px;"><?= $menumain['CategoryName'] ?></h2>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
-                    <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                    <div style="flex-grow: 1;">
-                        <h3 style="margin-top: 0;"><?= $menumain['ProductName'] ?></h3>
-                        <p>Php<?= $menumain['ProductPrice'] ?></p>
-                    </div>
-                </div>
+            <div class="row">
+                <?php foreach ($menumains as $menumain): ?>
+                    <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
+                        <div class="col-md-3 menu-record" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menumain['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                            <h2 style="color: #333; margin-bottom: 10px;"><?= $menumain['CategoryName'] ?></h2>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                                <div style="flex-grow: 1;">
+                                    <h3 style="margin-top: 0;"><?= $menumain['ProductName'] ?></h3>
+                                    <p>Php<?= $menumain['ProductPrice'] ?></p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
+         </div>
+    </section>
 
-
-      </div>
-  </section>
-   
-
-    
-    <!-- END section -->
-   
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
-    // Get the current date
     var today = new Date().toISOString().split('T')[0];
-    // Set the minimum date for the input field
     document.getElementById('ArivalDate').setAttribute('min', today);
 </script>
 <script>
     function updateVenueOptions() {
         var NumberOfGuests = document.getElementById('NumberOfGuests').value;
-
-        // Send AJAX request to updateVenueOptions method in TableReservation controller
         $.ajax({
             url: "<?= base_url('updateVenueOptions') ?>",
             type: 'GET',
@@ -339,7 +308,7 @@
             dataType: 'json',
             success: function(response) {
                 var venueSelect = document.getElementById('VenueName');
-                venueSelect.innerHTML = '<option>Select Venue</option>'; // Clear existing options
+                venueSelect.innerHTML = '<option>Select Venue</option>'; 
                 response.forEach(function(venue) {
                     venueSelect.innerHTML += '<option value="' + venue.VenueName + '">' + venue.VenueName + '</option>';
                 });
@@ -358,9 +327,8 @@
             displayFormData();
         }
     }
-
     function displayFormData() {
-        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; // Corrected ID
+        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; 
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;
         document.getElementById('displayVenue').innerText = document.getElementById('VenueName').value;
         document.getElementById('displayNote').innerText = document.getElementById('Note').value;
@@ -372,11 +340,10 @@
 
 <script>
     function showCategory(categoryID) {
-        $('.col-md-3').hide(); // Hide all products initially
-        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
+        $('.col-md-3').hide(); 
+        $('.col-md-3[data-category="' + categoryID + '"]').show();
     }
 </script>
-
 
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
@@ -399,27 +366,21 @@
             enableTime: true,
             onClose: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 1) {
-                    // Convert selected dates to Philippines timezone
                     const checkInDate = new Date(selectedDates[0]);
                     checkInDate.setHours(checkInDate.getHours() + 8); 
-
-                    // Format dates as YYYY-MM-DD HH:mm
                     const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
-
                     document.getElementById('CheckInDate').value = checkInStr;
                 }
             },
             disable: [
-                // Disable dates up to yesterday
                 function(date) {
                     const today = new Date();
-                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    today.setHours(today.getHours() + 8); 
                     const yesterday = new Date(today);
-                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
+                    yesterday.setDate(yesterday.getDate() - 1); 
 
                     return date < yesterday;
                 },
-                // Disable dates in unavailableDates array
                 <?php if (!empty($unavailableDates)) : ?>
                     <?php foreach ($unavailableDates as $unavailableDate) : ?>
                         '<?php echo $unavailableDate ?>',

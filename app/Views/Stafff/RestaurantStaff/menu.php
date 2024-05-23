@@ -18,28 +18,15 @@
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
-  <!-- Navbar -->
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <a href="<?=base_url()?>/staff-hotel" class="brand-link elevation-4">
       <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
     </a>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -47,19 +34,16 @@
             <h1>Restaurant Menu</h1>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Main Menu</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card card-solid">
         <div class="card-body pb-0">
           <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addonModal">
@@ -91,7 +75,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="addonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -102,7 +85,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addMainMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
@@ -148,7 +130,6 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="reformModal<?=$menumain['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menumain['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -159,7 +140,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateMainMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                           <input type="hidden" name="ProductID" id="ProductID" value="<?=$menumain['ProductID']?>">
@@ -195,20 +175,17 @@
                             <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menumain['Image']?>">
                             </div>
                           </div>
-                          
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                         </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
@@ -243,7 +220,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="aaddonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -254,7 +230,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addBarMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
@@ -299,7 +274,6 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="rreformModal<?=$menubar['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menubar['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -310,7 +284,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateBarMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menubar['ProductID']?>">
@@ -346,20 +319,18 @@
                             <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menubar['Image']?>">
                             </div>
                           </div>
-                          
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                         </form>
                       </div>
-                      
+
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
@@ -440,8 +411,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Update Modal -->
                 <div class="modal fade" id="rrreeeformModal<?=$menuice['IcedID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menuice['IcedID']?>" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -518,7 +487,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="aaaddonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -529,7 +497,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addCafeMenuu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                         <div class="form-group">
@@ -565,7 +532,6 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="reeeformModal<?=$menucafe['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menucafe['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -576,7 +542,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateCafeMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menucafe['ProductID']?>">
@@ -611,43 +576,28 @@
                           </div>
                         </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
           </div>
-        </div>
-        
+        </div>   
       </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

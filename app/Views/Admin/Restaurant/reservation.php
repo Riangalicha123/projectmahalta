@@ -19,26 +19,15 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
-  <!-- Navbar -->
   <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
-
-    <!-- Sidebar -->
     <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
-    <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,27 +41,21 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Reservation</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -125,7 +108,6 @@
                                             </div>
                                         </div>
                                 </div>
-                                <!-- /.card-body -->
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -133,7 +115,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Edit Room Modal -->
                     <?php foreach ($restrevs as $restrev): ?>
                     <div class="modal fade" id="editModal<?=$restrev['ReservationID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$restrev['ReservationID']?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -242,7 +223,7 @@
                                 $badgeClass = 'badge-danger';
                                 break;
                             default:
-                                $badgeClass = 'badge-secondary'; // Default class for other cases
+                                $badgeClass = 'badge-secondary'; 
                         }
                         ?>
                         <span class="badge <?= $badgeClass ?>"><?= $restrev['Status'] ?></span>
@@ -250,11 +231,9 @@
                     <td class="project-state">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="statusDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <!-- Three dots icon -->
                                 <i class="fas fa-ellipsis-v"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
-                            <!-- Inside the dropdown menu in your HTML template -->
                             <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
                             <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
                             <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
@@ -264,35 +243,20 @@
                     <th><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$restrev['ReservationID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
-                  
                   </tbody>
-                  
                 </table>
-                
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

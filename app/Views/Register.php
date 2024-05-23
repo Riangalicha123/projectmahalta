@@ -2,30 +2,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<!-- Basic Page Info -->
 		<meta charset="utf-8" />
 		<title><?= isset($activePage) ? $activePage : 'New Page Title'; ?></title>
-
-		<!-- Site favicon -->
-		<!-- <link
-			rel="apple-touch-icon"
-			sizes="180x180"
-			href="vendors/images/apple-touch-icon.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="32x32"
-			href="vendors/images/favicon-32x32.png"
-		/>
-		<link
-			rel="icon"
-			type="image/png"
-			sizes="16x16"
-			href="vendors/images/favicon-16x16.png"
-		/> -->
-
-		<!-- Mobile Specific Metas -->
 		<meta
 			name="viewport"
 			content="width=device-width, initial-scale=1, maximum-scale=1"
@@ -70,9 +48,6 @@
 		>
 			<div class="container">
 				<div class="row align-items-center">
-					<!-- <div class="col-md-6 col-lg-7">
-						<img src="/guest/images/4.jpg" alt="" />
-					</div> -->
 					<div class="col-md-12 col-lg-12">
 						<div class="login-box bg-white box-shadow border-radius-10">
 							<div class="login-title">
@@ -129,7 +104,6 @@
 									<div class="text-danger"><?= $validation->getError('ContactNumber') ?></div>
 								<?php endif; ?>
 								<hr><h4 class="text-center text-primary">Address</h4>
-								<!-- Add dropdowns for region, province, city, and barangay -->
 								<select id="Region" class="form-control form-control-lg" name="Region">
 									<option value="">Select Region</option>
 									<?php foreach ($regions as $region): ?>
@@ -141,21 +115,17 @@
 								<?php endif; ?>
 
 								<select id="province_id" class="form-control form-control-lg" name="Province">
-									<!-- Options will be filled dynamically using AJAX -->
 								</select>
 								<?php if(isset($validation) && $validation->getError('Province')): ?>
 									<div class="text-danger"><?= $validation->getError('Province') ?></div>
 								<?php endif; ?>
-
 								<select id="cities_id" class="form-control form-control-lg" name="City">
-									<!-- Options will be filled dynamically using AJAX -->
 								</select>
 								<?php if(isset($validation) && $validation->getError('City')): ?>
 									<div class="text-danger"><?= $validation->getError('City') ?></div>
 								<?php endif; ?>
 
 								<select id="barangay_id" class="form-control form-control-lg" name="Barangay">
-									<!-- Options will be filled dynamically using AJAX -->
 								</select>
 								<?php if(isset($validation) && $validation->getError('Barangay')): ?>
 									<div class="text-danger"><?= $validation->getError('Barangay') ?></div>
@@ -235,18 +205,18 @@
 		<script>
 			$(document).ready(function(){
 			$('#Region').change(function(event){
-				var idRegion = this.value; // Change variable name to idRegion
-				$('#province_id').html(''); // Clear province dropdown
+				var idRegion = this.value; 
+				$('#province_id').html('');
 
 				$.ajax({
 					url: "/api/fetch-province",
 					type: 'POST',
 					dataType: 'json',
-					data: {regCode: idRegion}, // Pass idRegion
+					data: {regCode: idRegion},
 					success:function(response){
-						$('#province_id').html('<option value="">Select Province</option>'); // Change to 'Select Province'
+						$('#province_id').html('<option value="">Select Province</option>'); 
 						$.each(response.provinces,function(index, val){
-							$('#province_id').append('<option value="'+val.provCode+'">'+val.provDesc+'</option>'); // Correct variable names
+							$('#province_id').append('<option value="'+val.provCode+'">'+val.provDesc+'</option>');
 						});
 
 					}
@@ -254,18 +224,18 @@
 			});
 
 			$('#province_id').change(function(event){
-				var idProvince = this.value; // Change variable name to idProvince
-				$('#cities_id').html(''); // Clear city dropdown
+				var idProvince = this.value; 
+				$('#cities_id').html(''); 
 
 				$.ajax({
 					url: "/api/fetch-city",
 					type: 'POST',
 					dataType: 'json',
-					data: {provCode: idProvince}, // Pass idProvince
+					data: {provCode: idProvince}, 
 					success:function(response){
-						$('#cities_id').html('<option value="">Select City/Municipality</option>'); // Change to 'Select City/Municipality'
+						$('#cities_id').html('<option value="">Select City/Municipality</option>'); 
 						$.each(response.cities,function(index, val){
-							$('#cities_id').append('<option value="'+val.citymunCode+'">'+val.citymunDesc+'</option>'); // Correct variable names
+							$('#cities_id').append('<option value="'+val.citymunCode+'">'+val.citymunDesc+'</option>'); 
 						});
 					}
 				});
@@ -281,9 +251,9 @@
 					dataType: 'json',
 					data: {citymunCode: idCity}, 
 					success:function(response){
-						$('#barangay_id').html('<option value="">Select Barangay</option>'); // Change to 'Select City/Municipality'
+						$('#barangay_id').html('<option value="">Select Barangay</option>'); 
 						$.each(response.barangay,function(index, val){
-							$('#barangay_id').append('<option value="'+val.brgyCode+'">'+val.brgyDesc+'</option>'); // Correct variable names
+							$('#barangay_id').append('<option value="'+val.brgyCode+'">'+val.brgyDesc+'</option>'); 
 						});
 						
 					}

@@ -23,15 +23,10 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-
             <div class="mb-5 element-animate">
             <br>
             <br>
@@ -57,7 +52,6 @@
                     <input type="hidden" id="CheckInDate" name="CheckInDate">
                     <input type="hidden" id="CheckOutDate" name="CheckOutDate">
                   </div>
-                  
                 </div>
                 <div class="row">
                   <div class="col-md-12 form-group">
@@ -103,7 +97,6 @@
                     <input type="text" id="Barangay" class="form-control" value="<?= $_SESSION['barangay'] ?? ''; ?>" disabled>
                       <input type="hidden" name="Barangay" value="<?= $_SESSION['barangay'] ?? ''; ?>">
                   </div>
-          
                   <div class="col-md-6 form-group">
                       <label for="EventType">Event Type</label>
                       <select class="form-select form-control" id="EventType" name="EventType" required>
@@ -113,7 +106,6 @@
                           <?php endforeach; ?>
                       </select>
                   </div>
-
                 </div>
                 <div class="row">
                         <div class="col-md-12 form-group text-center">
@@ -156,24 +148,13 @@
       </div>
     </section>
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
-  // Use a class for the View More buttons to distinguish between them
   var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-  // Loop through each button and add a click event listener
   viewMoreButtons.forEach(function(button) {
     button.addEventListener('click', function() {
-      // Find the parent container of the clicked button
       var parentContainer = button.closest('.room');
-
-      // Find the additional details div inside the parent container
       var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-      // Toggle the display of the additional details
       detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
     });
   });
@@ -199,31 +180,24 @@
             enableTime: true,
             onClose: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 1) {
-                    // Convert selected dates to Philippines timezone
                     const checkInDate = new Date(selectedDates[0]);
                     const checkOutDate = new Date(selectedDates[1]);
-                    checkInDate.setHours(checkInDate.getHours() + 8); // Philippines timezone is UTC+8
+                    checkInDate.setHours(checkInDate.getHours() + 8); 
                     checkOutDate.setHours(checkOutDate.getHours() + 8);
-
-                    // Format dates as YYYY-MM-DD HH:mm
                     const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
                     const checkOutStr = checkOutDate.toISOString().slice(0, 16).replace('T', ' ');
-
                     document.getElementById('CheckInDate').value = checkInStr;
                     document.getElementById('CheckOutDate').value = checkOutStr;
                 }
             },
             disable: [
-                // Disable dates up to yesterday
                 function(date) {
                     const today = new Date();
-                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    today.setHours(today.getHours() + 8); 
                     const yesterday = new Date(today);
-                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
-
+                    yesterday.setDate(yesterday.getDate() - 1); 
                     return date < yesterday;
                 },
-                // Disable dates in unavailableDates array
                 <?php if (!empty($unavailableDates)) : ?>
                     <?php foreach ($unavailableDates as $unavailableDate) : ?>
                         '<?php echo $unavailableDate ?>',
@@ -233,9 +207,6 @@
         });
     });
 </script>
-
-
-
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

@@ -20,26 +20,14 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include('include/loader.php'); ?>
-  <!-- Navbar -->
   <?php include('include/navbar.php'); ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include('include/logo.php'); ?>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php'); ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -53,17 +41,13 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
       <div class="row">
           <div class="col-md-12">
-
-           <!--  <h2 class="mb-5 text-center">Reports</h2> -->
-            
             <div class="text-center mb-3">
             <div class="btn-group" role="group">
                 <button class="btn btn-primary" onclick="showHotel()">Hotel</button>
@@ -188,25 +172,14 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-        
-        
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include('include/footer.php'); ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -240,15 +213,15 @@
                 endDate.setDate(endDate.getDate() + 2);
                 endDate = endDate.toISOString().split('T')[0];
 
-                let dataType = getSelectedDataType(); // Get the selected data type
+                let dataType = getSelectedDataType(); 
 
                 $.ajax({
                     url: '/admin-report/fetch-report-data',
                     method: 'POST',
                     dataType: 'json',
-                    data: { start_date: startDate, end_date: endDate, data_type: dataType }, // Pass data type to the server
+                    data: { start_date: startDate, end_date: endDate, data_type: dataType }, 
                     success: function(response) {
-                        updateTable(response, dataType); // Pass data type to updateTable function
+                        updateTable(response, dataType); 
                     },
                     error: function(xhr, status, error) {
                         console.error(error);
@@ -262,22 +235,19 @@
         let tableBody;
         if (dataType === 'hotel') {
             tableBody = $('#hotelreportTable tbody');
-            $('#restaurantreportTable').hide(); // Hide restaurant table
-            $('#conventionreportTable').hide(); // Hide convention table
+            $('#restaurantreportTable').hide(); 
+            $('#conventionreportTable').hide(); 
         } else if (dataType === 'restaurant') {
             tableBody = $('#restaurantreportTable tbody');
-            $('#hotelreportTable').hide(); // Hide hotel table
-            $('#conventionreportTable').hide(); // Hide convention table
+            $('#hotelreportTable').hide();
+            $('#conventionreportTable').hide(); 
         } else if (dataType === 'convention') {
             tableBody = $('#conventionreportTable tbody');
-            $('#hotelreportTable').hide(); // Hide hotel table
-            $('#restaurantreportTable').hide(); // Hide restaurant table
+            $('#hotelreportTable').hide(); 
+            $('#restaurantreportTable').hide(); 
         }
-
         tableBody.empty();
-
-        let totalPayment = 0; // Initialize total payment variable
-
+        let totalPayment = 0; 
         data.forEach(function(item) {
             let row = $('<tr>');
             if (dataType === 'hotel') {
@@ -292,12 +262,11 @@
                 row.append($('<td>').text(item.Child));
                 row.append($('<td>').text(item.PaymentOption));
                 row.append($('<td>').text(item.ReferenceNumber));
-                row.append($('<td>').text(item.downorfullPayment)); // Display downorfullPayment
+                row.append($('<td>').text(item.downorfullPayment)); 
                 let statusBadgeClass = item.Status == 'Confirm' ? 'badge-success' : (item.Status == 'Pending' ? 'badge-warning' : 'badge-danger');
                 let statusBadge = $('<span>').addClass('badge ' + statusBadgeClass).text(item.Status);
                 row.append($('<td>').append(statusBadge));
-
-                totalPayment += parseFloat(item.downorfullPayment); // Add downorfullPayment to totalPayment
+                totalPayment += parseFloat(item.downorfullPayment); 
             } else if (dataType === 'restaurant') {
                 row.append($('<td>').text(item.FirstName));
                 row.append($('<td>').text(item.LastName));
@@ -319,27 +288,24 @@
                 row.append($('<td>').text(item.NumberOfGuests));
                 row.append($('<td>').text(item.PaymentOption));
                 row.append($('<td>').text(item.ReferenceNumber));
-                row.append($('<td>').text(item.downorfullPayment)); // Display downorfullPayment
+                row.append($('<td>').text(item.downorfullPayment));
                 let statusBadgeClass = item.Status == 'Confirm' ? 'badge-success' : (item.Status == 'Pending' ? 'badge-warning' : 'badge-danger');
                 let statusBadge = $('<span>').addClass('badge ' + statusBadgeClass).text(item.Status);
                 row.append($('<td>').append(statusBadge));
 
-                totalPayment += parseFloat(item.downorfullPayment); // Add downorfullPayment to totalPayment
+                totalPayment += parseFloat(item.downorfullPayment); 
             }
             tableBody.append(row);
         });
-
-        // Append total payment row at the end of the table
         if (dataType === 'hotel' || dataType === 'convention') {
             let totalRow = $('<tr>');
             totalRow.append($('<td colspan="11">').text('Total Payment'));
-            totalRow.append($('<td>').text(totalPayment.toFixed(2))); // Display total payment
+            totalRow.append($('<td>').text(totalPayment.toFixed(2)));
             tableBody.append(totalRow);
         }
     }
 
     function getSelectedDataType() {
-        // Determine which data type is selected (hotel, restaurant, convention)
         if ($('#hotelreportTable').is(':visible')) {
             return 'hotel';
         } else if ($('#restaurantreportTable').is(':visible')) {
@@ -362,21 +328,16 @@
 </script>
 
 <script>
-      // Function to show hotel table and hide others
       function showHotel() {
         document.getElementById("hotelreportTable").style.display = "table";
         document.getElementById("restaurantreportTable").style.display = "none";
         document.getElementById("conventionreportTable").style.display = "none";
       }
-
-      // Function to show restaurant table and hide others
       function showRestaurant() {
         document.getElementById("hotelreportTable").style.display = "none";
         document.getElementById("restaurantreportTable").style.display = "table";
         document.getElementById("conventionreportTable").style.display = "none";
       }
-
-      // Function to show convention table and hide others
       function showConvention() {
         document.getElementById("hotelreportTable").style.display = "none";
         document.getElementById("restaurantreportTable").style.display = "none";

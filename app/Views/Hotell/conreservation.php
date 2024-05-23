@@ -18,7 +18,6 @@
     <link rel="stylesheet" href="/guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
     <style>
-        /* Custom Styles */
         .room {
             margin-bottom: 30px;
             border: 1px solid #ccc;
@@ -48,8 +47,6 @@
 <body>
 
 <?php include('inc/header.php') ?>
-<!-- END header -->
-
 <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
     <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
@@ -64,7 +61,6 @@
         </div>
     </div>
 </section>
-
 <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row">
@@ -82,7 +78,6 @@
                             <ul class="list-unstyled room-specs mb-3">
                                 <li><span class="ion-ios-people-outline"></span> <?= $convenue['minGuest'] ?> - <?= $convenue['maxGuest'] ?> Guests</li>
                             </ul>
-                            <!-- Baguhin ang data attributes upang itakda ang tamang impormasyon ng venue -->
                             <button type="button" class="btn btn-primary btn-sm select-venue" data-toggle="modal" data-target="#venueModal" data-id="<?= $convenue['conVenueID'] ?>" data-name="<?= $convenue['conVenueName'] ?>" data-image="<?= base_url('/convention/'.$convenue['Image']) ?>" data-min-guest="<?= $convenue['minGuest'] ?>" data-max-guest="<?= $convenue['maxGuest'] ?>">Select</button>
                         </div>
                     </div>
@@ -91,11 +86,9 @@
         </div>
     </div>
 </section>
-<!-- Venue Details Modal -->
 <div class="modal fade" id="venueModal" tabindex="-1" role="dialog" aria-labelledby="venueModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
-            <!-- I-wrap ang lahat sa form tag -->
             <form action="<?= base_url('/convention-center/reservation/getconvenuedirectInformation') ?>" method="post">
                 <div class="modal-header">
                     <h5 class="modal-title" id="venueModalLabel">Selected Venue</h5>
@@ -112,9 +105,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <!-- Ilagay ang selectedconVenueID sa hidden input para maisumite sa server -->
                     <input type="hidden" id="selectedconVenueID" name="selectedconVenueID">
-                    <!-- Ilagay ang submit button dito -->
                     <button type="submit" class="btn btn-primary btn-sm">Check</button>
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                 </div>
@@ -122,10 +113,7 @@
         </div>
     </div>
 </div>
-
-
 <script>
-    // JavaScript to update modal content based on selected venue
     var selectButtons = document.querySelectorAll('.select-venue');
     selectButtons.forEach(function(button) {
         button.addEventListener('click', function() {
@@ -134,8 +122,6 @@
             var minGuest = this.getAttribute('data-min-guest');
             var maxGuest = this.getAttribute('data-max-guest');
             var imageURL = this.getAttribute('data-image');
-
-            // Update modal content with selected venue details
             document.getElementById('venueName').textContent = conVenueName;
             document.getElementById('minGuest').textContent = "Minimum Guests: " + minGuest;
             document.getElementById('maxGuest').textContent = "Maximum Guests: " + maxGuest;
@@ -144,12 +130,6 @@
         });
     });
 </script>
-
-
-
-
-
-
 <?php include('inc/footer.php') ?>
 <!-- END footer -->
 
@@ -157,19 +137,11 @@
 <?php include('inc/loader.php') ?>
 
 <script>
-    // Use a class for the View More buttons to distinguish between them
     var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-    // Loop through each button and add a click event listener
     viewMoreButtons.forEach(function(button) {
         button.addEventListener('click', function() {
-            // Find the parent container of the clicked button
             var parentContainer = button.closest('.room');
-
-            // Find the additional details div inside the parent container
             var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-            // Toggle the display of the additional details
             detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
         });
     });

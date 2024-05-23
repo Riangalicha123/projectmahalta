@@ -22,25 +22,18 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-    
-    <!-- END section -->
 <br>
     <section class="site-section" style="background: linear-gradient(to bottom right,#F4E869,  #FAF2D3, #5CD2E6,#ECF9FF,#ECF9FF);">
       <div class="container">
         <div class="row">
             <div class="col-md-3"></div>
           <div class="col-md-6">
-
           <h2 class="mb-5" style="text-align: center; font-size: 34px;">Change Password</h2>
-
           <?php if (session()->getFlashdata('msg')): ?>
         <div class="alert alert-warning">
             <?= session()->getFlashdata('msg') ?>
         </div>
     <?php endif; ?>
-
     <?php if (isset($validation)): ?>
         <div class="alert alert-danger">
             <?= $validation->listErrors() ?>
@@ -72,25 +65,13 @@
                         </div>
                       </div>
                     </form>
-
             </div>
             <div class="col-md-3"></div>
         </div>
       </div>
     </section>
-    <!-- END section -->
-
-    
-
-    
-    <!-- END section -->
-   
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
-
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
@@ -98,10 +79,8 @@
     <script src="/guest/js/owl.carousel.min.js"></script>
     <script src="/guest/js/jquery.waypoints.min.js"></script>
     <script src="/guest/js/jquery.stellar.min.js"></script>
-
     <script src="/guest/js/jquery.magnific-popup.min.js"></script>
     <script src="/guest/js/magnific-popup-options.js"></script>
-
     <script src="/guest/js/main.js"></script>
     <?= $this->renderSection('scripts') ?>
   </body>

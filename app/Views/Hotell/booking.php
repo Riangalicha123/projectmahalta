@@ -145,32 +145,19 @@
     </div>
   </div>
 </section>
-    
-
-    
-    <!-- END section -->
-   
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
-      // Function to show hotel table and hide others
       function showHotel() {
         document.getElementById("hotelTable").style.display = "table";
         document.getElementById("restaurantTable").style.display = "none";
         document.getElementById("conventionTable").style.display = "none";
       }
-
-      // Function to show restaurant table and hide others
       function showRestaurant() {
         document.getElementById("hotelTable").style.display = "none";
         document.getElementById("restaurantTable").style.display = "table";
         document.getElementById("conventionTable").style.display = "none";
       }
-
-      // Function to show convention table and hide others
       function showConvention() {
         document.getElementById("hotelTable").style.display = "none";
         document.getElementById("restaurantTable").style.display = "none";

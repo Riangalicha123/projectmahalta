@@ -19,26 +19,15 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
-  <!-- Navbar -->
   <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
-
-    <!-- Sidebar -->
     <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
-    <!-- /.sidebar -->
   </aside>
 
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,28 +41,20 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Restaurant Services</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
-                <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -105,12 +86,7 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
                                 </div>
-                                
-                                
-                                
                                 </div>
-                                <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -118,7 +94,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Edit Room Modal -->
                     <?php foreach ($venues as $venue): ?>
                     <div class="modal fade" id="editModal<?=$venue['VenueID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$venue['VenueID']?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -153,9 +128,6 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$venue['Image']?>" required>
                                 </div>
-                                
-                              
-                                
                                 </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>
@@ -187,21 +159,13 @@
                     <th><a class="btn btn-danger" href="/admin-convention/service/delete/<?= $venue['VenueID']; ?>" onclick="return confirm('Are you sure you want to delete this Venue?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$venue['VenueID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
-                  
-                  
                   </tbody>
-                  
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
     <section class="content-header">
       <div class="container-fluid">
@@ -210,19 +174,16 @@
             <h1>Restaurant Menu</h1>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Main Menu</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card card-solid">
         <div class="card-body pb-0">
           <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addonModal">
@@ -254,7 +215,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="addonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -265,7 +225,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addMainMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
@@ -311,7 +270,6 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="reformModal<?=$menumain['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menumain['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -322,7 +280,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateMainMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                           <input type="hidden" name="ProductID" id="ProductID" value="<?=$menumain['ProductID']?>">
@@ -365,13 +322,11 @@
                           </div>
                         </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
@@ -406,7 +361,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="aaddonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -417,7 +371,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addBarMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                           <div class="form-group">
@@ -461,8 +414,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Update Modal -->
                 <div class="modal fade" id="rreformModal<?=$menubar['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menubar['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -473,7 +424,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateBarMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menubar['ProductID']?>">
@@ -516,13 +466,11 @@
                           </div>
                         </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
@@ -604,56 +552,52 @@
                   </div>
                 </div>
 
-                <!-- Update Modal -->
                 <div class="modal fade" id="rrreeeformModal<?=$menuice['IcedID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menuice['IcedID']?>" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="updateModalLabel<?=$menuice['IcedID']?>">Update Cafe Iced</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="<?= base_url('/updateCafeMenuIced/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
-                    <div class="card-body">
-                        <input type="hidden" name="IcedID" id="IcedID" value="<?=$menuice['IcedID']?>">
-                        <div class="form-group">
-                            <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name">
-                            <input type="hidden" class="form-control" id="CategoryID" name="CategoryID" placeholder="Enter Name">
-                        </div>
-                        <div class="form-group">
-                            <label for="IcedName">Name</label>
-                            <input type="text" class="form-control" id="IcedName" name="IcedName" placeholder="Enter Input" value="<?=$menuice['IcedName']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="PriceTall">Price Tall</label>
-                            <input type="number" class="form-control" id="PriceTall" name="PriceTall" placeholder="Enter Input" value="<?=$menuice['PriceTall']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="PriceGrande">Price Grande</label>
-                            <input type="number" class="form-control" id="PriceGrande" name="PriceGrande" placeholder="Enter Input" value="<?=$menuice['PriceGrande']?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" value="<?=$menuice['Image']?>">
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-                </div>
+                  <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h5 class="modal-title" id="updateModalLabel<?=$menuice['IcedID']?>">Update Cafe Iced</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                              </button>
+                          </div>
+                          <div class="modal-body">
+                              <form action="<?= base_url('/updateCafeMenuIced/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
+                                  <div class="card-body">
+                                      <input type="hidden" name="IcedID" id="IcedID" value="<?=$menuice['IcedID']?>">
+                                      <div class="form-group">
+                                          <input type="hidden" class="form-control" id="MenuID" name="MenuID" placeholder="Enter Name">
+                                          <input type="hidden" class="form-control" id="CategoryID" name="CategoryID" placeholder="Enter Name">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="IcedName">Name</label>
+                                          <input type="text" class="form-control" id="IcedName" name="IcedName" placeholder="Enter Input" value="<?=$menuice['IcedName']?>">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="PriceTall">Price Tall</label>
+                                          <input type="number" class="form-control" id="PriceTall" name="PriceTall" placeholder="Enter Input" value="<?=$menuice['PriceTall']?>">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="PriceGrande">Price Grande</label>
+                                          <input type="number" class="form-control" id="PriceGrande" name="PriceGrande" placeholder="Enter Input" value="<?=$menuice['PriceGrande']?>">
+                                      </div>
+                                      <div class="form-group">
+                                          <label for="Image">Upload</label>
+                                          <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" value="<?=$menuice['Image']?>">
+                                      </div>
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary">Save changes</button>
+                                  </div>
+                              </form>
+                          </div>
+                      </div>
+                  </div>
               </div>
-              
             </div>
+          </div>
+        </div>
             <?php endif; ?>
             <?php endforeach; ?>
           <?php foreach ($menucafes as $menucafe): ?>
@@ -681,7 +625,6 @@
                     Update 
                   </button>
                 </div>
-                <!-- Add Modal -->
                 <div class="modal fade" id="aaaddonModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -692,7 +635,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('addCafeMenu/') ?>" method="post" enctype="multipart/form-data" id="addForm">
                         <div class="card-body">
                         <div class="form-group">
@@ -727,8 +669,6 @@
                     </div>
                   </div>
                 </div>
-
-                <!-- Update Modal -->
                 <div class="modal fade" id="reeeformModal<?=$menucafe['ProductID']?>" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel<?=$menucafe['ProductID']?>" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -739,7 +679,6 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <!-- Add your form inputs here -->
                         <form action="<?= base_url('/updateCafeMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menucafe['ProductID']?>">
@@ -750,8 +689,7 @@
                                     <label for="CategoryName">Category Name</label>
                                     <select class="custom-select form-control-border" id="CategoryName" name="CategoryName" required>
                                         <option <?= ($menucafe['CategoryName'] == 'Hot Coffee') ? 'selected' : '' ?>>Hot Coffee</option>
-                                        <option <?= ($menucafe['CategoryName'] == 'Cold Brew') ? 'selected' : '' ?>>Cold Brew</option>
-                                        
+                                        <option <?= ($menucafe['CategoryName'] == 'Cold Brew') ? 'selected' : '' ?>>Cold Brew</option>   
                                     </select>
                           </div>
                           <div class="form-group">
@@ -774,45 +712,28 @@
                           </div>
                         </form>
                       </div>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
               </div>
-              
             </div>
             <?php endif; ?>
             <?php endforeach; ?>
           </div>
         </div>
-        
       </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
-
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->

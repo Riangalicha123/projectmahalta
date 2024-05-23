@@ -4,13 +4,10 @@
     <title>Mahalta</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Rubik:300,400,700" rel="stylesheet">
-
     <link rel="stylesheet" href="/guest/css/bootstrap.css">
     <link rel="stylesheet" href="/guest/css/animate.css">
     <link rel="stylesheet" href="/guest/css/owl.carousel.min.css">
-
     <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
     <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/guest/css/magnific-popup.css">
@@ -39,7 +36,6 @@
                   </div>
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <div class="card-header text-center">Buffet Service</div>
@@ -108,7 +104,6 @@
         </div>
       </div>
     </section>
-    <!-- Add Form Modal -->
     <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -119,7 +114,6 @@
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Add your form here -->
                 <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
                 <div id="page1">
                 <div class="row">
@@ -129,7 +123,6 @@
                       <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
                     </div>
                   </div>
-                  
                 </div>
             <div class="row">
             <div class="col-md-6 form-group">
@@ -147,12 +140,10 @@
             </div>
             </div>
             <div style="text-align: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
-</div>
+            <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
         </div>
-
+        </div>
         <div id="page2" style="display: none;">
-            
             <div class="row">
                 <div class="col-md-4 form-group">
                     <label for="FirstName">First Name</label>
@@ -167,8 +158,7 @@
                     <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
                 </div>
             </div>
-            <div class="row">
-                
+            <div class="row">     
             </div>
             <div class="row">
                 <div class="col-md-12 form-group">
@@ -176,11 +166,10 @@
                     <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
                 </div>
             </div>
-            <div style="display: flex; justify-content: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
-    <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
-</div>
-
+                      <div style="display: flex; justify-content: center;">
+              <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+              <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+          </div>
         </div>
 
         <div id="page3" style="display: none;">
@@ -200,7 +189,6 @@
                     <span id="displayVenue"></span>
                 </div>
             </div>
-            
             <div class="row">
                 <div class="col-md-6 form-group">
                     <label>First Name:</label>
@@ -223,12 +211,11 @@
                     <span id="displayNote"></span>
                 </div>
             </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</div>
-
-        </div>
+                    <div style="display: flex; justify-content: center; align-items: center;">
+            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            </div>
                 </form>
             </div>
         </div>
@@ -238,11 +225,6 @@
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
-   <!--  <div class="order-online" style="margin-top: 20px; text-align: center;">
-        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
-            Order Menu Online
-        </button>
-    </div> -->
     <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -253,7 +235,6 @@
             </button>
         </div>
         <div class="modal-body">
-            <!-- Your form content goes here -->
             <form style="text-align: center;">
             <button type="button" class="btn btn-secondary">
             <i class="ion-knife ion-md-outline"></i> Dine-In
@@ -275,9 +256,6 @@
         <button onclick="showCategory('19')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Red Wines</button>
         <button onclick="showCategory('20')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Bear</button>
         <button onclick="showCategory('21')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Bucket Beers</button>
-        <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
-    Order Menu Online
-</button> --> 
       </div>
         
         <div class="row">
@@ -296,20 +274,10 @@
               <?php endif; ?>
           <?php endforeach; ?>
         </div>
-
-        <!-- Add more dessert items as needed -->
       </div>
-
-
   </section>
-   
 
-    
-    <!-- END section -->
-   
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
     <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
@@ -336,8 +304,8 @@
 </script>
 <script>
     function showCategory(categoryID) {
-        $('.col-md-3').hide(); // Hide all products initially
-        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
+        $('.col-md-3').hide(); 
+        $('.col-md-3[data-category="' + categoryID + '"]').show(); 
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -361,27 +329,21 @@
             enableTime: true,
             onClose: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 1) {
-                    // Convert selected dates to Philippines timezone
                     const checkInDate = new Date(selectedDates[0]);
                     checkInDate.setHours(checkInDate.getHours() + 8); 
-
-                    // Format dates as YYYY-MM-DD HH:mm
                     const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
-
                     document.getElementById('CheckInDate').value = checkInStr;
                 }
             },
             disable: [
-                // Disable dates up to yesterday
                 function(date) {
                     const today = new Date();
-                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    today.setHours(today.getHours() + 8); 
                     const yesterday = new Date(today);
-                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
+                    yesterday.setDate(yesterday.getDate() - 1); 
 
                     return date < yesterday;
                 },
-                // Disable dates in unavailableDates array
                 <?php if (!empty($unavailableDates)) : ?>
                     <?php foreach ($unavailableDates as $unavailableDate) : ?>
                         '<?php echo $unavailableDate ?>',

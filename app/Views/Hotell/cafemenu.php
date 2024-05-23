@@ -39,7 +39,6 @@
                   </div>
               </div>
             </div>
-
             <div class="col-md-6">
               <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <div class="card-header text-center">Buffet Service</div>
@@ -80,242 +79,214 @@
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <?php if(session()->get('isLoggedIn')): ?>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
-        Make Online Reservation
-    </button></p> 
-    <?php else: ?>
-        <p> 
-    <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
-    <?php endif; ?> 
-              </div>
-            </div>
-          </div>
-          <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
-                <div class="overlap-text">
-                  <span>
-                    Venue 2
-                  </span>
-                </div>
-            </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
-                <div class="overlap-text">
-                  <span>
-                    Venue 3
-                  </span>
-                </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- Add Form Modal -->
-    <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header" style="background:skyblue;">
-                <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <!-- Add your form here -->
-                <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
-                <div id="page1">
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="CheckInDate">Arrival Date</label>
-                    <div style="position: relative;">
-                      <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                    Make Online Reservation
+                </button></p> 
+                <?php else: ?>
+                    <p> 
+                <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
+                <?php endif; ?> 
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-5 room-thumbnail-absolute">
+                        <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
+                            <div class="overlap-text">
+                              <span>
+                                Venue 2
+                              </span>
+                            </div>
+                        </a>
+                        <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
+                            <div class="overlap-text">
+                              <span>
+                                Venue 3
+                              </span>
+                            </div>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                  
-                </div>
-            <div class="row">
-            <div class="col-md-6 form-group">
-                <label for="NumberOfGuests">Number Of Guests</label>
-                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
-                    <?php for ($i = 1; $i <= 10; $i++): ?>
-                        <option><?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="VenueName">Venue Name</label>
-                <select class="form-select form-control" id="VenueName" name="VenueName">
-                </select>
-            </div>
-            </div>
-            <div style="text-align: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
-</div>
-        </div>
-
-        <div id="page2" style="display: none;">
-            
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label for="ContactNumber">Contact Number</label>
-                    <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
-                </div>
-            </div>
-            <div class="row">
-                
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label for="Note">Write a Note</label>
-                    <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
-    <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
-</div>
-
-        </div>
-
-        <div id="page3" style="display: none;">
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Arrival Date:</label>
-                    <span id="displayCheckInDate"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Number Of Guest:</label>
-                    <span id="displayGuests"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Venue Name:</label>
-                    <span id="displayVenue"></span>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>First Name:</label>
-                    <span id="displayFirstName"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Last Name:</label>
-                    <span id="displayLastName"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Contact Number:</label>
-                    <span id="displayContactNumber"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Note:</label>
-                    <span id="displayNote"></span>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-    <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</div>
-
-        </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<section  class="site-section"style="background: #FAF2D3;">
-    <div class="menu-title">
-      <h1>Restaurant Menu</h1>
-    </div>
-   <!--  <div class="order-online" style="margin-top: 20px; text-align: center;">
-        <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-color: skyblue; color: #333; border: none; border-radius: 5px; cursor: pointer;">
-            Order Menu Online
-        </button>
-    </div> -->
-    <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header ">
-            <h4 class="modal-title" id="addFormModalLabel">Choose A Service</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <!-- Your form content goes here -->
-            <form style="text-align: center;">
-            <button type="button" class="btn btn-secondary">
-            <i class="ion-knife ion-md-outline"></i> Dine-In
-            </button>
-            </form>
-        </div>
-        </div>
-    </div>
-    </div>
-      <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
-      <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-        <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
-        <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
-        <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
-        <!-- <button type="button" data-toggle="modal" data-target="#aaddFormModal" style="padding: 10px 20px; margin: 5px; background-image: linear-gradient(to bottom, blue, white); color: white; border: none; border-radius: 5px; cursor: pointer;">
-    Order Menu Online
-</button> --> 
-      </div>
-        <div class="row">
-        <?php foreach ($menuices as $menuice): ?>
-    <?php if ($menuice['MenuType'] === 'Cafe Menu' && $menuice['CategoryID'] == 22): ?>
-        <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menuice['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-            <h2 style="color: #333; margin-bottom: 10px;"><?= $menuice['CategoryName'] ?></h2>
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <img src="<?= base_url('/restaurant/' . $menuice['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                <div style="flex-grow: 1;">
-                    <h3 style="margin-top: 0;"><?= $menuice['IcedName'] ?></h3>
-                    <p>Tall: Php<?= $menuice['PriceTall'] ?></p>
-                    <p>Grande: Php<?= $menuice['PriceGrande'] ?></p>
+                 </section>
+                <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background:skyblue;">
+                            <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
+                            <div id="page1">
+                            <div class="row">
+                              <div class="col-md-12 form-group">
+                                <label for="CheckInDate">Arrival Date</label>
+                                <div style="position: relative;">
+                                  <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                                </div>
+                              </div> 
+                            </div>
+                        <div class="row">
+                        <div class="col-md-6 form-group">
+                            <label for="NumberOfGuests">Number Of Guests</label>
+                            <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
+                                <?php for ($i = 1; $i <= 10; $i++): ?>
+                                    <option><?= $i ?></option>
+                                <?php endfor; ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <label for="VenueName">Venue Name</label>
+                            <select class="form-select form-control" id="VenueName" name="VenueName">
+                            </select>
+                        </div>
+                        </div>
+                        <div style="text-align: center;">
+                        <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
+                    </div>
+                    </div>
+                    <div id="page2" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label for="FirstName">First Name</label>
+                                <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="LastName">Last Name</label>
+                                <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="ContactNumber">Contact Number</label>
+                                <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
+                            </div>
+                        </div>
+                        <div class="row"> 
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="Note">Write a Note</label>
+                                <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                        <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+                        <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+                    </div>
+                    </div>
+                    <div id="page3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Arrival Date:</label>
+                                <span id="displayCheckInDate"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Number Of Guest:</label>
+                                <span id="displayGuests"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Venue Name:</label>
+                                <span id="displayVenue"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name:</label>
+                                <span id="displayFirstName"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name:</label>
+                                <span id="displayLastName"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Contact Number:</label>
+                                <span id="displayContactNumber"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Note:</label>
+                                <span id="displayNote"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    <?php endif; ?>
-<?php endforeach; ?>
-        <?php foreach ($menucafes as $menucafe): ?>
-              <?php if ($menucafe['MenuType'] === 'Cafe Menu' && $menucafe['CategoryID'] >= 22 && $menucafe['CategoryID'] <= 24): ?>
-                  <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menucafe['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-                      <h2 style="color: #333; margin-bottom: 10px;"><?=$menucafe['CategoryName']?></h2>
-                      <div style="display: flex; justify-content: space-between; align-items: center;">
-                          <img src="<?=base_url('/restaurant/'.$menucafe['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
-                          <div style="flex-grow: 1;">
-                              <h3 style="margin-top: 0;"><?=$menucafe['ProductName']?></h3>
-                              <p>Php<?=$menucafe['ProductPrice']?></p>
-                          </div>
+              <section  class="site-section"style="background: #FAF2D3;">
+                  <div class="menu-title">
+                    <h1>Restaurant Menu</h1>
+                  </div>
+                  <div class="modal fade" id="aaddFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                      <div class="modal-header ">
+                          <h4 class="modal-title" id="addFormModalLabel">Choose A Service</h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <form style="text-align: center;">
+                          <button type="button" class="btn btn-secondary">
+                          <i class="ion-knife ion-md-outline"></i> Dine-In
+                          </button>
+                          </form>
+                      </div>
                       </div>
                   </div>
-              <?php endif; ?>
-          <?php endforeach; ?>
-        </div>
-        
-      </div>
-
-  </section>
-   
-
-    
-    <!-- END section -->
-   
+                  </div>
+                    <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
+                    <div class="category-buttons" style="margin-top: 20px; text-align: center;">
+                      <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
+                      <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
+                      <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
+                    </div>
+                      <div class="row">
+                      <?php foreach ($menuices as $menuice): ?>
+                  <?php if ($menuice['MenuType'] === 'Cafe Menu' && $menuice['CategoryID'] == 22): ?>
+                      <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555; cursor: pointer;" data-category="<?= $menuice['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                          <h2 style="color: #333; margin-bottom: 10px;"><?= $menuice['CategoryName'] ?></h2>
+                          <div style="display: flex; justify-content: space-between; align-items: center;">
+                              <img src="<?= base_url('/restaurant/' . $menuice['Image']) ?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                              <div style="flex-grow: 1;">
+                                  <h3 style="margin-top: 0;"><?= $menuice['IcedName'] ?></h3>
+                                  <p>Tall: Php<?= $menuice['PriceTall'] ?></p>
+                                  <p>Grande: Php<?= $menuice['PriceGrande'] ?></p>
+                              </div>
+                          </div>
+                      </div>
+                  <?php endif; ?>
+              <?php endforeach; ?>
+                      <?php foreach ($menucafes as $menucafe): ?>
+                            <?php if ($menucafe['MenuType'] === 'Cafe Menu' && $menucafe['CategoryID'] >= 22 && $menucafe['CategoryID'] <= 24): ?>
+                                <div class="col-md-3" style="display: flex; flex-direction: column; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 2px solid #555;" data-category="<?= $menucafe['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                                    <h2 style="color: #333; margin-bottom: 10px;"><?=$menucafe['CategoryName']?></h2>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <img src="<?=base_url('/restaurant/'.$menucafe['Image'])?>" alt="Dessert 1" style="width: 120px; height: 100px; border-radius: 8px; margin-right: 10px;">
+                                        <div style="flex-grow: 1;">
+                                            <h3 style="margin-top: 0;"><?=$menucafe['ProductName']?></h3>
+                                            <p>Php<?=$menucafe['ProductPrice']?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                      </div>
+                    </div>
+              </section>
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
     function nextPage(page) {
@@ -328,9 +299,8 @@
             displayFormData();
         }
     }
-
     function displayFormData() {
-        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; // Corrected ID
+        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value;
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;
         document.getElementById('displayVenue').innerText = document.getElementById('VenueName').value;
         document.getElementById('displayNote').innerText = document.getElementById('Note').value;
@@ -341,8 +311,8 @@
 </script>
 <script>
     function showCategory(categoryID) {
-        $('.col-md-3').hide(); // Hide all products initially
-        $('.col-md-3[data-category="' + categoryID + '"]').show(); // Show products with the selected category ID
+        $('.col-md-3').hide(); 
+        $('.col-md-3[data-category="' + categoryID + '"]').show(); 
     }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -353,10 +323,8 @@
     <script src="/guest/js/owl.carousel.min.js"></script>
     <script src="/guest/js/jquery.waypoints.min.js"></script>
     <script src="/guest/js/jquery.stellar.min.js"></script>
-
     <script src="/guest/js/jquery.magnific-popup.min.js"></script>
     <script src="/guest/js/magnific-popup-options.js"></script>
-
     <script src="/guest/js/main.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -366,27 +334,20 @@
             enableTime: true,
             onClose: function(selectedDates, dateStr, instance) {
                 if (selectedDates.length > 1) {
-                    // Convert selected dates to Philippines timezone
                     const checkInDate = new Date(selectedDates[0]);
                     checkInDate.setHours(checkInDate.getHours() + 8); 
-
-                    // Format dates as YYYY-MM-DD HH:mm
                     const checkInStr = checkInDate.toISOString().slice(0, 16).replace('T', ' ');
-
                     document.getElementById('CheckInDate').value = checkInStr;
                 }
             },
             disable: [
-                // Disable dates up to yesterday
                 function(date) {
                     const today = new Date();
-                    today.setHours(today.getHours() + 8); // Philippines timezone is UTC+8
+                    today.setHours(today.getHours() + 8); 
                     const yesterday = new Date(today);
-                    yesterday.setDate(yesterday.getDate() - 1); // Changed from -2 to -1
-
+                    yesterday.setDate(yesterday.getDate() - 1); 
                     return date < yesterday;
                 },
-                // Disable dates in unavailableDates array
                 <?php if (!empty($unavailableDates)) : ?>
                     <?php foreach ($unavailableDates as $unavailableDate) : ?>
                         '<?php echo $unavailableDate ?>',

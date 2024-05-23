@@ -17,24 +17,14 @@
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-  
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <a href="<?=base_url()?>admin/index3.html" class="brand-link elevation-4">
       <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <!-- <span class="brand-text font-weight-light">Mahalta</span> -->
     </a>
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -48,10 +38,9 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -62,18 +51,15 @@
                   <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
                   <li class="nav-item"><a class="nav-link" href="#change" data-toggle="tab">Change Password</a></li>
                 </ul>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                 <div class="tab-content">
-
                   <div class="active tab-pane" id="settings">
                   <?php if (session()->has('success')) : ?>
                       <div class="alert alert-success">
                           <?= session()->get('success') ?>
                       </div>
                   <?php endif ?>
-
-                  <!-- Add this block to display validation errors -->
                   <?php if (isset($validationErrors)) : ?>
                       <div class="alert alert-danger">
                           <ul>
@@ -108,8 +94,6 @@
                           <input type="number" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>">
                         </div>
                       </div>
-
-                     
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-info">Update</button>
@@ -156,30 +140,19 @@
                       </div>
                     </form>
                   </div>
-                  <!-- /.tab-pane -->
                 </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+              </div>
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

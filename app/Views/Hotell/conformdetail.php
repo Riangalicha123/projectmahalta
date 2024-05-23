@@ -23,10 +23,6 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
@@ -136,7 +132,6 @@
                     }
                 }
             ?>
-
             <div class="row">
                 <div class="col-6 form-group">
                     <label for="paymentOptionGCash">
@@ -154,19 +149,15 @@
             </div>
 
             <div class="row">
-                <!-- Reference Number Fields -->
                 <div class="col-md-6 form-group">
-                    <!-- Gcash Reference Number -->
                     <div class="form-group" id="gcashReferenceDiv" style="display: block;">
                         <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
                         <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
                     </div>
-                    <!-- Paymaya Reference Number -->
                     <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
                         <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
                         <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
                     </div>
-                    <!-- Down or Full Payment Selection -->
                     <div class=" form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
                     <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
@@ -178,7 +169,6 @@
                         <?php endif; ?>
                     </select>
                 </div>
-
                 <div class="form-group">
                     <div class="form-control" id="paymentInputContainer"></div>
                 </div>
@@ -187,9 +177,6 @@
                 <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
                 </div>
                 </div>
-                
-                
-                <!-- QR Code Image -->
                 <div class="col-md-6 form-group">
                     <div class="form-group">
                         <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px; float: right;">
@@ -201,7 +188,6 @@
                 <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
               </div>
             </div>
-          
             </div>
               <div class="col-md-1"></div>
               <div class="col-md-4">
@@ -243,9 +229,6 @@
       </div>
     </section>
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
 function showQR(option) {
@@ -268,37 +251,21 @@ function showQR(option) {
 }
 </script>
     <script>
-  // Use a class for the View More buttons to distinguish between them
   var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-  // Loop through each button and add a click event listener
   viewMoreButtons.forEach(function(button) {
     button.addEventListener('click', function() {
-      // Find the parent container of the clicked button
       var parentContainer = button.closest('.room');
-
-      // Find the additional details div inside the parent container
       var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-      // Toggle the display of the additional details
       detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
     });
   });
 </script>
 <script>
-    // Function to update payment input container
     function updatePaymentInputContainer() {
-        // Get the selected option
         var selectedOption = document.getElementById("downorfullPayment").value;
-        
-        // Update the paymentInputContainer with the selected value
         document.getElementById("paymentInputContainer").innerHTML = selectedOption;
     }
-    
-    // Add event listener to the dropdown
     document.getElementById("downorfullPayment").addEventListener("change", updatePaymentInputContainer);
-    
-    // Initially call the function to populate the container with the default selected value
     updatePaymentInputContainer();
 </script>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>

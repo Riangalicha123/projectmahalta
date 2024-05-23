@@ -21,29 +21,24 @@
   <!-- Theme Style -->
   <link rel="stylesheet" href="/guest/css/style.css">
   <style>
-    /* CSS for rounded borders */
     .form-group input[type="text"],
     .form-group input[type="file"],
     .form-group select {
-        border-radius: 5px; /* Adjust the value to change the roundness of the borders */
+        border-radius: 5px; 
     }
     #paymentInputContainer {
         border-radius: 5px;
-        border: 1px solid #ced4da; /* Optional: Add border for better visibility */
+        border: 1px solid #ced4da;
     }
 </style>
 </head>
-
 <body>
-
   <?php include('inc/header.php') ?>
-
   <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(/guest/images/3.jpg);">
     <div class="container">
       <div class="row align-items-center site-hero-inner justify-content-center">
         <div class="col-md-12 text-center">
-
           <div class="mb-5 element-animate">
             <h1>Room Reservation</h1>
           </div>
@@ -108,7 +103,6 @@
                           </table>
                       </div>
                   </div>
-
             <h2 class="mb-5">Guest Details</h2>
             <div class="row">
                   <div class="col-md-6 form-group">
@@ -181,19 +175,15 @@
             </div>
 
             <div class="row">
-                <!-- Reference Number Fields -->
                 <div class="col-md-6 form-group">
-                    <!-- Gcash Reference Number -->
                     <div class="form-group" id="gcashReferenceDiv" style="display: block;">
                         <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
                         <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
                     </div>
-                    <!-- Paymaya Reference Number -->
                     <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
                         <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
                         <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
                     </div>
-                    <!-- Down or Full Payment Selection -->
                     <div class="form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
                     <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
@@ -213,16 +203,12 @@
                 <input type="file" class="form-control" id="Image" name="Image" accept="image/*" required>
                 </div>
                 </div>
-                
-                
-                <!-- QR Code Image -->
                 <div class="col-md-6 form-group">
                     <div class="form-group">
                         <img id="qrImage" src="<?=base_url('/qrimage/'.$qrcodes[0]['Image'])?>" alt="QR Code" class="img-fluid" style="width: 312px; height: 320px; float: right;">
                     </div>
                 </div>
             </div>
-            
             <div class="row">
               <div class="col-md-6 form-group">
                 <button type="submit" value="Reserve Now" class="btn btn-primary">Submit</button>
@@ -260,14 +246,10 @@
                   
                   <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
                 <hr>
-                
-                <!-- Add this div at the end of your section, right before the closing </section> tag -->
                 <div class="row additionalDetails" style="display:none;">
-                  <!-- Additional details content goes here -->
                   <p>
                       <?= esc($roomReservationData['roomSelected']['Description'] ?? '') ?>
                   </p>
-
                   <p><b>• ROOM INCLUSIONS</b></p>
                   <ul>
                       <li>Complimentary Breakfast (Plated Service)</li>
@@ -278,34 +260,21 @@
                   </ul>
                   <p><b>NOTE: Extra person will be charged PHP 500.00 per head</b></p>
                 </div>
-
-                <!-- View More Button -->
                 <div class="row">
                   <div class="col-md-12 text-center">
                     <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
                   </div>
                 </div>
               </div>
-              
             </div>
           <?php else: ?>
             <p>No reservation data found.</p>
           <?php endif; ?>
-
         </form>
       </div>
     </div>
   </section>
-  <!-- END section -->
 
-
-  <!-- END section -->
-
-  <!-- END section -->
-
-
-
-  <!-- END section -->
 
   <?php include('inc/footer.php') ?>
   <!-- END footer -->
@@ -334,80 +303,51 @@ function showQR(option) {
 </script>
 
   <script>
-    // Function to update payment input container
     function updatePaymentInputContainer() {
-        // Get the selected option
         var selectedOption = document.getElementById("downorfullPayment").value;
-        
-        // Update the paymentInputContainer with the selected value
         document.getElementById("paymentInputContainer").innerHTML = selectedOption;
     }
-    
-    // Add event listener to the dropdown
     document.getElementById("downorfullPayment").addEventListener("change", updatePaymentInputContainer);
-    
-    // Initially call the function to populate the container with the default selected value
     updatePaymentInputContainer();
 </script>
   <script>
-  // Function to show a message in the message container
 function showMessage(message, type) {
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.textContent = message;
     messageContainer.className = type;
     messageContainer.style.display = 'block';
-    // Automatically hide the message after 5 seconds (adjust as needed)
     setTimeout(function() {
         messageContainer.style.display = 'none';
     }, 5000);
 }
-
-// Check if a success message exists in the session and display it
 if (sessionStorage.getItem('success')) {
     showMessage(sessionStorage.getItem('success'), 'success');
 }
-
-// Check if an error message exists in the session and display it
 if (sessionStorage.getItem('error')) {
     showMessage(sessionStorage.getItem('error'), 'error');
 }
 
 </script>
   <script>
-    // Function to add leading zeros to single-digit numbers
     function padZero(number) {
       return number < 10 ? '0' + number : number;
     }
-
-    // Get current date and time in the Philippine timezone (UTC+8)
     let currentDate = new Date();
     let philippineTime = new Date(currentDate.getTime());
-
-    // Format the date to match the datetime-local input format
     let formattedDate = philippineTime.getFullYear() + '-' +
       padZero(philippineTime.getMonth() + 1) + '-' +
       padZero(philippineTime.getDate()) + 'T' +
       padZero(philippineTime.getHours()) + ':' +
       padZero(philippineTime.getMinutes());
-
-    // Set the values of Arrival Date and Departure Date fields
     document.getElementById('CheckInDate').value = formattedDate;
     document.getElementById('CheckOutDate').value = formattedDate;
   </script>
   <script>
-    // Use a class for the View More buttons to distinguish between them
     var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-    // Loop through each button and add a click event listener
     viewMoreButtons.forEach(function (button) {
       button.addEventListener('click', function () {
-        // Find the parent container of the clicked button
         var parentContainer = button.closest('.room');
-
-        // Find the additional details div inside the parent container
         var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-        // Toggle the display of the additional details
         detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
       });
     });
@@ -424,16 +364,9 @@ if (sessionStorage.getItem('error')) {
   <script src="/guest/js/magnific-popup-options.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-
   <script>
-
     $('#arrival_date, #departure_date').datepicker({});
-
   </script>
-
-
-
   <script src="/guest/js/main.js"></script>
 </body>
-
 </html>

@@ -23,15 +23,10 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
-
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
-
             <div class="mb-5 element-animate">
             <br>
             <br>
@@ -40,40 +35,20 @@
                <p>Welcome to our premier convention center—where sophistication meets innovation. We offer the perfect venue for your events, from corporate conferences to grand expos. </p> 
             </div>
            
-                              <?php if(session()->get('isLoggedIn')): ?>
-                                <div class="col-md-12 form-group text-center">
-                                <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
-                              </div>
-    <?php else: ?>
-      <div class="col-md-12 form-group text-center">
-                                <a href="<?= route_to('login') ?>" class="btn btn-primary">Reservation</a>
-                              </div>
-    <?php endif; ?>
+            <?php if(session()->get('isLoggedIn')): ?>
+            <div class="col-md-12 form-group text-center">
+            <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
+            </div>
+            <?php else: ?>
+              <div class="col-md-12 form-group text-center">
+                <a href="<?= route_to('login') ?>" class="btn btn-primary">Reservation</a>
+              </div>
+            <?php endif; ?>
           </div>
         </div>
       </div>
     </section>
 
-    
-    <!-- END section -->
-
-    <!-- <section class="site-section"style="background: linear-gradient(to  bottom left,#3085C3,#5CD2E6, #FAF2D3,  #FFFBE9,#F4E869,#F4E869);padding: 10px; text-align: center;">
-        <div class="container" style="display: grid; place-items: center;" >
-        
-            <div class="row">
-            <div class="col-md-12">
-                <div class="col-sm-6">
-                        <div class="media-body" style="border-radius: 5px;">
-                            <div class="row">
-                              <div class="col-md-12 form-group text-center">
-                                <a href="<?= route_to('convention-center/reservation') ?>" class="btn btn-primary">Reservation</a>
-                              </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
           <div class="col-md-12 heading-wrap text-center">
@@ -95,7 +70,6 @@
             </div>
           </div>
           <?php endforeach; ?>
-          
         </div>
       </div>
     </section>
@@ -112,7 +86,6 @@
                         <div class="body-text" style="background-color: #fff; padding: 20px;">
                             <h3 class="mb-3" style="font-size: 24px; color: #333;"><a href="#" style="color: #333;"><?= $event['EventType'] ?></a></h3>
                             <p class="mb-4" style="font-size: 16px; color: #666;"><?= $event['Description'] ?></p>
-                            <!-- <p><a href="#" class="btn btn-primary btn-outline-primary btn-sm">Read More</a></p> -->
                         </div>
                     </div>
                 </div>
@@ -120,12 +93,8 @@
         </div>
     </div>
 </section>
-
-    
-    <!-- END section -->
-
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
+
     
     <!-- loader -->
     <?php include('inc/loader.php') ?>

@@ -44,24 +44,17 @@
 <body>
 
     <?php include('inc/header.php') ?>
-    <!-- END header -->
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
         <div class="container">
             <div class="row align-items-center site-hero-inner justify-content-center">
                 <div class="col-md-12 text-center">
-
                     <div class="mb-5 element-animate">
                         <h1>Qr Path</h1>
-                        <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-    <!-- END section -->
-
     <section class="site-section">
         <h1>Your QR Code</h1>
         <p>Download this QR code and show it upon walk-in.</p>
@@ -87,9 +80,6 @@
     <script>
         $('#arrival_date, #departure_date').datepicker({});
     </script>
-
-
-
     <script src="/guest/js/main.js"></script>
 </body>
 

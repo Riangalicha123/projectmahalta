@@ -19,44 +19,32 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <style>
     #messageContainer {
-    display: none; /* Initially hide the message container */
+    display: none; 
     padding: 10px;
     margin-bottom: 15px;
     border-radius: 5px;
 }
 
 .success {
-    background-color: #d4edda; /* Green background for success message */
-    color: #155724; /* Dark green text color */
+    background-color: #d4edda; 
+    color: #155724; 
 }
 
 .error {
-    background-color: #f8d7da; /* Red background for error message */
-    color: #721c24; /* Dark red text color */
+    background-color: #f8d7da; 
+    color: #721c24; 
 }
-
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include('include/loader.php') ?>
-  <!-- Navbar -->
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -70,26 +58,21 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Products/Stocks</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -113,11 +96,7 @@
                                     <label for="Price">Price</label>
                                     <input type="number" class="form-control" id="Price" name="Price" required>
                                 </div>
-                                
-                                
                                 </div>
-                                <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -179,58 +158,37 @@
                     <td><a class="btn btn-danger" href="/admin-inventoryhotel/delete/<?= $roinvent['roomInventoryID']; ?>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$roinvent['roomInventoryID']?>">Edit</a></td>
                   </tr>
                   <?php endforeach; ?>
-                  
                   </tbody>
-                  
                 </table>
-                
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include('include/footer.php') ?>
 
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 <script>
-  // Function to show a message in the message container
 function showMessage(message, type) {
     const messageContainer = document.getElementById('messageContainer');
     messageContainer.textContent = message;
     messageContainer.className = type;
     messageContainer.style.display = 'block';
-    // Automatically hide the message after 5 seconds (adjust as needed)
     setTimeout(function() {
         messageContainer.style.display = 'none';
     }, 5000);
 }
-
-// Check if a success message exists in the session and display it
 if (sessionStorage.getItem('success')) {
     showMessage(sessionStorage.getItem('success'), 'success');
 }
-
-// Check if an error message exists in the session and display it
 if (sessionStorage.getItem('error')) {
     showMessage(sessionStorage.getItem('error'), 'error');
 }
-
 </script>
 <script>
     <?php foreach ($roinvents as $roinvent): ?>

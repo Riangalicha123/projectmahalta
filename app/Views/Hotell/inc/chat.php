@@ -3,72 +3,65 @@
   border-radius: 20px;
 }
 .card-body {
-    position: relative; /* Make the position relative for absolute positioning */
+    position: relative; 
 }
 
 .form-group {
-    margin-bottom: 0; /* Remove margin bottom to prevent extra space */
+    margin-bottom: 0; 
 }
 
 .fa-paper-plane {
     position: absolute;
     top: 40%;
-    right: 10px; /* Adjust the position as needed */
+    right: 10px; 
     transform: translateY(-50%);
 }
 
 </style>
 <?php if(session()->get('isLoggedIn')): ?>
-<div class="floating-messenger">
-        <a id="messenger-btn">
-            <img src="/guest/images/logomessage.jpg" alt="Messenger Icon">
-        </a>
+                    <div class="floating-messenger">
+                            <a id="messenger-btn">
+                                <img src="/guest/images/logomessage.jpg" alt="Messenger Icon">
+                            </a>
 
-        <div id="messenger-form" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+                            <div id="messenger-form" style="display: none; position: fixed; bottom: 20px; right: 20px; width: 300px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px;">
 
-            <!-- Close icon -->
-            <button id="close-btn" style="position: absolute; top: -3px; right: 5px; background: none; border: none; cursor: pointer; font-size: 16px; color: #666;">
-                <i>X</i>
-            </button>
+                                <button id="close-btn" style="position: absolute; top: -3px; right: 5px; background: none; border: none; cursor: pointer; font-size: 16px; color: #666;">
+                                    <i>X</i>
+                                </button>
+                                <div class="card" style="border: none;">
+                        <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
+                            MESSAGE
+                        </div>
 
-            <!-- Your form content goes here -->
-            <div class="card" style="border: none;">
-    <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
-        MESSAGE
-    </div>
-
-    <div class="card-body" style="padding: 15px;">
-        <div class="text-center" style="font-size: 10px;">
-            <?php foreach ($chats as $chat): ?>
-            <div class="row" style="overflow-y: auto; max-height: 130x;">
-                <div class="col-md-12 text-center">
-                    <button id="chatmsgs" style="cursor: pointer;"><?= $chat['Question'] ?></button>
+                        <div class="card-body" style="padding: 15px;">
+                            <div class="text-center" style="font-size: 10px;">
+                                <?php foreach ($chats as $chat): ?>
+                                <div class="row" style="overflow-y: auto; max-height: 130x;">
+                                    <div class="col-md-12 text-center">
+                                        <button id="chatmsgs" style="cursor: pointer;"><?= $chat['Question'] ?></button>
+                                    </div>
+                                </div>
+                                <?php endforeach;?>
+                            </div>
+                            <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px;"></div>
+                            <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
+                            <form id="chatForm">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-9 form-group" style="padding-right: 5px;">
+                                <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="1" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 2px;"></textarea>
+                            </div>
+                            <div class="col-md-4 col-sm-3 form-group" style="padding-left: 5px; display: flex; align-items: center; justify-content: flex-start;">
+                                <button type="submit" class="btn btn-primary" style="padding: 5px 5px; border-radius: 5px; cursor: pointer;">
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <?php endforeach;?>
-        </div>
-        <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px;"></div>
-        <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
-        <form id="chatForm">
-    <div class="row">
-        <div class="col-md-8 col-sm-9 form-group" style="padding-right: 5px;">
-            <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="1" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 2px;"></textarea>
-        </div>
-        <div class="col-md-4 col-sm-3 form-group" style="padding-left: 5px; display: flex; align-items: center; justify-content: flex-start;">
-            <button type="submit" class="btn btn-primary" style="padding: 5px 5px; border-radius: 5px; cursor: pointer;">
-                Send
-            </button>
         </div>
     </div>
-</form>
-
-    </div>
-</div>
-
-        </div>
-</div>
-
-    
 
     <?php else: ?>
         <div class="floating-messenger">
@@ -78,12 +71,9 @@
 </div>
 
 <div id="messenger-form" style="display: none;">
-    <!-- Close icon -->
     <button id="close-btn" style="position: absolute; top: -3px; right: 5px; background: none; border: none; cursor: pointer;font-size: 16px; color: #666;">
         <i>X</i>
     </button>
-
-    <!-- Your form content goes here -->
     <div class="card">
     <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
         MESSAGE

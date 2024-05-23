@@ -22,10 +22,6 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 <?php include('inc/header.php') ?>
-<!-- END header -->
-
-
-
 <section class="site-section" style="background: #FAF2D3;">
     <div class="container" style="max-width: 1100px; margin: 50px auto; padding: 0 20px;">
         <div class="row align-items-center">

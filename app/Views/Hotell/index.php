@@ -40,8 +40,6 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <!-- END header -->
-
     <section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/1.1.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
@@ -49,12 +47,9 @@
 
             <div class="mb-5 element-animate">
             <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
-    Welcome to Mahalta Resort and Convention Center
-</h1>
-
-
-            </div>
-
+              Welcome to Mahalta Resort and Convention Center
+          </h1>
+          </div>
           </div>
         </div>
       </div>
@@ -102,7 +97,6 @@
         </div>
       </div>
     </section>
-    <!-- END section -->
 
     <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
@@ -139,7 +133,6 @@
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/Pic/13.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Family Room 
@@ -151,11 +144,9 @@
                     Php6,499.00
                   </span>
                 </div>
-              <!-- </figure> -->
             </a>
 
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/9.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Barkada Room 
@@ -167,10 +158,7 @@
                     Php 1,000.00/head
                   </span>
                 </div>
-                
-              <!-- </figure> -->
             </a>
-            
           </div>
         </div>
       </div>
@@ -201,27 +189,20 @@
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/24.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Restaurant
                   </span>
-                  
                 </div>
-              <!-- </figure> -->
             </a>
 
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Cafe Bar
-                    
                   </span>
                 </div>
-              <!-- </figure> -->
             </a>
-            
           </div>
         </div>
       </div>
@@ -241,12 +222,10 @@
               <figure>
                 <img src="/guest/images/event.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
-                  
                 </div>
               </figure>
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Events</a></h3>
-                
                 <p>Enjoy your events at our convention center – modern spaces, great amenities, and expert support for successful gatherings. </p>
                 <p><a href="<?= route_to('convention-center') ?>" class="btn btn-primary btn-sm">View Our Convetions Options</a></p>
               </div>
@@ -254,29 +233,19 @@
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/wedding.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Wedding and Celebrations
-                    
                   </span>
-                  
                 </div>
-              <!-- </figure> -->
             </a>
-
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/meeting.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
                   <span>
                     Meeting 
-                    
                   </span>
-                  
                 </div>
-              <!-- </figure> -->
             </a>
-            
           </div>
         </div>
       </div>
@@ -293,44 +262,26 @@
             <div class="media d-block room mb-0">
               <figure>
                 <img src="/guest/images/MahaltaPic/19.jpg" alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  
+                <div class="overlap-text">  
                 </div>
               </figure>
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Pool</a></h3>
-                
                 <p>
-Experience the ultimate day tour with exclusive pool access, where you can unwind and relax in our pristine waters. Dive into luxury and soak up the sun while enjoying refreshing beverages and delectable snacks poolside.</p>
+                Experience the ultimate day tour with exclusive pool access, where you can unwind and relax in our pristine waters. Dive into luxury and soak up the sun while enjoying refreshing beverages and delectable snacks poolside.</p>
                 <p><a href="<?= route_to('daytour') ?>" class="btn btn-primary btn-sm">View Our Day Tour Policy</a></p>
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/18.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
-                  <!-- <span>
-                    Wedding and Celebrations
-                    
-                  </span> -->
-                  
                 </div>
-              <!-- </figure> -->
             </a>
-
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/17.jpg); ">
-              <!-- <figure> -->
                 <div class="overlap-text">
-                  <!-- <span>
-                    Meeting 
-                    
-                  </span> -->
-                  
                 </div>
-              <!-- </figure> -->
             </a>
-            
           </div>
         </div>
       </div>
@@ -346,9 +297,7 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
         </div>
       </div>
     </section>
-
     <?php if(session()->get('isLoggedIn')): ?>
-
 <section class="testimonial-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row mb-5">
@@ -377,21 +326,19 @@ Experience the ultimate day tour with exclusive pool access, where you can unwin
     				</div>
     				<div class="col-sm-4">
     					<p>
-                            <div class="progress-label-left"><b>5</b> <i class="fas fa-star text-warning"></i></div>
-
-                            <div class="progress-label-right">(<span id="total_five_star_review">0</span>)</div>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress"></div>
-                            </div>
-                        </p>
+                <div class="progress-label-left"><b>5</b> <i class="fas fa-star text-warning"></i></div>
+                <div class="progress-label-right">(<span id="total_five_star_review">0</span>)</div>
+                <div class="progress">
+                  <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="five_star_progress"></div>
+                </div>
+              </p>
     					<p>
-                            <div class="progress-label-left"><b>4</b> <i class="fas fa-star text-warning"></i></div>
-                            
-                            <div class="progress-label-right">(<span id="total_four_star_review">0</span>)</div>
-                            <div class="progress">
-                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress"></div>
-                            </div>               
-                        </p>
+                <div class="progress-label-left"><b>4</b> <i class="fas fa-star text-warning"></i></div>
+                   <div class="progress-label-right">(<span id="total_four_star_review">0</span>)</div>
+                    <div class="progress">
+                   <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="four_star_progress"></div>
+                    </div>               
+                </p>
     					<p>
                             <div class="progress-label-left"><b>3</b> <i class="fas fa-star text-warning"></i></div>
                             
@@ -589,7 +536,7 @@ $(document).ready(function(){
                 data:{UserRating:UserRating, Email:Email, FeedbackMessage:FeedbackMessage},
                 success:function(data) {
                     $('#review_modal').modal('hide');
-                    load_rating_data(); // Assuming this function loads updated feedback data
+                    load_rating_data();
                     alert(data);
                 }
             });
@@ -641,29 +588,23 @@ $(document).ready(function(){
                 $('#one_star_progress').css('width', (data.one_star_review/data.total_review) * 100 + '%');
 
                 if(data.review_data.length > 0) {
-                    var html = '<div class="row">'; // Start the first row
+                    var html = '<div class="row">'; 
 
                     for(var count = 0; count < data.review_data.length; count++) {
-                        if (count > 0 && count % 3 === 0) { // Close the previous row and start a new one after every 3 reviews
+                        if (count > 0 && count % 3 === 0) { 
                             html += '</div><div class="row">';
                         }
 
-                        html += '<div class="col-sm-4 mb-3">'; // Each review will occupy 4 columns on small screens and above
-
-                        // Construct the review HTML
+                        html += '<div class="col-sm-4 mb-3">'; 
                         html += '<div class="row mb-3">';
-                       /*  html += '<div class="col-sm-1"><div class="rounded-circle bg-danger text-white pt-2 pb-2"><h3 class="text-center">'+data.review_data[count].Email.charAt(0)+'</h3></div></div>'; */
                         html += '<div class="col-sm-11">';
                         html += '<div class="card">';
                         html += '<div class="card-header bg-info text-white"><b>'+data.review_data[count].Email+'</b></div>';
                         html += '<div class="card-body">';
-                        
-                        // Construct star ratings
                         for(var star = 1; star <= 5; star++) {
                             var class_name = (data.review_data[count].rating >= star) ? 'text-warning' : 'star-light';
                             html += '<i class="fas fa-star '+class_name+' mr-1"></i>';
                         }
-                        
                         html += '<br />';
                         html += data.review_data[count].FeedbackMessage;
                         html += '</div>';
@@ -672,14 +613,10 @@ $(document).ready(function(){
                         html += '</div>';
                         html += '</div>';
 
-                        html += '</div>'; // Close the col-sm-4
+                        html += '</div>'; 
                     }
-
-                    html += '</div>'; // Close the last row
-
+                    html += '</div>'; 
                     $('#review_content').html(html);
-
-                    // Perform any additional actions or formatting if needed
                 }
             }
         });
@@ -688,37 +625,26 @@ $(document).ready(function(){
 </script>
 
 <script>
-    // Function to handle like button click
     function likeFeedback(button) {
         var likeCountElement = button.nextElementSibling;
         var currentLikes = parseInt(likeCountElement.innerText);
-
-        // Get the unique ID of the feedback (you can replace it with your own unique identifier)
         var feedbackId = button.dataset.feedbackId;
-
-        // Check if the feedback is already liked
         var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
-
-        // Toggle like status
         if (isLiked === 'true') {
-            // If already liked, set the like count to zero and update localStorage
             likeCountElement.innerText = 0;
             localStorage.removeItem('likedFeedback_' + feedbackId);
         } else {
-            // If not liked, increase like count to 1 and update localStorage
             likeCountElement.innerText = 1;
             localStorage.setItem('likedFeedback_' + feedbackId, 'true');
         }
     }
-
-    // Restore like states on page load
     document.addEventListener('DOMContentLoaded', function () {
         var likeButtons = document.querySelectorAll('.like-btn');
         likeButtons.forEach(function (button) {
             var feedbackId = button.dataset.feedbackId;
             var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
             if (isLiked === 'true') {
-                button.nextElementSibling.innerText = 1; // Set like count to 1
+                button.nextElementSibling.innerText = 1;
             }
         });
     });
@@ -726,7 +652,6 @@ $(document).ready(function(){
 
 
 <script type="module">
-  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics.js";
   import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-messaging.js";
@@ -755,31 +680,22 @@ $(document).ready(function(){
     appId: "1:123246185063:web:bc242678e6f96c722822c2",
     measurementId: "G-2KNZPFX21X"
   };
-
-
-
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 
   const messaging = getMessaging(app);
 
-// Request permission to receive notifications
 Notification.requestPermission().then((permission) => {
   if (permission === 'granted') {
     console.log('Notification permission granted.');
 
-    // Get registration token
 getToken(messaging, { vapidKey: 'BAYMqX4JtgCLcrBWd0uFHa2fTwU6QmiA3yfEyBme9Bq_PxOs9r4vo8cXTfinw8OkRTzpbyU7qCLA3eFZOg33MTA' }).then((currentToken) => {
     if (currentToken) {
         console.log('Token retrieved:', currentToken);
-
-        // Here's the new part: Send the token to your server
         fetch('/saveToken', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                // Add any other headers your endpoint might require for security, like CSRF tokens
             },
             body: JSON.stringify({
               fcm_token: currentToken
@@ -799,20 +715,12 @@ getToken(messaging, { vapidKey: 'BAYMqX4JtgCLcrBWd0uFHa2fTwU6QmiA3yfEyBme9Bq_PxO
   }
 });
 
-// Listen to messages when the web app is open
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
-  // Process your message as required
 });
 </script>
-
-    
-    <!-- END section -->
     <?php include('inc/chat.php') ?>
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <?php include('inc/news.php') ?>
     <script src="/guest/js/jquery-3.2.1.min.js"></script>

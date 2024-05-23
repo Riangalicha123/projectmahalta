@@ -74,23 +74,17 @@
 <body>
 
     <?php include('inc/header.php') ?>
-    <!-- END header -->
-
     <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/3.jpg);">
         <div class="container">
             <div class="row align-items-center site-hero-inner justify-content-center">
                 <div class="col-md-12 text-center">
-
                     <div class="mb-5 element-animate">
                         <h1>Qr Path</h1>
-                        <!-- <p>Discover our world's #1 Luxury Room For VIP.</p> -->
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-    <!-- END section -->
 
     <section class="site-section">
         <div class="receipt-container">
@@ -114,18 +108,17 @@
                 <p style="color: <?= (new DateTime() > new DateTime($reservation->CheckOutDate)) ? 'red' : 'green'; ?>;"><strong>Status:</strong> <?= $reservation->Status ?></p>
             </div>
             <div class="section">
-    <h2>Amenities Details</h2>
-    <?php if (!empty($amenities)) : ?>
-        <ul>
-            <?php foreach ($amenities as $amenity) : ?>
-                <li><?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?></li>
-            <?php endforeach; ?>
-        </ul>
-    <?php else : ?>
-        <p>No amenities selected</p>
-    <?php endif; ?>
-</div>
-
+                <h2>Amenities Details</h2>
+                <?php if (!empty($amenities)) : ?>
+                    <ul>
+                        <?php foreach ($amenities as $amenity) : ?>
+                            <li><?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php else : ?>
+                    <p>No amenities selected</p>
+                <?php endif; ?>
+            </div>
 
             <div class="section">
                 <h2>Room Details</h2>
@@ -156,43 +149,34 @@
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
 
-    // Define quarter paper size
-    const paperWidth = 210 / 2; // A4 paper width in mm divided by 2 for quarter size
-    const paperHeight = 297 / 2; // A4 paper height in mm divided by 2 for quarter size
-
-    // Calculate scaling factor for document size
+    const paperWidth = 210 / 2; 
+    const paperHeight = 297 / 2; 
     const scaleFactor = Math.min(paperWidth / 210, paperHeight / 297);
 
-    // Create new jsPDF instance with scaled dimensions
     const doc = new jsPDF({
         orientation: 'portrait',
         unit: 'mm',
         format: [paperWidth, paperHeight]
     });
 
-    // Calculate scaled font size
-    const baseFontSize = 16; // Base font size for full A4 size
+    const baseFontSize = 16; 
     const scaledFontSize = baseFontSize * scaleFactor;
 
-    // Set font style and size
     doc.setFont("helvetica", "bold");
     doc.setFontSize(scaledFontSize);
 
-    // Add logo
     const logoImg = new Image();
-    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; // Replace 'path/to/your/logo.png' with the actual path to your logo image
-    const logoWidth = 20; // Adjust the width of the logo as needed
-    const logoHeight = (logoWidth / logoImg.width) * logoImg.height; // Maintain aspect ratio
+    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; 
+    const logoWidth = 20; 
+    const logoHeight = (logoWidth / logoImg.width) * logoImg.height; 
     doc.addImage(logoImg, 'PNG', paperWidth - logoWidth - 10, scaledFontSize - 5, logoWidth, logoHeight);
 
-    // Define text content
     const receiptTitle = 'Reservation Receipt';
     const guestInfoText = `Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>\nEmail: <?= $reservation->Email ?>\nContact Number: <?= $reservation->ContactNumber ?>`;
     const reservationInfoText = `Check-In Date: <?= $reservation->CheckInDate ?>\nCheck-Out Date: <?= $reservation->CheckOutDate ?>\nRoom: <?= $reservation->RoomNumber ?> - <?= $reservation->RoomType ?> - Total Amount: <?= $reservation->TotalAmount ?>\nStatus: <?= $reservation->Status ?>`;
     const amenitiesText = <?php if (!empty($amenities)) : ?> <?php foreach ($amenities as $amenity) : ?> `<?= $amenity['ProductName'] ?> - <?= $amenity['insertQuantity'] ?>\n` <?php endforeach; ?> <?php else : ?> `No amenities selected` <?php endif; ?>;
     const paymentDetailsText = `Payment Option: <?= $reservation->PaymentOption ?>\nReference Number: <?= $reservation->ReferenceNumber ?>\nPayment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`;
 
-    // Add text and logo to document
     doc.text(receiptTitle, paperWidth / 2, scaledFontSize, null, null, 'center');
     doc.text('Guest Information', 20, scaledFontSize * 2);
     doc.text(guestInfoText, 20, scaledFontSize * 3);
@@ -203,16 +187,12 @@ function downloadPDF() {
     doc.text('Payment Details', 20, scaledFontSize * 11);
     doc.text(paymentDetailsText, 20, scaledFontSize * 12);
 
-    // Add footer
     const footerText = 'Mahalta Resorts and Convention Center\nBrgy,Parang Calapan City,Oriental Mindoro,5200-Philippines\nMobile no.096812480329,Email:mahaltaresorts@gmail.com';
     doc.text(footerText, paperWidth / 2, paperHeight - scaledFontSize, null, null, 'center');
 
-    // Save PDF
     doc.save('ReservationReceipt.pdf');
 }
 </script>
-
-
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
     <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
     <script src="/guest/js/popper.min.js"></script>
@@ -228,9 +208,6 @@ function downloadPDF() {
     <script>
         $('#arrival_date, #departure_date').datepicker({});
     </script>
-
-
-
     <script src="/guest/js/main.js"></script>
 </body>
 

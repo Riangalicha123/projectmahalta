@@ -19,26 +19,14 @@
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-<!-- Site wrapper -->
 <div class="wrapper">
 <?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
-  <!-- Navbar -->
   <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
-
-    <!-- Sidebar -->
     <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -52,26 +40,20 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Venue Services</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
-                <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eexampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="eexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -106,11 +88,8 @@
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
+                                </div>                        
                                 </div>
-                                
-                                </div>
-                                <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -118,7 +97,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Edit Room Modal -->
                     <?php foreach ($convenues as $convenue): ?>
                     <div class="modal fade" id="eeditModal<?=$convenue['conVenueID']?>" tabindex="-1" role="dialog" aria-labelledby="eeeditModalLabel<?=$convenue['conVenueID']?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -132,7 +110,6 @@
                                 <form action="<?= base_url('/updateserviceconVenue/') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="conVenueID" id="conVenueID" value="<?=$convenue['conVenueID']?>">
-                                
                                 <div class="form-group">
                                     <label for="conVenueName">Venue Name</label>
                                     <select class="custom-select form-control-border" id="conVenueName" name="conVenueName" value="<?=$convenue['conVenueName']?>" required>
@@ -153,7 +130,6 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$convenue['Image']?>"required>
                                 </div>
-                                
                                 </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>
@@ -182,42 +158,27 @@
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="#"/></td>
                     <th> <a class="btn btn-danger" href="<?= base_url('/deleteVenue/' . $convenue['conVenueID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#eeditModal<?=$convenue['conVenueID']?>">Edit</a></th>
                   </tr>
-                  <?php endforeach; ?>
-                  
-                  
+                  <?php endforeach; ?>                  
                   </tbody>
-                  
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- Event content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            
-
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">Event Services</h3>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
-                <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#eeexampleModalCenter">
                     Add
                     </button>
-
-                    <!-- Modal -->
                     <div class="modal fade " id="eeexampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -247,10 +208,7 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
                                 </div>
-                                
                                 </div>
-                                <!-- /.card-body -->
-
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
@@ -258,7 +216,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Edit Room Modal -->
                     <?php foreach ($events as $event): ?>
                     <div class="modal fade" id="editModal<?=$event['EventID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$event['EventID']?>" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -291,7 +248,6 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$event['Image']?>"required>
                                 </div>
-                                
                                 </div>
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Update</button>
@@ -304,7 +260,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    
                     <th>Event Type</th>
                     <th>Description</th>
                     <th>Image</th>
@@ -314,42 +269,27 @@
                   <tbody>
                   <?php foreach ($events as $event): ?>
                   <tr>
-                    
                     <td><?=$event['EventType']?></td>
                     <td><?=$event['Description']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/uploads/'.$event['Image'])?>" alt="#"/></td>
                     <th><a class="btn btn-danger" href="<?= base_url('/deleteEvent/' . $event['EventID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$event['EventID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
-                  
-                  
                   </tbody>
-                  
                 </table>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
       </div>
-      <!-- /.container-fluid -->
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
+
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

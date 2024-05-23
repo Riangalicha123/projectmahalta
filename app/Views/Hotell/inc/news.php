@@ -28,7 +28,7 @@
 
     #loaderr .exit-button {
         position: absolute;
-        top: -225px; /* Adjusted to 5px from the top */
+        top: -225px; 
         right: -200px;
         cursor: pointer;
         z-index: 1001;
@@ -53,17 +53,12 @@
     <button class="exit-button" onclick="hideLoader()">Exit</button>
 </div>
 <script>
-    // Show loaderr
     document.addEventListener("DOMContentLoaded", function(event) { 
         document.getElementById("loaderr").classList.add("show");
-
-        // Hide loaderr after 5 seconds
         setTimeout(function(){
             document.getElementById("loaderr").classList.remove("show");
-        }, 10000); // 5 seconds
+        }, 10000); 
     });
-
-    // Function to hide the loader
     function hideLoader() {
         document.getElementById("loaderr").classList.remove("show");
     }

@@ -17,27 +17,14 @@
   <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
-  
 <div class="wrapper">
   <?php include('include/loader.php') ?>
-  <!-- Navbar -->
-  
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-  
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4" >
-    <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-
-    <!-- Sidebar -->
-    
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -51,16 +38,13 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
 
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3><?= count($hotelrevs); ?></h3>
@@ -72,9 +56,7 @@
               <a href="<?= route_to('admin-hotel/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
                 <h3><?= count($restrevs); ?></h3>
@@ -86,9 +68,7 @@
               <a href="<?= route_to('admin-restaurant/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
               <h3><?= count($reevents); ?></h3>
@@ -100,9 +80,7 @@
               <a href="<?= route_to('admin-convention/reservation') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
           <div class="col-lg-3 col-6">
-            <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
               <h3><?= count($customers); ?></h3>
@@ -114,14 +92,9 @@
               <a href="<?= route_to('admin-customer') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
-          <!-- ./col -->
         </div>
-        <!-- /.row -->
-        <!-- Main row -->
         <div class="row">
-          <!-- Left col -->
           <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
               <div class="card-header">
                   <h3 class="card-title">
@@ -131,45 +104,38 @@
                   <div class="card-tools">
                     <select class="form-control" id="yearSelect">
                         <?php
-                        // Generate options for years based on available data
                         $currentYear = date('Y');
-                        $startYear = 2024; // Start year
-                        $endYear = $currentYear + 5; // End year (current year)
+                        $startYear = 2024; 
+                        $endYear = $currentYear + 5;
                         for ($year = $startYear; $year <= $endYear; $year++) {
                             echo "<option value='$year'>$year</option>";
                         }
                         ?>
                     </select>
                   </div>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                   <div class="tab-content p-0">
-                      <!-- Morris chart - Sales -->
                       <div class="chart tab-pane active" id="reservation-monthly"
                           style="position: relative; height: 300px;">
                           <canvas id="reservationbarchart-monthly" height="300" style="height: 300px;"></canvas>
                       </div>
                   </div>
-              </div><!-- /.card-body -->
+              </div>
             </div>
-            <!-- /.card -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="fas fa-chart-pie mr-1"></i>
                   Sentiment Analysis
                 </h3>
-                
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                 <canvas id="sentimental-analysis" height="300" style="height: 300px;"></canvas>
-              </div><!-- /.card-body -->
+              </div>
             </div>
           </section>
-          <!-- /.Left col -->
-          <!-- right col (We are only adding the ID to make the widgets sortable)-->
           <section class="col-lg-6 connectedSortable">
-            <!-- Custom tabs (Charts with tabs)-->
             <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -180,10 +146,9 @@
                     <div class="input-group">
                         <select class="custom-select" id="year-sselectorr">
                             <?php
-                            // Generate options for years based on available data
                             $currentYear = date('Y');
-                            $startYear = 2024; // Start year
-                            $endYear = $currentYear + 5; // End year (current year)
+                            $startYear = 2024; 
+                            $endYear = $currentYear + 5;
                             for ($year = $startYear; $year <= $endYear; $year++) {
                                 echo "<option value='$year'>$year</option>";
                             }
@@ -191,7 +156,7 @@
                         </select>
                     </div>
                 </div>
-            </div><!-- /.card-header -->
+            </div>
             <div class="card-body">
                 <div class="tab-content p-0">
                     <div class="chart tab-pane active" id="reservation-monthly"
@@ -199,10 +164,8 @@
                         <canvas id="inventoryreportchart-monthly" height="300" style="height: 300px;"></canvas>
                     </div>
                 </div>
-            </div><!-- /.card-body -->
+            </div>
         </div>
-            <!-- /.card -->
-            <!-- /.card -->
             <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
@@ -213,10 +176,9 @@
                   <div class="input-group">
                     <select class="custom-select" id="year-selectorr">
                       <?php
-                      // Generate options for years based on available data
                       $currentYear = date('Y');
-                      $startYear = 2024; // Start year
-                      $endYear = $currentYear + 5; // End year (current year)
+                      $startYear = 2024; 
+                      $endYear = $currentYear + 5; 
                       for ($year = $startYear; $year <= $endYear; $year++) {
                           echo "<option value='$year'>$year</option>";
                       }
@@ -224,42 +186,26 @@
                     </select>
                   </div>
                 </div>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                 <div class="tab-content p-0">
-                  <!-- Chart -->
                   <div class="chart tab-pane active" id="reservation-monthly"
                       style="position: relative; height: 300px;">
                       <canvas id="room" height="300" style="height: 300px;"></canvas>
                   </div>
                 </div>
-              </div><!-- /.card-body -->
+              </div>
             </div>
-
-
-
-
-            <!-- /.card -->
           </section>
-          <!-- right col -->
         </div>
-        <!-- /.row (main row) -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
-
   </div>
-  <!-- /.content-wrapper -->
 
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 <script>
     <?php foreach ($roinvents as $roinvent): ?>
         <?php if ($roinvent['Quantity'] <= 10): ?>
@@ -284,12 +230,12 @@
             maintainAspectRatio: false,
             responsive: true,
             legend: {
-                display: true, // Display the legend
-                position: 'bottom', // You can adjust the position as per your requirement
+                display: true, 
+                position: 'bottom', 
                 labels: {
-                    boxWidth: 20, // Width of each legend box
-                    fontSize: 12, // Font size of legend text
-                    padding: 20 // Padding between legend elements
+                    boxWidth: 20, 
+                    fontSize: 12, 
+                    padding: 20 
                 }
             },
             tooltips: {
@@ -314,10 +260,9 @@
 </script>
 <script>
   $(function () {
-      // Function to fetch data based on selected year
       function fetchData(year) {
           $.ajax({
-              url: '<?php echo base_url('admin/getReservationData'); ?>', // Change the URL accordingly
+              url: '<?php echo base_url('admin/getReservationData'); ?>', 
               method: 'POST',
               data: { year: year },
               success: function (response) {
@@ -327,7 +272,7 @@
                   var conventionReservations = [];
 
                   reservations.forEach(function(reservation) {
-                      if (reservation.Status === 'Confirm') { // Only process confirmed reservations
+                      if (reservation.Status === 'Confirm') { 
                           var checkInDate = new Date(reservation.CheckInDate);
                           var month = checkInDate.getMonth();
 
@@ -388,13 +333,12 @@
                       scales: {
                           yAxes: [{
                               ticks: {
-                                  beginAtZero: true, // Ensure the scale starts at zero
-                                  suggestedMin: 0 // Set the suggested minimum value to zero
+                                  beginAtZero: true, 
+                                  suggestedMin: 0 
                               }
                           }]
                       }
                   };
-
                   new Chart(barChartCanvas, {
                       type: 'bar',
                       data: barChartDataMonthly,
@@ -403,12 +347,8 @@
               }
           });
       }
-
-      // Initial fetch for current year
       var currentYear = new Date().getFullYear();
       fetchData(currentYear);
-
-      // Change event for year select
       $('#yearSelect').change(function() {
           var selectedYear = $(this).val();
           fetchData(selectedYear);
@@ -422,7 +362,6 @@
                 var selectedYear = $(this).val();
                 updateMonthlyChart(selectedYear);
             });
-
             function updateMonthlyChart(year) {
                 $.ajax({
                     url: '<?= base_url('admin/getMonthlyData') ?>',
@@ -432,8 +371,6 @@
                     success: function (data) {
                         var productNames = [];
                         var monthlyData = {};
-
-                        // Initialize monthly data for each product
                         data.forEach(function (item) {
                             if (!monthlyData[item.ProductName]) {
                                 monthlyData[item.ProductName] = Array(12).fill(0);
@@ -482,8 +419,6 @@
                 }
                 return color;
             }
-
-            // Initialize the monthly chart with the default year (2024)
             updateMonthlyChart('2024');
         });
     </script>
@@ -492,54 +427,42 @@ $(function () {
   
   $('#year-selectorr').change(function(){
     var selectedYear = $(this).val();
-    // Gumawa ng POST request gamit ang AJAX
     $.ajax({
-      url: "<?php echo base_url('admin/getReservationByYear'); ?>", // Ipalitan ang 'controller_name' sa pangalan ng iyong controller
+      url: "<?php echo base_url('admin/getReservationByYear'); ?>",
       method: "POST",
       data: {selectedYear: selectedYear},
       dataType: "json",
       success: function(data) {
-        // I-update ang chart gamit ang bagong data ng reservation
         updateMonthlyChart(data.roomreservations);
       }
     });
   });
-
-  // Function para sa pag-update ng chart gamit ang bagong data
   function updateMonthlyChart(data) {
-    // Prepare the data for the chart
     var labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var datasets = data;
 
     var data = [];
-    var roomTypes = []; // Array to store unique room types
-    var backgroundColors = []; // Array to store unique background colors for each room type
-    var borderColor = 'rgba(255, 99, 132, 1)'; // Border color for all datasets
-
+    var roomTypes = []; 
+    var backgroundColors = []; 
+    var borderColor = 'rgba(255, 99, 132, 1)'; 
     for (var i = 0; i < datasets.length; i++) {
-      var roomTypeIndex = roomTypes.indexOf(datasets[i].RoomType); // Check if room type already exists in the array
+      var roomTypeIndex = roomTypes.indexOf(datasets[i].RoomType); 
       if (roomTypeIndex === -1) {
-        // If room type doesn't exist in the array, add it and initialize the corresponding data array
         roomTypes.push(datasets[i].RoomType);
-
-        // Generate a random background color for the room type
         var randomColor = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.2)';
         backgroundColors.push(randomColor);
 
         data.push({
           label: datasets[i].RoomType,
-          data: Array(12).fill(0), // Initialize an array with 12 zeros (one for each month)
+          data: Array(12).fill(0), 
           backgroundColor: randomColor,
           borderColor: borderColor,
           borderWidth: 1
         });
-        roomTypeIndex = roomTypes.length - 1; // Get the index of the newly added room type
+        roomTypeIndex = roomTypes.length - 1; 
       }
-      // Add reservation count to the corresponding month's data array
       data[roomTypeIndex].data[datasets[i].CheckInMonth - 1] = datasets[i].ReservationCount;
     }
-
-    // Get context with jQuery - using jQuery's .get() method.
     var barChartCanvas = $('#room').get(0).getContext('2d');
     var barChartDataMonthly = {
         labels: labels,
@@ -551,25 +474,17 @@ $(function () {
         maintainAspectRatio: false,
         datasetFill: false
     };
-
-    // Destroy the previous chart instance if it exists
     if (window.barChart) {
       window.barChart.destroy();
     }
-
-    // Create a new chart instance
     window.barChart = new Chart(barChartCanvas, {
         type: 'bar',
         data: barChartDataMonthly,
         options: barChartOptionsMonthly
     });
   }
-
-  // Initialize the monthly chart with the default year (2024)
   updateMonthlyChart(<?php echo json_encode($roomreservations); ?>);
 })
 </script>
-
-
 </body>
 </html>

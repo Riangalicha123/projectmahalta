@@ -18,24 +18,12 @@
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
 <?php include('include/loader.php') ?>
-  <!-- Navbar -->
-  
   <?php include('include/navbar.php') ?>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
     <?php include('include/logo.php') ?>
-
-    <!-- Sidebar -->
     <?php include('include/sidebar.php') ?>
-    <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
@@ -49,10 +37,8 @@
             </ol>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-
-    <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
         <div class="row">
@@ -63,18 +49,15 @@
                   <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
                   <li class="nav-item"><a class="nav-link" href="#change" data-toggle="tab">Change Password</a></li>
                 </ul>
-              </div><!-- /.card-header -->
+              </div>
               <div class="card-body">
                 <div class="tab-content">
-
                   <div class="active tab-pane" id="settings">
                   <?php if (session()->has('success')) : ?>
                       <div class="alert alert-success">
                           <?= session()->get('success') ?>
                       </div>
                   <?php endif ?>
-
-                  <!-- Add this block to display validation errors -->
                   <?php if (isset($validationErrors)) : ?>
                       <div class="alert alert-danger">
                           <ul>
@@ -109,8 +92,6 @@
                           <input type="number" id="ContactNumber" name="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>">
                         </div>
                       </div>
-
-                     
                       <div class="form-group row">
                         <div class="offset-sm-2 col-sm-10">
                           <button type="submit" class="btn btn-info">Update</button>
@@ -119,17 +100,17 @@
                     </form>
                   </div>
                   <div class="tab-pane" id="change">
-                  <?php if (session()->getFlashdata('msg')): ?>
-        <div class="alert alert-warning">
-            <?= session()->getFlashdata('msg') ?>
-        </div>
-    <?php endif; ?>
+                                  <?php if (session()->getFlashdata('msg')): ?>
+                        <div class="alert alert-warning">
+                            <?= session()->getFlashdata('msg') ?>
+                        </div>
+                    <?php endif; ?>
 
-    <?php if (isset($validation)): ?>
-        <div class="alert alert-danger">
-            <?= $validation->listErrors() ?>
-        </div>
-    <?php endif; ?>
+                    <?php if (isset($validation)): ?>
+                        <div class="alert alert-danger">
+                            <?= $validation->listErrors() ?>
+                        </div>
+                    <?php endif; ?>
                     <form class="form-horizontal" action="<?= base_url('/update-password') ?>" method="post">
                       <div class="form-group row">
                         <label for="oldpassword" class="col-sm-2 col-form-label">Old Password</label>
@@ -157,30 +138,18 @@
                       </div>
                     </form>
                   </div>
-                  <!-- /.tab-pane -->
                 </div>
-                <!-- /.tab-content -->
-              </div><!-- /.card-body -->
+              </div>
             </div>
-            <!-- /.card -->
           </div>
-          <!-- /.col -->
         </div>
-        <!-- /.row -->
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
-    <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
   <?php include('include/footer.php') ?>
-
-  <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
   </aside>
-  <!-- /.control-sidebar -->
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery -->
 <script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>

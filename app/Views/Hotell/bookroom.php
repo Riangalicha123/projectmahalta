@@ -17,55 +17,38 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js">
   <style>
-    /* Custom CSS to adjust popover width */
     .popover {
       max-width: 100%;
-      /* Ensure popover can expand */
       width: auto !important;
-      /* Set width to auto */
     }
 
     .circle {
       display: inline-block;
       width: 30px;
-      /* Adjust as needed */
       height: 30px;
-      /* Adjust as needed */
       border-radius: 50%;
       text-align: center;
       line-height: 30px;
-      /* Adjust as needed to vertically center text */
       background-color: #ccc;
-      /* Adjust background color */
       color: #fff;
-      /* Adjust text color */
       border: 2px solid #ccc;
-      /* Border around the circle */
       margin-right: 5px;
-      /* Spacing between circle and number */
     }
 
     .number {
       font-size: 20px;
-      /* Adjust font size as needed */
       border: 2px solid #ccc;
-      /* Border around the number */
       padding: 3px;
-      /* Padding inside the border */
     }
 
     .btn-secondary .circle {
       background-color: #6c757d;
-      /* Adjust background color */
       border-color: #6c757d;
-      /* Match circle border color with background */
     }
 
     .btn-secondary .circle:hover {
       background-color: #5a6268;
-      /* Adjust hover background color */
       border-color: #5a6268;
-      /* Match circle border color with hover background */
     }
   </style>
 </head>
@@ -149,7 +132,6 @@
                             <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$room['RoomID']?>">View More Details</a></h6>
                         </div>
                     </div>
-                    <!-- Modal for room details -->
                     <div class="modal fade" id="roomModal<?=$room['RoomID']?>" tabindex="-2" role="dialog" aria-labelledby="roomModalLabel<?=$room['RoomID']?>" aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered" role="document">
                               <div class="modal-content">
@@ -160,7 +142,6 @@
                                       </button>
                                   </div>
                                   <div class="modal-body">
-                                      <!-- Carousel for room images -->
                                       <div id="imageCarousel<?=$room['RoomID']?>" class="carousel slide" data-ride="carousel">
                                           <div class="carousel-inner">
                                               <?php foreach ($roomimages as $roomimage): ?>
@@ -286,52 +267,24 @@
   </div>
 </section>
 
-
-  <!-- END section -->
-
-
-  <!-- END section -->
-
-  <!-- END section -->
-
-
-
-  <!-- END section -->
-
   <?php include('inc/footer.php') ?>
-  <!-- END footer -->
-
-  <!-- loader -->
   <?php include('inc/loader.php') ?>
 
   <script>
-    // Get current date
     var today = new Date();
-
-    // Set Arrival Date to today
     var arrivalDateInput = document.getElementById('CheckInDate');
     arrivalDateInput.valueAsDate = today;
-
-    // Set Departure Date to tomorrow
     var tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
     var departureDateInput = document.getElementById('CheckOutDate');
     departureDateInput.valueAsDate = tomorrow;
   </script>
   <script>
-    // Use a class for the View More buttons to distinguish between them
     var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-
-    // Loop through each button and add a click event listener
     viewMoreButtons.forEach(function(button) {
       button.addEventListener('click', function() {
-        // Find the parent container of the clicked button
         var parentContainer = button.closest('.room');
-
-        // Find the additional details div inside the parent container
         var detailsDiv = parentContainer.querySelector('.additionalDetails');
-
-        // Toggle the display of the additional details
         detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
       });
     });
@@ -351,7 +304,6 @@
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Function to format date as yyyy-mm-dd
       function formatDate(date) {
         const d = new Date(date);
         let month = `${d.getMonth() + 1}`;
@@ -361,13 +313,11 @@
         if (day.length < 2) day = '0' + day;
         return [year, month, day].join('-');
       }
-
-      // Initialize Flatpickr
       flatpickr("#dateRange", {
         mode: "range",
         dateFormat: "Y-m-d",
         minDate: "today",
-        maxDate: new Date().fp_incr(365), // up to 365 days from today
+        maxDate: new Date().fp_incr(365), 
         onClose: function(selectedDates) {
           if (selectedDates.length === 2) {
             const [checkInDate, checkOutDate] = selectedDates;
@@ -389,10 +339,9 @@
             minDate: 'today',
             onClose: function(selectedDates) {
               if (selectedDates.length === 2) {
-                const offset = selectedDates[0].getTimezoneOffset() * 60000; // Get timezone offset in milliseconds
+                const offset = selectedDates[0].getTimezoneOffset() * 60000; 
                 const adjustedStart = new Date(selectedDates[0].getTime() - offset).toISOString().slice(0, 10);
                 const adjustedEnd = new Date(selectedDates[1].getTime() - offset).toISOString().slice(0, 10);
-
                 document.getElementById('CheckInDate<?= $room['RoomID'] ?>').value = adjustedStart;
                 document.getElementById('CheckOutDate<?= $room['RoomID'] ?>').value = adjustedEnd;
               }
@@ -402,10 +351,6 @@
       <?php endif ?>
     });
   </script>
-
-
-
   <script src="/guest/js/main.js"></script>
 </body>
-
 </html>

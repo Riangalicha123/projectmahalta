@@ -128,11 +128,9 @@
                     </div>
                   </div>
                   <div class="row">
-                      <div class="col-sm-6 form-group">
-                          
+                      <div class="col-sm-6 form-group">   
                           <label for="CheckInDate">Arrival Date</label>
                           <div style="position: relative;">
-                            <!-- <span class="fa fa-calendar icon" style="position: absolute; right: 10px; top: 10px;"></span> -->
                             <input type='datetime-local' class="form-control" id='CheckInDate' name='CheckInDate' required/>
                           </div>
                       </div>
@@ -177,7 +175,6 @@
                 </div>
               </figure>
               <div class="media-body">
-                <!-- <h3 class="mt-0"><a href="#"></a></h3> -->
                 <ul class="room-specs">
                   <li><span class="ion-ios-people-outline"></span> 25 Guests</li>
                   <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
@@ -190,23 +187,17 @@
         </div>
       </div>
     </section>
-
-    
     <section  class="site-section"style="background: linear-gradient(to bottom left ,#F4E869, #FFFBE9  ,#5CD2E6);">
     <div class="menu-title">
       <h1>Restaurant Menu</h1>
     </div>
-
     <div class="category-buttons" style="margin-top: 20px; text-align: center;">
       <button onclick="showCategory('barmenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">BAR MENU</button>
       <button onclick="showCategory('cafemenu')" style="padding: 10px 20px; margin: 5px; background-color: #F5DD61; color: #333; border: none; border-radius: 5px; cursor: pointer;">CAFE MENU</button>
     </div>
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <h1 style="color: #333; margin-bottom: 10px;">BAR MENU</h1>
-        
         <div class="row">
-        
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Cocktails</h2>
             <?php foreach ($cocktails as $cocktail): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -216,11 +207,9 @@
                     <p>Php<?=$cocktail['CocktailsPrice']?></p>
                 </div>
             </div>
-          <!-- Repeat the structure for other rows if you have more items -->
           <?php endforeach; ?>
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Mocktails</h2>
             <?php foreach ($mocktails as $mocktail): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -231,10 +220,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Shooters</h2>
             <?php foreach ($shooters as $shooter): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -245,10 +232,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Towers (3L)</h2>
             <?php foreach ($towers as $tower): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -259,10 +244,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Juices</h2>
             <?php foreach ($juices as $juice): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -273,10 +256,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Shakes</h2>
             <?php foreach ($shakes as $shake): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -287,10 +268,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Liquors</h2>
             <?php foreach ($liquors as $liquor): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -301,10 +280,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Red Wine</h2>
             <?php foreach ($redwines as $redwine): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -315,11 +292,8 @@
                 </div>
             </div>
             <?php endforeach; ?>
-          <!-- Repeat the structure for other rows if you have more items -->
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
-            
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Beers</h2>
             <?php foreach ($beers as $beer): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -329,12 +303,9 @@
                     <p>Php<?=$beer['BeerPrice']?></p>
                 </div>
             </div>
-          <!-- Repeat the structure for other rows if you have more items -->
           <?php endforeach; ?>
         </div>
         <div class="row">
-            <!-- Dessert 1 -->
-            
             <h2 class="col-md-12" style="color: #333; margin-bottom: 10px;">Bucket</h2>
             <?php foreach ($buckets as $bucket): ?>
             <div class="col-md-4" style="display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom:2px solid #555;">
@@ -344,12 +315,8 @@
                     <p>Php<?=$bucket['BucketPrice']?></p>
                 </div>
             </div>
-          <!-- Repeat the structure for other rows if you have more items -->
           <?php endforeach; ?>
         </div>
-        
-        
-        <!-- Add more dessert items as needed -->
       </div>
       <div style="margin-top: 20px; border-bottom: 2px solid #ccc;">
         <h1 style="color: #333; margin-bottom: 10px;">CAFE MENU</h1>
@@ -391,17 +358,9 @@
               <?php endforeach; ?>
         </div>
       </div>
-
   </section>
-   
-
     <?php include('inc/chat.php') ?>
-    <!-- END section -->
-   
     <?php include('inc/footer.php') ?>
-    <!-- END footer -->
-    
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
 
     <script src="/guest/js/jquery-3.2.1.min.js"></script>
