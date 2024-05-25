@@ -225,7 +225,7 @@ class AdminController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Admin\setting', $data);
+            return view('Admin/setting', $data);
         }
     }
     public function logout()
@@ -304,7 +304,7 @@ class AdminController extends BaseController
             'roomreservations' => $roomreservations,
             'roomTypes' => $this->rooms->getRoomTypes(),
         ];
-        return view('Admin\index', $data);
+        return view('Admin/index', $data);
     }
     public function getReservationData()
     {
@@ -341,7 +341,7 @@ class AdminController extends BaseController
                 ->join('users', 'guest.UserID = users.UserID')
                 ->findAll()
         ];
-        return view('Admin\customer', $data);
+        return view('Admin/customer', $data);
     }
     public function updateCustomer($guestID)
     {
@@ -560,7 +560,7 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
         ];
-        return view('Admin\Restaurant\reservation', $data);
+        return view('Admin/Restaurant/reservation', $data);
     }
     public function addRestauReservation()
     {
@@ -714,7 +714,7 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
         ];
-        return view('Admin\Convention\reservation', $data);
+        return view('Admin/Convention/reservation', $data);
     }
     public function addConReservation()
     {
@@ -884,7 +884,7 @@ class AdminController extends BaseController
                 ->join('users', 'staff_details.UserID = users.UserID')
                 ->findAll()
         ];
-        return view('Admin\staffAccount', $data);
+        return view('Admin/staffAccount', $data);
     }
     public function fetchProvince()
     {
@@ -1025,7 +1025,7 @@ class AdminController extends BaseController
                 ->join('departments', 'staff_details.DepartmentID = departments.DepartmentID')
                 ->join('users', 'staff_details.UserID = users.UserID')
                 ->findAll();
-            return view('Admin\staffAccount', $data);
+            return view('Admin/staffAccount', $data);
         }
     }
     private function isEmailUnique($email)
@@ -1077,7 +1077,7 @@ class AdminController extends BaseController
                 ->join('users', 'feedback.UserID = users.UserID')
                 ->findAll()
         ];
-        return view('Admin\feedback', $data);
+        return view('Admin/feedback', $data);
     }
     public function chat()
     {

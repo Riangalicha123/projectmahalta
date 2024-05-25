@@ -44,7 +44,7 @@ class InventoryController extends BaseController
         $data = [
             'inventoryRoutes' => 'home',
         ];
-        return view('Stafff\Inventory\index', $data);
+        return view('Stafff/Inventory/index', $data);
     }
     public function inhotel()
     {
@@ -52,7 +52,7 @@ class InventoryController extends BaseController
             'inventoryRoutes' => 'inhotel',
             'roinvents' => $this->roominventory->findAll(),
         ];
-        return view('Stafff\Inventory\hotel', $data);
+        return view('Stafff/Inventory/hotel', $data);
     }
     public function addinHotel()
     {
@@ -73,7 +73,7 @@ class InventoryController extends BaseController
             return redirect()->to('staff-inventory/hotel');
         }else{
             $data['validation'] = $this->validator;
-            return view('Stafff\Inventory\hotel',$data);
+            return view('Stafff/Inventory/hotel',$data);
         }
     }
     public function deleteAmenitiesItemm($roomInventoryID)
@@ -116,7 +116,7 @@ class InventoryController extends BaseController
         $data = [
             'currenttRoute' => 'invensetting',
         ];
-        return view('Stafff\Inventory\setting', $data);
+        return view('Stafff/Inventory/setting', $data);
     }
     public function invenupdatePassword()
     {
@@ -143,7 +143,7 @@ class InventoryController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Stafff\Inventory\setting', $data);
+            return view('Stafff/Inventory/setting', $data);
         }
     }
     public function updateinventoryProfile($userID)
@@ -175,7 +175,7 @@ class InventoryController extends BaseController
             'adminRoutes' => 'inventoryHotel',
             'roinvents' => $this->roominventory->findAll(),
         ];
-        return view('Admin\inventory_hotel', $data);
+        return view('Admin/inventory_hotel', $data);
     }
     public function adddinHotel()
     {
@@ -196,7 +196,7 @@ class InventoryController extends BaseController
             return redirect()->to('admin-inventoryhotel');
         }else{
             $data['validation'] = $this->validator;
-            return view('Admin\inventory_hotel',$data);
+            return view('Admin/inventory_hotel',$data);
         }
     }
     public function deleteAmenitiesItem($roomInventoryID)

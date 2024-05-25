@@ -230,7 +230,7 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'home',
         ];
-        return view('Stafff\HotelStaff\index', $data);
+        return view('Stafff/HotelStaff/index', $data);
     }
     public function reservation()
     {
@@ -243,7 +243,7 @@ class StaffController extends BaseController
             ->findAll(),
             'regions' => $this->regions->findAll(),
         ]; 
-        return view('Stafff\HotelStaff\reservation', $data);
+        return view('Stafff/HotelStaff/reservation', $data);
     }
     public function addhotelReservation()
     {
@@ -437,7 +437,7 @@ class StaffController extends BaseController
             'currentRoute' => 'room',
             'rooms' => $this->rooms->findAll(),
         ]; 
-        return view('Stafff\HotelStaff\room', $data);
+        return view('Stafff/HotelStaff/room', $data);
     }
     public function addRoom(){
         $file = $this->request->getFile('Image');
@@ -482,7 +482,7 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'hotelsetting',
         ];
-        return view('Stafff\HotelStaff\setting', $data);
+        return view('Stafff/HotelStaff/setting', $data);
     }
     public function hotelupdatePassword()
     {
@@ -508,7 +508,7 @@ class StaffController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Stafff\HotelStaff\setting', $data);
+            return view('Stafff/HotelStaff/setting', $data);
         }
     }
     public function updateRoom(){
@@ -556,7 +556,7 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'home',
         ];
-        return view('Stafff\RestaurantStaff\index', $data);
+        return view('Stafff/RestaurantStaff/index', $data);
     }
     public function resReservation()
     {
@@ -568,7 +568,7 @@ class StaffController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
         ]; 
-        return view('Stafff\RestaurantStaff\reservation',$data);
+        return view('Stafff/RestaurantStaff/reservation',$data);
     }
 
     public function addrestauReservation()
@@ -716,7 +716,7 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'ressetting',
         ];
-        return view('Stafff\RestaurantStaff\setting', $data);
+        return view('Stafff/RestaurantStaff/setting', $data);
     }
     public function resupdatePassword()
     {
@@ -742,7 +742,7 @@ class StaffController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Stafff\RestaurantStaff\setting', $data);
+            return view('Stafff/RestaurantStaff/setting', $data);
         }
     }
     public function resVenue()
@@ -751,7 +751,7 @@ class StaffController extends BaseController
             'currenttRoute' => 'venue',
             'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
         ]; 
-        return view('Stafff\RestaurantStaff\venue',$data);
+        return view('Stafff/RestaurantStaff/venue',$data);
     }
     public function addVenue(){
         $file = $this->request->getFile('Image');
@@ -877,7 +877,7 @@ class StaffController extends BaseController
         $data = [
             'currentttRoute' => 'home',
         ];
-        return view('Stafff\ConventionStaff\index', $data);
+        return view('Stafff/ConventionStaff/index', $data);
     }
     public function conReservation()
     {
@@ -891,7 +891,7 @@ class StaffController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
         ]; 
-        return view('Stafff\ConventionStaff\reservation', $data);
+        return view('Stafff/ConventionStaff/reservation', $data);
     }
     public function addconReservation()
     {
@@ -1053,7 +1053,7 @@ class StaffController extends BaseController
             'currentttRoute' => 'venue',
             'convenues' => $this->convenues->findAll(),
         ]; 
-        return view('Stafff\ConventionStaff\venue', $data);
+        return view('Stafff/ConventionStaff/venue', $data);
     }
     public function addconVenue(){
         $file = $this->request->getFile('Image');
@@ -1146,7 +1146,7 @@ class StaffController extends BaseController
             'currentttRoute' => 'event',
             'events' => $this->events->findAll(),
         ]; 
-        return view('Stafff\ConventionStaff\events', $data);
+        return view('Stafff/ConventionStaff/events', $data);
     }
 
     public function addEvent(){
@@ -1237,7 +1237,7 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'consetting',
         ];
-        return view('Stafff\ConventionStaff\setting', $data);
+        return view('Stafff/ConventionStaff/setting', $data);
     }
     public function conupdatePassword()
     {
@@ -1263,7 +1263,7 @@ class StaffController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Stafff\ConventionStaff\setting', $data);
+            return view('Stafff/ConventionStaff/setting', $data);
         }
     }
 }

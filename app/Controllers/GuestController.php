@@ -89,11 +89,11 @@ class GuestController extends BaseController
                 ->findAll(),
             'news' => $this->news->findAll(),
         ];
-        return view('Hotell\index', $data);
+        return view('Hotell/index', $data);
     }
     public function about()
     {
-        return view('Hotel\about');
+        return view('Hotel/about');
     }
     public function room()
     {
@@ -107,7 +107,7 @@ class GuestController extends BaseController
                 ->findAll(),
             'chats' => $this->chat->findAll(),
         ];
-        return view('Hotell\room', $data);
+        return view('Hotell/room', $data);
     }
     public function roomPolicy()
     {
@@ -115,7 +115,7 @@ class GuestController extends BaseController
             'activePage' => 'roomPolicy',
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\roompolicy', $data);
+        return view('Hotell/roompolicy', $data);
     }
     public function restaurantPolicy()
     {
@@ -123,7 +123,7 @@ class GuestController extends BaseController
             'activePage' => 'resPolicy',
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\restaurantpolicy', $data);
+        return view('Hotell/restaurantpolicy', $data);
     }
     public function restaurantt()
     {
@@ -132,7 +132,7 @@ class GuestController extends BaseController
             'chats' => $this->chat->findAll(),
 
         ];
-        return view('Hotell\restaurant', $data);
+        return view('Hotell/restaurant', $data);
     }
     public function mainmenu()
     {
@@ -148,7 +148,7 @@ class GuestController extends BaseController
                 ->where('menu.MenuType', 'Main Menu')
                 ->findAll(),
         ];
-        return view('Hotell\mainmenu', $data);
+        return view('Hotell/mainmenu', $data);
     }
     public function barmenu()
     {
@@ -164,7 +164,7 @@ class GuestController extends BaseController
                 ->findAll(),
 
         ];
-        return view('Hotell\barmenu', $data);
+        return view('Hotell/barmenu', $data);
     }
     public function cafemenu()
     {
@@ -186,7 +186,7 @@ class GuestController extends BaseController
                 ->where('menu.MenuType', 'Cafe Menu')
                 ->findAll(),
         ];
-        return view('Hotell\cafemenu', $data);
+        return view('Hotell/cafemenu', $data);
     }
     public function getData()
     {
@@ -394,7 +394,7 @@ class GuestController extends BaseController
             'roomSelected' => $roomSelected,
             'TotalAmount' => $TotalAmount,
         ];
-        return view('Hotell\bookroom', $data);
+        return view('Hotell/bookroom', $data);
     }
     public function amenities()
     {
@@ -413,7 +413,7 @@ class GuestController extends BaseController
             'qrcodes' => $this->qr->findAll(),
             'roomReservationData' => $roomReservationData,
         ];
-        return view('Hotell\amenities', $data);
+        return view('Hotell/amenities', $data);
     }
     public function formdetails()
     {
@@ -447,7 +447,7 @@ class GuestController extends BaseController
             'amenitiesData' => $amenitiesData,
             'totalExtraPrice' => $totalExtraPrice,
         ];
-        return view('Hotell\checkOutReservation', $data);
+        return view('Hotell/checkOutReservation', $data);
     }
     public function addReservation()
     {
@@ -760,7 +760,7 @@ class GuestController extends BaseController
             'activePage' => 'conPackage',
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\conpackage', $data);
+        return view('Hotell/conpackage', $data);
     }
     public function getconvenuedirectInformation()
     {
@@ -838,7 +838,7 @@ class GuestController extends BaseController
             'convenuesSelected' => $convenuesSelected,
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\conreservation', $data);
+        return view('Hotell/conreservation', $data);
     }
     public function getVenueDateandGuests()
     {
@@ -902,7 +902,7 @@ class GuestController extends BaseController
             'chats' => $this->chat->findAll(),
             'qrcodes' => $qr,
         ];
-        return view('Hotell\coninformation', $data);
+        return view('Hotell/coninformation', $data);
     }
     public function conventionformdetails()
     {
@@ -931,7 +931,7 @@ class GuestController extends BaseController
             'chats' => $this->chat->findAll(),
             'qrcodes' => $this->qr->findAll(),
         ];
-        return view('Hotell\conformdetail', $data);
+        return view('Hotell/conformdetail', $data);
     }
     public function conventionReservation()
     {
@@ -1109,11 +1109,11 @@ class GuestController extends BaseController
     }
     public function contact()
     {
-        return view('Hotel\contact');
+        return view('Hotel/contact');
     }
     public function getFeedback()
     {
-        return view('Hotell\index');
+        return view('Hotell/index');
     }
     public function submitReview()
     {
@@ -1248,7 +1248,7 @@ class GuestController extends BaseController
     }
     public function profile()
     {
-        return view('Hotell\profile');
+        return view('Hotell/profile');
     }
     public function updateProfile($userID)
     {
@@ -1302,7 +1302,7 @@ class GuestController extends BaseController
             }
         } else {
             $data['validation'] = $this->validator;
-            return view('Hotell\changepassword', $data);
+            return view('Hotell/changepassword', $data);
         }
     }
     public function get_chat_data()
@@ -1524,6 +1524,6 @@ class GuestController extends BaseController
     }
     public function daytour()
     {
-        return view('Hotell\daytour');
+        return view('Hotel/daytour');
     }
 }

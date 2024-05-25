@@ -65,10 +65,10 @@ $routes->post('/loginAuth', 'UserController::loginAuth', ['filter' => 'reslogGua
 $routes->get('/logout', 'UserController::logout');
 $routes->get('/verify/(:any)', 'UserController::verifyEmail/$1', ['filter' => 'reslogGuard']);
 $routes->post('/saveToken', 'UserController::saveToken', ['filter' => 'reslogGuard']);
-$routes->get('recover', 'UserController::recover');
-$routes->post('recoverPassword', 'UserController::recoverPassword');
-$routes->get('resetPassword/(:any)', 'UserController::resetPassword/$1');
-$routes->post('updatePassword', 'UserController::updatePassword');
+$routes->get('/recover', 'UserController::recover');
+$routes->post('/recoverPassword', 'UserController::recoverPassword');
+$routes->get('/resetPassword/(:any)', 'UserController::resetPassword/$1');
+$routes->post('/updatePassword', 'UserController::updatePassword');
 
 
 $routes->get('/admin-login', 'AdminController::login', ['filter' => 'reslogGuard']);
@@ -247,8 +247,8 @@ $routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced',
 $routes->get('/admin-newspromotion', 'AdminController::newsPromotion', ['filter' => 'adminGuard']);
 $routes->post('/admin-addnewspromotion', 'AdminController::addnewsPromotion', ['filter' => 'adminGuard']);
 $routes->post('/admin-editnewspromotion', 'AdminController::editnewsPromotion', ['filter' => 'adminGuard']);
-$routes->get('deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter' => 'adminGuard']);
+$routes->get('/deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter' => 'adminGuard']);
 
 $routes->get('/admin-report', 'AdminController::Report', ['filter' => 'adminGuard']);
 $routes->post('/admin-report/fetch-report-data', 'AdminController::fetchReportData', ['filter' => 'adminGuard']);
-$routes->get('process-jobs', 'GuestController::processJobs');
+$routes->get('/process-jobs', 'GuestController::processJobs');
