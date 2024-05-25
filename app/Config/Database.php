@@ -27,9 +27,9 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
-        'database'     => 'caps',
+        'username'     => 'u262559041_mahaltaresorts',
+        'password'     => 'Mahaltarrc_000',
+        'database'     => 'u262559041_mahalta',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
