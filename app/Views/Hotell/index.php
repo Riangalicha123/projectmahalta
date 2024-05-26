@@ -34,6 +34,47 @@
         margin-right: 0.3em;
         line-height: 1em;
       }
+      .section-cover {
+  background-size: cover;
+  background-repeat: no-repeat; /* Ensure the image does not repeat */
+  padding: 60px 0;
+  color: #fff;
+  text-align: center;
+}
+
+.section-cover h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.section-cover p.lead {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+}
+
+.section-cover .btn-play-wrap {
+  display: inline-block;
+}
+
+.section-cover .btn-play {
+  color: #fff;
+  font-size: 2rem;
+}
+
+@media (max-width: 768px) {
+  .section-cover h2 {
+    font-size: 2rem; /* Adjust the size as needed for smaller screens */
+  }
+
+  .section-cover p.lead {
+    font-size: 1rem; /* Adjust the size as needed for smaller screens */
+  }
+
+  .section-cover .btn-play {
+    font-size: 1.5rem; /* Adjust the size as needed for smaller screens */
+  }
+}
+
     </style>
     <?= $this->renderSection('stylesheets') ?>
   </head>
@@ -110,14 +151,9 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="<?=base_url('/uploads/'.$rooms[8]['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height: 500px; width: 1000px;">
+                <img src="<?=base_url('/uploads/'.$rooms[8]['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height: auto; width: 1000px;">
                 <div class="overlap-text">
-                  <span>
-                    Featured Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
+                  
                 </div>
               </figure>
               <div class="media-body">
@@ -134,13 +170,7 @@
             <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url('/uploads/'.$rooms[11]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Family Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                  <span class="pricing-from">
-                    Php5,999.00
+                    Family Room
                   </span>
                 </div>
             </a>
@@ -148,13 +178,7 @@
             <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url('/uploads/'.$rooms[13]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Barkada Room 
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                    <span class="ion-ios-star"></span>
-                  </span>
-                  <span class="pricing-from">
-                    Php 1,000.00/head
+                    Barkada Room
                   </span>
                 </div>
             </a>

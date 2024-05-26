@@ -62,3 +62,55 @@ AND `status` = :status:', [...], false)
 10 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
 11 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
 12 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-26 08:43:01 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'caps', 3306, '', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(35): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(24): App\Controllers\BaseController->processPendingJobs()
+#8 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(19): App\Controllers\BaseController->initialize()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#11 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#12 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#13 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#14 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#5 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(35): CodeIgniter\BaseModel->findAll()
+#6 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(24): App\Controllers\BaseController->processPendingJobs()
+#7 C:\laragon\www\projectmahalta\app\Controllers\BaseController.php(19): App\Controllers\BaseController->initialize()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-05-26 08:43:01 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `jobs`
+WHERE `run_at` <= :run_at:
+AND `status` = :status:', [...], false)
+ 3 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 5 APPPATH\Controllers\BaseController.php(35): CodeIgniter\BaseModel->findAll()
+ 6 APPPATH\Controllers\BaseController.php(24): App\Controllers\BaseController->processPendingJobs()
+ 7 APPPATH\Controllers\BaseController.php(19): App\Controllers\BaseController->initialize()
+ 8 SYSTEMPATH\CodeIgniter.php(915): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(493): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

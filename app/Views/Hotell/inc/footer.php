@@ -9,15 +9,15 @@
     </a>
 </p>
 <p class="lead">
-    <a href="mailto:your-email@example.com">
-        <i class="fa fa-envelope"style="color: #d93025;"></i> mahaltaresort@gmail.com
+    <a href="mahaltaresortconventioncenter@gmail.com" style="font-size: 17px;">
+        <i class="fa fa-envelope"style="color: #d93025; "></i> mahaltaresortconventioncenter@gmail.com
     </a>
 </p>
 
             <h3 style="color: black;">Connect With Us</h3>
             <p>
             <a href="https://www.facebook.com/DrCEB/" class="pl-0 p-3"style="color: #1877f2;"><span class="fa fa-facebook fa-lg"></span></a>
-              <a href="#" class="p-3"style="color: #1da1f2;"><span class="social-icon fa fa-globe fa-lg"></span></a>
+              <a href="https://www.mahaltaresort.online/" class="p-3"style="color: #1da1f2;"><span class="social-icon fa fa-globe fa-lg"></span></a>
               <a href="#" class="p-3"style="background: linear-gradient(to right, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d, #f56040, #f77737, #fcaf45, #ffdc80); -webkit-background-clip: text; color: transparent; display: inline-block;"><span class="fa fa-instagram fa-lg"></span></a>
               <a href="https://www.youtube.com/watch?v=9phZlJodJPA&t=7s" class="p-3" style="color: #ff0000;"><span class="fa fa-youtube fa-lg"></span></a>
             </p>
