@@ -219,10 +219,10 @@
                 </div>
             </a>
 
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Cafe Bar
+                    Venue 3
                   </span>
                 </div>
             </a>
