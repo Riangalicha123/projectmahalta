@@ -54,6 +54,8 @@
         <div class="row align-items-center">
           <div class="col-md-12">
             <div class="heading-wrap  element-animate">
+              <br>
+              <br>
               <h4 style="text-align: center;font-size: 30px;"><strong>Convention Center Reservations Package</strong></h4>
               <br>
               <div style="text-align: center;">
