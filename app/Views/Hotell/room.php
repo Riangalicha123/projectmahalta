@@ -89,31 +89,19 @@
                             <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
                           </div>
                         </div>
+                        <div class="col-md-12 form-group text-center">
+                        <a href="<?= route_to('bookroom') ?>" class="btn btn-primary">Reservation</a>
+                        </div>
+
                           </div>
                           <div class="container">
                               <div class="row">
                                   <div class="col-lg-12 ">
                                       <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                                           <div class="media-body">
-                                              <form action="<?= base_url('/bookroom/submit') ?>" method="get">
-                                                  <div class="row">
-                                                      <div class="col-sm-6 form-group">
-                                                          <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                                                          <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                                                      </div>
-                                                      <div class="col-sm-6 form-group">
-                                                          <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                                                          <input type="number" class="form-control" id="Child" name="Child" value="0">
-                                                      </div>
-                                                  </div>
-                                                  <input type="hidden" id="CheckInDate" name="CheckInDate">
-                                                  <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                                                  <div class="row">
-                                                      <div class="col-sm-12 form-group text-center">
-                                                          <button type="submit" class="btn btn-primary">Check Availability</button>
-                                                      </div>
-                                                  </div>
-                                              </form>
+                                          <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
+                                            <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
+                                          </div>
                                           </div>
                                       </div>
                                   </div>
@@ -125,9 +113,7 @@
             </section>
       <section class="site-section"style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
         <div class="container">
-          <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
-            <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
-          </div>
+          
           <div class="row" id="room-container">
             <?php foreach ($rooms as $room): ?>
             <?php if ($room['AvailabilityStatus'] === 'Available'): ?>
@@ -223,36 +209,24 @@
                           <div style="flex: 0 0 100%; margin-bottom: 10px;">
                             <p style="font-size: 1.2em; text-align: center;">Check Out Time: 12:00 PM</p>
                           </div>
-                          
+                          <div class="col-md-12 form-group text-center">
+                            <a href="<?= route_to('login') ?>" class="btn btn-primary">Reservation</a>
+                          </div>
                         </div>
             </div>
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 ">
-                        <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                            <div class="media-body">
-                                    <div class="row">
-                                        <div class="col-sm-6 form-group">
-                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                                            <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                                        </div>
-                                        <div class="col-sm-6 form-group">
-                                            <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                                            <input type="number" class="form-control" id="Child" name="Child" value="0">
-                                        </div>
-                                    </div>
-                                    <input type="hidden" id="CheckInDate" name="CheckInDate">
-                                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
-                                    <div class="row">
-                                        <div class="col-sm-12 form-group text-center">
-                                            <a href="<?= base_url('/login') ?>" class="btn btn-primary">Check Availability</a>
-                                        </div>
-                                    </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                              <div class="row">
+                                  <div class="col-lg-12 ">
+                                      <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+                                          <div class="media-body">
+                                          <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
+                                            <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
+                                          </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
 
                   </div>
                 </div>
