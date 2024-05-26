@@ -755,7 +755,7 @@ class GuestController extends BaseController
             'convenues' => $this->convenues->findAll(),
             'chats' => $this->chat->findAll()
         ];
-        return view('Hotell\convention', $data);
+        return view('Hotell/convention', $data);
     }
     public function conPackage()
     {
@@ -1365,7 +1365,7 @@ class GuestController extends BaseController
                 ->where('reservations.UserID', $userID)
                 ->findAll(),
         ];
-        return view('Hotell\booking', $data);
+        return view('Hotell/booking', $data);
     }
     public function bookinghotelupdatestatus($status, $reservationID)
     {
