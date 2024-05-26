@@ -83,6 +83,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Home',
             'chats' => $this->chat->findAll(),
+            'rooms' => $this->rooms->findAll(),
             'feedbacks' => $this->feedbacks
                 ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, users.UserID, users.Email')
                 ->join('users', 'feedback.UserID = users.UserID')
@@ -155,6 +156,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Bar Menu',
             'chats' => $this->chat->findAll(),
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'menubars' => $this->products
                 ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
                 ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
@@ -171,6 +173,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Cafe Menu',
             'chats' => $this->chat->findAll(),
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'menucafes' => $this->products
                 ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice,menu_product.ProductPrices, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
                 ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')

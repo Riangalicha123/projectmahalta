@@ -110,7 +110,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/Pic/10.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="<?=base_url('/uploads/'.$rooms[8]['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height: 500px; width: 1000px;">
                 <div class="overlap-text">
                   <span>
                     Featured Room 
@@ -124,15 +124,14 @@
                 <h3 class="mt-0"><a href="#">Jr.Suite Room</a></h3>
                 <ul class="room-specs">
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
-                  <li><span class="ion-ios-crop"></span> 22 ft <sup>2</sup></li>
                 </ul>
                 <p>Picture a special room with a peaceful ambiance and inviting decor, designed for relaxation. </p>
-                <p><a href="#" class="btn btn-primary btn-sm">Book Now </a></p>
+                <p><a href="<?= route_to('room') ?>" class="btn btn-primary btn-sm">Reserve Now </a></p>
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/Pic/13.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url('/uploads/'.$rooms[11]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
                     Family Room 
@@ -141,12 +140,12 @@
                     <span class="ion-ios-star"></span>
                   </span>
                   <span class="pricing-from">
-                    Php6,499.00
+                    Php5,999.00
                   </span>
                 </div>
             </a>
 
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/9.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url('/uploads/'.$rooms[13]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
                     Barkada Room 

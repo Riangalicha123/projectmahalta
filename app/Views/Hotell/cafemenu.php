@@ -72,10 +72,14 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
+                <?php if (!empty($venues)): ?>
+                <img src="<?=base_url('/uploads/'.$venues[0]['Image'])?>" alt="Generic placeholder image" class="img-fluid">
+                <?php endif; ?>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Main Restaurant</a></h3>
+                <?php if (!empty($venues)): ?>
+                <h3 class="mt-0"><a ><?=$venues[0]['VenueName']?></a></h3>
+                <?php endif; ?>
                 <p>An inviting eatery offering a diverse menu of delicious dishes, our restaurant combines warm ambiance with attentive service for the guests.</p>
                 <?php if(session()->get('isLoggedIn')): ?>
                 <p>    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addFormModal">
@@ -84,29 +88,31 @@
                 <?php else: ?>
                     <p> 
                 <a href="<?= base_url('/login') ?>" class="btn btn-primary">Make Online Reservation</a></p> 
-                <?php endif; ?> 
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-5 room-thumbnail-absolute">
-                        <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
-                            <div class="overlap-text">
-                              <span>
-                                Venue 2
-                              </span>
-                            </div>
-                        </a>
-                        <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
-                            <div class="overlap-text">
-                              <span>
-                                Venue 3
-                              </span>
-                            </div>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                 </section>
+                <?php endif; ?>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-5 room-thumbnail-absolute">
+          <?php if (!empty($venues)): ?>
+            <a class="media d-block room bg first-room" style="background-image: url(<?=base_url('/uploads/'.$venues[1]['Image'])?>); ">
+                <div class="overlap-text">
+                  <span>
+                  <?=$venues[1]['VenueName']?>
+                  </span>
+                </div>
+            </a>
+            <a class="media d-block room bg second-room" style="background-image: url(<?=base_url('/uploads/'.$venues[2]['Image'])?>); ">
+                <div class="overlap-text">
+                  <span>
+                  <?=$venues[2]['VenueName']?>
+                  </span>
+                </div>
+            </a>
+            <?php endif; ?>
+          </div>
+        </div>
+      </div>
+    </section>
                 <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
