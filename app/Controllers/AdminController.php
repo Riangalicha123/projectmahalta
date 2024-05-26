@@ -370,7 +370,7 @@ class AdminController extends BaseController
                 ->findAll(),
                 'regions' => $this->regions->findAll(),
         ];
-        return view('Admin\Hotel\reservation', $data);
+        return view('Admin/Hotel/reservation', $data);
     }
     public function addHotelReservation()
     {
