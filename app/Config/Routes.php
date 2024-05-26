@@ -73,7 +73,7 @@ $routes->post('/updatePassword', 'UserController::updatePassword');
 
 $routes->get('/admin-login', 'AdminController::login', ['filter' => 'reslogGuard']);
 $routes->post('/adminloginAuth', 'AdminController::loginAuth', ['filter' => 'reslogGuard']);
-$routes->post('/update-password', 'AdminController::updatePassword', ['filter' => 'adminGuard']);
+$routes->post('/uupdate-password', 'AdminController::uupdatePassword', ['filter' => 'adminGuard']);
 $routes->get('/admin-logout', 'AdminController::logout');
 
 $routes->get('/staff-login', 'StaffController::login', ['filter' => 'reslogGuard']);

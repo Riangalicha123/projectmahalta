@@ -201,7 +201,7 @@ class AdminController extends BaseController
         session()->setFlashdata('success', 'Profile updated successfully.');
         return redirect()->to(base_url('/admin-setting'));
     }
-    public function updatePassword()
+    public function uupdatePassword()
     {
         $session = session();
         $userModel = new UserModel();

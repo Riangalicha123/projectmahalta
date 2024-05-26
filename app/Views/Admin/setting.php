@@ -111,7 +111,7 @@
                             <?= $validation->listErrors() ?>
                         </div>
                     <?php endif; ?>
-                    <form class="form-horizontal" action="<?= base_url('/update-password') ?>" method="post">
+                    <form class="form-horizontal" action="<?= base_url('/uupdate-password') ?>" method="post">
                       <div class="form-group row">
                         <label for="oldpassword" class="col-sm-2 col-form-label">Old Password</label>
                         <div class="col-sm-10">
