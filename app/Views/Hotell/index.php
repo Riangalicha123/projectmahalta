@@ -126,7 +126,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                 </ul>
                 <p>Picture a special room with a peaceful ambiance and inviting decor, designed for relaxation. </p>
-                <p><a href="<?= route_to('room') ?>" class="btn btn-primary btn-sm">Reserve Now </a></p>
+                <p><a href="<?= route_to('room') ?>" class="btn btn-primary btn-sm">Room Accommodations </a></p>
               </div>
             </div>
           </div>
