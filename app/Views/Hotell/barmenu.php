@@ -293,9 +293,7 @@
           </div>
         </div>
 </section>
-
     <?php include('inc/footer.php') ?>
-    <!-- loader -->
     <?php include('inc/loader.php') ?>
     <script>
     function nextPage(page) {
