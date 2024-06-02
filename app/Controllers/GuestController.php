@@ -540,7 +540,7 @@ class GuestController extends BaseController
                             'payload' => json_encode([
                                 'to' => $email,
                                 'subject' => 'Reservation Reminder',
-                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'message' => $this->prepareReminderMessage($newReservationData, $roomSelected, $user, $amenitiesData),
                                 'attachmentPath' => null
                             ]),
                             'run_at' => $emailSendDate
@@ -620,6 +620,46 @@ class GuestController extends BaseController
         }
         $message = "Dear {$firstName} {$lastName},<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Room: {$roomNumber} ({$roomType})<br>";
+        $message .= "Check-in Date: {$checkInDate}<br>";
+        $message .= "Check-out Date: {$checkOutDate}<br>";
+        $message .= "Number of Adults: {$adults}<br>";
+        $message .= "Number of Children: {$children}<br>";
+        $message .= "Payment Option: {$paymentOption}<br>";
+        $message .= "Down or Full Payment: {$downorfullPayment}<br>";
+        $message .= "Reference Number: {$referenceNumber}<br>";
+        $message .= "Rate Amount: {$totalAmount}<br>";
+        $message .= $amenitiesMessage; // Add amenities information
+        $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
+        $message .= "<br>We look forward to hosting you.<br>";
+        $message .= "<br>Below is your qr code. Please download and show this when entering our business.<br>";
+
+        return $message;
+    }
+    private function prepareReminderMessage(array $reservationData, array $roomSelected, array $user, ?array $amenitiesData): string
+    {
+        $checkInDate = $reservationData['CheckInDate'];
+        $checkOutDate = $reservationData['CheckOutDate'];
+        $adults = $reservationData['Adult'];
+        $children = $reservationData['Child'];
+        $image = $reservationData['Image'];
+        $downorfullPayment = $reservationData['downorfullPayment'];
+        $paymentOption = $reservationData['PaymentOption'];
+        $referenceNumber = $reservationData['ReferenceNumber'];
+        $totalAmount = $reservationData['TotalAmount'];
+        $roomNumber = $roomSelected['RoomNumber'];
+        $roomType = $roomSelected['RoomType'];
+        $firstName = $user['FirstName'];
+        $lastName = $user['LastName'];
+        $amenitiesMessage = "";
+        if (!empty($amenitiesData)) {
+            $amenitiesMessage .= "Selected Amenities:<br>";
+            foreach ($amenitiesData as $amenity) {
+                $amenitiesMessage .= "- {$amenity['ProductName']} ({$amenity['insertQuantity']})<br>";
+            }
+        }
+        $message = "Dear {$firstName} {$lastName},<br><br>";
+        $message .= "This is a reminder for your reservation tomorrow made with the following details:<br>";
         $message .= "Room: {$roomNumber} ({$roomType})<br>";
         $message .= "Check-in Date: {$checkInDate}<br>";
         $message .= "Check-out Date: {$checkOutDate}<br>";
@@ -730,7 +770,7 @@ class GuestController extends BaseController
                             'payload' => json_encode([
                                 'to' => $email,
                                 'subject' => 'Reservation Reminder',
-                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'message' => $this->prepareEmailReminder($restaurantReservation),
                                 'attachmentPath' => null
                             ]),
                             'run_at' => $emailSendDate
@@ -789,6 +829,21 @@ class GuestController extends BaseController
         $VenueName = $reservationDataa['VenueName'];
         $message = "Dear customer,<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Venue Name: {$VenueName}<br>";
+        $message .= "Arrival Date and Time: {$CheckInDate}<br>";
+        $message .= "Number of Guests: {$NumberOfGuests}<br>";
+        $message .= "Note: {$Note}<br>";
+        $message .= "<br>We look forward to hosting you.<br>";
+        return $message;
+    }
+    private function prepareEmailReminder(array $reservationDataa): string // Corrected method name
+    {
+        $CheckInDate = $reservationDataa['CheckInDate'];
+        $NumberOfGuests = $reservationDataa['NumberOfGuests'];
+        $Note = $reservationDataa['Note'];
+        $VenueName = $reservationDataa['VenueName'];
+        $message = "Dear customer,<br><br>";
+        $message .= "This is a reminder for your reservation tomorrow made with the following details:<br>";
         $message .= "Venue Name: {$VenueName}<br>";
         $message .= "Arrival Date and Time: {$CheckInDate}<br>";
         $message .= "Number of Guests: {$NumberOfGuests}<br>";
@@ -1085,7 +1140,7 @@ class GuestController extends BaseController
                             'payload' => json_encode([
                                 'to' => $email,
                                 'subject' => 'Reservation Reminder',
-                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'message' => $this->prepareReminderConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected),
                                 'attachmentPath' => null
                             ]),
                             'run_at' => $emailSendDate
@@ -1145,6 +1200,36 @@ class GuestController extends BaseController
         return view('Hotell/qrpath_convention', ['qrCodePath' => $qrCodePath]);
     }
     private function prepareEmailConventionMessage(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
+    {
+        $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
+        $checkInDate = $reservationData['CheckInDate'] ?? '';
+        $checkOutDate = $reservationData['CheckOutDate'] ?? '';
+        $downorfullPayment = $reservationData['downorfullPayment'] ?? '';
+        $referenceNumber = $reservationData['ReferenceNumber'] ?? '';
+        $paymentOption = $reservationData['PaymentOption'] ?? '';
+        $totalAmount = $reservationData['TotalAmount'] ?? '';
+        $image = $reservationData['Image'] ?? '';
+        $firstName = $userData['FirstName'] ?? '';
+        $lastName = $userData['LastName'] ?? '';
+        $contactNumber = $userData['ContactNumber'] ?? '';
+        $eventType = $eventData['EventType'] ?? '';
+        $conVenueName = $convenuesSelected['conVenueName'] ?? '';
+        $message = "Dear {$firstName} {$lastName},<br><br>";
+        $message .= "Your reservation has been successfully made with the following details:<br>";
+        $message .= "Number of Guests: {$numberofGuests}<br>";
+        $message .= "Check-In Date: {$checkInDate}<br>";
+        $message .= "Check-Out Date: {$checkOutDate}<br>";
+        $message .= "Payment Option: {$paymentOption}<br>";
+        $message .= "Reference Number: {$referenceNumber}<br>";
+        $message .= "Total Amount: {$totalAmount}<br>";
+        $message .= "Down/Full Payment: {$downorfullPayment}<br>";
+        $message .= "Event Type: {$eventType}<br>";
+        $message .= "Contact Number: {$contactNumber}<br>";
+        $message .= "Convention Venue: {$conVenueName}<br>";
+        $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
+        return $message;
+    }
+    private function prepareReminderConventionMessage(array $userData, array $reservationData, array $eventData, array $convenuesSelected): string
     {
         $numberofGuests = $reservationData['NumberOfGuests'] ?? '';
         $checkInDate = $reservationData['CheckInDate'] ?? '';
