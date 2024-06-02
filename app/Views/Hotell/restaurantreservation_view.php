@@ -98,27 +98,10 @@
             <div class="section">
                 <h2>Reservation Information</h2>
                 <p><strong>Check-In Date:</strong> <?= $reservation->CheckInDate ?></p>
-                <p><strong>Check-Out Date:</strong> <?= $reservation->CheckOutDate ?></p>
                 <p><strong>NumberOfGuests:</strong> <?= $reservation->NumberOfGuests ?></p>
-                <p><strong>Venue:</strong> <?= $reservation->conVenueName ?> </p>
-                <p><strong>Event:</strong> <?= $reservation->EventType ?> </p>
-                <p style="color: <?= (new DateTime() > new DateTime($reservation->CheckOutDate)) ? 'red' : 'green'; ?>;"><strong>Status:</strong> <?= $reservation->Status ?></p>
-            </div>
-            <div class="section">
-                <h2>Venue Details</h2>
-                <p><strong>Venue Name:</strong> <?= $reservation->conVenueName ?></p>
-                <h2>Event Details</h2>
-                <p><strong>Event Type:</strong> <?= $reservation->EventType ?></p>
-                <p><strong>Event Description:</strong> <?= $reservation->Description ?></p>
-            </div>
-            <div class="section">
-                <h2>Payment Details</h2>
-                <p><strong>Payment Option:</strong> <?= $reservation->PaymentOption ?></p>
-                <p><strong>Reference Number:</strong> <?= $reservation->ReferenceNumber ?></p>
-                <p><strong>Payment Type:</strong> <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?></p>
-                <p><strong>Payment Amount:</strong> <?= $reservation->downorfullPayment ?></p>
-                <p><strong>Total Amount:</strong> <?= $reservation->TotalAmount ?></p>
-
+                <p><strong>Table:</strong> <?= $reservation->VenueName ?> </p>
+                <p><strong>Note:</strong> <?= $reservation->Note ?> </p>
+                <p style="color: <?= (new DateTime() > new DateTime($reservation->CheckInDate)) ? 'red' : 'green'; ?>;"><strong>Status:</strong> <?= $reservation->Status ?></p>
             </div>
             <div class="receipt-footer">
                 <p>Thank you for choosing us!</p>
@@ -159,16 +142,13 @@ function downloadPDF() {
 
     const receiptTitle = 'Reservation Receipt';
     const guestInfoText = `Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>\nEmail: <?= $reservation->Email ?>\nContact Number: <?= $reservation->ContactNumber ?>`;
-    const reservationInfoText = `Check-In Date: <?= $reservation->CheckInDate ?>\nCheck-Out Date: <?= $reservation->CheckOutDate ?>\nNumber of Guests: <?= $reservation->NumberOfGuests ?>\nVenue: <?= $reservation->conVenueName ?>\nEvent: <?= $reservation->EventType ?>\nStatus: <?= $reservation->Status ?>`;
-    const paymentDetailsText = `Payment Option: <?= $reservation->PaymentOption ?>\nReference Number: <?= $reservation->ReferenceNumber ?>\nPayment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`;
+    const reservationInfoText = `Check-In Date: <?= $reservation->CheckInDate ?>\nNumber of Guests: <?= $reservation->NumberOfGuests ?>\nTable: <?= $reservation->VenueName ?>\nStatus: <?= $reservation->Status ?>`;
 
     doc.text(receiptTitle, paperWidth / 2, scaledFontSize, null, null, 'center');
     doc.text('Guest Information', 20, scaledFontSize * 2);
     doc.text(guestInfoText, 20, scaledFontSize * 3);
     doc.text('Reservation Information', 20, scaledFontSize * 5);
     doc.text(reservationInfoText, 20, scaledFontSize * 6);
-    doc.text('Payment Details', 20, scaledFontSize * 9);
-    doc.text(paymentDetailsText, 20, scaledFontSize * 10);
 
     const footerText = 'Mahalta Resorts and Convention Center\nBrgy,Parang Calapan City,Oriental Mindoro,5200-Philippines\nMobile no.096812480329,Email:mahaltaresorts@gmail.com';
     doc.text(footerText, paperWidth / 2, paperHeight - scaledFontSize, null, null, 'center');

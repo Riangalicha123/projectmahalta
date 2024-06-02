@@ -1687,6 +1687,28 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'Reservation not found.');
         }
     }
+    public function viewrestaurantReservation($reservationID)
+    {
+        $db = \Config\Database::connect(); 
+        $query = $db->table('reservations')
+            ->select('reservations.*, users.FirstName, users.LastName, users.Email, users.ContactNumber,restaurant_venue.VenueID, restaurant_venue.VenueName, restaurant_venue.Image as venue_image,')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
+            ->where('reservations.ReservationID', $reservationID)
+            ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, restaurant_venue.VenueName')
+            ->get();
+        $reservationDetails = $query->getRow();
+        if ($reservationDetails && new DateTime($reservationDetails->CheckInDate) < new DateTime()) {
+            $reservationDetails->Status = 'Expired';
+        } else {
+            $reservationDetails->Status = 'Valid';
+        }
+        if ($reservationDetails) {
+            return view('Hotell/restaurantreservation_view', ['reservation' => $reservationDetails]);
+        } else {
+            return redirect()->back()->with('error', 'Reservation not found.');
+        }
+    }
     public function newsPromotion()
     {
         $data = [

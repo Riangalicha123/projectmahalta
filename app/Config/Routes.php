@@ -16,6 +16,7 @@ $routes->post('/addAmenities', 'GuestController::addAmenities', ['filter' => 'no
 $routes->get('/bookroom/formdetails', 'GuestController::formdetails', ['filter' => 'noAuth']);
 $routes->get('/qrpath', 'GuestController::qrpath', ['filter' => 'noAuth']);
 $routes->get('/qrcoventionpath', 'GuestController::qrconventionPath', ['filter' => 'noAuth']);
+$routes->get('/qrrestaurantpath', 'GuestController::qrrestaurantPath', ['filter' => 'noAuth']);
 $routes->post('/bookroom/addReservation', 'GuestController::addReservation', ['filter' => 'noAuth']);
 $routes->get('/roompolicy', 'GuestController::roomPolicy', ['filter' => 'noAuth']);
 $routes->get('/restaurantt', 'GuestController::restaurantt', ['filter' => 'noAuth']);
@@ -182,6 +183,7 @@ $routes->post('/updateConReservation/(:num)', 'AdminController::updateConReserva
 $routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2', ['filter' => 'adminGuard']);
 $routes->get('/reservation/(:num)', 'AdminController::viewReservation/$1',); //lagay mo nalang inalis ko for checing  ['filter' => 'adminGuard']
 $routes->get('/conreservation/(:num)', 'AdminController::viewconvetionReservation/$1',);
+$routes->get('/resreservation/(:num)', 'AdminController::viewrestaurantReservation/$1',);
 //Admin-RateManagement
 $routes->get('/admin-rate', 'AdminController::rate', ['filter' => 'adminGuard']);
 $routes->post('/submit-rate-form', 'AdminController::submitRateForm', ['filter' => 'adminGuard']);

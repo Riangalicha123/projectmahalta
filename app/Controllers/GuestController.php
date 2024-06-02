@@ -701,19 +701,40 @@ class GuestController extends BaseController
             if ($availableCapacity >= $numberOfGuests) {
                 $newAvailableCapacity = $availableCapacity - $numberOfGuests;
                 $this->venues->update($restaurantVenue['VenueID'], ['AvailableCapacity' => $newAvailableCapacity]);
+                $checkInDateTime = $this->request->getPost('CheckInDate');
+                $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
                 $restaurantReservation = [
                     'NumberOfGuests' => $numberOfGuests,
-                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckInDate' => $checkInDateTime,
                     'Note' => $this->request->getPost('Note'),
                     'Status' => 'Confirm',
                     'VenueName' => $VenueName,
                     'VenueID' => $restaurantVenue['VenueID'],
                     'UserID' => $user['UserID'],
+                    'email_send_date' => $emailSendDate, // Add email send date
+                    'email_sent' => 0 // Initial email sent status
                 ];
                 $inserted = $this->reservation->insert($restaurantReservation);
                 if ($inserted) {
+                    $reservationID = $this->reservation->getInsertID();
+                            $qrCodeInfo  = $this->generateeeQrCode($reservationID);
+                            $qrCodePath = $qrCodeInfo['file_path'];
+                            $qrCodePath2 = $qrCodeInfo['url'];
+                            $session->set('qrCodePath', $qrCodePath2);
+                            $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
                     $emailMessage = $this->prepareEmail($restaurantReservation);
                     $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                    $jobModel = new JobModel();
+                        $jobModel->insert([
+                            'type' => SendReminderEmail::class,
+                            'payload' => json_encode([
+                                'to' => $email,
+                                'subject' => 'Reservation Reminder',
+                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'attachmentPath' => null
+                            ]),
+                            'run_at' => $emailSendDate
+                        ]);
                     $fcmToken = $user['fcm_token'];
                     if (!empty($fcmToken)) {
                         $notifTitle = 'Reservation Confirmation';
@@ -721,7 +742,7 @@ class GuestController extends BaseController
                         $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
                     }
                     $session->setFlashdata('success', 'Reservation added successfully and email sent.');
-                    return redirect()->to('/mainmenu');
+                    return redirect()->to('/qrrestaurantpath');
                 } else {
                     return redirect()->to(base_url('/'))->with('error', 'Failed to add reservation. Please try again.');
                 }
@@ -731,6 +752,34 @@ class GuestController extends BaseController
         } else {
             return redirect()->to(base_url('/'))->with('error', 'Invalid user or venue information. Please check your input.');
         }
+    }
+    private function generateeeQrCode($reservationID)
+    {
+        $encodedUrl = base_url("resreservation/$reservationID");
+        $qrCode = new \Endroid\QrCode\QrCode($encodedUrl);
+        $qrCode->setSize(300);
+        $writer = new \Endroid\QrCode\Writer\PngWriter();
+        $dirPath = FCPATH . 'qr-codes';
+        if (!is_dir($dirPath)) {
+            mkdir($dirPath, 0777, true); 
+        }
+        $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
+        $result = $writer->write($qrCode);
+        $result->saveToFile($filePath);
+        $url = base_url('qr-codes/qr-code-' . $reservationID . '.png');
+        return [
+            'url' => $url,
+            'file_path' => $filePath
+        ];
+    }
+    public function qrrestaurantPath()
+    {
+        $session = session();
+        $qrCodePath = $session->get('qrCodePath');
+        if (!$qrCodePath) {
+            return redirect()->back()->with('error', 'QR code not found.');
+        }
+        return view('Hotell/qrpath_restaurant', ['qrCodePath' => $qrCodePath]);
     }
     private function prepareEmail(array $reservationDataa): string // Corrected method name
     {
@@ -1003,6 +1052,8 @@ class GuestController extends BaseController
                             'conVenueID' => $conVenueID,
                         ];
                         $conventionID = $this->conventions->insert($conventionData);
+                        $checkInDateTime = $ReservationData['CheckInDate'];
+                        $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
                         $newReservationData = [
                             'UserID' => $UserData['UserID'],
                             'conventionID' => $conventionID,
@@ -1014,7 +1065,9 @@ class GuestController extends BaseController
                             'PaymentOption' => $paymentOption,
                             'Status' => 'Confirm',
                             'TotalAmount' => $TotalAmount,
-                            'Image' => $newFileName
+                            'Image' => $newFileName,
+                            'email_send_date' => $emailSendDate, // Add email send date
+                            'email_sent' => 0 // Initial email sent status
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
@@ -1026,6 +1079,17 @@ class GuestController extends BaseController
                             $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
                             $emailMessage = $this->prepareEmailConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected);
                             $emailMessage2 = $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
+                            $jobModel = new JobModel();
+                        $jobModel->insert([
+                            'type' => SendReminderEmail::class,
+                            'payload' => json_encode([
+                                'to' => $email,
+                                'subject' => 'Reservation Reminder',
+                                'message' => 'This is a reminder for your reservation tomorrow.',
+                                'attachmentPath' => null
+                            ]),
+                            'run_at' => $emailSendDate
+                        ]);
                             $fcmToken = $UserData['fcm_token'];
                             if (!empty($fcmToken)) {
                                 $notifTitle = 'Reservation Confirmation';
