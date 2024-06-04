@@ -16,6 +16,26 @@
     right: 10px; 
     transform: translateY(-50%);
 }
+textarea {
+    overflow-y: auto;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    
+}
+
+button {
+    padding: 5px 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%; /* Make button take full width in smaller screens */
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 10px;
+    }
+}
 
 </style>
 <?php if(session()->get('isLoggedIn')): ?>
@@ -51,7 +71,7 @@
                             <div class="col-md-8 col-sm-9 form-group" style="padding-right: 5px;">
                                 <textarea placeholder="Type message.." name="msg" id="msg" class="form-control" cols="30" rows="1" style="overflow-y: auto; resize: none; border: 1px solid #ccc; border-radius: 2px;"></textarea>
                             </div>
-                            <div class="col-md-4 col-sm-3 form-group" style="padding-left: 5px; display: flex; align-items: center; justify-content: flex-start;">
+                            <div class="col-md-4 col-sm-3 form-group" style="padding-left: 5px; display: flex; align-items: center; justify-content: flex-start; ">
                                 <button type="submit" class="btn btn-primary" style="padding: 5px 5px; border-radius: 5px; cursor: pointer;">
                                     Send
                                 </button>

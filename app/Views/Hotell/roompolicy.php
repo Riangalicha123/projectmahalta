@@ -27,6 +27,8 @@
         <div class="row align-items-center">
             <div class="col-md-12">
                 <div class="heading-wrap element-animate" id="section-policies">
+                    <br>
+                    
                     <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Room Reservations Policies</strong></h4>
                     <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to stay with us. Please take a moment to review our hotel room policies.</p>
                     <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
