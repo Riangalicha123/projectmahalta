@@ -282,30 +282,74 @@
     <br>
     <br>
     <br>
-    <br>
-    <br>
     <section class="content">
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Room Services</h3>
+                <h3 class="card-title">Main Menu</h3>
               </div>
-              <div class="card-body">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenterr">
+              <div class="card card-solid">
+                <div class="card-body pb-0">
+                  <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModalCenterr">
                     Add
-                    </button>
-                    <div class="modal fade " id="exampleModalCenterr" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Add Room</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
+                  </button>
+                  <div class="row">
+                  <?php foreach ($roomimages as $roomimage): ?>
+                      <div class="col-12 col-sm-6 col-md-6 d-flex align-items-stretch flex-column">
+                        <div class="card bg-light d-flex flex-fill">
+                          <div class="card-header text-muted border-bottom-0">
+                            <b><h4><?=$roomimage['RoomType']?></h4></b>
+                          </div>
+                          <div class="card-body pt-0">
+                            <div class="row">
+                              <div class="col-7">
+                                <h2 class="lead"><b><?=$roomimage['RoomNumber']?></b></h2>
+                                <p class="text-muted text-sm"><?=$roomimage['Description']?></p>
+                                
+                              </div>
+                              <div class="col-5 text-center">
+                                <div id="imageCarousel<?php echo $roomimage['RoomID']; ?>" class="carousel slide" data-ride="carousel">
+                                  <div class="carousel-inner">
+                                  <?php $images = explode(',', $roomimage['Images']); ?>
+                                  <?php foreach ($images as $index => $image): ?>
+                                      <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
+                                          <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 400px; height: 200px;">
+                                      </div>
+                                  <?php endforeach; ?>
+                                  </div>
+                                  <a class="carousel-control-prev" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Previous</span>
+                                  </a>
+                                  <a class="carousel-control-next" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="sr-only">Next</span>
+                                  </a>
+                              </div>
+                              <p class="text-muted text-sm"><b>Price: </b><?=$roomimage['PricePerNight']?></p>
+                              <p class="text-muted text-sm"><b>Minimum: </b><?=$roomimage['minPerson']?></p>
+                              <p class="text-muted text-sm"><b>Maximum: </b><?=$roomimage['maxPerson']?></p>
+                              
+                              </div>
                             </div>
-                            <form action="<?= base_url('/room-image/add'); ?>" method="post" enctype="multipart/form-data">
+                          </div>
+                        <div class="card-footer">
+                        <div class="text-right">
+                        <a class="btn btn-danger" href="/services/delete/<?= $roomimage['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this Room Carousel?');">Delete</a>
+                        </div>
+                        <div class="modal fade" id="exampleModalCenterr" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">Add</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                              <form action="<?= base_url('/room-image/add'); ?>" method="post" enctype="multipart/form-data">
                             <div class="card-body">
                               <div class="form-group">
                                     <label for="RoomNumber">Select Room Type</label>
@@ -326,55 +370,16 @@
                                 <button type="submit" class="btn btn-primary">Upload Images</button>
                                 </div>
                             </form>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                        </div>
+                      </div>
                     </div>
-                <table id="example1" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>RoomNumber</th>
-                    <th>RoomTypes</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Min Person</th>
-                    <th>Max Person</th>
-                    <th>Image</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <?php foreach ($roomimages as $roomimage): ?>
-                  <tr>
-                    <td><?=$roomimage['RoomID']?></td>
-                    <td><?=$roomimage['RoomNumber']?></td>
-                    <td><?=$roomimage['RoomType']?></td>
-                    <td><?=$roomimage['Description']?></td>
-                    <td><?=$roomimage['PricePerNight']?></td>
-                    <td><?=$roomimage['minPerson']?></td>
-                    <td><?=$roomimage['maxPerson']?></td>
-                    <td><div id="imageCarousel<?php echo $roomimage['RoomID']; ?>" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                        <?php $images = explode(',', $roomimage['Images']); ?>
-                        <?php foreach ($images as $index => $image): ?>
-                            <div class="carousel-item<?php echo $index === 0 ? ' active' : ''; ?>">
-                                <img src="<?= base_url('/uploads/' . trim($image)); ?>" class="d-block w-100" alt="Room Image" style="width: 400px; height: 200px;">
-                            </div>
-                        <?php endforeach; ?>
-                        </div>
-                        <a class="carousel-control-prev" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#imageCarousel<?php echo $roomimage['RoomID']; ?>" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div></td>
-                    <th><a class="btn btn-danger" href="/services/delete/<?= $roomimage['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this Room Carousel?');">Delete</a></th>
-                  </tr>
                   <?php endforeach; ?>
-                  </tbody>
-                </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
