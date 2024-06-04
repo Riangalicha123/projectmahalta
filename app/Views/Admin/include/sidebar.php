@@ -73,8 +73,8 @@
                   </li>
               </ul>
           </li>
-          <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'menu-open' : '' ?>">
-            <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'active' : '' ?>" href="#">
+          <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'holReservationAmenities' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'menu-open' : '' ?>">
+            <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'holReservation' || $adminRoutes === 'holReservationAmenities' || $adminRoutes === 'restReservation' || $adminRoutes === 'conReservation')) ? 'active' : '' ?>" href="#">
               <i class="nav-icon fas fa-copy"></i>
               <p>
                 Reservation M.
@@ -86,6 +86,12 @@
                 <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'holReservation') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/reservation') ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Hotel</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'holReservationAmenities') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/reservation_amenities') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Hotel w/ Amenities</p>
                 </a>
             </li>
             <li class="nav-item">

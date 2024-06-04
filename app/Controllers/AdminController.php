@@ -369,8 +369,34 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll(),
                 'regions' => $this->regions->findAll(),
+                'amihotelrevs' => $this->reseraminities
+    ->select('reservations.ReservationID as resv_ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID as user_UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames, GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities')
+    ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID')
+    ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+    ->join('users', 'reservations.UserID = users.UserID')
+    ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID')
+    ->groupBy('reservations.ReservationID')
+    ->findAll(),
+
         ];
         return view('Admin/Hotel/reservation', $data);
+    }
+    public function holReservationAmenities()
+    {
+        $data = [
+            'adminRoutes' => 'holReservationAmenities',
+                'regions' => $this->regions->findAll(),
+                'amihotelrevs' => $this->reseraminities
+                ->select('reservations.ReservationID as resv_ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID as user_UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames, GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities')
+                ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID')
+                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID')
+                ->groupBy('reservations.ReservationID')
+                ->findAll(),
+
+        ];
+        return view('Admin/Hotel/reservation_amenities', $data);
     }
     public function addHotelReservation()
     {
