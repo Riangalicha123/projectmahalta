@@ -154,7 +154,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="/updateRoom/" method="post" enctype="multipart/form-data">
+                                <form action="/updateRoom" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="RoomID" id="RoomID" value="<?=$room['RoomID']?>">
                                 <div class="form-group">
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$room['Image']?>" required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*"required>
                                 </div>
                                 
                                 <div class="form-group">

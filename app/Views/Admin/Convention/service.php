@@ -107,7 +107,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateserviceconVenue/') ?>" method="post" enctype="multipart/form-data">
+                                <form action="/updateserviceconVenue" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="conVenueID" id="conVenueID" value="<?=$convenue['conVenueID']?>">
                                 <div class="form-group">
@@ -128,7 +128,7 @@
                                             </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$convenue['Image']?>"required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" required>
                                 </div>
                                 </div>
                                     <div class="card-footer">
@@ -226,7 +226,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateserviceEvent/') ?>" method="post" enctype="multipart/form-data">
+                                <form action="/updateserviceEvent" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="EventID" id="EventID" value="<?=$event['EventID']?>">
                                 
@@ -246,7 +246,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$event['Image']?>"required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" required>
                                 </div>
                                 </div>
                                     <div class="card-footer">

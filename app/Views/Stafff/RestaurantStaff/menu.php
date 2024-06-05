@@ -140,7 +140,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateMainMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateMainMenuu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                           <input type="hidden" name="ProductID" id="ProductID" value="<?=$menumain['ProductID']?>">
                           <div class="form-group">
@@ -172,7 +172,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menumain['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*">
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -284,7 +284,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateBarMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateBarMenuu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menubar['ProductID']?>">
                         <div class="form-group">
@@ -316,7 +316,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menubar['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" >
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -421,7 +421,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= base_url('/updateCafeMenuIcedd/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
+                <form action="/updateCafeMenuIcedd" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
                     <div class="card-body">
                         <input type="hidden" name="IcedID" id="IcedID" value="<?=$menuice['IcedID']?>">
                         <div class="form-group">
@@ -442,7 +442,7 @@
                         </div>
                         <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" value="<?=$menuice['Image']?>">
+                            <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" >
                         </div>
                     </div>
 
@@ -542,7 +542,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateCafeMenuu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateCafeMenuu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menucafe['ProductID']?>">
                         <div class="form-group">
@@ -566,7 +566,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menucafe['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*">
                             </div>
                           </div>
                           

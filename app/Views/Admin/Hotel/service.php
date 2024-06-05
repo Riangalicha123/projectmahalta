@@ -154,7 +154,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="/updateserviceRoom/" method="post" enctype="multipart/form-data">
+                                <form action="/updateserviceRoom" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="RoomID" id="RoomID" value="<?=$room['RoomID']?>">
                                 <div class="form-group">
@@ -220,7 +220,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$room['Image']?>" required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
                                 </div>
                                 
                                 <div class="form-group">
@@ -263,9 +263,9 @@
                     <td><?=$room['PerNightHead']?></td>
                     <td><?=$room['minPerson']?></td>
                     <td><?=$room['maxPerson']?></td>
-                    <td><img style="width: 200px; height: 200px;" src="<?=base_url('/uploads/'.$room['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 200px; height: 200px;" src="<?=base_url('/uploads/'. $room['Image'])?>" alt="#"/></td>
                     <td style="color: red; background-border: #0056b3;" ><?=$room['AvailabilityStatus']?></td>
-                    <th> <a class="btn btn-danger" href="/s/delete/<?= $room['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
+                    <th> <a class="btn btn-danger" href="/admin-hotel/service/delete/<?= $room['RoomID']; ?>" onclick="return confirm('Are you sure you want to delete this room?');">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$room['RoomID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   </tbody>

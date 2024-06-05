@@ -62,7 +62,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="/updateQrcode/" method="post" enctype="multipart/form-data">
+                                <form action="/updateQrcode" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="QrcodeID" id="QrcodeID" value="<?=$qrcode['QrcodeID']?>">
                                 <div class="form-group">
@@ -74,7 +74,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$qrcode['Image']?>" required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" required>
                                 </div>
                                 
                                 </div>

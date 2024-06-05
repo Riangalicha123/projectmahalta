@@ -514,7 +514,7 @@ class StaffController extends BaseController
     public function updateRoom(){
 
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'RoomID' => $this->request->getVar('RoomID'),
@@ -535,10 +535,10 @@ class StaffController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->rooms->save($data);
-                        
+                        // Update room details with new image
+                        $this->rooms->update($data['RoomID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -804,7 +804,7 @@ class StaffController extends BaseController
     }
     public function updateVenue(){
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
@@ -821,10 +821,10 @@ class StaffController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->venues->save($data);
-                        
+                        // Update room details with new image
+                        $this->venues->update($data['VenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1107,7 +1107,7 @@ class StaffController extends BaseController
     public function updateconVenue()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'conVenueID' => $this->request->getVar('conVenueID'),
@@ -1124,10 +1124,9 @@ class StaffController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'convention/', $newFileName)) {
-                        $this->convenues->save($data);
-                        
+                        $this->convenues->update($data['conVenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1200,7 +1199,7 @@ class StaffController extends BaseController
     public function updateEvent()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'EventID' => $this->request->getVar('EventID'),
@@ -1216,10 +1215,9 @@ class StaffController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->events->save($data);
-                        
+                        $this->events->update($data['EventID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }

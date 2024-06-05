@@ -104,7 +104,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateserviceTable/') ?>" method="post" enctype="multipart/form-data">
+                                <form action="/updateserviceTable" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="VenueID" id="VenueID" value="<?=$venue['VenueID']?>">
                                 
@@ -117,16 +117,16 @@
                                       </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="VenueCapacity" >Status</label >
+                                    <label for="VenueCapacity" >Venue Capacity</label >
                                     <input type="number" class="form-control" id="VenueCapacity" name="VenueCapacity"  required value="<?=$venue['VenueCapacity']?>">
                                 </div>
                                 <div class="form-group">
-                                    <label for="AvailableCapacity" >Status</label >
+                                    <label for="AvailableCapacity" >Available Capacity</label >
                                     <input type="number" class="form-control" id="AvailableCapacity" name="AvailableCapacity"  required value="<?=$venue['AvailableCapacity']?>">
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$venue['Image']?>" required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" required>
                                 </div>
                                 </div>
                                     <div class="card-footer">
@@ -280,7 +280,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateMainMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateMainMenu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                           <input type="hidden" name="ProductID" id="ProductID" value="<?=$menumain['ProductID']?>">
                           <div class="form-group">
@@ -312,7 +312,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menumain['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*">
                             </div>
                           </div>
                           
@@ -424,7 +424,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateBarMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateBarMenu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menubar['ProductID']?>">
                         <div class="form-group">
@@ -456,7 +456,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menubar['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" >
                             </div>
                           </div>
                           
@@ -562,7 +562,7 @@
                               </button>
                           </div>
                           <div class="modal-body">
-                              <form action="<?= base_url('/updateCafeMenuIced/') ?>" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
+                              <form action="/updateCafeMenuIced" method="post" enctype="multipart/form-data" id="updateForm<?=$menuice['IcedID']?>">
                                   <div class="card-body">
                                       <input type="hidden" name="IcedID" id="IcedID" value="<?=$menuice['IcedID']?>">
                                       <div class="form-group">
@@ -583,7 +583,7 @@
                                       </div>
                                       <div class="form-group">
                                           <label for="Image">Upload</label>
-                                          <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" value="<?=$menuice['Image']?>">
+                                          <input type="file" class="form-control" id="inputImage<?=$menuice['IcedID']?>" name="Image" accept="image/*" >
                                       </div>
                                   </div>
                                   <div class="modal-footer">
@@ -679,7 +679,7 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/updateCafeMenu/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/updateCafeMenu" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                         <input type="hidden" name="ProductID" id="ProductID" value="<?=$menucafe['ProductID']?>">
                         <div class="form-group">
@@ -702,7 +702,7 @@
                           </div>
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$menucafe['Image']?>">
+                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" >
                             </div>
                           </div>
                           

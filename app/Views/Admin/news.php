@@ -54,7 +54,7 @@
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
               <div class="card bg-light d-flex flex-fill">
                 <div class="card-header text-muted border-bottom-0">
-                <img src="<?=base_url('/news/'.$new['Image'])?>" alt="user-avatar" style="width:350px;height:380px;">
+                <img src="<?=base_url('/news/'. $new['Image'])?>" alt="user-avatar" style="width:350px;height:380px;">
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
@@ -105,16 +105,15 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('/admin-editnewspromotion/') ?>" method="post" enctype="multipart/form-data" id="updateForm">
+                        <form action="/admin-editnewspromotion" method="post" enctype="multipart/form-data" id="updateForm">
                           <div class="card-body">
                               <input type="hidden" name="NewsID" id="NewsID" value="<?=$new['NewsID']?>">
                               <div class="form-group">
                                   <label for="Image">Upload</label>
-                                  <input type="file" class="form-control" id="inputImage" name="Image" accept="image/*" value="<?=$new['Image']?>">
+                                  <input type="file" class="form-control" id="inputImage" name="Image" accept="image/*">
                               </div>
                           </div>
                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                               <button type="submit" class="btn btn-primary">Save changes</button>
                           </div>
                       </form>

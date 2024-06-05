@@ -177,24 +177,24 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <div class="form-group" id="gcashReferenceDiv" style="display: block;">
-                        <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-                        <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
-                    </div>
-                    <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
-                        <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-                        <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
-                    </div>
-                    <div class="form-group">
-                    <label for="downorfullPayment">Down Payment or Full Payment</label>
-                    <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
-                        <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
-                            <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
-                        <?php endif; ?>
-                        <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
-                            <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
-                        <?php endif; ?>
-                    </select>
-                </div>
+        <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
+        <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number" required> <!-- Added 'required' attribute -->
+    </div>
+    <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
+        <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
+        <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number" required> <!-- Added 'required' attribute -->
+    </div>
+    <div class="form-group">
+        <label for="downorfullPayment">Down Payment or Full Payment</label>
+        <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
+            <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
+                <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+            <?php endif; ?>
+            <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+                <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+            <?php endif; ?>
+        </select>
+    </div>
                 <div class="form-group">
                     <div class="form-control" id="paymentInputContainer"></div>
                 </div>
@@ -289,18 +289,23 @@ function showQR(option) {
             <?php if ($qr['PaymentOption'] === 'gcash'): ?>
                 document.getElementById('gcashReferenceDiv').style.display = 'block';
                 document.getElementById('paymayaReferenceDiv').style.display = 'none';
-                document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
-                document.getElementById('paymayaReferenceNumber').removeAttribute('name');
+                document.getElementById('ReferenceNumberGcash').setAttribute('name', 'ReferenceNumberGcash');
+                document.getElementById('ReferenceNumberGcash').setAttribute('required', 'required'); // Adding the required attribute
+                document.getElementById('ReferenceNumberPaymaya').removeAttribute('name');
+                document.getElementById('ReferenceNumberPaymaya').removeAttribute('required'); // Remove the required attribute if it's paymaya
             <?php elseif ($qr['PaymentOption'] === 'paymaya'): ?>
                 document.getElementById('gcashReferenceDiv').style.display = 'none';
                 document.getElementById('paymayaReferenceDiv').style.display = 'block';
-                document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
-                document.getElementById('gcashReferenceNumber').removeAttribute('name');
+                document.getElementById('ReferenceNumberPaymaya').setAttribute('name', 'ReferenceNumberPaymaya');
+                document.getElementById('ReferenceNumberPaymaya').setAttribute('required', 'required'); // Adding the required attribute
+                document.getElementById('ReferenceNumberGcash').removeAttribute('name');
+                document.getElementById('ReferenceNumberGcash').removeAttribute('required'); // Remove the required attribute if it's gcash
             <?php endif; ?>
         }
     <?php endforeach; ?>
 }
 </script>
+
 
   <script>
     function updatePaymentInputContainer() {

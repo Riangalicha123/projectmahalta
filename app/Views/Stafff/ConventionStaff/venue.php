@@ -103,7 +103,7 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
-                                <form action="<?= base_url('/updateconVenue/') ?>" method="post" enctype="multipart/form-data">
+                                <form action="/updateconVenue" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                 <input type="hidden" name="conVenueID" id="conVenueID" value="<?=$convenue['conVenueID']?>">
                                 
@@ -125,7 +125,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
-                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" value="<?=$convenue['Image']?>"required>
+                                    <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*"required>
                                 </div>
                                 
                                 </div>

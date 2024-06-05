@@ -1222,7 +1222,7 @@ class AdminController extends BaseController
     public function updateserviceRoom()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'RoomID' => $this->request->getVar('RoomID'),
@@ -1234,19 +1234,21 @@ class AdminController extends BaseController
                 'minPerson' => $this->request->getVar('minPerson'),
                 'maxPerson' => $this->request->getVar('maxPerson'),
                 'AvailabilityStatus' => $this->request->getVar('AvailabilityStatus'),
-                'Image'                => $newFileName
+                'Image' => $newFileName
             ];
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
+
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->rooms->save($data);
+                        // Update room details with new image
+                        $this->rooms->update($data['RoomID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1259,6 +1261,7 @@ class AdminController extends BaseController
         }
         return redirect()->to('/admin-hotel/service');
     }
+
     public function deleteServiceRoom($id)
     {
         $room = $this->rooms->find($id);
@@ -1396,7 +1399,7 @@ class AdminController extends BaseController
     public function updateserviceTable()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
@@ -1413,9 +1416,10 @@ class AdminController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->venues->save($data);
+                        // Update room details with new image
+                        $this->venues->update($data['VenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1489,7 +1493,7 @@ class AdminController extends BaseController
     public function updateserviceconVenue()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'conVenueID' => $this->request->getVar('conVenueID'),
@@ -1506,9 +1510,9 @@ class AdminController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'convention/', $newFileName)) {
-                        $this->convenues->save($data);
+                        $this->convenues->update($data['conVenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1572,7 +1576,7 @@ class AdminController extends BaseController
     public function updateserviceEvent()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'EventID' => $this->request->getVar('EventID'),
@@ -1588,9 +1592,9 @@ class AdminController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        $this->events->save($data);
+                        $this->events->update($data['EventID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1614,7 +1618,7 @@ class AdminController extends BaseController
     public function updateQrcode()
     {
         $file = $this->request->getFile('Image');
-        if ($file) {
+        if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
             $data = [
                 'QrcodeID' => $this->request->getVar('QrcodeID'),
@@ -1629,9 +1633,9 @@ class AdminController extends BaseController
                 ]
             ];
             if ($this->validate($rules)) {
-                if ($file->isValid() && !$file->hasMoved()) {
+                if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'qrimage/', $newFileName)) {
-                        $this->qr->save($data);
+                        $this->qr->update($data['QrcodeID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
                     }
@@ -1775,30 +1779,36 @@ class AdminController extends BaseController
     }
     public function editnewsPromotion()
     {
-        helper(['form']);
-        $validationRules = [
-            'Image' => 'uploaded[Image]|max_size[Image,10240]|ext_in[Image,png,jpg,gif]',
-        ];
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return redirect()->to(base_url('/admin-newspromotion'))->with('validationErrors', $validationErrors);
-        }
-        $newsID = $this->request->getPost('NewsID');
-        $newFileName = '';
-        $image = $this->request->getFile('Image');
-        if ($image->isValid() && !$image->hasMoved()) {
-            $newFileName = $image->getRandomName();
-            $image->move(FCPATH . 'news/', $newFileName);
+        $file = $this->request->getFile('Image');
+        if ($file && $file->isValid()) {
+            $newFileName = $file->getRandomName();
+            $data = [
+                'NewsID' => $this->request->getVar('NewsID'),
+                'Image'                => $newFileName
+            ];
+            $rules = [
+                'Image' => [
+                    'uploaded[Image]',
+                    'max_size[Image,10240]',
+                    'ext_in[Image,png,jpg,gif]' 
+                ]
+            ];
+            if ($this->validate($rules)) {
+                if (!$file->hasMoved()) {
+                    if ($file->move(FCPATH . 'news/', $newFileName)) {
+                        // Update room details with new image
+                        $this->news->update($data['NewsID'], $data);
+                    } else {
+                        echo $file->getErrorString() . ' ' . $file->getError();
+                    }
+                }
+            } else {
+                $data['validation'] = $this->validator;
+            }
         } else {
-            return redirect()->to(base_url('/admin-newspromotion'))->with('error', 'Failed to upload image. Please try again.');
+            echo ('error');
         }
-        $updatedNewsData = ['Image' => $newFileName];
-        $updated = $this->news->update($newsID, $updatedNewsData);
-        if ($updated) {
-            return redirect()->to(base_url('/admin-newspromotion'))->with('success', 'News updated successfully.');
-        } else {
-            return redirect()->to(base_url('/admin-newspromotion'))->with('error', 'Failed to update news. Please try again.');
-        }
+        return redirect()->to('/admin-newspromotion');
     }
     
     public function deleteNews($newsID)

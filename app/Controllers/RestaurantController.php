@@ -95,22 +95,37 @@ class RestaurantController extends BaseController
             $validationErrors = $this->validator->getErrors();
             return redirect()->to(base_url('/admin-restaurant/service'))->with('validationErrors', $validationErrors);
         }
+    
         $productID = $this->request->getPost('ProductID');
         $inputCategoryName = $this->request->getPost('CategoryName');
         $menuCategory = $this->categories->where('CategoryName', $inputCategoryName)->first();
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
+    
         if ($menuCategory && $menuMain) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
+    
             $updatedMenuData = [
                 'CategoryName' => $this->request->getPost('CategoryName'),
                 'ProductName' => $this->request->getPost('ProductName'),
@@ -119,6 +134,7 @@ class RestaurantController extends BaseController
                 'MenuID' => $menuMain['MenuID'],
                 'Image' => $newFileName
             ];
+    
             $updated = $this->products->update($productID, $updatedMenuData);
             if ($updated) {
                 return redirect()->to(base_url('/admin-restaurant/service'))->with('success', 'Menu item updated successfully.');
@@ -129,6 +145,7 @@ class RestaurantController extends BaseController
             return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Invalid category or main menu. Please check your input.');
         }
     }
+    
     public function addBarMenu()
     {
         helper(['form']);
@@ -208,14 +225,26 @@ class RestaurantController extends BaseController
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
         if ($menuCategory && $menuBar) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -315,14 +344,26 @@ class RestaurantController extends BaseController
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
         if ($menuCategory && $menuCafe) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -424,14 +465,26 @@ class RestaurantController extends BaseController
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
         if ($menuCategory && $menuCafe) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/admin-restaurant/service'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -532,14 +585,26 @@ class RestaurantController extends BaseController
         $inputMainMenu = 'Main Menu';
         $menuMain = $this->menus->where('MenuType', $inputMainMenu)->first();
         if ($menuCategory && $menuMain) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -639,14 +704,26 @@ class RestaurantController extends BaseController
         $inputBarMenu = 'Bar Menu';
         $menuBar = $this->menus->where('MenuType', $inputBarMenu)->first();
         if ($menuCategory && $menuBar) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -746,14 +823,26 @@ class RestaurantController extends BaseController
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
         if ($menuCategory && $menuCafe) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
@@ -855,14 +944,26 @@ class RestaurantController extends BaseController
         $inputCafeMenu = 'Cafe Menu';
         $menuCafe = $this->menus->where('MenuType', $inputCafeMenu)->first();
         if ($menuCategory && $menuCafe) {
+            $newFileName = null;
             if ($image = $this->request->getFile('Image')) {
                 if ($image->isValid() && !$image->hasMoved()) {
+                    // Fetch the current product data
+                    $currentProduct = $this->products->find($productID);
+                    if ($currentProduct && !empty($currentProduct['Image'])) {
+                        // Delete the old image
+                        $oldFilePath = FCPATH . 'restaurant/' . $currentProduct['Image'];
+                        if (file_exists($oldFilePath)) {
+                            unlink($oldFilePath);
+                        }
+                    }
+                    // Save the new image
                     $newFileName = $image->getRandomName();
                     $image->move(FCPATH . 'restaurant/', $newFileName);
                 } else {
                     return redirect()->to(base_url('/staff-restaurant-menu'))->with('error', 'Failed to upload image. Please try again.');
                 }
             } else {
+                // Use existing image if no new image is uploaded
                 $newFileName = $this->request->getPost('Image');
             }
             $updatedMenuData = [
