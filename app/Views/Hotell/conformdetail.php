@@ -155,7 +155,7 @@
                     <label for="paymentOptionGCash">
                         <h4>GCash</h4>
                     </label>
-                    <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash') echo 'checked'; ?>>
+                    <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash'); ?>>
                 </div>
                 
                 <div class="col-6 form-group">
@@ -168,14 +168,14 @@
 
             <div class="row">
                 <div class="col-md-6 form-group">
-                    <div class="form-group" id="gcashReferenceDiv" style="display: block;">
-                        <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-                        <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number">
-                    </div>
-                    <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
-                        <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-                        <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number">
-                    </div>
+                <div class="form-group" id="gcashReferenceDiv" style="display: block;">
+                    <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
+                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Ex: 1234567894123" required pattern="\d{13}" minlength="13" maxlength="13" title="The reference number must 13 digits.">
+                </div>
+                <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
+                    <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
+                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required pattern="CA\d{12}" minlength="14" maxlength="14" title="The reference number must start with 'CA' followed by 12 digits.">
+                </div>
                     <div class=" form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
                     <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
@@ -256,13 +256,17 @@ function showQR(option) {
             <?php if ($qr['PaymentOption'] === 'gcash'): ?>
                 document.getElementById('gcashReferenceDiv').style.display = 'block';
                 document.getElementById('paymayaReferenceDiv').style.display = 'none';
-                document.getElementById('gcashReferenceNumber').setAttribute('name', 'gcashReferenceNumber');
-                document.getElementById('paymayaReferenceNumber').removeAttribute('name');
+                document.getElementById('ReferenceNumberGcash').setAttribute('name', 'ReferenceNumberGcash');
+                document.getElementById('ReferenceNumberGcash').setAttribute('required', 'required'); // Adding the required attribute
+                document.getElementById('ReferenceNumberPaymaya').removeAttribute('name');
+                document.getElementById('ReferenceNumberPaymaya').removeAttribute('required'); // Remove the required attribute if it's paymaya
             <?php elseif ($qr['PaymentOption'] === 'paymaya'): ?>
                 document.getElementById('gcashReferenceDiv').style.display = 'none';
                 document.getElementById('paymayaReferenceDiv').style.display = 'block';
-                document.getElementById('paymayaReferenceNumber').setAttribute('name', 'paymayaReferenceNumber');
-                document.getElementById('gcashReferenceNumber').removeAttribute('name');
+                document.getElementById('ReferenceNumberPaymaya').setAttribute('name', 'ReferenceNumberPaymaya');
+                document.getElementById('ReferenceNumberPaymaya').setAttribute('required', 'required'); // Adding the required attribute
+                document.getElementById('ReferenceNumberGcash').removeAttribute('name');
+                document.getElementById('ReferenceNumberGcash').removeAttribute('required'); // Remove the required attribute if it's gcash
             <?php endif; ?>
         }
     <?php endforeach; ?>
