@@ -1306,7 +1306,10 @@ class GuestController extends BaseController
             $totalUserRating = 0;
             $reviewContent = [];
             $userModel = new UserModel();
-            $badKeywords = ['bad', 'terrible', 'awful', 'poor'];
+            
+            // Updated bad keywords list
+            $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
+            
             foreach ($reviews as $row) {
                 $containsBadKeyword = false;
                 foreach ($badKeywords as $keyword) {
@@ -1361,10 +1364,11 @@ class GuestController extends BaseController
                 'one_star_review' => $oneStarReview,
                 'review_data' => $reviewContent
             ];
-
+    
             return json_encode($output);
         }
     }
+    
     public function postFeedback()
     {
         helper(['form']);
