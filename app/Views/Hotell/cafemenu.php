@@ -147,44 +147,44 @@
         </div>
       </div>
     </section>
-                <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header" style="background:skyblue;">
-                            <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
-                            <div id="page1">
-                            <div class="row">
-                              <div class="col-md-12 form-group">
+    <div class="modal fade" id="addFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background:skyblue;">
+                <h5 class="modal-title" id="exampleModalLabel">Reservation at Mahalta Resort</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
+                    <div id="page1">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
                                 <label for="CheckInDate">Arrival Date</label>
                                 <div style="position: relative;">
-                                  <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                                    <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
                                 </div>
-                              </div> 
                             </div>
+                        </div>
                         <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label for="NumberOfGuests">Number Of Guests</label>
-                            <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
-                                <?php for ($i = 1; $i <= 10; $i++): ?>
-                                    <option><?= $i ?></option>
-                                <?php endfor; ?>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label for="VenueName">Venue Name</label>
-                            <select class="form-select form-control" id="VenueName" name="VenueName">
-                            </select>
-                        </div>
+                            <div class="col-md-6 form-group">
+                                <label for="NumberOfGuests">Number Of Guests</label>
+                                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
+                                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                                        <option><?= $i ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="VenueName">Venue Name</label>
+                                <select class="form-select form-control" id="VenueName" name="VenueName">
+                                </select>
+                            </div>
                         </div>
                         <div style="text-align: center;">
-                        <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
-                    </div>
+                            <button type="button" class="btn btn-primary" onclick="validateAndNextPage(2)" style="margin: auto;">Enter your details</button>
+                        </div>
                     </div>
                     <div id="page2" style="display: none;">
                         <div class="row">
@@ -201,7 +201,7 @@
                                 <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
                             </div>
                         </div>
-                        <div class="row"> 
+                        <div class="row">
                         </div>
                         <div class="row">
                             <div class="col-md-12 form-group">
@@ -210,10 +210,11 @@
                             </div>
                         </div>
                         <div style="display: flex; justify-content: center;">
-                        <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
-                        <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+                            <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+                            <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+                        </div>
                     </div>
-                    </div>
+
                     <div id="page3" style="display: none;">
                         <div class="row">
                             <div class="col-md-6 form-group">
@@ -259,11 +260,11 @@
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                </form>
             </div>
+        </div>
+    </div>
+</div>
               <section  class="site-section"style="background: #FAF2D3;">
                   <div class="menu-title">
                     <h1>Restaurant Menu</h1>
@@ -314,8 +315,24 @@
             displayFormData();
         }
     }
+
+    function validateAndNextPage(page) {
+        // Check if required fields on page 1 are filled
+        const checkInDate = document.getElementById('CheckInDate').value;
+        const numberOfGuests = document.getElementById('NumberOfGuests').value;
+        const venueName = document.getElementById('VenueName').value;
+
+        if (!checkInDate || !numberOfGuests || !venueName) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Proceed to the next page
+        nextPage(page);
+    }
+
     function displayFormData() {
-        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value;
+        document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; 
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;
         document.getElementById('displayVenue').innerText = document.getElementById('VenueName').value;
         document.getElementById('displayNote').innerText = document.getElementById('Note').value;

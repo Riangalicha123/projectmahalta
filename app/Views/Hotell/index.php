@@ -402,7 +402,7 @@
         <div class="modal-content" style="background-color: #ffffff;">
             <div class="modal-header" style="background-color: #007bff; color: #ffffff;">
                 <h5 class="modal-title">Submit Review</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="width: 100px;">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>

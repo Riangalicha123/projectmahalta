@@ -30,6 +30,56 @@
         border-radius: 5px;
         border: 1px solid #ced4da;
     }
+    /* Sticky footer for mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  } 
+
+  .col-md-7, .col-md-5 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .selected-room-details {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .selected-room-details .details-content {
+    display: none;
+    padding: 15px;
+  }
+
+  .selected-room-details .toggle-arrow {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+  }
+  .toggle-arrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.price-per-night {
+  margin-left: 10px;
+}
+
+
+
+}
 </style>
 </head>
 <body>
@@ -163,7 +213,7 @@
                     <label for="paymentOptionGCash">
                         <h4>GCash</h4>
                     </label>
-                    <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash') echo 'checked'; ?>>
+                    <input type="radio" id="paymentOptionGCash" name="PaymentOption" value="gcash" onclick="showQR('gcash')" <?php if ($gcash['PaymentOption'] === 'gcash');?>>
                 </div>
                 
                 <div class="col-6 form-group">
@@ -177,24 +227,24 @@
             <div class="row">
                 <div class="col-md-6 form-group">
                     <div class="form-group" id="gcashReferenceDiv" style="display: block;">
-        <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-        <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Enter Gcash Reference Number" required> <!-- Added 'required' attribute -->
-    </div>
-    <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
-        <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-        <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Enter Paymaya Reference Number" required> <!-- Added 'required' attribute -->
-    </div>
-    <div class="form-group">
-        <label for="downorfullPayment">Down Payment or Full Payment</label>
-        <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
-            <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
-                <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
-            <?php endif; ?>
-            <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
-                <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
-            <?php endif; ?>
-        </select>
-    </div>
+                    <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
+                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Ex: 1234567894123" required> <!-- Added 'required' attribute -->
+                </div>
+                <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
+                    <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
+                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required> <!-- Added 'required' attribute -->
+                </div>
+                <div class="form-group">
+                    <label for="downorfullPayment">Down Payment or Full Payment</label>
+                    <select id="downorfullPayment" name="downorfullPayment" class="form-control" required>
+                        <?php if (isset($roomReservationData['DownpaymentAmount'])) : ?>
+                            <option value="<?= $roomReservationData['DownpaymentAmount'] ?>">Down Payment</option>
+                        <?php endif; ?>
+                        <?php if (isset($roomReservationData['FullpaymentAmount'])) : ?>
+                            <option value="<?= $roomReservationData['FullpaymentAmount'] ?>">Full Payment</option>
+                        <?php endif; ?>
+                    </select>
+                </div>
                 <div class="form-group">
                     <div class="form-control" id="paymentInputContainer"></div>
                 </div>
@@ -216,60 +266,73 @@
             </div>
         </div>
         <div class="col-md-1"></div>
-        <div class="col-md-4">
-        
-          <h2 class="mb-5">Featured Room</h2>
-          <?php if (isset($roomReservationData) && is_array($roomReservationData)): ?>
-            <div class="media d-block room mb-0">
-              <figure>
-                <img src="<?= base_url('/uploads/' . esc($roomReservationData['roomSelected']['Image'] ?? '')) ?>"
-                  alt="Generic placeholder image" class="img-fluid">
-                <div class="overlap-text">
-                  <span>
-                    Room
-                    <?= esc($roomReservationData['roomSelected']['RoomNumber'] ?? '') ?>
-                    <h6><b><?= esc($roomReservationData['roomSelected']['AvailabilityStatus'] ?? '') ?></b></h6>
-                  </span>
-                </div>
-              </figure>
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#">
-                    <?= esc($roomReservationData['roomSelected']['RoomType'] ?? '') ?>
-                  </a></h3>
-                <h5 class="mt-0"><a href="#">PHP
-                    <?= esc($roomReservationData['roomSelected']['PricePerNight'] ?? '') ?>/ Night
-                  </a></h5>
-                  <p><b>Check-in Date:</b> <?= esc($roomReservationData['reservationData']['CheckInDate'] ?? '') ?></p>
-                  <p><b>Check-out Date:</b> <?= esc($roomReservationData['reservationData']['CheckOutDate'] ?? '') ?></p>
-                  <p>Number of Adults: <?= esc($roomReservationData['reservationData']['Adult'] ?? '') ?></p>
-                  <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
-                  
-                  <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
-                <hr>
-                <div class="row additionalDetails" style="display:none;">
-                  <p>
-                      <?= esc($roomReservationData['roomSelected']['Description'] ?? '') ?>
-                  </p>
-                  <p><b>• ROOM INCLUSIONS</b></p>
-                  <ul>
-                      <li>Complimentary Breakfast (Plated Service)</li>
-                      <li>Free Flow or Brewed Coffee</li>
-                      <li>Complete Amenities</li>
-                      <li>Swimming Pool Access</li>
-                      <li>Stand By Generator Set</li>
-                  </ul>
-                  <p><b>NOTE: Extra person will be charged PHP 500.00 per head</b></p>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+        <div class="col-md-5">
+          <div class="selected-room-details">
+            <div class="toggle-arrow">
+              ▼
+            </div>
+            <div class="details-content">
+            <h2 class="mb-3">Featured Room</h2>
+            <?php if (isset($roomReservationData) && is_array($roomReservationData)): ?>
+              <div class="media d-block room mb-0">
+                <figure>
+                  <img src="<?= base_url('/uploads/' . esc($roomReservationData['roomSelected']['Image'] ?? '')) ?>"
+                    alt="Generic placeholder image" class="img-fluid" style="height:auto; width:444px; display: block;">
+                  <div class="overlap-text">
+                    <span>
+                      Room
+                      <?= esc($roomReservationData['roomSelected']['RoomNumber'] ?? '') ?>
+                      <h6><b><?= esc($roomReservationData['roomSelected']['AvailabilityStatus'] ?? '') ?></b></h6>
+                    </span>
+                  </div>
+                </figure>
+                <div class="media-body">
+                  <h3 class="mt-0"><a href="#">
+                      <?= esc($roomReservationData['roomSelected']['RoomType'] ?? '') ?>
+                    </a></h3>
+                  <h5 class="mt-0"><a href="#">PHP
+                      <?= esc($roomReservationData['roomSelected']['PricePerNight'] ?? '') ?>/ Night
+                    </a></h5>
+                    <p><b>Check-in Date:</b> <?= esc($roomReservationData['reservationData']['CheckInDate'] ?? '') ?></p>
+                    <p><b>Check-out Date:</b> <?= esc($roomReservationData['reservationData']['CheckOutDate'] ?? '') ?></p>
+                    <p>Number of Adults: <?= esc($roomReservationData['reservationData']['Adult'] ?? '') ?></p>
+                    <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
+                    
+                    <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
+                  <hr>
+                  <div class="row additionalDetails" style="display:none;">
+                      <div style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; background-color: #f9f9f9; font-family: Arial, sans-serif; color: #333;">
+
+                          <h3 style="color: #0056b3;">Room Inclusions:</h3>
+                          <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
+                              <li style="font-size: 16px;">Complimentary Breakfast (Plated Service)</li>
+                              <li style="font-size: 16px;">Free Flow or Brewed Coffee</li>
+                              <li style="font-size: 16px;">Complete Amenities</li>
+                              <li style="font-size: 16px;">Swimming Pool Access</li>
+                              <li style="font-size: 16px;">Stand By Generator Set</li>
+                          </ul>
+
+                          <p style="font-size: 16px; font-weight: bold;">
+                              NOTE: Extra person will be charged PHP 500.00 per head
+                          </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <h6 class="btn-info viewMoreBtn" style="background-color: #0056b3; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px;">
+                              <a href="#" style="color: white; text-decoration: none;">View More Details</a>
+                          </h6>
+                      </div>
                   </div>
                 </div>
               </div>
+            <?php else: ?>
+              <p>No reservation data found.</p>
+            <?php endif; ?>
+              </form>
             </div>
-          <?php else: ?>
-            <p>No reservation data found.</p>
-          <?php endif; ?>
+          </div>
+        </div>
         </form>
       </div>
     </div>
@@ -281,6 +344,24 @@
   <?php include('inc/header.php') ?>
   <!-- loader -->
   <?php include('inc/loader.php') ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggleArrow = document.querySelector('.toggle-arrow');
+      var detailsContent = document.querySelector('.details-content');
+
+      toggleArrow.addEventListener('click', function() {
+        if (detailsContent.style.display === 'none' || detailsContent.style.display === '') {
+          detailsContent.style.display = 'block';
+          toggleArrow.textContent = '▲';
+          toggleArrow.appendChild(pricePerNight);
+        } else {
+          detailsContent.style.display = 'none';
+          toggleArrow.textContent = '▼';
+          toggleArrow.appendChild(pricePerNight);
+        }
+      });
+    });
+  </script>
   <script>
 function showQR(option) {
     <?php foreach ($qrcodes as $qr): ?>

@@ -161,109 +161,108 @@
             </div>
             <div class="modal-body">
                 <form action="<?= base_url('tableReservation') ?>" method="post" id="addItemForm">
-                <div id="page1">
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <label for="CheckInDate">Arrival Date</label>
-                    <div style="position: relative;">
-                      <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                    <div id="page1">
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="CheckInDate">Arrival Date</label>
+                                <div style="position: relative;">
+                                    <input type='text' class="form-control" id='CheckInDate' name="CheckInDate" placeholder="Check-In-Date" required/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label for="NumberOfGuests">Number Of Guests</label>
+                                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
+                                    <?php for ($i = 1; $i <= 10; $i++): ?>
+                                        <option><?= $i ?></option>
+                                    <?php endfor; ?>
+                                </select>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label for="VenueName">Venue Name</label>
+                                <select class="form-select form-control" id="VenueName" name="VenueName">
+                                </select>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <button type="button" class="btn btn-primary" onclick="validateAndNextPage(2)" style="margin: auto;">Enter your details</button>
+                        </div>
                     </div>
-                  </div>
-                </div>
-            <div class="row">
-            <div class="col-md-6 form-group">
-                <label for="NumberOfGuests">Number Of Guests</label>
-                <select class="form-select form-control" id="NumberOfGuests" name="NumberOfGuests" onchange="updateVenueOptions()">
-                    <?php for ($i = 1; $i <= 10; $i++): ?>
-                        <option><?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
-            </div>
-            <div class="col-md-6 form-group">
-                <label for="VenueName">Venue Name</label>
-                <select class="form-select form-control" id="VenueName" name="VenueName">
-                </select>
-            </div>
-            </div>
-            <div style="text-align: center;">
-                <button type="button" class="btn btn-primary" onclick="nextPage(2)" style="margin: auto;">Enter your details</button>
-            </div>
-        </div>
-        <div id="page2" style="display: none;">
-            <div class="row">
-                <div class="col-md-4 form-group">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
-                </div>
-                <div class="col-md-4 form-group">
-                    <label for="ContactNumber">Contact Number</label>
-                    <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
-                </div>
-            </div>
-            <div class="row">
-                
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label for="Note">Write a Note</label>
-                    <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: center;">
-                <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
-                <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
-            </div>
-        </div>
+                    <div id="page2" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+                                <label for="FirstName">First Name</label>
+                                <input type="text" id="FirstName" name="FirstName" class="form-control" required value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="LastName">Last Name</label>
+                                <input type="text" id="LastName" name="LastName" class="form-control" required value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <label for="ContactNumber">Contact Number</label>
+                                <input type="text" id="ContactNumber" name="ContactNumber" class="form-control" required value="<?= $_SESSION['contact'] ?? ''; ?>">
+                            </div>
+                        </div>
+                        <div class="row">
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="Note">Write a Note</label>
+                                <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center;">
+                            <button type="button" class="btn btn-primary" onclick="nextPage(1)">Previous</button><br>
+                            <button type="button" class="btn btn-primary" onclick="nextPage(3)">Next</button>
+                        </div>
+                    </div>
 
-        <div id="page3" style="display: none;">
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Arrival Date:</label>
-                    <span id="displayCheckInDate"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Number Of Guest:</label>
-                    <span id="displayGuests"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Venue Name:</label>
-                    <span id="displayVenue"></span>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>First Name:</label>
-                    <span id="displayFirstName"></span>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label>Last Name:</label>
-                    <span id="displayLastName"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label>Contact Number:</label>
-                    <span id="displayContactNumber"></span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 form-group">
-                    <label>Note:</label>
-                    <span id="displayNote"></span>
-                </div>
-            </div>
-            <div style="display: flex; justify-content: center; align-items: center;">
-                <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
+                    <div id="page3" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Arrival Date:</label>
+                                <span id="displayCheckInDate"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Number Of Guest:</label>
+                                <span id="displayGuests"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Venue Name:</label>
+                                <span id="displayVenue"></span>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>First Name:</label>
+                                <span id="displayFirstName"></span>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>Last Name:</label>
+                                <span id="displayLastName"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 form-group">
+                                <label>Contact Number:</label>
+                                <span id="displayContactNumber"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label>Note:</label>
+                                <span id="displayNote"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: center;">
+                            <button type="button" class="btn btn-primary" onclick="nextPage(2)">Previous</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -339,6 +338,22 @@
             displayFormData();
         }
     }
+
+    function validateAndNextPage(page) {
+        // Check if required fields on page 1 are filled
+        const checkInDate = document.getElementById('CheckInDate').value;
+        const numberOfGuests = document.getElementById('NumberOfGuests').value;
+        const venueName = document.getElementById('VenueName').value;
+
+        if (!checkInDate || !numberOfGuests || !venueName) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+
+        // Proceed to the next page
+        nextPage(page);
+    }
+
     function displayFormData() {
         document.getElementById('displayCheckInDate').innerText = document.getElementById('CheckInDate').value; 
         document.getElementById('displayGuests').innerText = document.getElementById('NumberOfGuests').value;

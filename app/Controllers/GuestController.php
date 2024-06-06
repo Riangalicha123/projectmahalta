@@ -312,8 +312,8 @@ class GuestController extends BaseController
             $numberOfAdults = (int) $reservationData['Adult'];
             $numberOfChildren = (int) $reservationData['Child'];
             $totalGuests = $numberOfAdults + $numberOfChildren;
-            if ($totalGuests > $roomSelected['minPerson']) {
-                $additionalGuests = $totalGuests - $roomSelected['minPerson'];
+            if ($totalGuests > $roomSelected['maxPerson']) {
+                $additionalGuests = $totalGuests - $roomSelected['maxPerson'];
                 $TotalAmount += $additionalGuests * 500;
             }
             $session->set('roomReservationData', [
