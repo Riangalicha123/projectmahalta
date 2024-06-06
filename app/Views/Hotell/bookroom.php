@@ -50,6 +50,58 @@
       background-color: #5a6268;
       border-color: #5a6268;
     }
+
+/* Sticky footer for mobile */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  } 
+
+  .col-md-7, .col-md-5 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  .selected-room-details {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .selected-room-details .details-content {
+    display: none;
+    padding: 15px;
+  }
+
+  .selected-room-details .toggle-arrow {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+  }
+  .toggle-arrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+}
+
+.price-per-night {
+  margin-left: 10px;
+}
+
+
+
+}
+
   </style>
 </head>
 
@@ -213,55 +265,46 @@
           </div>
         </form>
       </div>
-      <div class="col-md-1"></div>
       <div class="col-md-5">
-        <h2 class="mb-5">Selected Room Details</h2>
-        <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
-          <?php if (!empty($roomSelected)) : ?>
-            <div class="media d-block room mb-0">
-            <figure style="margin: 0;width: 100%; height: auto; display: block;">
-              <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid rounded" style="width: 100%; height: auto; display: block;">
-              <div class="overlap-text">
-                <span>
-                  Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
-                  <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
-                </span>
-              </div>
-            </figure>
-
-              <div class="media-body">
-                <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
-                <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?></a></h5>
-                <?php if (isset($reservationData)) : ?>
-                  <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
-                  <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
-                  <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
-                  <p>Number of Childs: <?= esc($reservationData['Child'] ?? '') ?></p>
-                  <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
-                <?php else : ?>
-                  <p>No reservation data found.</p>
-                <?php endif; ?>
-                <hr>
-                <div class="row additionalDetails" style="display:none;">
-                  <p><?= esc($roomSelected['Description'] ?? '') ?></p>
-                  <p><b>• ROOM INCLUSIONS</b></p>
-                  <p>-Complimentary Breakfast(Plated Service)</p>
-                  <p>-Free Flow or Brewed Coffee</p>
-                  <p>-Complete Amenities</p>
-                  <p>-Swimming Pool Access</p>
-                  <p>-Stand By Generator Set</p>
-                  <p><b>NOTE: Extra person will be charge PHP 500.00 per head</b></p>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 text-center">
-                    <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
+        <div class="selected-room-details">
+          <div class="toggle-arrow">
+            ▼ <span class="room-type">Room</span>
+              <span class="price-per-night">PHP 0.00</span>
+          </div>
+          <div class="details-content">
+          <h2 class="mb-3">Selected Room Details</h2>
+            <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
+              <?php if (!empty($roomSelected)) : ?>
+                <div class="media d-block room mb-0">
+                  <figure style="margin: 0;width: 100%; height: auto; display: block;">
+                    <img src="<?= base_url('/uploads/' . esc($roomSelected['Image'] ?? '')) ?>" alt="Generic placeholder image" class="img-fluid rounded" style="width: 100%; height: auto; display: block;">
+                    <div class="overlap-text">
+                      <span>
+                        Room <?= esc($roomSelected['RoomNumber'] ?? '') ?>
+                        <h6><b><?= $roomSelected['AvailabilityStatus'] ?></b></h6>
+                      </span>
+                    </div>
+                  </figure>
+                  <div class="media-body">
+                    <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
+                    <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?></a></h5>
+                    <?php if (isset($reservationData)) : ?>
+                      <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
+                      <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                      <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
+                      <p>Number of Children: <?= esc($reservationData['Child'] ?? '') ?></p>
+                      <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
+                    <?php else : ?>
+                      <p>No reservation data found.</p>
+                    <?php endif; ?>
+                    
+                    <button type="submit" value="Reserve Now" class="btn btn-primary">Check</button>
                   </div>
                 </div>
-                <button type="submit" value="Reserve Now" class="btn btn-primary">Check</button>
-              </div>
-            </div>
-          <?php endif; ?>
-        </form>
+              <?php endif; ?>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -269,7 +312,35 @@
 
   <?php include('inc/footer.php') ?>
   <?php include('inc/loader.php') ?>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var toggleArrow = document.querySelector('.toggle-arrow');
+      var detailsContent = document.querySelector('.details-content');
+      var roomType = document.querySelector('.room-type');
+      var pricePerNight = document.querySelector('.price-per-night');
 
+      // Set initial price per night if roomSelected is not empty
+      <?php if (!empty($roomSelected)) : ?>
+        pricePerNight.textContent = 'PHP <?= esc($roomSelected['PricePerNight'] ?? '0.00') ?>';
+        roomType.textContent = '<?= esc($roomSelected['RoomType'] ?? 'Room') ?>';
+      <?php endif; ?>
+
+      toggleArrow.addEventListener('click', function() {
+        if (detailsContent.style.display === 'none' || detailsContent.style.display === '') {
+          detailsContent.style.display = 'block';
+          toggleArrow.textContent = '▲';
+          toggleArrow.appendChild(pricePerNight);
+          pricePerNight.style.display = 'none';  // Hide price when arrow is up
+        } else {
+          detailsContent.style.display = 'none';
+          toggleArrow.textContent = '▼';
+          toggleArrow.appendChild(pricePerNight);
+          pricePerNight.style.display = 'inline';  // Show price when arrow is down
+        }
+      });
+    });
+  </script>
+  
   <script>
     var today = new Date();
     var arrivalDateInput = document.getElementById('CheckInDate');
