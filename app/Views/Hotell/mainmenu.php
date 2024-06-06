@@ -2,6 +2,24 @@
 <html lang="en">
   <head>
     <title>Mahalta</title>
+    <!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
