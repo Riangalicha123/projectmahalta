@@ -222,10 +222,12 @@
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*"required>
                                 </div>
-                                
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1" >Status</label >
-                                    <input type="text" class="form-control" id="" name="AvailabilityStatus"  value="<?=$room['AvailabilityStatus']?>"required>
+                                    <label for="exampleInputEmail1">Status</label>
+                                    <select class="custom-select form-control-border" id="AvailabilityStatus" name="AvailabilityStatus" value="<?=$room['AvailabilityStatus']?>" required>
+                                    <option <?= ($room['AvailabilityStatus'] == 'Available') ? 'selected' : '' ?>>Available</option>
+                                    <option <?= ($room['AvailabilityStatus'] == 'Not Available') ? 'selected' : '' ?>>Not Available</option>
+                                    </select>
                                 </div>
                                 
                                 </div>
