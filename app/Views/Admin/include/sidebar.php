@@ -170,7 +170,7 @@
             </a>
           </li>
           <li class="nav-item" >
-            <a class="nav-link" href="<?= route_to('admin-logout') ?>">
+            <a class="nav-link" href="<?= route_to('logout') ?>">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 LOG OUT
