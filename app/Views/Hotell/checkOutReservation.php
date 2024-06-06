@@ -246,11 +246,11 @@
                 <div class="col-md-6 form-group">
                     <div class="form-group" id="gcashReferenceDiv" style="display: block;">
                     <label for="ReferenceNumberGcash">Reference Number (Gcash)</label>
-                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Ex: 1234567894123" required> <!-- Added 'required' attribute -->
+                    <input type="text" id="ReferenceNumberGcash" name="ReferenceNumberGcash" class="form-control" placeholder="Ex: 1234567894123" required pattern="\d{13}" minlength="13" maxlength="13" title="The reference number must 13 digits.">
                 </div>
                 <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
                     <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required> <!-- Added 'required' attribute -->
+                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required pattern="CA\d{12}" minlength="14" maxlength="14" title="The reference number must start with 'CA' followed by 12 digits.">
                 </div>
                 <div class="form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
