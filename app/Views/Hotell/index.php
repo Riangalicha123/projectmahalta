@@ -518,7 +518,7 @@
     				</div>
     				<div class="col-sm-4 text-center">
     					<h3 class="mt-4 mb-3">Write Review Here</h3>
-    					<button type="button" href="<?= route_to('login') ?>" class="btn btn-primary">Review</button>
+    					<a type="button" href="<?= route_to('login') ?>" class="btn btn-primary">Review</a>
     				</div>
     			</div>
     		</div>
