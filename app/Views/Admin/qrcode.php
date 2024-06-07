@@ -117,7 +117,7 @@
                   <tr>
                     <td><?=$qrcode['QrcodeID']?></td>
                     <td><?=$qrcode['PaymentOption']?></td>
-                    <td><img src="<?=base_url('/qrimage/'.$qrcode['Image'])?>" alt="#"/></td>
+                    <td><img style="width: 300px; height: 250px;" src="<?=base_url('/qrimage/'.$qrcode['Image'])?>" alt="#"/></td>
                     <th><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$qrcode['QrcodeID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
