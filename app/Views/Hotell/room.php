@@ -231,13 +231,9 @@
             <div class="container">
                               <div class="row">
                                   <div class="col-lg-12 ">
-                                      <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                                          <div class="media-body">
                                           <div id="search-container" style="display: flex; justify-content: center; align-items: center;">
                                             <input type="number" id="price-input" placeholder="Enter price range..."><button id="search-btn">Search</button>
                                           </div>
-                                          </div>
-                                      </div>
                                   </div>
                               </div>
                           </div>
