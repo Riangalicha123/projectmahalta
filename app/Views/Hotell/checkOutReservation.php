@@ -238,7 +238,7 @@
                     <label for="paymentOptionPayMaya">
                         <h4>PayMaya</h4>
                     </label>
-                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya'); ?>>
+                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
                 </div>
             </div>
 
@@ -250,7 +250,7 @@
                 </div>
                 <div class="form-group" id="paymayaReferenceDiv" style="display: none;">
                     <label for="ReferenceNumberPaymaya">Reference Number (Paymaya)</label>
-                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required pattern="CA\d{12}" minlength="14" maxlength="14" title="The reference number must start with 'CA' followed by 12 digits.">
+                    <input type="text" id="ReferenceNumberPaymaya" name="ReferenceNumberPaymaya" class="form-control" placeholder="Ex: CA123456789123" required pattern="CA\d{12}" minlength="14" maxlength="14" title="The reference number must start with 'CA' followed by 12 digits." disabled>
                 </div>
                 <div class="form-group">
                     <label for="downorfullPayment">Down Payment or Full Payment</label>
