@@ -267,7 +267,9 @@
                           <input type="number" class="form-control" id="addChild<?= $room['RoomID'] ?>" name="addChild<?= $room['RoomID'] ?>" value="0">
                       </div>
                             <br>
-                            <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary">Select</button>
+                            <!-- Within each room's form -->
+                            <button type="submit" name="selectedRoomID" value="<?= $room['RoomID'] ?>" class="btn btn-primary" onclick="return validateDateRange('<?= $room['RoomID'] ?>');">Select</button>
+
                           <?php endif; ?>
                         </div>
                       </div>
@@ -358,7 +360,17 @@
       });
     });
   </script>
-  
+  <script>
+  function validateDateRange(roomID) {
+    var checkInDate = document.getElementById('CheckInDate' + roomID).value;
+    var checkOutDate = document.getElementById('CheckOutDate' + roomID).value;
+    if (!checkInDate || !checkOutDate) {
+      alert('Please select a date range.');
+      return false;
+    }
+    return true;
+  }
+</script>
   <script>
     var today = new Date();
     var arrivalDateInput = document.getElementById('CheckInDate');
