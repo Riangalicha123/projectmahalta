@@ -369,15 +369,6 @@ class AdminController extends BaseController
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll(),
                 'regions' => $this->regions->findAll(),
-                'amihotelrevs' => $this->reseraminities
-    ->select('reservations.ReservationID as resv_ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID as user_UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames, GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities')
-    ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID')
-    ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-    ->join('users', 'reservations.UserID = users.UserID')
-    ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID')
-    ->groupBy('reservations.ReservationID')
-    ->findAll(),
-
         ];
         return view('Admin/Hotel/reservation', $data);
     }
@@ -385,19 +376,44 @@ class AdminController extends BaseController
     {
         $data = [
             'adminRoutes' => 'holReservationAmenities',
-                'regions' => $this->regions->findAll(),
-                'amihotelrevs' => $this->reseraminities
-                ->select('reservations.ReservationID as resv_ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.Adult, reservations.Child, reservations.downorfullPayment, reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID as user_UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames, GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities')
-                ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID')
+            'regions' => $this->regions->findAll(),
+            'amihotelrevs' => $this->reseraminities
+                ->select('
+                    reservations.ReservationID as resv_ReservationID,
+                    rooms.RoomID,
+                    rooms.RoomNumber,
+                    rooms.RoomType,
+                    reservations.CheckInDate,
+                    reservations.CheckOutDate,
+                    reservations.NumberOfGuests,
+                    reservations.PaymentOption,
+                    reservations.ReferenceNumber,
+                    reservations.Adult,
+                    reservations.Child,
+                    reservations.downorfullPayment,
+                    reservations.Image,
+                    reservations.TotalAmount,
+                    reservations.Status,
+                    users.UserID as user_UserID,
+                    users.FirstName,
+                    users.LastName,
+                    users.ContactNumber,
+                    CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address,
+                    GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames,
+                    GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities,
+                    MAX(reservation_amenities.AmenitiesID) as AmenitiesID
+                ')
+                ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID', 'left') // Changed inner join to left join
                 ->join('rooms', 'reservations.RoomID = rooms.RoomID')
                 ->join('users', 'reservations.UserID = users.UserID')
-                ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID')
+                ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left') // Added left join for room_inventory
                 ->groupBy('reservations.ReservationID')
                 ->findAll(),
-
+            'roomInventories' => $this->roominventory->findAll(),
         ];
         return view('Admin/Hotel/reservation_amenities', $data);
     }
+    
     public function addHotelReservation()
     {
         helper(['form']);
@@ -505,6 +521,101 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
+    public function updateHotelAmenitiesReservation($amenitiesID)
+    {
+        helper(['form']);
+    
+        // Update user information
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
+        $reservation = $this->reseraminities->find($amenitiesID); // Retrieve reservation amenities data
+        if (!$reservation) {
+            return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('error', 'Reservation not found.');
+        }
+        $userID = $reservation['UserID'];
+        $updateUserResult = $this->users->update($userID, $userData);
+    
+        // Update room information and reservation details
+        if ($updateUserResult) {
+            $roomNumber = $this->request->getPost('RoomNumber');
+            $roomType = $this->request->getPost('RoomType');
+            $roomData = $this->rooms->where('RoomNumber', $roomNumber)->where('RoomType', $roomType)->first();
+            if ($roomData) {
+                $newReservationData = [
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
+                    'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomData['RoomID'],
+                    'UserID' => $userID,
+                ];
+                $updateReservationResult = $this->reseraminities->update($amenitiesID, $newReservationData);
+    
+                // Post amenities data
+                if ($updateReservationResult) {
+                    // Retrieve selected product names and quantities
+                    $roomInventoryIDs = $this->request->getPost('roomInventoryID') ?: [];
+                    $insertQuantities = $this->request->getPost('insertQuantity') ?: [];
+    
+                    // Existing room inventory IDs from the database
+                    $existingRoomInventoryIDs = $this->reseraminities
+                        ->where('ReservationID', $reservation['ReservationID'])
+                        ->findColumn('roomInventoryID');
+    
+                    // Delete unselected room inventories
+                    foreach ($existingRoomInventoryIDs as $existingRoomInventoryID) {
+                        if (!in_array($existingRoomInventoryID, $roomInventoryIDs)) {
+                            $this->reseraminities
+                                ->where('ReservationID', $reservation['ReservationID'])
+                                ->where('roomInventoryID', $existingRoomInventoryID)
+                                ->delete();
+                        }
+                    }
+    
+                    // Insert or update selected room inventories
+                    foreach ($roomInventoryIDs as $roomInventoryID) {
+                        $existingRecord = $this->reseraminities
+                            ->where('ReservationID', $reservation['ReservationID'])
+                            ->where('roomInventoryID', $roomInventoryID)
+                            ->first();
+    
+                        if ($existingRecord) {
+                            // Update the existing record's InsertQuantity
+                            $this->reseraminities->update($existingRecord['AmenitiesID'], [
+                                'insertQuantity' => $insertQuantities[$roomInventoryID]
+                            ]);
+                        } else {
+                            // Insert new record
+                            $this->reseraminities->insert([
+                                'ReservationID' => $reservation['ReservationID'],
+                                'UserID' => $userID,
+                                'roomInventoryID' => $roomInventoryID,
+                                'insertQuantity' => $insertQuantities[$roomInventoryID],
+                            ]);
+                        }
+                    }
+    
+                    return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('success', 'Reservation updated successfully.');
+                } else {
+                    return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('error', 'Failed to update reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/admin-hotel'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
+        }
+    }
+    
+    
     public function updateStatus($status, $reservationID)
     {
         $session = session();

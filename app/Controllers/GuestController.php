@@ -526,6 +526,15 @@ class GuestController extends BaseController
                                     $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
                                 }
                             }
+                        }else {
+                            // Skip amenities, set roomInventoryID and insertQuantity to NULL
+                            $amenityData = [
+                                'ReservationID' => $reservationID,
+                                'roomInventoryID' => null,
+                                'insertQuantity' => null,
+                                'UserID' => $user['UserID'],
+                            ];
+                            $this->reservationamenities->insert($amenityData);
                         }
                         $qrCodeInfo = $this->generateQrCode($reservationID, $amenitiesData);
                         $qrCodePath = $qrCodeInfo['file_path'];

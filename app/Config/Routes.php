@@ -170,6 +170,7 @@ $routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1', ['
 $routes->get('/admin-hotel/reservation', 'AdminController::holReservation', ['filter' => 'adminGuard']);
 $routes->post('/addHotelReservation', 'AdminController::addHotelReservation', ['filter' => 'adminGuard']);
 $routes->post('/updateHotelReservation/(:num)', 'AdminController::updateHotelReservation/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateHotelAmenitiesReservation/(:num)', 'AdminController::updateHotelAmenitiesReservation/$1', ['filter' => 'adminGuard']);
 $routes->get('/admin/updatestatus/(:segment)/(:num)', 'AdminController::updateStatus/$1/$2', ['filter' => 'adminGuard']);
 $routes->get('/admin-hotel/reservation_amenities', 'AdminController::holReservationAmenities', ['filter' => 'adminGuard']);
 //Admin-Restaurant-Reservation
