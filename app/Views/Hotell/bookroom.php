@@ -257,13 +257,13 @@
                             <input type="text" id="dateRange<?= $room['RoomID'] ?>" class="form-control" placeholder="Select dates">
                             <input type="hidden" id="CheckInDate<?= $room['RoomID'] ?>" name="CheckInDate<?= $room['RoomID'] ?>">
                             <input type="hidden" id="CheckOutDate<?= $room['RoomID'] ?>" name="CheckOutDate<?= $room['RoomID'] ?>">
-                            <p style="color: black">Note: Optional if you want to add guests. Extra person will be charged PHP 500.00 per head</p>
+                            <h6 style="color: black font-size: 5px;">Note: If you want to add more guests on the reservation, you must need to occupy the maximum guests based on room availability of the room. Extra person/s will be charged with PHP 500.00 per head.</h6>
                               <div>
                           <label for="addAdult" style="color: black; font-size: 18px; font-weight: bold;">Add Adult</label>
                           <input type="number" class="form-control" id="addAdult<?= $room['RoomID'] ?>" name="addAdult<?= $room['RoomID'] ?>" value="0">
                       </div>
                       <div>
-                          <label for="addChild" style="color: black; font-size: 18px; font-weight: bold;">Add Child</label>
+                          <label for="addChild" style="color: black; font-size: 18px; font-weight: bold;">Add Kid</label>
                           <input type="number" class="form-control" id="addChild<?= $room['RoomID'] ?>" name="addChild<?= $room['RoomID'] ?>" value="0">
                       </div>
                             <br>
@@ -312,7 +312,7 @@
                       <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
                       <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
                       <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
-                      <p>Number of Children: <?= esc($reservationData['Child'] ?? '') ?></p>
+                      <p>Number of Kids: <?= esc($reservationData['Child'] ?? '') ?></p>
                       <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
                     <?php else : ?>
                       <p>No reservation data found.</p>
