@@ -374,47 +374,64 @@ class AdminController extends BaseController
     }
     public function holReservationAmenities()
     {
+        $regions = $this->regions->findAll();
+        $roomInventories = $this->roominventory->findAll();
+    
+        $amihotelrevs = $this->reseraminities
+            ->select('
+                reservations.ReservationID as resv_ReservationID,
+                rooms.RoomID,
+                rooms.RoomNumber,
+                rooms.RoomType,
+                reservations.CheckInDate,
+                reservations.CheckOutDate,
+                reservations.NumberOfGuests,
+                reservations.PaymentOption,
+                reservations.ReferenceNumber,
+                reservations.Adult,
+                reservations.Child,
+                reservations.downorfullPayment,
+                reservations.Image,
+                reservations.TotalAmount,
+                reservations.Status,
+                users.UserID as user_UserID,
+                users.FirstName,
+                users.LastName,
+                users.ContactNumber,
+                CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address,
+                GROUP_CONCAT(
+                    room_inventory.ProductName 
+                    ORDER BY room_inventory.ProductName 
+                    SEPARATOR ", "
+                ) as ProductNames,
+                GROUP_CONCAT(
+                    reservation_amenities.insertQuantity 
+                    ORDER BY room_inventory.ProductName 
+                    SEPARATOR ", "
+                ) as InsertQuantities,
+                MAX(reservation_amenities.AmenitiesID) as AmenitiesID
+            ')
+            ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID', 'left')
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left')
+            ->groupBy('reservations.ReservationID')
+            ->findAll();
+    
+        if (empty($amihotelrevs)) {
+            throw new \Exception("No reservation amenities found.");
+        }
+    
         $data = [
             'adminRoutes' => 'holReservationAmenities',
-            'regions' => $this->regions->findAll(),
-            'amihotelrevs' => $this->reseraminities
-                ->select('
-                    reservations.ReservationID as resv_ReservationID,
-                    rooms.RoomID,
-                    rooms.RoomNumber,
-                    rooms.RoomType,
-                    reservations.CheckInDate,
-                    reservations.CheckOutDate,
-                    reservations.NumberOfGuests,
-                    reservations.PaymentOption,
-                    reservations.ReferenceNumber,
-                    reservations.Adult,
-                    reservations.Child,
-                    reservations.downorfullPayment,
-                    reservations.Image,
-                    reservations.TotalAmount,
-                    reservations.Status,
-                    users.UserID as user_UserID,
-                    users.FirstName,
-                    users.LastName,
-                    users.ContactNumber,
-                    CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address,
-                    GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", ") as ProductNames,
-                    GROUP_CONCAT(reservation_amenities.insertQuantity ORDER BY reservation_amenities.insertQuantity SEPARATOR ", ") as InsertQuantities,
-                    MAX(reservation_amenities.AmenitiesID) as AmenitiesID
-                ')
-                ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID', 'left') // Changed inner join to left join
-                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-                ->join('users', 'reservations.UserID = users.UserID')
-                ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left') // Added left join for room_inventory
-                ->groupBy('reservations.ReservationID')
-                ->findAll(),
-            'roomInventories' => $this->roominventory->findAll(),
+            'regions' => $regions,
+            'amihotelrevs' => $amihotelrevs,
+            'roomInventories' => $roomInventories,
         ];
+    
         return view('Admin/Hotel/reservation_amenities', $data);
     }
-    
-    public function addHotelReservation()
+        public function addHotelReservation()
     {
         helper(['form']);
         $regionCode = $this->request->getVar('Region');
