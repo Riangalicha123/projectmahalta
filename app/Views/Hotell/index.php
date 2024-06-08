@@ -106,7 +106,7 @@
 
             <div class="mb-5 element-animate">
             <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
-              Welcome to Mahalta Resort and Convention Center
+              Welcome to Mahalta Resorts and Convention Center
           </h1>
           </div>
           </div>
