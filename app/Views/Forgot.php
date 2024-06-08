@@ -66,6 +66,15 @@
 								<h2 class="text-center text-primary">Login</h2>
 							</div>
 							<form action="<?= base_url('updatePassword') ?>" method="post">
+							<?php if (session()->getFlashdata('success')): ?>
+								<div class="alert alert-success">
+									<?= session()->getFlashdata('success'); ?>
+								</div>
+							<?php elseif (session()->getFlashdata('error')): ?>
+								<div class="alert alert-danger">
+									<?= session()->getFlashdata('error'); ?>
+								</div>
+							<?php endif; ?>
                             <input type="hidden" name="temp_pass" value="<?= $temp_pass ?>">
                                 <div class="input-group custom">
 									<input

@@ -348,22 +348,34 @@ class UserController extends BaseController
     {
         $email = $this->request->getPost('email');
         $userModel = new UserModel();
-        if ($userModel->where('Email', $email)->first()) {
+        
+        $user = $userModel->where('Email', $email)->first();
+        if ($user) {
             $tempPass = md5(uniqid());
             $verificationUrl = base_url("resetPassword/$tempPass");
             $emailMessage = "Please click on the following link to reset your password: <a href='{$verificationUrl}'>Reset Password</a>";
-            $this->sendEmail($email, 'Reset Your Password', $emailMessage);
-            if ($userModel->update($userModel->where('Email', $email)->first()['UserID'], ['verification_token' => $tempPass])) {
-                $user = $userModel->where('Email', $email)->first();
-                if (!empty($user['fcm_token'])) {
-                    $this->sendPushNotification($user['fcm_token'], 'Password Reset Request', 'Please check your email to reset your password.');
+            
+            if ($this->sendEmail($email, 'Reset Your Password', $emailMessage)) {
+                // Update the user with the verification token
+                if ($userModel->update($user['UserID'], ['verification_token' => $tempPass])) {
+                    // Send push notification if fcm_token exists
+                    if (!empty($user['fcm_token'])) {
+                        $this->sendPushNotification($user['fcm_token'], 'Password Reset Request', 'Please check your email to reset your password.');
+                    }
+                    // Set flashdata message
+                    session()->setFlashdata('success', 'Please check your email to reset your password.');
+                    return redirect()->to(base_url('recover'));
                 }
-                return view('Recover');
+            } else {
+                session()->setFlashdata('error', 'Failed to send email. Please try again.');
+                return redirect()->to(base_url('recover'));
             }
         } else {
-            echo "Your email is not in our database.";
+            session()->setFlashdata('error', 'Your email is not in our database.');
+            return redirect()->to(base_url('recover'));
         }
     }
+    
     protected function sendPushNotification($fcmToken, $title, $body)
     {
         $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
@@ -393,9 +405,10 @@ class UserController extends BaseController
         $userModel = new UserModel();
         $user = $userModel->where('verification_token', $tempPass)->first();
         if ($user) {
-            echo view('Forgot', ['temp_pass' => $tempPass]);
+            return view('Forgot', ['temp_pass' => $tempPass]);
         } else {
-            echo "The key is not valid.";
+            session()->setFlashdata('error', 'The key is not valid.');
+            return redirect()->to(base_url('recover'));
         }
     }
     public function updatePassword()
@@ -403,25 +416,33 @@ class UserController extends BaseController
         $tempPass = $this->request->getPost('temp_pass');
         $password = $this->request->getPost('password');
         $cpassword = $this->request->getPost('cpassword');
+    
         if ($password === $cpassword) {
             $userModel = new UserModel();
             $user = $userModel->where('verification_token', $tempPass)->first();
+    
             if ($user) {
                 $userModel->update($user['UserID'], [
                     'Password' => password_hash($password, PASSWORD_DEFAULT),
                     'verification_token' => null
                 ]);
+    
                 $emailMessage = "Your password has been successfully updated.";
                 $this->sendEmail($user['Email'], 'Password Updated', $emailMessage);
+    
                 if (!empty($user['fcm_token'])) {
                     $this->sendPushNotification($user['fcm_token'], 'Password Updated', 'Your password has been successfully updated.');
                 }
-                echo view('Login');
+    
+                session()->setFlashdata('success', 'Your password has been successfully updated.');
+                return redirect()->to(base_url('login'));
             } else {
-                echo "Invalid token.";
+                session()->setFlashdata('error', 'Invalid token.');
+                return redirect()->to(base_url('recover'));
             }
         } else {
-            echo "Passwords do not match.";
+            session()->setFlashdata('error', 'Passwords do not match.');
+            return redirect()->back();
         }
-    }
+    }    
 }

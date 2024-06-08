@@ -66,7 +66,15 @@
 								<h2 class="text-center text-primary">Recover</h2>
 							</div>
 							<form action="<?= base_url('recoverPassword') ?>" method="post">
-                                
+							<?php if (session()->getFlashdata('success')): ?>
+								<div class="alert alert-success">
+									<?= session()->getFlashdata('success'); ?>
+								</div>
+							<?php elseif (session()->getFlashdata('error')): ?>
+								<div class="alert alert-danger">
+									<?= session()->getFlashdata('error'); ?>
+								</div>
+							<?php endif; ?>
                                 <div class="input-group custom">
 									<input
 										type="email"
