@@ -36,6 +36,11 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
+    <style>
+      .hidden {
+    display: none;
+}
+    </style>
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
@@ -159,10 +164,10 @@
                 </div>
                 
                 <div class="col-6 form-group">
-                    <label for="paymentOptionPayMaya">
+                    <label for="paymentOptionPayMaya" class="hidden">
                         <h4>PayMaya</h4>
                     </label>
-                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya'); ?>>
+                    <input type="hidden" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
                 </div>
             </div>
 

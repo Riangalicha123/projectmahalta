@@ -98,6 +98,9 @@
 
 
 }
+.hidden {
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -235,10 +238,10 @@
                 </div>
                 
                 <div class="col-6 form-group">
-                    <label for="paymentOptionPayMaya">
+                    <label for="paymentOptionPayMaya" class="hidden">
                         <h4>PayMaya</h4>
                     </label>
-                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
+                    <input type="hidden" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
                 </div>
             </div>
 
