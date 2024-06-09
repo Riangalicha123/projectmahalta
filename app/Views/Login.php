@@ -54,7 +54,7 @@
 				</div>
 				<div class="login-menu">
 					<ul>
-						<li><a href="<?= route_to('register') ?>" style="color: skyblue;"><i class="fas fa-user-plus" style="color: skyblue;"></i>  Register</a></li>
+						<li><a href="<?= route_to('register') ?>" style="color: skyblue;">  Register</a></li>
 					</ul>
 				</div>
 			</div>
@@ -88,7 +88,7 @@
 									/>
 									<div class="input-group-append custom">
 										<span class="input-group-text"
-											><i class="icon-copy dw dw-user1"></i
+											><i class="icon-copy dw dw-email1"></i
 										></span>
 									</div>
 								</div>
@@ -106,7 +106,7 @@
 								</div>
 								<div class="input-group custom">
 								<p class="mb-1">
-									<a href="<?= route_to('recover') ?>">I forgot my password</a>
+									<b><a href="<?= route_to('recover') ?>">I forgot my password</a></b>
 								</p>
 								</div>
 								

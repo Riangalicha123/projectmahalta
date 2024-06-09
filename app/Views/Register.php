@@ -55,7 +55,7 @@
 				</div>
 					<div class="login-menu">
 		<ul>
-			<li><a href="<?= route_to('login') ?>" style="color: skyblue;"><i class="fas fa-sign-in-alt" style="color: skyblue;"></i> Login</a></li>
+			<li><a href="<?= route_to('login') ?>" style="color: skyblue;">Login</a></li>
 		</ul>
 	</div>
 
@@ -157,7 +157,7 @@
 									/>
 									<div class="input-group-append custom">
 										<span class="input-group-text"
-											><i class="icon-copy dw dw-user1"></i
+											><i class="icon-copy dw dw-email1"></i
 										></span>
 									</div>
 								</div>

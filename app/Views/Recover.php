@@ -92,11 +92,11 @@
 										<div class="input-group mb-0">
 											<input class="btn btn-primary btn-lg btn-block" type="submit" value="Recover Password">
 										</div>
+										<br>
 										<div class="input-group mb-0">
                                         <p class="mb-1">
-										<a href="<?= route_to('login') ?>">Login</a>
-
-								</p>
+											<b><a href="<?= route_to('login') ?>">Login</a></b>
+										</p>
 										</div>
 									</div>
 								</div>
