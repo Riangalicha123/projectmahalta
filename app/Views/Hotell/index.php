@@ -131,10 +131,13 @@
                                 <img src="/guest/images/pool.png" alt="Image 1" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
-                                <img src="/guest/images/Pic/9.jpg" alt="Image 2" class="img-md-fluid">
+                                <img src="/convention/pic1.jpg" alt="Image 2" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
-                                <img src="/guest/images/Pic/5.jpg" alt="Image 2" class="img-md-fluid">
+                                <img src="/convention/pic2.jpg" alt="Image 2" class="img-md-fluid">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="/convention/pic3.jpg" alt="Image 2" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
                                 <img src="/guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
@@ -261,12 +264,12 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/event.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="/convention/convention.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                 </div>
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Events</a></h3>
+                <h3 class="mt-0"><a href="#">Venue</a></h3>
                 <p>Enjoy your events at our convention center – modern spaces, great amenities, and expert support for successful gatherings. </p>
                 <p><a href="<?= route_to('convention-center') ?>" class="btn btn-primary btn-sm">View Our Convetions Options</a></p>
               </div>
@@ -276,14 +279,14 @@
             <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/wedding.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Wedding and Celebrations
+                    
                   </span>
                 </div>
             </a>
             <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/meeting.jpg); ">
                 <div class="overlap-text">
                   <span>
-                    Meeting 
+                     
                   </span>
                 </div>
             </a>

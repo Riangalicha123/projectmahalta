@@ -86,10 +86,10 @@
     <?php foreach ($convenues as $convenue): ?>
     <div class="col-md-4 hover-effect-container">
         <div class="post-entry">
-          <a href="#"><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 310px"></a>
+          <a><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 310px"></a>
           <div class="body-text">
             <div class="category"></div>
-            <h3 class="mb-3"><a href="#"><?=$convenue['conVenueName']?></a></h3>
+            <h3 class="mb-3"><a><?=$convenue['conVenueName']?></a></h3>
             <ul class="room-specs">
               <li><span>Minimum</span> <?=$convenue['minGuest']?></li>
               <li><span>Maximum</span> <?=$convenue['maxGuest']?></li>
