@@ -36,6 +36,16 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="/guest/css/style.css">
+    <style>
+      .hover-effect-container {
+    transition: transform 0.3s ease;
+}
+
+.hover-effect-container:hover {
+    transform: scale(1.05);
+}
+
+    </style>
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
@@ -68,29 +78,30 @@
     </section>
 
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
-      <div class="container">
-          <div class="col-md-12 heading-wrap text-center">
-                <h2 class="heading">Convention Venue</h2>
+  <div class="container">
+      <div class="col-md-12 heading-wrap text-center">
+          <h2 class="heading">Convention Venue</h2>
+      </div>
+    <div class="row">
+    <?php foreach ($convenues as $convenue): ?>
+    <div class="col-md-4 hover-effect-container">
+        <div class="post-entry">
+          <a href="#"><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 310px"></a>
+          <div class="body-text">
+            <div class="category"></div>
+            <h3 class="mb-3"><a href="#"><?=$convenue['conVenueName']?></a></h3>
+            <ul class="room-specs">
+              <li><span>Minimum</span> <?=$convenue['minGuest']?></li>
+              <li><span>Maximum</span> <?=$convenue['maxGuest']?></li>
+            </ul>
           </div>
-        <div class="row">
-        <?php foreach ($convenues as $convenue): ?>
-        <div class="col-md-4">
-            <div class="post-entry">
-              <a href="#"><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 100%"></a>
-              <div class="body-text">
-                <div class="category"></div>
-                <h3 class="mb-3"><a href="#"><?=$convenue['conVenueName']?></a></h3>
-                <ul class="room-specs">
-                  <li><span class="ion-ios-people-outline"></span> <?=$convenue['minGuest']?></li>
-                  <li><span class="ion-ios-people-outline"></span> <?=$convenue['maxGuest']?></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <?php endforeach; ?>
         </div>
       </div>
-    </section>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+
     <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
     <div class="col-md-12 heading-wrap text-center">
