@@ -47,7 +47,7 @@
 
 <div id="loaderr">
 <?php if (!empty($news)): ?>
-    <img src="<?=base_url('/news/'.$news[0]['Image'])?>" alt="user-avatar">
+    <img src="<?=base_url('/news/'.$news[0]['Image'])?>" alt="user-avatar" style="width: 100%; height: 400px;">
 <?php endif; ?>
     
     <button class="exit-button" onclick="hideLoader()">Exit</button>
