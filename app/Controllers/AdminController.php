@@ -431,7 +431,7 @@ class AdminController extends BaseController
     
         return view('Admin/Hotel/reservation_amenities', $data);
     }
-        public function addHotelReservation()
+    public function addHotelReservation()
     {
         helper(['form']);
         $regionCode = $this->request->getVar('Region');
@@ -538,6 +538,117 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
+    public function addHotelAmenitiesReservation()
+    {
+        helper(['form']);
+    
+        // Retrieve form data
+        $regionCode = $this->request->getVar('Region');
+        $provinceCode = $this->request->getVar('Province');
+        $cityCode = $this->request->getVar('City');
+        $barangayCode = $this->request->getVar('Barangay');
+    
+        // Get descriptions
+        $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
+        $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
+        $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
+        $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
+    
+        // Prepare user data
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Region' => $regionDesc,
+            'Province' => $provinceDesc,
+            'City' => $cityDesc,
+            'Barangay' => $barangayDesc,
+            'UserRoleID' => 1,
+            'verification_token' => bin2hex(random_bytes(16)),
+            'is_verified' => 1,
+        ];
+    
+        // Insert user data
+        $UserID = $this->users->insert($userData, true);
+        if ($UserID) {
+            // Insert guest data
+            $guestData = ['UserID' => $UserID];
+            $this->guest->insert($guestData);
+    
+            // Retrieve room and reservation data
+            $inputRoomType = $this->request->getPost('RoomType');
+            $inputRoomNumber = $this->request->getPost('RoomNumber');
+            $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
+            $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
+    
+            if ($roomDataByType && $roomDataByNumber) {
+                // Prepare reservation data
+                $newReservationData = [
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
+                    'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomDataByType['RoomID'],
+                    'UserID' => $UserID,
+                ];
+    
+                // Insert reservation data
+                $inserted = $this->reservation->insert($newReservationData);
+                $reservationID = $this->reservation->getInsertID();
+                if ($inserted) {
+                    // Handle room amenities
+                    $amenitiesData = $this->request->getPost('roomInventoryID');
+                    $insertQuantities = $this->request->getPost('insertQuantity');
+    
+                    if ($amenitiesData && $insertQuantities) {
+                        foreach ($amenitiesData as $amenityID) {
+                            $insertQuantity = $insertQuantities[$amenityID] ?? 0;
+                            if ($insertQuantity > 0) {
+                                $amenityData = [
+                                    'ReservationID' => $reservationID,
+                                    'roomInventoryID' => $amenityID,
+                                    'insertQuantity' => $insertQuantity,
+                                    'UserID' => $UserID,
+                                ];
+                                $this->reseraminities->insert($amenityData);
+    
+                                // Update room inventory
+                                $roomInventory = $this->roominventory->find($amenityID);
+                                if ($roomInventory) {
+                                    $currentQuantity = $roomInventory['Quantity'];
+                                    $newQuantity = $currentQuantity - $insertQuantity;
+                                    $this->roominventory->update($amenityID, ['Quantity' => $newQuantity]);
+                                }
+                            }
+                        }
+                    } else {
+                        // Skip amenities
+                        $amenityData = [
+                            'ReservationID' => $reservationID,
+                            'roomInventoryID' => null,
+                            'insertQuantity' => null,
+                            'UserID' => $UserID,
+                        ];
+                        $this->reseraminities->insert($amenityData);
+                    }
+    
+                    return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('success', 'Reservation added successfully.');
+                } else {
+                    return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('error', 'Failed to add reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/admin-hotel'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            }
+        } else {
+            return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to create user. Please try again.');
+        }
+    }
+    
     public function updateHotelAmenitiesReservation($amenitiesID)
     {
         helper(['form']);
@@ -574,7 +685,7 @@ class AdminController extends BaseController
                     'RoomID' => $roomData['RoomID'],
                     'UserID' => $userID,
                 ];
-                $updateReservationResult = $this->reseraminities->update($amenitiesID, $newReservationData);
+                $updateReservationResult = $this->reservation->update($amenitiesID, $newReservationData);
     
                 // Post amenities data
                 if ($updateReservationResult) {

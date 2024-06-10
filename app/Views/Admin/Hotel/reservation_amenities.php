@@ -112,7 +112,7 @@
                                 <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?= base_url('/addHotelReservation') ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?= base_url('/addHotelAmenitiesReservation') ?>" method="post" enctype="multipart/form-data">
                                 <div class="card-body">
                                     <div class="form-row">
                                       <div class="form-group col-md-6">
@@ -231,6 +231,61 @@
                                                 <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required>
                                             </div>
                                         </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-12">
+                                                <label>Room Inventory</label>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Select</th>
+                                                            <th>Product Name</th>
+                                                            <th>Price</th>
+                                                            <th>Insert Quantity</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php
+                                                        foreach ($roomInventories as $roinvent) :
+                                                            $isChecked = false;
+                                                            $selectedQuantity = 0;
+
+                                                            foreach ($amihotelrevs as $amihotelrev) {
+                                                                if (in_array($roinvent['ProductName'], explode(', ', $amihotelrev['ProductNames']))) {
+                                                                    $isChecked = true;
+                                                                    $selectedQuantity = explode(', ', $amihotelrev['InsertQuantities'])[array_search($roinvent['ProductName'], explode(', ', $amihotelrev['ProductNames']))];
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            $availableQuantity = 100; // Replace with actual available quantity
+                                                        ?>
+                                                            <tr style="border-bottom: 1px solid #000;">
+                                                                <td>
+                                                                    <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                                                                        <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                                                                        <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                                                                    </div>
+                                                                </td>
+                                                                <td><?= $roinvent['ProductName'] ?></td>
+                                                                <td>Php<?= $roinvent['Price'] ?></td>
+                                                                <td>
+                                                                    <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
+                                                                    <?php for ($i = 0; $i <= $availableQuantity; $i++) : ?>
+                                                                <option value="<?= $i ?>"><?= $i ?></option>
+                                                            <?php endfor; ?>
+                                                                    </select>
+                                                                    <?php if ($availableQuantity <= 10): ?>
+                                                                        <span style="color: red;">Warning: Only <?= $availableQuantity ?> left in stock!</span>
+                                                                    <?php endif; ?>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
                                 </div>
                                 <div class="card-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
