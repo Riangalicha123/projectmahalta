@@ -111,7 +111,7 @@
             <?php foreach ($events as $event): ?>
                 <div class="col-md-4">
                     <div class="post-entry">
-                        <a href="#"><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Image placeholder" class="img-fluid" style="width: 100%; height: 200px; object-fit: cover;"></a>
+                        <a href="#"><img src="<?=base_url('/uploads/'.$event['Image'])?>" alt="Image placeholder" class="img-fluid" style="width: 100%; height: 310px; object-fit: cover;"></a>
                         <div class="body-text" style="background-color: #fff; padding: 20px;">
                             <h3 class="mb-3" style="font-size: 24px; color: #333;"><a href="#" style="color: #333;"><?= $event['EventType'] ?></a></h3>
                             <p class="mb-4" style="font-size: 16px; color: #666;"><?= $event['Description'] ?></p>
