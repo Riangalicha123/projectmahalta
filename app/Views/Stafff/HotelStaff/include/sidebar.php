@@ -36,6 +36,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link <?= (isset($currentRoute) && $currentRoute === 'hotelamenities') ? 'active' : '' ?> " href="<?= route_to('staff-hotelreservation-amenities') ?>">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Reservation w/ Amenities
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link <?= (isset($currentRoute) && $currentRoute === 'room') ? 'active' : '' ?> " href="<?= route_to('staff-hotelroom') ?>">
               <i class="nav-icon fas fa-bed"></i>
               <p>

@@ -23,6 +23,8 @@ use App\Models\MenuProductIcedModel;
 use App\Models\RestaurantVenueModel;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
+use App\Models\RoomInventoryModel;
+use App\Models\ReservationAmenities;
 use App\Traits\EmailTrait;
 use App\Models\GuestModel;
 use CodeIgniter\API\ResponseTrait;
@@ -51,6 +53,8 @@ class StaffController extends BaseController
     private $guest;
     private $convenues;
     private $conventions;
+    private $roominventory;
+    private $reseraminities;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -74,6 +78,8 @@ class StaffController extends BaseController
         $this->convenues = new ConventionVenueModel();
         $this->conventions = new ConventionModel();
         $this->guest = new GuestModel();
+        $this->roominventory = new RoomInventoryModel();
+        $this->reseraminities = new ReservationAmenities();
     }
     public function login(){
         helper(['form']);
@@ -245,6 +251,65 @@ class StaffController extends BaseController
         ]; 
         return view('Stafff/HotelStaff/reservation', $data);
     }
+    public function holreservationAmenities()
+    {
+        $regions = $this->regions->findAll();
+        $roomInventories = $this->roominventory->findAll();
+    
+        $amihotelrevs = $this->reseraminities
+            ->select('
+                reservations.ReservationID as resv_ReservationID,
+                rooms.RoomID,
+                rooms.RoomNumber,
+                rooms.RoomType,
+                reservations.CheckInDate,
+                reservations.CheckOutDate,
+                reservations.NumberOfGuests,
+                reservations.PaymentOption,
+                reservations.ReferenceNumber,
+                reservations.Adult,
+                reservations.Child,
+                reservations.downorfullPayment,
+                reservations.Image,
+                reservations.TotalAmount,
+                reservations.Status,
+                users.UserID as user_UserID,
+                users.FirstName,
+                users.LastName,
+                users.ContactNumber,
+                CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address,
+                GROUP_CONCAT(
+                    room_inventory.ProductName 
+                    ORDER BY room_inventory.ProductName 
+                    SEPARATOR ", "
+                ) as ProductNames,
+                GROUP_CONCAT(
+                    reservation_amenities.insertQuantity 
+                    ORDER BY room_inventory.ProductName 
+                    SEPARATOR ", "
+                ) as InsertQuantities,
+                MAX(reservation_amenities.AmenitiesID) as AmenitiesID
+            ')
+            ->join('reservations', 'reservation_amenities.ReservationID = reservations.ReservationID', 'left')
+            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+            ->join('users', 'reservations.UserID = users.UserID')
+            ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left')
+            ->groupBy('reservations.ReservationID')
+            ->findAll();
+    
+        if (empty($amihotelrevs)) {
+            throw new \Exception("No reservation amenities found.");
+        }
+    
+        $data = [
+            'currentRoute' => 'hotelamenities',
+            'regions' => $regions,
+            'amihotelrevs' => $amihotelrevs,
+            'roomInventories' => $roomInventories,
+        ];
+    
+        return view('Stafff/HotelStaff/reservation_amenities', $data);
+    }
     public function addhotelReservation()
     {
         helper(['form']);
@@ -363,6 +428,99 @@ class StaffController extends BaseController
             }
         } else {
             return redirect()->to(base_url('/staff-hotelreservation'))->with('error', 'Failed to update user information. Please try again.');
+        }
+    }
+    public function updatehotelamenitiesReservation($amenitiesID)
+    {
+        helper(['form']);
+    
+        // Update user information
+        $userData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+        ];
+        $reservation = $this->reseraminities->find($amenitiesID); // Retrieve reservation amenities data
+        if (!$reservation) {
+            return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Reservation not found.');
+        }
+        $userID = $reservation['UserID'];
+        $updateUserResult = $this->users->update($userID, $userData);
+    
+        // Update room information and reservation details
+        if ($updateUserResult) {
+            $roomNumber = $this->request->getPost('RoomNumber');
+            $roomType = $this->request->getPost('RoomType');
+            $roomData = $this->rooms->where('RoomNumber', $roomNumber)->where('RoomType', $roomType)->first();
+            if ($roomData) {
+                $newReservationData = [
+                    'CheckInDate' => $this->request->getPost('CheckInDate'),
+                    'CheckOutDate' => $this->request->getPost('CheckOutDate'),
+                    'Adult' => $this->request->getPost('Adult'),
+                    'Child' => $this->request->getPost('Child'),
+                    'TotalAmount' => $this->request->getPost('TotalAmount'),
+                    'downorfullPayment' => $this->request->getPost('downorfullPayment'),
+                    'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
+                    'PaymentOption' => $this->request->getPost('PaymentOption'),
+                    'Status' => 'Confirm',
+                    'RoomID' => $roomData['RoomID'],
+                    'UserID' => $userID,
+                ];
+                $updateReservationResult = $this->reseraminities->update($amenitiesID, $newReservationData);
+    
+                // Post amenities data
+                if ($updateReservationResult) {
+                    // Retrieve selected product names and quantities
+                    $roomInventoryIDs = $this->request->getPost('roomInventoryID') ?: [];
+                    $insertQuantities = $this->request->getPost('insertQuantity') ?: [];
+    
+                    // Existing room inventory IDs from the database
+                    $existingRoomInventoryIDs = $this->reseraminities
+                        ->where('ReservationID', $reservation['ReservationID'])
+                        ->findColumn('roomInventoryID');
+    
+                    // Delete unselected room inventories
+                    foreach ($existingRoomInventoryIDs as $existingRoomInventoryID) {
+                        if (!in_array($existingRoomInventoryID, $roomInventoryIDs)) {
+                            $this->reseraminities
+                                ->where('ReservationID', $reservation['ReservationID'])
+                                ->where('roomInventoryID', $existingRoomInventoryID)
+                                ->delete();
+                        }
+                    }
+    
+                    // Insert or update selected room inventories
+                    foreach ($roomInventoryIDs as $roomInventoryID) {
+                        $existingRecord = $this->reseraminities
+                            ->where('ReservationID', $reservation['ReservationID'])
+                            ->where('roomInventoryID', $roomInventoryID)
+                            ->first();
+    
+                        if ($existingRecord) {
+                            // Update the existing record's InsertQuantity
+                            $this->reseraminities->update($existingRecord['AmenitiesID'], [
+                                'insertQuantity' => $insertQuantities[$roomInventoryID]
+                            ]);
+                        } else {
+                            // Insert new record
+                            $this->reseraminities->insert([
+                                'ReservationID' => $reservation['ReservationID'],
+                                'UserID' => $userID,
+                                'roomInventoryID' => $roomInventoryID,
+                                'insertQuantity' => $insertQuantities[$roomInventoryID],
+                            ]);
+                        }
+                    }
+    
+                    return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('success', 'Reservation updated successfully.');
+                } else {
+                    return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Failed to update reservation. Please try again.');
+                }
+            } else {
+                return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Invalid RoomType or RoomNumber. Please check your input.');
+            }
+        } else {
+            return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
     public function updateStatus($status, $reservationID)

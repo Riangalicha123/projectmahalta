@@ -86,6 +86,9 @@ $routes->get('/staff-hotel', 'StaffController::home', ['filter' => 'staffGuard']
 $routes->get('/staff-hotelreservation', 'StaffController::reservation', ['filter' => 'staffGuard']);
 $routes->post('/addhotelReservation', 'StaffController::addhotelReservation', ['filter' => 'staffGuard']);
 $routes->post('/updatehotelReservation/(:num)', 'StaffController::updatehotelReservation/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotelreservation-amenities', 'StaffController::holreservationAmenities', ['filter' => 'staffGuard']);
+$routes->post('/addhotelamenitiesReservation', 'StaffController::addhotelamenitiesReservation', ['filter' => 'staffGuard']);
+$routes->post('/updatehotelamenitiesReservation/(:num)', 'StaffController::updatehotelamenitiesReservation/$1', ['filter' => 'staffGuard']);
 $routes->get('/staff/updatestatus/(:segment)/(:num)', 'StaffController::updateStatus/$1/$2', ['filter' => 'staffGuard']);
 $routes->get('/staff-hotelroom', 'StaffController::room', ['filter' => 'staffGuard']);
 $routes->post('/addRoom', 'StaffController::addRoom', ['filter' => 'staffGuard']);
@@ -170,6 +173,7 @@ $routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1', ['
 $routes->get('/admin-hotel/reservation', 'AdminController::holReservation', ['filter' => 'adminGuard']);
 $routes->post('/addHotelReservation', 'AdminController::addHotelReservation', ['filter' => 'adminGuard']);
 $routes->post('/updateHotelReservation/(:num)', 'AdminController::updateHotelReservation/$1', ['filter' => 'adminGuard']);
+$routes->post('/addHotelAmenitiesReservation', 'AdminController::addHotelAmenitiesReservation', ['filter' => 'adminGuard']);
 $routes->post('/updateHotelAmenitiesReservation/(:num)', 'AdminController::updateHotelAmenitiesReservation/$1', ['filter' => 'adminGuard']);
 $routes->get('/admin/updatestatus/(:segment)/(:num)', 'AdminController::updateStatus/$1/$2', ['filter' => 'adminGuard']);
 $routes->get('/admin-hotel/reservation_amenities', 'AdminController::holReservationAmenities', ['filter' => 'adminGuard']);
