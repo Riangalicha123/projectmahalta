@@ -1561,9 +1561,9 @@ class GuestController extends BaseController
                 $emailMessage = "Dear customer,<br><br>";
                 $emailMessage .= "Your reservation has been canceled, and a refund of {$refundAmount} has been initiated on 3 days.<br>";
                 $emailMessage .= "If you have any questions, please contact us in our contact below.<br>";
-                $emailMessage .= "099123123123<br>";
+                $emailMessage .= "09812480320<br>";
                 $emailMessage .= "or<br>";
-                $emailMessage .= "email@gmail.com<br>";
+                $emailMessage .= "mahaltaresorts@gmail.com<br>";
                 $this->sendEmail($user['Email'], 'Reservation Canceled and Refund Initiated on 3 Days', $emailMessage);
                 $fcmToken = $user['fcm_token'];
                 if (!empty($fcmToken)) {
