@@ -26,12 +26,41 @@ class NoAuth implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (session()->get('isLoggedIn')) {
-            // Check if the user is logged in and has a specific role
-            if (session()->get('userRole') !== '1') {
-                // Redirect to another page if the user is logged in but doesn't have the required role
-                return redirect()->to('/');
+            // Get the user role
+            $userRole = session()->get('userRole');
+
+            // Allow UserRole 1 to access the home page
+            if ($userRole == 1) {
+                return;
             }
-        }      
+
+            // Redirect based on user role
+            switch ($userRole) {
+                case 2:
+                    // Check staff details for department-based redirection
+                    $staffDetails = model('StaffDetailModel')->where('UserID', session()->get('id'))->first();
+                    if ($staffDetails) {
+                        switch ($staffDetails['DepartmentID']) {
+                            case 1:
+                                return redirect()->to('/staff-convention');
+                            case 2:
+                                return redirect()->to('/staff-hotel');
+                            case 3:
+                                return redirect()->to('/staff-restaurant');
+                            case 4:
+                                return redirect()->to('/staff-inventory');
+                            default:
+                                return redirect()->to('/');
+                        }
+                    } else {
+                        return redirect()->to('/');
+                    }
+                case 3:
+                    return redirect()->to('/admin-dashboard');
+                default:
+                    return redirect()->to('/');
+            }
+        }  
     }
 
     /**
