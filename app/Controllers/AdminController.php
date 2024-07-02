@@ -418,10 +418,6 @@ class AdminController extends BaseController
             ->groupBy('reservations.ReservationID')
             ->findAll();
     
-        if (empty($amihotelrevs)) {
-            throw new \Exception("No reservation amenities found.");
-        }
-    
         $data = [
             'adminRoutes' => 'holReservationAmenities',
             'regions' => $regions,
