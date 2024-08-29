@@ -25,21 +25,21 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Rubik:300,400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="/guest/css/bootstrap.css">
-    <link rel="stylesheet" href="/guest/css/animate.css">
-    <link rel="stylesheet" href="/guest/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/animate.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/guest/css/magnific-popup.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/magnific-popup.css">
 
     <!-- Theme Style -->
-    <link rel="stylesheet" href="/guest/css/style.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
   </head>
   <body>
   <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/big_image_1.jpg);">
+    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -82,7 +82,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
         </div>
@@ -90,7 +90,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="<?=base_url()?>guest/images/dining.jpg" alt="Generic placeholder image" class="img-fluid">
               </figure>
               <div class="media-body">
                 <h3 class="mt-0"><a href="#">Dining</a></h3>
@@ -100,14 +100,14 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/cafe.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url()?>guest/images/cafe.jpg); ">
                 <div class="overlap-text">
                   <span>
                     Cafe
                   </span>
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/cafe1.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url()?>guest/images/cafe1.jpg); ">
                 <div class="overlap-text">
                   <span>
                     Cafe
@@ -182,7 +182,7 @@
                 <h3 class="mb-5">Featured Restaurant</h3>
                 <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="<?=base_url()?>guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">
                   <span>
                     Main Restaurant
@@ -381,18 +381,18 @@
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
 
-    <script src="/guest/js/jquery-3.2.1.min.js"></script>
-    <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
-    <script src="/guest/js/popper.min.js"></script>
-    <script src="/guest/js/bootstrap.min.js"></script>
-    <script src="/guest/js/owl.carousel.min.js"></script>
-    <script src="/guest/js/jquery.waypoints.min.js"></script>
-    <script src="/guest/js/jquery.stellar.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>
+    <script src="<?=base_url()?>guest/js/popper.min.js"></script>
+    <script src="<?=base_url()?>guest/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>guest/js/owl.carousel.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.waypoints.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.stellar.min.js"></script>
 
-    <script src="/guest/js/jquery.magnific-popup.min.js"></script>
-    <script src="/guest/js/magnific-popup-options.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.magnific-popup.min.js"></script>
+    <script src="<?=base_url()?>guest/js/magnific-popup-options.js"></script>
 
-    <script src="/guest/js/main.js"></script>
+    <script src="<?=base_url()?>guest/js/main.js"></script>
     <?= $this->renderSection('scripts') ?>
   </body>
 </html>

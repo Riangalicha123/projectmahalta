@@ -29,16 +29,16 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/guest/css/bootstrap.css">
-    <link rel="stylesheet" href="/guest/css/animate.css">
-    <link rel="stylesheet" href="/guest/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/animate.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/guest/css/magnific-popup.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/magnific-popup.css">
 
     <!-- Theme Style -->
-    <link rel="stylesheet" href="/guest/css/style.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/style.css">
         <style>
       .progress-label-left
       {
@@ -99,7 +99,7 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url(/guest/images/1.1.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url(<?=base_url()?>guest/images/1.1.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -113,7 +113,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-4">
@@ -128,7 +128,7 @@
                       <div id="imageCarousel" class="carousel slide" data-ride="carousel">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="/guest/images/pool.png" alt="Image 1" class="img-md-fluid">
+                                <img src="<?=base_url()?>guest/images/pool.png" alt="Image 1" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
                                 <img src="/convention/pic1.jpg" alt="Image 2" class="img-md-fluid">
@@ -140,10 +140,10 @@
                                 <img src="/convention/pic3.jpg" alt="Image 2" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
-                                <img src="/guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
+                                <img src="<?=base_url()?>guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
                             </div>
                             <div class="carousel-item">
-                                <img src="/guest/images/MahaltaPic/22.jpg" alt="Image 2" class="img-md-fluid">
+                                <img src="<?=base_url()?>guest/images/MahaltaPic/22.jpg" alt="Image 2" class="img-md-fluid">
                             </div>
                         </div>
                         <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
@@ -160,7 +160,7 @@
       </div>
     </section>
 
-    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -208,7 +208,7 @@
       </div>
     </section>
 
-    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -220,7 +220,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="<?=base_url()?>guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
                 
               </figure>
               <div class="media-body">
@@ -232,7 +232,7 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/24.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/24.jpg); ">
                 <div class="overlap-text">
                   <span>
                     Restaurant
@@ -240,7 +240,7 @@
                 </div>
             </a>
 
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/20.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/20.jpg); ">
                 <div class="overlap-text">
                   <span>
                     Venue 3
@@ -252,7 +252,7 @@
       </div>
     </section>
 
-    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -276,14 +276,14 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/wedding.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url()?>guest/images/wedding.jpg); ">
                 <div class="overlap-text">
                   <span>
                     
                   </span>
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/meeting.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url()?>guest/images/meeting.jpg); ">
                 <div class="overlap-text">
                   <span>
                      
@@ -294,7 +294,7 @@
         </div>
       </div>
     </section>
-    <section class="site-section "style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+    <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
         <div class="row mb-5">
           <div class="col-md-12 heading-wrap text-center">
@@ -305,7 +305,7 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="/guest/images/MahaltaPic/19.jpg" alt="Generic placeholder image" class="img-fluid">
+                <img src="<?=base_url()?>guest/images/MahaltaPic/19.jpg" alt="Generic placeholder image" class="img-fluid">
                 <div class="overlap-text">  
                 </div>
               </figure>
@@ -318,11 +318,11 @@
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(/guest/images/MahaltaPic/18.jpg); ">
+            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/18.jpg); ">
                 <div class="overlap-text">
                 </div>
             </a>
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(/guest/images/MahaltaPic/17.jpg); ">
+            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/17.jpg); ">
                 <div class="overlap-text">
                 </div>
             </a>
@@ -330,7 +330,7 @@
         </div>
       </div>
     </section>
-    <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(/guest/images/MahaltaPic/25.jpg);">
+    <section class="section-cover" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/25.jpg);">
       <div class="container">
         <div class="row justify-content-center align-items-center intro">
           <div class="col-md-9 text-center element-animate">
@@ -342,7 +342,7 @@
       </div>
     </section>
     <?php if(session()->get('isLoggedIn')): ?>
-<section class="testimonial-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+<section class="testimonial-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-12 heading-wrap text-center">
@@ -451,7 +451,7 @@
 </div>
 
 <?php else: ?>
-  <section class="testimonial-section" style="background-image: url(/guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
+  <section class="testimonial-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-12 heading-wrap text-center">
@@ -767,18 +767,18 @@ onMessage(messaging, (payload) => {
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>
     <?php include('inc/news.php') ?>
-    <script src="/guest/js/jquery-3.2.1.min.js"></script>
-    <script src="/guest/js/jquery-migrate-3.0.0.js"></script>
-    <script src="/guest/js/popper.min.js"></script>
-    <script src="/guest/js/bootstrap.min.js"></script>
-    <script src="/guest/js/owl.carousel.min.js"></script>
-    <script src="/guest/js/jquery.waypoints.min.js"></script>
-    <script src="/guest/js/jquery.stellar.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>
+    <script src="<?=base_url()?>guest/js/popper.min.js"></script>
+    <script src="<?=base_url()?>guest/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>guest/js/owl.carousel.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.waypoints.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.stellar.min.js"></script>
 
-    <script src="/guest/js/jquery.magnific-popup.min.js"></script>
-    <script src="/guest/js/magnific-popup-options.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.magnific-popup.min.js"></script>
+    <script src="<?=base_url()?>guest/js/magnific-popup-options.js"></script>
 
-    <script src="/guest/js/main.js"></script>
+    <script src="<?=base_url()?>guest/js/main.js"></script>
     <script>
       
     </script>

@@ -25,16 +25,16 @@
 
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Rubik:300,400,700" rel="stylesheet">
 
-    <link rel="stylesheet" href="/guest/css/bootstrap.css">
-    <link rel="stylesheet" href="/guest/css/animate.css">
-    <link rel="stylesheet" href="/guest/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/animate.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/owl.carousel.min.css">
 
-    <link rel="stylesheet" href="/guest/fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="/guest/fonts/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="/guest/css/magnific-popup.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/magnific-popup.css">
 
     <!-- Theme Style -->
-    <link rel="stylesheet" href="/guest/css/style.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/style.css">
     <?= $this->renderSection('stylesheets') ?>
 </head>
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
@@ -74,18 +74,18 @@
 <?php include('inc/footer.php') ?>
 <?php include('inc/loader.php') ?>
 
-<script src="/guest/js/jquery-3.2.1.min.js"></script>
-<script src="/guest/js/jquery-migrate-3.0.0.js"></script>
-<script src="/guest/js/popper.min.js"></script>
-<script src="/guest/js/bootstrap.min.js"></script>
-<script src="/guest/js/owl.carousel.min.js"></script>
-<script src="/guest/js/jquery.waypoints.min.js"></script>
-<script src="/guest/js/jquery.stellar.min.js"></script>
+<script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
+<script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>
+<script src="<?=base_url()?>guest/js/popper.min.js"></script>
+<script src="<?=base_url()?>guest/js/bootstrap.min.js"></script>
+<script src="<?=base_url()?>guest/js/owl.carousel.min.js"></script>
+<script src="<?=base_url()?>guest/js/jquery.waypoints.min.js"></script>
+<script src="<?=base_url()?>guest/js/jquery.stellar.min.js"></script>
 
-<script src="/guest/js/jquery.magnific-popup.min.js"></script>
-<script src="/guest/js/magnific-popup-options.js"></script>
+<script src="<?=base_url()?>guest/js/jquery.magnific-popup.min.js"></script>
+<script src="<?=base_url()?>guest/js/magnific-popup-options.js"></script>
 
-<script src="/guest/js/main.js"></script>
+<script src="<?=base_url()?>guest/js/main.js"></script>
 
 <script>
     $('body').scrollspy({ target: '.site-navbar-target' });
