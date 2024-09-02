@@ -63,9 +63,9 @@
     <section class="content">
       <div class="card card-solid">
         <div class="card-body pb-0">
-        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addnewsModal">
+<!--         <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addnewsModal">
             Add
-          </button>
+          </button> -->
           <div class="row">
           <?php foreach ($news as $new): ?>
             <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">

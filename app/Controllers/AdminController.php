@@ -1626,9 +1626,9 @@ class AdminController extends BaseController
                 unlink($imagePath);
             }
             $this->venues->delete($id);
-            return redirect()->to('/admin-convention/service')->with('status', 'Room deleted successfully');
+            return redirect()->to('/admin-restaurant/service')->with('status', 'Room deleted successfully');
         } else {
-            return redirect()->to('/admin-convention/service')->with('error', 'Room not found');
+            return redirect()->to('/admin-restaurant/service')->with('error', 'Room not found');
         }
     }
     public function updateserviceTable()

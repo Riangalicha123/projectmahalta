@@ -307,7 +307,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Main Menu</h3>
+                <h3 class="card-title">Rooms</h3>
               </div>
               <div class="card card-solid">
                 <div class="card-body pb-0">
