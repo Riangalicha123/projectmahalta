@@ -32,6 +32,7 @@ use App\Models\RoomInventoryModel;
 use App\Models\NewsModel;
 use App\Models\ReservationAmenities;
 use App\Models\ConventionModel;
+use App\Models\WalkInModel;
 use CodeIgniter\API\ResponseTrait;
 use DateTime;
 
@@ -67,6 +68,7 @@ class AdminController extends BaseController
     private $news;
     private $reseraminities;
     private $conventions;
+    private $walkins;
     function __construct()
     {
         helper(['form']);
@@ -98,6 +100,7 @@ class AdminController extends BaseController
         $this->news = new NewsModel();
         $this->reseraminities = new ReservationAmenities();
         $this->conventions = new ConventionModel();
+        $this->walkins = new WalkInModel();
     }
     public function index()
     {
@@ -2133,4 +2136,487 @@ class AdminController extends BaseController
         }
         return $this->response->setJSON($data);
     }
+    public function walkin()
+    {
+        $data = [
+            'adminRoutes' => 'walkin',
+            'rooms' => $this->rooms->findAll(),
+            'roominventory' => $this->roominventory->findAll(),
+            'walkins' => $this->walkins
+                ->select('walkin.walkinID,walkin.RoomID, rooms.RoomID, rooms.RoomType, rooms.RoomNumber, walkin.roominventoryID, room_inventory.ProductName, room_inventory.Quantity, walkin.FirstName, walkin.LastName, walkin.ContactNumber,walkin.CheckIn, walkin.CheckOut, walkin.Adult, walkin.Child, walkin.TotalAmount')
+                ->join('rooms', 'walkin.RoomID = rooms.RoomID')
+                ->join('room_inventory', 'walkin.roominventoryID = room_inventory.roominventoryID')
+                ->findAll()
+        ];
+        return view('Admin/WalkIn/hotel', $data);
+    }
+    public function getDataa()
+    {
+        $session = \Config\Services::session();
+        $checkInDate = $this->request->getGet('CheckIn');
+        $checkOutDate = $this->request->getGet('CheckOut');
+        $numberOfAdults = $this->request->getGet('Adult');
+        $numberOfChildren = $this->request->getGet('Child');
+        $reservationData = [
+            'CheckIn' => $checkInDate,
+            'CheckOut' => $checkOutDate,
+            'Adult' => $numberOfAdults,
+            'Child' => $numberOfChildren,
+        ];
+        $session->set('reservationData', $reservationData);
+        $roomModel = new RoomModel();
+        $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
+        return view('Admin/WalkIn/hotel', [
+            'reservationData' => $reservationData,
+            'availableRooms' => $availableRooms,
+            'adminRoutes' => 'walkin',
+            'roomimages' => $this->roomimages
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
+            'rooms' => $this->rooms->findAll(),
+        ]);
+    }
+    public function getdataRoomm()
+    {
+        $session = \Config\Services::session();
+        $selectedRoomID = $this->request->getGet('selectedRoomID');
+        $checkInFieldName = 'CheckIn' . $selectedRoomID;
+        $checkOutFieldName = 'CheckOut' . $selectedRoomID;
+        $checkInDate = $this->request->getGet($checkInFieldName);
+        $checkOutDate = $this->request->getGet($checkOutFieldName);
+        $reservationData = $session->get('reservationData');
+        $numberOfAdults = $reservationData['Adult'] ?? 0;
+        $numberOfChildren = $reservationData['Child'] ?? 0;
+        $addAdult = $this->request->getGet('addAdult');
+        $addChild = $this->request->getGet('addChild');
+        $addAdult = max(0, (int) $addAdult);
+        $addChild = max(0, (int) $addChild);
+        $numberOfAdults += $addAdult;
+        $numberOfChildren += $addChild;
+        $roomModel = new RoomModel;
+        $availableRooms = $roomModel->findAvailableRooms($checkInDate, $checkOutDate, $numberOfAdults, $numberOfChildren);
+        $roomSelected = null;
+        $TotalAmount = 0;
+        if (!empty($selectedRoomID)) {
+            $roomSelected = $roomModel->find($selectedRoomID);
+            if (!empty($roomSelected) && $roomSelected['AvailabilityStatus'] === 'Available') {
+                if (!empty($checkInDate) && !empty($checkOutDate)) {
+                    $checkInDateTime = new \DateTime($checkInDate);
+                    $checkOutDateTime = new \DateTime($checkOutDate);
+                    $numberOfNights = $checkInDateTime->diff($checkOutDateTime)->days;
+                    if ($roomSelected['PerNightHead'] === 'Head') {
+                        $totalGuests = $numberOfAdults + $numberOfChildren;
+                        $TotalAmount = $totalGuests * $roomSelected['PricePerNight'] * $numberOfNights;
+                    } else {
+                        $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+                    }
+                    $additionalAmount = ($addAdult + $addChild) * 500;
+                    $TotalAmount += $additionalAmount;
+                    $totalGuests = (int) $numberOfAdults + (int) $numberOfChildren;
+                }
+                $addAdult = $this->request->getGet('addAdult' . $selectedRoomID);
+                $addChild = $this->request->getGet('addChild' . $selectedRoomID);
+                $numberOfAdults += (int)$addAdult;
+                $numberOfChildren += (int)$addChild;
+                $extraGuestAmount = ($addAdult + $addChild) * 500;
+                $TotalAmount += $extraGuestAmount;
+                $session->set('roomSelected', $roomSelected);
+                $session->set('reservationData', [
+                    'CheckIn' => $checkInDate,
+                    'CheckOut' => $checkOutDate,
+                    'Adult' => $numberOfAdults,
+                    'Child' => $numberOfChildren,
+                    'TotalAmount' => $TotalAmount
+                ]);
+            }
+        }
+        return view('Admin/WalkIn/hotel', [
+            'reservationData' => $session->get('reservationData'),
+            'availableRooms' => $availableRooms,
+            'roomSelected' => $roomSelected,
+            'TotalAmount' => $TotalAmount,
+            'adminRoutes' => 'walkin',
+            'roomimages' => $this->roomimages
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson,  rooms.Image, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
+            'rooms' => $this->rooms->findAll(),
+        ]);
+    }
+    public function getdataRoomReservationn()
+    {
+        $session = \Config\Services::session();
+        $reservationData = $session->get('reservationData');
+        $roomSelected = $session->get('roomSelected');
+    
+        if (!empty($reservationData) && !empty($roomSelected)) {
+            $checkInDate = new \DateTime($reservationData['CheckIn']);
+            $checkOutDate = new \DateTime($reservationData['CheckOut']);
+            $numberOfNights = $checkInDate->diff($checkOutDate)->days;
+            $TotalAmount = 0;
+    
+            if ($roomSelected['PerNightHead'] === 'Head') {
+                $numberOfAdults = (int) $reservationData['Adult'];
+                $numberOfChildren = (int) $reservationData['Child'];
+                $totalGuests = $numberOfAdults + $numberOfChildren;
+                $TotalAmount = $totalGuests * $roomSelected['PricePerNight'] * $numberOfNights;
+            } else {
+                $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
+            }
+    
+            $addAdult = $this->request->getGet('addAdult');
+            $addChild = $this->request->getGet('addChild');
+            $addAdult = max(0, (int) $addAdult);
+            $addChild = max(0, (int) $addChild);
+            $extraGuestAmount = ($addAdult + $addChild) * 500;
+            $TotalAmount += $extraGuestAmount;
+    
+            $numberOfAdults = (int) $reservationData['Adult'];
+            $numberOfChildren = (int) $reservationData['Child'];
+            $totalGuests = $numberOfAdults + $numberOfChildren;
+    
+            if ($totalGuests > $roomSelected['maxPerson']) {
+                $additionalGuests = $totalGuests - $roomSelected['maxPerson'];
+                $TotalAmount += $additionalGuests * 500;
+            }
+    
+            $session->set('roomReservationData', [
+                'reservationData' => $reservationData,
+                'roomSelected' => $roomSelected,
+                'TotalAmount' => $TotalAmount,
+            ]);
+    
+            // Return the view instead of redirecting
+            return view('Admin/WalkIn/amenities', [
+                'reservationData' => $reservationData,
+                'roomSelected' => $roomSelected,
+                'TotalAmount' => $TotalAmount,
+                'adminRoutes' => 'walkin',
+                'roinvents' => $this->roominventory->findAll(),
+            ]);
+        } else {
+            return redirect()->to(base_url('/error'));
+        }
+    }
+    
+    public function amenitiess()
+    {
+        $session = \Config\Services::session();
+        $roomReservationData = $session->get('roomReservationData');
+        $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
+        $fullPaymentAmount = $roomReservationData['TotalAmount'];
+        $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
+        $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
+        $data = [
+            'adminRoutes' => 'walkin',
+            'roinvents' => $this->roominventory->findAll(),
+            'roomReservationData' => $roomReservationData,
+        ];
+        return view('Admin/WalkIn/amenities', $data);
+    }
+    public function addAmenitiess()
+    {
+        $session = \Config\Services::session();
+        $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
+        $insertQuantities = $this->request->getPost('insertQuantity');
+        $roinvents = $this->request->getPost('roinvents');
+        $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
+    
+        // Handle "Skip" functionality
+        if ($skipAmenities) {
+            // Clear any existing amenities data
+            $session->remove('amenitiesData');
+            
+            // Redirect to form details without adding amenities
+            return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails'));
+        }
+    
+        // Proceed if not skipping amenities
+        $amenitiesData = [];
+    
+        if (!empty($roomInventoryIDs)) {
+            foreach ($roomInventoryIDs as $index => $roomInventoryID) {
+                if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
+                    $productName = isset($roinvents[$roomInventoryID]['ProductName']) ? $roinvents[$roomInventoryID]['ProductName'] : 'Unknown Product';
+                    $price = isset($roinvents[$roomInventoryID]['Price']) ? $roinvents[$roomInventoryID]['Price'] : 'Unknown Price';
+                    $insertQuantity = isset($insertQuantities[$roomInventoryID]) ? $insertQuantities[$roomInventoryID] : 0;
+                    $amenitiesData[] = [
+                        'roomInventoryID' => $roomInventoryID,
+                        'ProductName' => $productName,
+                        'Price' => $price,
+                        'insertQuantity' => $insertQuantity,
+                    ];
+                }
+            }
+    
+            // Store amenities in session
+            $session->set('amenitiesData', $amenitiesData);
+    
+            // Calculate total extra price
+            $totalExtraPrice = 0;
+            if (!empty($amenitiesData)) {
+                foreach ($amenitiesData as $amenity) {
+                    $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
+                }
+            }
+    
+            // Update total amount in reservation data
+            $roomReservationData = $session->get('roomReservationData');
+            $roomReservationData['TotalAmount'] += $totalExtraPrice;
+            $session->set('roomReservationData', $roomReservationData);
+    
+            // Redirect to form details
+            return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails'));
+        } else {
+            // No amenities selected, redirect with an error if not skipped
+            return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/'))
+                ->with('error', 'Please select at least one amenity or skip.');
+        }
+    }
+    
+    public function formdetailss()
+    {
+        $session = \Config\Services::session();
+        $userID = $session->get('userID');
+        $amenitiesData = $session->get('amenitiesData');
+        $roomReservationData = $session->get('roomReservationData');
+        $totalExtraPrice = 0;
+    
+        // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
+        if (isset($amenitiesData) && !empty($amenitiesData)) {
+            foreach ($amenitiesData as &$amenity) {
+                $amenity['UserID'] = $userID;
+                $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
+            }
+        }
+    
+        // The TotalAmount was already updated in the addAmenities function.
+        // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
+        $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
+        $fullPaymentAmount = $roomReservationData['TotalAmount'];
+        $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
+        $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
+    
+        // Update the session with the new reservation data
+        $session->set('roomReservationData', $roomReservationData);
+    
+        $data = [
+            'adminRoutes' => 'walkin',
+            'rooms' => $this->rooms
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType,rooms.Description,rooms.PricePerNight,rooms.AvailabilityStatus,rooms.Image')
+                ->findAll(),
+            'qrcodes' => $this->qr->findAll(),
+            'roomReservationData' => $roomReservationData,
+            'amenitiesData' => $amenitiesData,
+            'totalExtraPrice' => $totalExtraPrice, // Total for amenities, but not added to TotalAmount again
+        ];
+    
+        return view('Admin/WalkIn/checkout', $data);
+    }
+    public function addReservationn()
+{
+    helper(['form']);
+    $session = session();
+    $roomSelected = $session->get('roomSelected');
+    $reservationData = $session->get('reservationData');
+    $amenitiesData = $session->get('amenitiesData');
+    $totalExtraPrice = $session->get('totalExtraPrice');
+    $roomReservationData = $session->get('roomReservationData');
+    $TotalAmount = $roomReservationData['TotalAmount'] + $totalExtraPrice;
+    $skipAmenities = $this->request->getGet('skip') === 'true';
+
+    if ($roomSelected && $reservationData && $TotalAmount) {
+        $checkInTime = '14:00:00'; // 2:00 PM
+        $checkOutTime = '12:00:00'; // 12:00 PM
+        $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
+        $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
+        $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
+
+        // Loop through amenities and insert each one with reservation data
+        if (!$skipAmenities && $amenitiesData) {
+            foreach ($amenitiesData as $amenity) {
+                // Prepare reservation data with amenities
+                $newReservationData = [
+                    'FirstName' => $this->request->getVar('FirstName'),
+                    'LastName' => $this->request->getVar('LastName'),
+                    'ContactNumber' => $this->request->getVar('ContactNumber'),
+                    'CheckIn' => $checkInDateTime,
+                    'CheckOut' => $checkOutDateTime,
+                    'Adult' => $reservationData['Adult'],
+                    'Child' => $reservationData['Child'],
+                    'RoomID' => $roomSelected['RoomID'],
+                    'TotalAmount' => $TotalAmount,
+                    'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
+                    'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
+                ];
+
+                $inserted = $this->walkins->insert($newReservationData);
+
+                if ($inserted) {
+                    // Update room inventory quantity
+                    $roomInventoryID = $amenity['roomInventoryID'];
+                    $insertQuantity = $amenity['insertQuantity'];
+                    $roomInventory = $this->roominventory->find($roomInventoryID);
+                    if ($roomInventory) {
+                        $currentQuantity = $roomInventory['Quantity'];
+                        $newQuantity = $currentQuantity - $insertQuantity;
+                        $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
+                    }
+                } else {
+                    return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                }
+            }
+        } else {
+            // If amenities are skipped, insert reservation without amenities
+            $newReservationData = [
+                'FirstName' => $this->request->getVar('FirstName'),
+                'LastName' => $this->request->getVar('LastName'),
+                'ContactNumber' => $this->request->getVar('ContactNumber'),
+                'CheckIn' => $checkInDateTime,
+                'CheckOut' => $checkOutDateTime,
+                'Adult' => $reservationData['Adult'],
+                'Child' => $reservationData['Child'],
+                'RoomID' => $roomSelected['RoomID'],
+                'TotalAmount' => $TotalAmount,
+                'roomInventoryID' => null, // No amenities, so set to null
+                'insertQuantity' => null,  // No amenities, so set to null
+            ];
+
+            $this->walkins->insert($newReservationData);
+        }
+
+        // Set success message and redirect
+        $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
+        return redirect()->to('/admin-hotel/walkin');
+    } else {
+        return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
+    }
+}
+public function updateReservationn($walkinID)
+{
+    helper(['form']);
+
+    // Apply validation rules
+    $validation = \Config\Services::validation();
+
+    $validation->setRules([
+        'FirstName'      => 'required|min_length[2]',
+        'LastName'       => 'required|min_length[2]',
+        'ContactNumber'  => 'required|numeric|min_length[10]',
+        'CheckIn'        => 'required|valid_date',
+        'CheckOut'       => 'required|valid_date',
+        'Adult'          => 'required|numeric',
+        'Child'          => 'required|numeric',
+        'TotalAmount'    => 'required|numeric',
+        'RoomType'       => 'required'
+    ]);
+
+    if (!$validation->withRequest($this->request)->run()) {
+        // Redirect back with validation errors
+        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
+    }
+
+    $roomType = $this->request->getPost('RoomType');
+    $roomData = $this->rooms->where('RoomType', $roomType)->first();
+
+    if ($roomData) {
+        // Common data for walkin record
+        $WalkInn = [
+            'FirstName'      => $this->request->getPost('FirstName'),
+            'LastName'       => $this->request->getPost('LastName'),
+            'ContactNumber'  => $this->request->getPost('ContactNumber'),
+            'CheckIn'        => $this->request->getPost('CheckIn'),
+            'CheckOut'       => $this->request->getPost('CheckOut'),
+            'Adult'          => $this->request->getPost('Adult'),
+            'Child'          => $this->request->getPost('Child'),
+            'TotalAmount'    => $this->request->getPost('TotalAmount'),
+            'RoomID'         => $roomData['RoomID'],
+        ];
+
+        // Handle room inventory insert for multiple selections
+        $roomInventoryIDs = $this->request->getPost('roomInventoryID');
+        $insertQuantities = $this->request->getPost('insertQuantity');
+
+        if ($roomInventoryIDs && $insertQuantities) {
+            // Delete existing records with the same details
+            $this->walkins->where($WalkInn)->delete();
+
+            // Insert new records for each selected inventory
+            foreach ($roomInventoryIDs as $inventoryID) {
+                $quantity = $insertQuantities[$inventoryID] ?? 0;
+
+                // Create a new walkin record for each selected inventory
+                $inventoryData = array_merge($WalkInn, [
+                    'roomInventoryID' => $inventoryID,
+                    'insertQuantity'  => $quantity
+                ]);
+
+                // Insert a new record into the walkins table
+                $this->walkins->insert($inventoryData);
+            }
+        } else {
+            // Handle no inventory selection
+            // Delete all records with the same details
+            $this->walkins->where($WalkInn)->delete();
+
+            // Insert a record with NULL values for inventory
+            $WalkInn['roomInventoryID'] = NULL;
+            $WalkInn['insertQuantity'] = NULL;
+
+            // Insert the new record into the walkins table
+            $this->walkins->insert($WalkInn);
+        }
+
+        return redirect()->to(base_url('/admin-hotel/walkin-records'))->with('success', 'Reservation updated successfully.');
+    } else {
+        return redirect()->back()->withInput()->with('error', 'Invalid Room Type. Please check your input.');
+    }
+}
+
+
+    public function walkinRecords()
+    {
+        $data = [
+            'adminRoutes' => 'walkinrecords',
+            'roomInventories' => $this->roominventory->findAll(),
+            'walkins' => $this->walkins
+                ->select('
+                    MAX(walkin.walkinID) as walkinID,
+                    walkin.RoomID,
+                    rooms.RoomType,
+                    rooms.RoomNumber,
+                    walkin.FirstName,
+                    walkin.LastName,
+                    walkin.ContactNumber,
+                    walkin.CheckIn,
+                    walkin.CheckOut,
+                    walkin.Adult,
+                    walkin.Child,
+                    walkin.TotalAmount,
+                    IFNULL(GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", "), "N/A") as ProductNames,
+                    IFNULL(GROUP_CONCAT(walkin.insertQuantity ORDER BY room_inventory.ProductName SEPARATOR ", "), "N/A") as InsertQuantities
+                ')
+                ->join('rooms', 'walkin.RoomID = rooms.RoomID')
+                ->join('room_inventory', 'room_inventory.roomInventoryID = walkin.roomInventoryID', 'left')
+                ->groupBy([
+                    'walkin.RoomID',
+                    'walkin.FirstName',
+                    'walkin.LastName',
+                    'walkin.ContactNumber',
+                    'walkin.CheckIn',
+                    'walkin.CheckOut',
+                    'walkin.Adult',
+                    'walkin.Child',
+                    'walkin.TotalAmount',
+                    'rooms.RoomType',
+                    'rooms.RoomNumber'
+                ])
+                ->findAll()
+        ];
+        return view('Admin/WalkIn/records', $data);
+    }
+    
 }

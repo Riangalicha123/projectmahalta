@@ -1,8 +1,10 @@
-<!doctype html>
-<html lang="en">
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Mahalta</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mahalta Admin</title>
       <!-- Site favicon -->
       <link
 			rel="apple-touch-icon"
@@ -21,124 +23,110 @@
 			sizes="16x16"
 			href="<?=base_url()?>guest/images/mahaltalogooo.png"
 		/>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Rubik:300,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="<?=base_url()?>guest/css/bootstrap.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/css/animate.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/fonts/ionicons/css/ionicons.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/fonts/fontawesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/css/magnific-popup.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css">
-  <link rel="stylesheet" href="<?=base_url()?>guest/css/style.css">
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?=base_url()?>admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?=base_url()?>admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?=base_url()?>admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js">
   <style>
-    .popover {
-      max-width: 100%;
-      width: auto !important;
-    }
+    /* Form Container */
+.room {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  max-width: 1000px;
+  margin: 0 auto;
+  transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth transition for hover effects */
+}
 
-    .circle {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 30px;
-      background-color: #ccc;
-      color: #fff;
-      border: 2px solid #ccc;
-      margin-right: 5px;
-    }
+/* Hover effect */
+.room:hover {
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3); /* Increased shadow for hover effect */
+  transform: scale(1.02); /* Slightly scale up the container */
+}
 
-    .number {
-      font-size: 20px;
-      border: 2px solid #ccc;
-      padding: 3px;
-    }
+/* Labels */
+label {
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
 
-    .btn-secondary .circle {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-
-    .btn-secondary .circle:hover {
-      background-color: #5a6268;
-      border-color: #5a6268;
-    }
-
-/* Sticky footer for mobile */
-@media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  } 
-
-  .col-md-7, .col-md-5 {
-    flex: 0 0 100%;
-    max-width: 100%;
-    padding: 0;
-  }
-
-  .selected-room-details {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #fff;
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-  }
-
-  .selected-room-details .details-content {
-    display: none;
-    padding: 15px;
-  }
-
-  .selected-room-details .toggle-arrow {
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-  }
-  .toggle-arrow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+/* Input Fields */
+input[type="number"] {
+  background-color: #f2f2f2;
+  border: 1px solid darkgray;
+  color: #333;
   padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Button */
+button[type="submit"] {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
   cursor: pointer;
-  background-color: #007bff;
-  color: #fff;
+  transition: background-color 0.3s ease;
 }
 
-.price-per-night {
-  margin-left: 10px;
-}
-
-
-
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
   </style>
 </head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<div class="wrapper">
+<?php include(__DIR__ . '/../../Admin/include/loader.php'); ?>
+  <?php include(__DIR__ . '/../../Admin/include/navbar.php'); ?>
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <?php include(__DIR__ . '/../../Admin/include/logo.php'); ?>
+    <?php include(__DIR__ . '/../../Admin/include/sidebar.php'); ?>
+  </aside>
 
-<body>
-  <?php include('inc/header.php') ?>
-  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
-  <div class="container">
-    <div class="row align-items-center site-hero-inner justify-content-center">
-     
-      <div class="col-md-12 text-center">
-      <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
-    <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
-</div>
-        <div class="container">
-          <div class="row">
+
+  <div class="content-wrapper">
+  <div id="flash-message" style="display:none;">
+    <div class="alert alert-success">
+      <strong>Success!</strong> <span id="flash-message-content"></span>
+    </div>
+  </div>
+  <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Walk In</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="<?route_to('admin-dashboard')?>">Home</a></li>
+              <li class="breadcrumb-item active">Walk In</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="content">
+        <div class="content-fluid">
+        <div class="row">
             <div class="col-sm-12">
               <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="media-body">
-                  <form action="<?= base_url('/bookroom/submit') ?>" method="get">
+                  <form action="<?= base_url('/admin-hotel/walkin-availability') ?>" method="get">
                     <div class="row">
                       <div class="col-sm-3 form-group"></div>
                       <div class="col-md-3 form-group">
@@ -151,8 +139,8 @@
                       </div>
                       <div class="col-sm-3 form-group"></div>
                     </div>
-                    <input type="hidden" id="CheckInDate" name="CheckInDate">
-                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                    <input type="hidden" id="CheckIn" name="CheckIn">
+                    <input type="hidden" id="CheckOut" name="CheckOut">
                     <div class="row">
                       <div class="col-md-12 form-group text-center">
                         <button type="submit" class="btn btn-primary">Check Availability</button>
@@ -164,18 +152,13 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
-<section class="site-section" style="background: #FAF2D3;">
-  <div class="container">
-    <div class="row">
+    </section>
+    <section class="content">
+      <div class="container-fluid">
+      <div class="row">
       <div class="col-md-6">
         <h2 class="mb-5">Available Reservation Rooms</h2>
-        <form action="<?= base_url('getdataRoom') ?>" method="GET">
+        <form action="<?= base_url('admin-hotel/walkin-availability/dataroom') ?>" method="GET">
           <div class="row">
             <?php if (!empty($availableRooms)) : ?>
               <?php foreach ($availableRooms as $room) : ?>
@@ -255,8 +238,8 @@
                             <button type="button" class="btn btn-primary" disabled>Select</button>
                           <?php else : ?>
                             <input type="text" id="dateRange<?= $room['RoomID'] ?>" class="form-control" placeholder="Select dates">
-                            <input type="hidden" id="CheckInDate<?= $room['RoomID'] ?>" name="CheckInDate<?= $room['RoomID'] ?>">
-                            <input type="hidden" id="CheckOutDate<?= $room['RoomID'] ?>" name="CheckOutDate<?= $room['RoomID'] ?>">
+                            <input type="hidden" id="CheckIn<?= $room['RoomID'] ?>" name="CheckIn<?= $room['RoomID'] ?>">
+                            <input type="hidden" id="CheckOut<?= $room['RoomID'] ?>" name="CheckOut<?= $room['RoomID'] ?>">
                             <h6 style="color: black font-size: 5px;">Note: If you want to add more guests on the reservation, you must need to occupy the maximum guests based on room availability of the room. Extra person/s will be charged with PHP 500.00 per head.</h6>
                               <div>
                           <label for="addAdult" style="color: black; font-size: 18px; font-weight: bold;">Add Adult</label>
@@ -287,13 +270,10 @@
       </div>
       <div class="col-md-5">
         <div class="selected-room-details">
-          <div class="toggle-arrow">
-            ▼ <span class="room-type">Room</span>
-              <span class="price-per-night">PHP 0.00</span>
-          </div>
+
           <div class="details-content">
           <h2 class="mb-3">Selected Room Details</h2>
-            <form action="<?= base_url('/bookroom/getdataRoom') ?>" method="get">
+            <form action="<?= base_url('/admin-hotel/walkin-availability/dataroomreservation') ?>" method="get">
               <?php if (!empty($roomSelected)) : ?>
                 <div class="media d-block room mb-0">
                   <figure style="margin: 0;width: 100%; height: auto; display: block;">
@@ -309,8 +289,8 @@
                     <h3 class="mt-0"><a href="#"><?= esc($roomSelected['RoomType'] ?? '') ?></a></h3>
                     <h5 class="mt-0"><a href="#">PHP <?= esc($roomSelected['PricePerNight'] ?? '') ?></a></h5>
                     <?php if (isset($reservationData)) : ?>
-                      <p>Check-in Date: <?= esc($reservationData['CheckInDate'] ?? '') ?></p>
-                      <p>Check-out Date: <?= esc($reservationData['CheckOutDate'] ?? '') ?></p>
+                      <p>Check-in Date: <?= esc($reservationData['CheckIn'] ?? '') ?></p>
+                      <p>Check-out Date: <?= esc($reservationData['CheckOut'] ?? '') ?></p>
                       <p>Number of Adults: <?= esc($reservationData['Adult'] ?? '') ?></p>
                       <p>Number of Kids: <?= esc($reservationData['Child'] ?? '') ?></p>
                       <h5><b>Total Amount: PHP:</b> <?= number_format($TotalAmount, 2) ?></h5>
@@ -327,79 +307,50 @@
         </div>
       </div>
     </div>
+      </div>
+    </section>
   </div>
-</section>
 
-  <?php include('inc/footer.php') ?>
-  <?php include('inc/loader.php') ?>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var toggleArrow = document.querySelector('.toggle-arrow');
-      var detailsContent = document.querySelector('.details-content');
-      var roomType = document.querySelector('.room-type');
-      var pricePerNight = document.querySelector('.price-per-night');
+  <?php include(__DIR__ . '/../../Admin/include/footer.php'); ?>
+  <aside class="control-sidebar control-sidebar-dark">
+  </aside>
+</div>
+<script>
+// Check if session has flashdata
+document.addEventListener('DOMContentLoaded', function() {
+    <?php if (session()->getFlashdata('success')) : ?>
+        var flashMessage = '<?= session()->getFlashdata('success') ?>';
+        document.getElementById('flash-message-content').innerHTML = flashMessage;
+        document.getElementById('flash-message').style.display = 'block';
 
-      // Set initial price per night if roomSelected is not empty
-      <?php if (!empty($roomSelected)) : ?>
-        pricePerNight.textContent = 'PHP <?= esc($roomSelected['PricePerNight'] ?? '0.00') ?>';
-        roomType.textContent = '<?= esc($roomSelected['RoomType'] ?? 'Room') ?>';
-      <?php endif; ?>
-
-      toggleArrow.addEventListener('click', function() {
-        if (detailsContent.style.display === 'none' || detailsContent.style.display === '') {
-          detailsContent.style.display = 'block';
-          toggleArrow.textContent = '▲';
-          toggleArrow.appendChild(pricePerNight);
-          pricePerNight.style.display = 'none';  // Hide price when arrow is up
-        } else {
-          detailsContent.style.display = 'none';
-          toggleArrow.textContent = '▼';
-          toggleArrow.appendChild(pricePerNight);
-          pricePerNight.style.display = 'inline';  // Show price when arrow is down
-        }
-      });
-    });
-  </script>
-  <script>
-  function validateDateRange(roomID) {
-    var checkInDate = document.getElementById('CheckInDate' + roomID).value;
-    var checkOutDate = document.getElementById('CheckOutDate' + roomID).value;
-    if (!checkInDate || !checkOutDate) {
-      alert('Please select a date range.');
-      return false;
-    }
-    return true;
-  }
+        // Optionally hide the flash message after a few seconds
+        setTimeout(function() {
+            document.getElementById('flash-message').style.display = 'none';
+        }, 5000); // Hide after 5 seconds
+    <?php endif; ?>
+});
 </script>
-  <script>
-    var today = new Date();
-    var arrivalDateInput = document.getElementById('CheckInDate');
-    arrivalDateInput.valueAsDate = today;
-    var tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-    var departureDateInput = document.getElementById('CheckOutDate');
-    departureDateInput.valueAsDate = tomorrow;
-  </script>
-  <script>
-    var viewMoreButtons = document.querySelectorAll('.viewMoreBtn');
-    viewMoreButtons.forEach(function(button) {
-      button.addEventListener('click', function() {
-        var parentContainer = button.closest('.room');
-        var detailsDiv = parentContainer.querySelector('.additionalDetails');
-        detailsDiv.style.display = (detailsDiv.style.display === 'none') ? 'block' : 'none';
-      });
-    });
-  </script>
-  <script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
-  <script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>
-  <script src="<?=base_url()?>guest/js/popper.min.js"></script>
-  <script src="<?=base_url()?>guest/js/bootstrap.min.js"></script>
-  <script src="<?=base_url()?>guest/js/owl.carousel.min.js"></script>
-  <script src="<?=base_url()?>guest/js/jquery.waypoints.min.js"></script>
-  <script src="<?=base_url()?>guest/js/jquery.stellar.min.js"></script>
-  <script src="<?=base_url()?>guest/js/jquery.magnific-popup.min.js"></script>
-  <script src="<?=base_url()?>guest/js/magnific-popup-options.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<!-- jQuery -->
+<script src="<?=base_url()?>admin/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="<?=base_url()?>admin/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="<?=base_url()?>admin/dist/js/adminlte.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="<?=base_url()?>admin/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/jszip/jszip.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/pdfmake/pdfmake.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/pdfmake/vfs_fonts.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="<?=base_url()?>admin/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       function formatDate(date) {
@@ -419,8 +370,8 @@
         onClose: function(selectedDates) {
           if (selectedDates.length === 2) {
             const [checkInDate, checkOutDate] = selectedDates;
-            document.getElementById('CheckInDate').value = formatDate(checkInDate);
-            document.getElementById('CheckOutDate').value = formatDate(checkOutDate);
+            document.getElementById('CheckIn').value = formatDate(checkInDate);
+            document.getElementById('CheckOut').value = formatDate(checkOutDate);
           }
         }
       });
@@ -440,8 +391,8 @@
                 const offset = selectedDates[0].getTimezoneOffset() * 60000; 
                 const adjustedStart = new Date(selectedDates[0].getTime() - offset).toISOString().slice(0, 10);
                 const adjustedEnd = new Date(selectedDates[1].getTime() - offset).toISOString().slice(0, 10);
-                document.getElementById('CheckInDate<?= $room['RoomID'] ?>').value = adjustedStart;
-                document.getElementById('CheckOutDate<?= $room['RoomID'] ?>').value = adjustedEnd;
+                document.getElementById('CheckIn<?= $room['RoomID'] ?>').value = adjustedStart;
+                document.getElementById('CheckOut<?= $room['RoomID'] ?>').value = adjustedEnd;
               }
             }
           });
@@ -449,6 +400,22 @@
       <?php endif ?>
     });
   </script>
-  <script src="<?=base_url()?>guest/js/main.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": [""]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>
 </body>
 </html>

@@ -116,6 +116,29 @@
               </p>
             </a>
           </li>
+          <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'walkin' || $adminRoutes === 'walkinrecords')) ? 'menu-open' : '' ?>">
+              <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'walkin' || $adminRoutes === 'walkinrecords')) ? 'active' : '' ?>" href="#">
+                  <i class="nav-icon fas fa-terminal"></i>
+                  <p>
+                      Guest Walk-In
+                      <i class="fas fa-angle-left right"></i>
+                  </p>
+              </a>
+              <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                      <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'walkin') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/walkin') ?>">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Walk-In</p>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'walkinrecords') ? 'active' : '' ?> " href="<?= route_to('admin-hotel/walkin-records') ?>">
+                          <i class="far fa-circle nav-icon"></i>
+                          <p>Walk-In Records</p>
+                      </a>
+                  </li>
+              </ul>
+          </li>
           <li class="nav-header">REPORT</li>
           <li class="nav-item">
             <a  class="nav-link <?= (isset($adminRoutes) && $adminRoutes === 'report') ? 'active' : '' ?> " href="<?= route_to('admin-report') ?>">

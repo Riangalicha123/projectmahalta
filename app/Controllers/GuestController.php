@@ -326,42 +326,7 @@ class GuestController extends BaseController
             return redirect()->to(base_url('/error'));
         }
     }
-    public function addAmenities()
-    {
-        $session = \Config\Services::session();
-        $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
-        $insertQuantities = $this->request->getPost('insertQuantity');
-        $roinvents = $this->request->getPost('roinvents');
-        $amenitiesData = [];
-        if (!empty($roomInventoryIDs)) {
-            foreach ($roomInventoryIDs as $index => $roomInventoryID) {
-                if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
-                    $productName = isset($roinvents[$roomInventoryID]['ProductName']) ? $roinvents[$roomInventoryID]['ProductName'] : 'Unknown Product';
-                    $price = isset($roinvents[$roomInventoryID]['Price']) ? $roinvents[$roomInventoryID]['Price'] : 'Unknown Price';
-                    $insertQuantity = isset($insertQuantities[$roomInventoryID]) ? $insertQuantities[$roomInventoryID] : 0;
-                    $amenitiesData[] = [
-                        'roomInventoryID' => $roomInventoryID,
-                        'ProductName' => $productName,
-                        'Price' => $price,
-                        'insertQuantity' => $insertQuantity,
-                    ];
-                }
-            }
-            $session->set('amenitiesData', $amenitiesData);
-            $amenitiesData = $session->get('amenitiesData');
-            $totalExtraPrice = 0;
-            if (!empty($amenitiesData)) {
-                foreach ($amenitiesData as $amenity) {
-                    $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
-                }
-            }
-            $roomReservationData = $session->get('roomReservationData');
-            $roomReservationData['TotalAmount'] += $totalExtraPrice;
-            return redirect()->to(base_url('/bookroom/formdetails'));
-        } else {
-            return redirect()->to(base_url('/bookroom/amenities'))->with('error', 'Please select at least one amenity.');
-        }
-    }
+
     public function bookroom()
     {
         if (!session()->get('isLoggedIn')) {
@@ -418,6 +383,61 @@ class GuestController extends BaseController
         ];
         return view('Hotell/amenities', $data);
     }
+    public function addAmenities()
+    {
+        $session = \Config\Services::session();
+        $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
+        $insertQuantities = $this->request->getPost('insertQuantity');
+        $roinvents = $this->request->getPost('roinvents');
+        $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
+    
+        // Handle "Skip" functionality
+        if ($skipAmenities) {
+            // Clear any existing amenities data
+            $session->remove('amenitiesData');
+            
+            // Redirect to form details without adding amenities
+            return redirect()->to(base_url('/bookroom/formdetails'));
+        }
+    
+        // Proceed if not skipping amenities
+        $amenitiesData = [];
+    
+        if (!empty($roomInventoryIDs)) {
+            foreach ($roomInventoryIDs as $index => $roomInventoryID) {
+                if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
+                    $productName = isset($roinvents[$roomInventoryID]['ProductName']) ? $roinvents[$roomInventoryID]['ProductName'] : 'Unknown Product';
+                    $price = isset($roinvents[$roomInventoryID]['Price']) ? $roinvents[$roomInventoryID]['Price'] : 'Unknown Price';
+                    $insertQuantity = isset($insertQuantities[$roomInventoryID]) ? $insertQuantities[$roomInventoryID] : 0;
+                    $amenitiesData[] = [
+                        'roomInventoryID' => $roomInventoryID,
+                        'ProductName' => $productName,
+                        'Price' => $price,
+                        'insertQuantity' => $insertQuantity,
+                    ];
+                }
+            }
+    
+            // Store amenities in session
+            $session->set('amenitiesData', $amenitiesData);
+    
+            // Calculate total extra price
+            $totalExtraPrice = 0;
+            if (!empty($amenitiesData)) {
+                foreach ($amenitiesData as $amenity) {
+                    $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
+                }
+            }
+    
+            // Update total amount in reservation data
+            $roomReservationData = $session->get('roomReservationData');
+            $roomReservationData['TotalAmount'] += $totalExtraPrice;
+            $session->set('roomReservationData', $roomReservationData);
+            return redirect()->to(base_url('/bookroom/formdetails'));
+        } else {
+            return redirect()->to(base_url('/bookroom/amenities'))->with('error', 'Please select at least one amenity.');
+        }
+    }
     public function formdetails()
     {
         if (!session()->get('isLoggedIn')) {
@@ -428,18 +448,24 @@ class GuestController extends BaseController
         $amenitiesData = $session->get('amenitiesData');
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
+    
+        // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
                 $amenity['UserID'] = $userID;
                 $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
             }
         }
-        $roomReservationData['TotalAmount'] += $totalExtraPrice;
-        $session->set('roomReservationData', $roomReservationData);
+    
+        // The TotalAmount was already updated in the addAmenities function.
+        // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
+    
+        // Update the session with the new reservation data
+        $session->set('roomReservationData', $roomReservationData);
         $data = [
             'activePage' => 'Reservation',
             'rooms' => $this->rooms

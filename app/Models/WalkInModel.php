@@ -7,15 +7,15 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 
-class RoomModel extends Model
+class WalkInModel extends Model
 {
-    protected $table            = 'rooms';
-    protected $primaryKey       = 'RoomID';
+    protected $table            = 'walkin';
+    protected $primaryKey       = 'walkinID';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['RoomNumber', 'RoomType', 'Description', 'PricePerNight','PerNightHead', 'minPerson', 'maxPerson', 'AvailabilityStatus', 'Image',];
+    protected $allowedFields    = ['RoomID', 'roomInventoryID', 'FirstName', 'LastName', 'ContactNumber', 'CheckIn', 'CheckOut', 'Adult', 'Child', 'TotalAmount', 'insertQuantity'];
 
     // Dates
     protected $useTimestamps = false;
@@ -114,9 +114,6 @@ class RoomModel extends Model
         
         return $availableRooms;  // Return the complete room details including all unavailable dates
     }
-    public function getRoomTypes()
-    {
-        return $this->distinct()->select('RoomType')->findAll();
-    }
-    
+
 }
+

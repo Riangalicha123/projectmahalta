@@ -180,7 +180,7 @@ foreach ($roinvents as $roinvent):
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary" style="width: 250px;">Submit</button>
-                <a class="btn btn-primary" href="<?= route_to('bookroom/formdetails') ?>?skip=true" style="width: 250px;">Skip</a>
+                <button type="submit" name="skip" value="true" class="btn btn-primary" style="width: 250px;">Skip</button>
             </div>
         </form>
         </div>

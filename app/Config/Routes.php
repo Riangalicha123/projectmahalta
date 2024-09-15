@@ -193,7 +193,17 @@ $routes->get('/resreservation/(:num)', 'AdminController::viewrestaurantReservati
 //Admin-RateManagement
 $routes->get('/admin-rate', 'AdminController::rate', ['filter' => 'adminGuard']);
 $routes->post('/submit-rate-form', 'AdminController::submitRateForm', ['filter' => 'adminGuard']);
-
+//Admin-POS
+$routes->get('/admin-hotel/walkin', 'AdminController::walkin', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability', 'AdminController::getDataa', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroom', 'AdminController::getdataRoomm', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation', 'AdminController::getdataRoomReservationn', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation/amenities', 'AdminController::amenitiess', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/addAmenities', 'AdminController::addAmenitiess', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails', 'AdminController::formdetailss', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails/addReservation', 'AdminController::addReservationn', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails/updateReservation/(:num)', 'AdminController::updateReservationn/$1', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-records', 'AdminController::walkinRecords', ['filter' => 'adminGuard']);
 //Admin-Staff Accounts
 $routes->get('/admin-staffaccounts', 'AdminController::staffAccounts', ['filter' => 'adminGuard']);
 // routes.php

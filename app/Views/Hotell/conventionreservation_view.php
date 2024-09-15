@@ -105,7 +105,7 @@
     <section class="site-section">
         <div class="receipt-container">
             <div class="receipt-header">
-                <h1>Reservation Receipt</h1>
+                <h1>Acknowledge Receipt</h1>
             </div>
             <div class="section">
                 <h2>Guest Information</h2>
