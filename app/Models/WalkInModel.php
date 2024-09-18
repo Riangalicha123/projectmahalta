@@ -15,7 +15,7 @@ class WalkInModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['RoomID', 'roomInventoryID', 'FirstName', 'LastName', 'ContactNumber', 'CheckIn', 'CheckOut', 'Adult', 'Child', 'TotalAmount', 'insertQuantity'];
+    protected $allowedFields    = ['RoomID', 'roomInventoryID', 'FirstName', 'LastName', 'ContactNumber', 'CheckIn', 'CheckOut', 'Adult', 'Child', 'Discount','TotalAmount', 'insertQuantity'];
 
     // Dates
     protected $useTimestamps = false;

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MMahalta Admin</title>
+  <title>Mahalta Admin</title>
       <!-- Site favicon -->
       <link
 			rel="apple-touch-icon"
@@ -141,12 +141,14 @@
                                                 <input type="number" class="form-control" id="Child" name="Child" value="<?= $walkin['Child'] ?>" required>
                                             </div>
                                     </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="TotalAmount">Total Amounts</label>
-                                                <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required value="<?= $walkin['TotalAmount'] ?>">
-                                            </div>
+                                    <div class="form-row">
+                
+                                        <div class="form-group col-md-6">
+                                            <label for="TotalAmount">Total Amount</label>
+                                            <input type="number" class="form-control" id="TotalAmount" name="TotalAmount" required value="<?= $walkin['TotalAmount'] ?>">
                                         </div>
+                                    </div>
+
                                         <!-- ProductName and InsertQuantity Section -->
                         <div class="form-row">
                             <div class="form-group col-md-12">
@@ -218,9 +220,10 @@
                     <th>CheckOut</th>
                     <th>Adult</th>
                     <th>Kid</th>
+                    <th>Discount</th>
                     <th>TotalAmount</th>
                     <th>Action</th>
-                    <th>Generate PDF</th>
+                    <th>Receipt</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -236,9 +239,10 @@
                     <td><?=$walkin['CheckOut']?></td>
                     <td><?=$walkin['Adult']?></td>
                     <td><?=$walkin['Child']?></td>
+                    <td><?=$walkin['Discount']?></td>
                     <td><?=$walkin['TotalAmount']?></td>
                     <td><a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$walkin['walkinID']?>">Edit</a></td>
-                    <td><button class="btn btn-primary" onclick="generatePDF(<?=$walkin['walkinID']?>)">Generate PDF</button></td>
+                    <td><button class="btn btn-primary" onclick="generatePDF(<?=$walkin['walkinID']?>)">Print</button></td>
                   </tr>
                   <?php endforeach; ?>
                   </tbody>
@@ -257,6 +261,7 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+
 <script>
   function generatePDF(walkinID) {
     // Get the data for the specific walkinID

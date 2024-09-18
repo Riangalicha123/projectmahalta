@@ -178,6 +178,16 @@ button[type="submit"]:hover {
                     <label for="ContactNumber">Contact Number</label>
                     <input type="text" id="ContactNumber" name="ContactNumber" class="form-control">
                   </div>
+                  <div class="col-md-6 form-group">
+                    <label for="Discount">Discount</label>
+                    <select id="Discount" name="Discount" class="form-control">
+                      <option value="">Select Discount</option>
+                      <option value="20%">20%</option>
+                      <option value="40%">40%</option>
+                      <option value="60%">60%</option>
+                      <option value="100%">100%</option>
+                    </select>
+                  </div>
             </div>
             <div class="row">
               <div class="col-md-6 form-group">

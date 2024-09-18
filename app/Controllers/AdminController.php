@@ -2143,7 +2143,7 @@ class AdminController extends BaseController
             'rooms' => $this->rooms->findAll(),
             'roominventory' => $this->roominventory->findAll(),
             'walkins' => $this->walkins
-                ->select('walkin.walkinID,walkin.RoomID, rooms.RoomID, rooms.RoomType, rooms.RoomNumber, walkin.roominventoryID, room_inventory.ProductName, room_inventory.Quantity, walkin.FirstName, walkin.LastName, walkin.ContactNumber,walkin.CheckIn, walkin.CheckOut, walkin.Adult, walkin.Child, walkin.TotalAmount')
+                ->select('walkin.walkinID,walkin.RoomID, rooms.RoomID, rooms.RoomType, rooms.RoomNumber, walkin.roominventoryID, room_inventory.ProductName, room_inventory.Quantity, walkin.FirstName, walkin.LastName, walkin.ContactNumber,walkin.CheckIn, walkin.CheckOut, walkin.Adult, walkin.Child, walkin.Discount, walkin.TotalAmount')
                 ->join('rooms', 'walkin.RoomID = rooms.RoomID')
                 ->join('room_inventory', 'walkin.roominventoryID = room_inventory.roominventoryID')
                 ->findAll()
@@ -2417,84 +2417,103 @@ class AdminController extends BaseController
         return view('Admin/WalkIn/checkout', $data);
     }
     public function addReservationn()
-{
-    helper(['form']);
-    $session = session();
-    $roomSelected = $session->get('roomSelected');
-    $reservationData = $session->get('reservationData');
-    $amenitiesData = $session->get('amenitiesData');
-    $totalExtraPrice = $session->get('totalExtraPrice');
-    $roomReservationData = $session->get('roomReservationData');
-    $TotalAmount = $roomReservationData['TotalAmount'] + $totalExtraPrice;
-    $skipAmenities = $this->request->getGet('skip') === 'true';
-
-    if ($roomSelected && $reservationData && $TotalAmount) {
-        $checkInTime = '14:00:00'; // 2:00 PM
-        $checkOutTime = '12:00:00'; // 12:00 PM
-        $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
-        $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
-        $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
-
-        // Loop through amenities and insert each one with reservation data
-        if (!$skipAmenities && $amenitiesData) {
-            foreach ($amenitiesData as $amenity) {
-                // Prepare reservation data with amenities
+    {
+        helper(['form']);
+        $session = session();
+        $roomSelected = $session->get('roomSelected');
+        $reservationData = $session->get('reservationData');
+        $amenitiesData = $session->get('amenitiesData');
+        $totalExtraPrice = $session->get('totalExtraPrice');
+        $roomReservationData = $session->get('roomReservationData');
+        $TotalAmount = $roomReservationData['TotalAmount'] + $totalExtraPrice;
+    
+        $skipAmenities = $this->request->getGet('skip') === 'true';
+    
+        if ($roomSelected && $reservationData && $TotalAmount) {
+            $checkInTime = '14:00:00'; // 2:00 PM
+            $checkOutTime = '12:00:00'; // 12:00 PM
+            $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
+            $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
+            $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
+    
+            $discount = $this->request->getPost('Discount'); // Get the selected discount
+    
+            // Check if a discount is applied
+            if ($discount !== null && $discount !== '') {
+                // Remove the '%' symbol from the discount and calculate the discount value
+                $discountValue = (int) str_replace('%', '', $discount);
+                // Correct calculation: apply (100 - discount) percent to the total amount
+                $TotalAmount = $TotalAmount * ((100 - $discountValue) / 100);
+            } else {
+                $discount = null; // If no discount is selected, set it to NULL
+            }
+    
+            // Get contact number, if not provided set to NULL
+            $contactNumber = $this->request->getVar('ContactNumber');
+            $contactNumber = !empty($contactNumber) ? $contactNumber : null;
+    
+            // Loop through amenities and insert each one with reservation data
+            if (!$skipAmenities && $amenitiesData) {
+                foreach ($amenitiesData as $amenity) {
+                    // Prepare reservation data with amenities
+                    $newReservationData = [
+                        'FirstName' => $this->request->getVar('FirstName'),
+                        'LastName' => $this->request->getVar('LastName'),
+                        'ContactNumber' => $contactNumber, // Use the possibly null contact number
+                        'CheckIn' => $checkInDateTime,
+                        'CheckOut' => $checkOutDateTime,
+                        'Adult' => $reservationData['Adult'],
+                        'Child' => $reservationData['Child'],
+                        'RoomID' => $roomSelected['RoomID'],
+                        'TotalAmount' => $TotalAmount,
+                        'Discount' => $discount, // Save the discount percentage or NULL
+                        'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
+                        'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
+                    ];
+    
+                    $inserted = $this->walkins->insert($newReservationData);
+    
+                    if ($inserted) {
+                        // Update room inventory quantity
+                        $roomInventoryID = $amenity['roomInventoryID'];
+                        $insertQuantity = $amenity['insertQuantity'];
+                        $roomInventory = $this->roominventory->find($roomInventoryID);
+                        if ($roomInventory) {
+                            $currentQuantity = $roomInventory['Quantity'];
+                            $newQuantity = $currentQuantity - $insertQuantity;
+                            $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
+                        }
+                    } else {
+                        return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
+                    }
+                }
+            } else {
+                // If amenities are skipped, insert reservation without amenities
                 $newReservationData = [
                     'FirstName' => $this->request->getVar('FirstName'),
                     'LastName' => $this->request->getVar('LastName'),
-                    'ContactNumber' => $this->request->getVar('ContactNumber'),
+                    'ContactNumber' => $contactNumber, // Use the possibly null contact number
                     'CheckIn' => $checkInDateTime,
                     'CheckOut' => $checkOutDateTime,
                     'Adult' => $reservationData['Adult'],
                     'Child' => $reservationData['Child'],
                     'RoomID' => $roomSelected['RoomID'],
                     'TotalAmount' => $TotalAmount,
-                    'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
-                    'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
+                    'Discount' => $discount, // Save the discount percentage or NULL
+                    'roomInventoryID' => null, // No amenities, so set to null
+                    'insertQuantity' => null,  // No amenities, so set to null
                 ];
-
-                $inserted = $this->walkins->insert($newReservationData);
-
-                if ($inserted) {
-                    // Update room inventory quantity
-                    $roomInventoryID = $amenity['roomInventoryID'];
-                    $insertQuantity = $amenity['insertQuantity'];
-                    $roomInventory = $this->roominventory->find($roomInventoryID);
-                    if ($roomInventory) {
-                        $currentQuantity = $roomInventory['Quantity'];
-                        $newQuantity = $currentQuantity - $insertQuantity;
-                        $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
-                    }
-                } else {
-                    return redirect()->to(base_url('/s'))->with('error', 'Failed to add reservation. Please try again.');
-                }
+    
+                $this->walkins->insert($newReservationData);
             }
+    
+            // Set success message and redirect
+            $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
+            return redirect()->to('/admin-hotel/walkin');
         } else {
-            // If amenities are skipped, insert reservation without amenities
-            $newReservationData = [
-                'FirstName' => $this->request->getVar('FirstName'),
-                'LastName' => $this->request->getVar('LastName'),
-                'ContactNumber' => $this->request->getVar('ContactNumber'),
-                'CheckIn' => $checkInDateTime,
-                'CheckOut' => $checkOutDateTime,
-                'Adult' => $reservationData['Adult'],
-                'Child' => $reservationData['Child'],
-                'RoomID' => $roomSelected['RoomID'],
-                'TotalAmount' => $TotalAmount,
-                'roomInventoryID' => null, // No amenities, so set to null
-                'insertQuantity' => null,  // No amenities, so set to null
-            ];
-
-            $this->walkins->insert($newReservationData);
+            return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
-
-        // Set success message and redirect
-        $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
-        return redirect()->to('/admin-hotel/walkin');
-    } else {
-        return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
     }
-}
 public function updateReservationn($walkinID)
 {
     helper(['form']);
@@ -2590,11 +2609,12 @@ public function updateReservationn($walkinID)
                     rooms.RoomNumber,
                     walkin.FirstName,
                     walkin.LastName,
-                    walkin.ContactNumber,
+                    IFNULL(walkin.ContactNumber, "N/A") as ContactNumber,
                     walkin.CheckIn,
                     walkin.CheckOut,
                     walkin.Adult,
                     walkin.Child,
+                    IFNULL(walkin.Discount, "N/A") as Discount,
                     walkin.TotalAmount,
                     IFNULL(GROUP_CONCAT(room_inventory.ProductName ORDER BY room_inventory.ProductName SEPARATOR ", "), "N/A") as ProductNames,
                     IFNULL(GROUP_CONCAT(walkin.insertQuantity ORDER BY room_inventory.ProductName SEPARATOR ", "), "N/A") as InsertQuantities
@@ -2611,6 +2631,7 @@ public function updateReservationn($walkinID)
                     'walkin.Adult',
                     'walkin.Child',
                     'walkin.TotalAmount',
+                    'walkin.Discount',
                     'rooms.RoomType',
                     'rooms.RoomNumber'
                 ])
