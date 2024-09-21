@@ -271,8 +271,11 @@
     // Import jsPDF library
     const { jsPDF } = window.jspdf;
 
-    // Create a new jsPDF instance
-    var doc = new jsPDF();
+    // Create a new jsPDF instance for 4x6 inch paper size
+    var doc = new jsPDF({
+      unit: 'in', // Set the unit to inches
+      format: [4, 6] // Set the paper size to 4x6 inches
+    });
 
     // Load the logo image
     const logoImg = new Image();
@@ -280,43 +283,85 @@
 
     // Ensure image loads before adding to the PDF
     logoImg.onload = function() {
-      // Calculate the logo size
-      const logoWidth = 40; // Adjust logo width as needed
-      const logoHeight = (logoWidth / logoImg.width) * logoImg.height;
-      const paperWidth = doc.internal.pageSize.getWidth();
-      const paperHeight = doc.internal.pageSize.getHeight();
-      const scaledFontSize = 20; // Adjust based on font size
+      const paperWidth = 4; // 4 inches
+      const paperHeight = 6; // 6 inches
+      const bgLogoWidth = paperWidth; // Full width of the page
+      const bgLogoHeight = (bgLogoWidth / logoImg.width) * logoImg.height; // Maintain aspect ratio
 
-      // Add the logo to the top-right corner
-      doc.addImage(logoImg, 'PNG', paperWidth - logoWidth - 10, 10, logoWidth, logoHeight);
+      // Set 30% opacity for a blurred background effect
+      doc.setGState(new doc.GState({ opacity: 0.3 })); // Adjust opacity for blurriness
+      doc.addImage(logoImg, 'PNG', 0, (paperHeight - bgLogoHeight) / 2, bgLogoWidth, bgLogoHeight);
 
-      // Document title
-      doc.setFontSize(16);
-      doc.text("Receipt for Walk-in", 20, 30);
+      // Reset opacity to normal
+      doc.setGState(new doc.GState({ opacity: 1 }));
+
+      // Document title and content offset
+      const contentOffsetY = 0.5; // Set the offset in inches
+
+      // Title
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text("Acknowledgment Receipt", paperWidth / 2, contentOffsetY, null, null, 'center');
+
+      // Greeting
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text("Thank you for choosing Mahalta Resorts!", paperWidth / 2, contentOffsetY + 0.3, null, null, 'center');
+
 
       // Walk-in information
+      doc.setFontSize(9); // Set the font size for the content
+      const leftMargin = 0.3; // Set left margin in inches
+      const lineHeight = 0.15; // Set line height in inches
+
+      // Set bold font for labels
+      doc.setFont('helvetica', 'bold');
+      doc.text("Name:", leftMargin, contentOffsetY + 0.7);
+      doc.text("Contact:", leftMargin, contentOffsetY + 0.7 + lineHeight);
+      doc.text("Room Name:", leftMargin, contentOffsetY + 0.7 + lineHeight * 2);
+      doc.text("Check-In:", leftMargin, contentOffsetY + 0.7 + lineHeight * 3);
+      doc.text("Check-Out:", leftMargin, contentOffsetY + 0.7 + lineHeight * 4);
+      doc.text("Adults:", leftMargin, contentOffsetY + 0.7 + lineHeight * 5);
+      doc.text("Kids:", leftMargin, contentOffsetY + 0.7 + lineHeight * 6);
+      doc.text("Amenities Product:", leftMargin, contentOffsetY + 0.7 + lineHeight * 7);
+      doc.text("Quantity:", leftMargin, contentOffsetY + 0.7 + lineHeight * 8);
+      doc.text("Total Amount:", leftMargin, contentOffsetY + 0.7 + lineHeight * 9);
+
+      // Set normal font for the content
+      doc.setFont('helvetica', 'normal');
+      doc.text(walkin.FirstName + " " + walkin.LastName, leftMargin + 1.4, contentOffsetY + 0.7);
+      doc.text(walkin.ContactNumber, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight);
+      doc.text(walkin.RoomType, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 2);
+      doc.text(walkin.CheckIn, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 3);
+      doc.text(walkin.CheckOut, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 4);
+      doc.text(walkin.Adult, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 5);
+      doc.text(walkin.Child, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 6);
+      doc.text(walkin.ProductNames, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 7);
+      doc.text(walkin.InsertQuantities, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 8);
+      doc.text(walkin.TotalAmount, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 9);
+
+
+      // Closing Quote in royal blue
       doc.setFontSize(12);
-      doc.text("Name: " + walkin.FirstName + " " + walkin.LastName, 20, 50);
-      doc.text("Contact: " + walkin.ContactNumber, 20, 60);
-      doc.text("Room Name: " + walkin.RoomType, 20, 70);
-      doc.text("Check-In: " + walkin.CheckIn, 20, 80);
-      doc.text("Check-Out: " + walkin.CheckOut, 20, 90);
-      doc.text("Adults: " + walkin.Adult, 20, 100);
-      doc.text("Kids: " + walkin.Child, 20, 110);
-      doc.text("Amenities Product: " + walkin.ProductNames, 20, 120);
-      doc.text("Quantity: " + walkin.InsertQuantities, 20, 130);
-      doc.text("Total Amount: " + walkin.TotalAmount, 20, 140);
+      doc.setTextColor(65, 105, 225); // RGB for royal blue
+      doc.text('"Your comfort is our priority."', paperWidth / 2, paperHeight - 0.8, null, null, 'center');
+
+      // Reset text color to black for footer
+      doc.setTextColor(0, 0, 0); // Black for footer
 
       // Footer Information
-      const footerText = 'Mahalta Resorts and Convention Center\nBrgy,Parang Calapan City,Oriental Mindoro,5200-Philippines\nMobile no. 096812480329, Email: mahaltaresorts@gmail.com';
-      doc.setFontSize(10);
-      doc.text(footerText, paperWidth / 2, paperHeight - scaledFontSize, null, null, 'center');
+      const footerText = 'Mahalta Resorts and Convention Center\nBrgy, Parang Calapan City, Oriental Mindoro, 5200-Philippines\nMobile no. 096812480329, Email: mahaltaresorts@gmail.com';
+      doc.setFontSize(8);
+      doc.text(footerText, paperWidth / 2, paperHeight - 0.3, null, null, 'center');
 
       // Save the PDF
       doc.save("Walkin_Receipt_" + walkin.FirstName + "_" + walkin.LastName + ".pdf");
     };
   }
 </script>
+
+
+
 
 
 

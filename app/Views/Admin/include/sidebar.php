@@ -118,7 +118,7 @@
           </li>
           <li class="nav-item <?= (isset($adminRoutes) && ($adminRoutes === 'walkin' || $adminRoutes === 'walkinrecords')) ? 'menu-open' : '' ?>">
               <a class="nav-link <?= (isset($adminRoutes) && ($adminRoutes === 'walkin' || $adminRoutes === 'walkinrecords')) ? 'active' : '' ?>" href="#">
-                  <i class="nav-icon fas fa-terminal"></i>
+              <i class="nav-icon fas fa-walking"></i>
                   <p>
                       Guest Walk-In
                       <i class="fas fa-angle-left right"></i>
