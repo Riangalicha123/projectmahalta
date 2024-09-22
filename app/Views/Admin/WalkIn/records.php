@@ -273,30 +273,30 @@
 
     // Create a new jsPDF instance for 4x6 inch paper size
     var doc = new jsPDF({
-      unit: 'in', // Set the unit to inches
-      format: [4, 6] // Set the paper size to 4x6 inches
+      unit: 'in', 
+      format: [4, 6] 
     });
 
     // Load the logo image
     const logoImg = new Image();
-    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; // Path to your logo image
+    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; 
 
     // Ensure image loads before adding to the PDF
     logoImg.onload = function() {
-      const paperWidth = 4; // 4 inches
-      const paperHeight = 6; // 6 inches
-      const bgLogoWidth = paperWidth; // Full width of the page
-      const bgLogoHeight = (bgLogoWidth / logoImg.width) * logoImg.height; // Maintain aspect ratio
+      const paperWidth = 4; 
+      const paperHeight = 6; 
+      const bgLogoWidth = paperWidth; 
+      const bgLogoHeight = (bgLogoWidth / logoImg.width) * logoImg.height; 
 
       // Set 30% opacity for a blurred background effect
-      doc.setGState(new doc.GState({ opacity: 0.3 })); // Adjust opacity for blurriness
+      doc.setGState(new doc.GState({ opacity: 0.3 })); 
       doc.addImage(logoImg, 'PNG', 0, (paperHeight - bgLogoHeight) / 2, bgLogoWidth, bgLogoHeight);
 
       // Reset opacity to normal
       doc.setGState(new doc.GState({ opacity: 1 }));
 
       // Document title and content offset
-      const contentOffsetY = 0.5; // Set the offset in inches
+      const contentOffsetY = 0.5; 
 
       // Title
       doc.setFontSize(18);
@@ -310,9 +310,9 @@
 
 
       // Walk-in information
-      doc.setFontSize(9); // Set the font size for the content
-      const leftMargin = 0.3; // Set left margin in inches
-      const lineHeight = 0.15; // Set line height in inches
+      doc.setFontSize(9); 
+      const leftMargin = 0.3; 
+      const lineHeight = 0.15; 
 
       // Set bold font for labels
       doc.setFont('helvetica', 'bold');
@@ -338,16 +338,16 @@
       doc.text(walkin.Child, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 6);
       doc.text(walkin.ProductNames, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 7);
       doc.text(walkin.InsertQuantities, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 8);
-      doc.text(walkin.TotalAmount, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 9);
+      doc.text("Php" + walkin.TotalAmount, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 9);
 
 
       // Closing Quote in royal blue
       doc.setFontSize(12);
-      doc.setTextColor(65, 105, 225); // RGB for royal blue
+      doc.setTextColor(65, 105, 225); 
       doc.text('"Your comfort is our priority."', paperWidth / 2, paperHeight - 0.8, null, null, 'center');
 
       // Reset text color to black for footer
-      doc.setTextColor(0, 0, 0); // Black for footer
+      doc.setTextColor(0, 0, 0); 
 
       // Footer Information
       const footerText = 'Mahalta Resorts and Convention Center\nBrgy, Parang Calapan City, Oriental Mindoro, 5200-Philippines\nMobile no. 096812480329, Email: mahaltaresorts@gmail.com';
