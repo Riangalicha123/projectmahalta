@@ -50,8 +50,6 @@ class ReservationModel extends Model
             ->get();
 
         return $query->getResult();
-
-        
     }
     public function getReservationsByYearMonth($year, $month)
     {
@@ -63,5 +61,10 @@ class ReservationModel extends Model
                     ->groupBy('RoomType')
                     ->findAll();
     } 
+    public function getReservationsWithID()
+    {
+        return $this->where('RoomID IS NOT NULL OR VenueID IS NOT NULL OR conventionID IS NOT NULL')
+                    ->findAll();
+    }
     
 }

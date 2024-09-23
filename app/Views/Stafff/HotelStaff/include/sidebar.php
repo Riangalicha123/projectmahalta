@@ -51,6 +51,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link <?= (isset($currentRoute) && $currentRoute === 'walkin') ? 'active' : '' ?> " href="<?= route_to('staff-walkin') ?>">
+              <i class="nav-icon fas fa-walking"></i>
+              <p>
+                Walk-In
+              </p>
+            </a>
+          </li>
           
           <br>
           <div class="user-panel mt-3 pb-3 mb-3 d-flex"></div>

@@ -98,6 +98,17 @@ $routes->get('/staff-hotelsetting', 'StaffController::hotelsetting', ['filter' =
 $routes->post('/staff/hotel/update-password', 'StaffController::hotelupdatePassword', ['filter' => 'staffGuard']);
 $routes->post('/updatehotelProfile/(:num)', 'StaffController::updatehotelProfile/$1', ['filter' => 'staffGuard']);
 
+$routes->get('/staff-walkin', 'StaffController::walkin', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability', 'StaffController::getDataa', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroom', 'StaffController::getdataRoomm', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation', 'StaffController::getdataRoomReservationn', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation/amenities', 'StaffController::amenitiess', ['filter' => 'staffGuard']);
+$routes->post('/staff-walkin-availability/dataroomreservation/addAmenities', 'StaffController::addAmenitiess', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation/amenities/formdetails', 'StaffController::formdetailss', ['filter' => 'staffGuard']);
+$routes->post('/staff-walkin-availability/dataroomreservation/amenities/formdetails/addReservation', 'StaffController::addReservationn', ['filter' => 'staffGuard']);
+
+$routes->post('staff-getNotifications', 'StaffController::getNotifications', ['filter' => 'staffGuard']);
+
 $routes->get('/staff-restaurant', 'StaffController::reshome', ['filter' => 'staffGuard']);
 $routes->get('/staff-restaurant-reservation', 'StaffController::resReservation', ['filter' => 'staffGuard']);
 $routes->post('/addrestauReservation', 'StaffController::addrestauReservation', ['filter' => 'staffGuard']);
@@ -159,6 +170,8 @@ $routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1'
 
 //Admin-Dashboard
 $routes->match(['get', 'post'], '/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
+$routes->post('notification/getNotifications', 'AdminController::getNotifications', ['filter' => 'adminGuard']);
+$routes->post('reservation-notifications/getReservationNotifications', 'AdminController::getReservationNotifications',['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
 $routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);

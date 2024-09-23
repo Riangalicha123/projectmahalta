@@ -37,4 +37,10 @@ class RoomInventoryModel extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getLowQuantityItems($threshold = 10)
+    {
+        return $this->where('Quantity <=', $threshold)->findAll();
+    }
+    
 }

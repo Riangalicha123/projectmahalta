@@ -2639,5 +2639,53 @@ public function updateReservationn($walkinID)
         ];
         return view('Admin/WalkIn/records', $data);
     }
+
+    public function getNotifications()
+    {
+        $model = new RoomInventoryModel();
+
+        // Fetch items with stock quantity less than or equal to 10
+        $lowStockItems = $model->getLowQuantityItems(10);
+
+        return $this->response->setJSON($lowStockItems);
+    }
+    public function getReservationNotifications()
+    {
+        $model = new ReservationModel();
+
+        // Fetch reservations with RoomID, VenueID, or conventionID
+        $reservations = $model->getReservationsWithID();
+
+        // Format the response to include the type of reservation
+        $formattedReservations = [];
+
+        foreach ($reservations as $reservation) {
+            if (!empty($reservation['RoomID'])) {
+                $formattedReservations[] = [
+                    'type' => 'room',
+                    'id' => $reservation['RoomID'],
+                    'ReservationID' => $reservation['ReservationID'],
+                    'CheckInDate' => $reservation['CheckInDate']
+                ];
+            } elseif (!empty($reservation['VenueID'])) {
+                $formattedReservations[] = [
+                    'type' => 'restaurant',
+                    'id' => $reservation['VenueID'],
+                    'ReservationID' => $reservation['ReservationID'],
+                    'CheckInDate' => $reservation['CheckInDate']
+                ];
+            } elseif (!empty($reservation['conventionID'])) {
+                $formattedReservations[] = [
+                    'type' => 'convention',
+                    'id' => $reservation['conventionID'],
+                    'ReservationID' => $reservation['ReservationID'],
+                    'CheckInDate' => $reservation['CheckInDate']
+                ];
+            }
+        }
+
+        return $this->response->setJSON($formattedReservations);
+    }
+    
     
 }
