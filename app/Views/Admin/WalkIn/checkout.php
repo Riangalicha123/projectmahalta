@@ -183,9 +183,6 @@ button[type="submit"]:hover {
                     <select id="Discount" name="Discount" class="form-control">
                       <option value="">Select Discount</option>
                       <option value="20%">20%</option>
-                      <option value="40%">40%</option>
-                      <option value="60%">60%</option>
-                      <option value="100%">100%</option>
                     </select>
                   </div>
             </div>
