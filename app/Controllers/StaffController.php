@@ -24,6 +24,7 @@ use App\Models\RestaurantVenueModel;
 use App\Models\ConventionVenueModel;
 use App\Models\ConventionModel;
 use App\Models\RoomInventoryModel;
+use App\Models\RoomImageModel;
 use App\Models\ReservationAmenities;
 use App\Traits\EmailTrait;
 use App\Models\GuestModel;
@@ -55,6 +56,7 @@ class StaffController extends BaseController
     private $conventions;
     private $roominventory;
     private $reseraminities;
+    private $roomimages;
     function __construct(){
         helper(['form']);
         $this->rooms = new RoomModel();
@@ -80,6 +82,7 @@ class StaffController extends BaseController
         $this->guest = new GuestModel();
         $this->roominventory = new RoomInventoryModel();
         $this->reseraminities = new ReservationAmenities();
+        $this->roomimages = new RoomImageModel();
     }
     public function login(){
         helper(['form']);
@@ -235,6 +238,7 @@ class StaffController extends BaseController
     {
         $data = [
             'currentRoute' => 'home',
+            'roinvents' => $this->roominventory->findAll(),
         ];
         return view('Stafff/HotelStaff/index', $data);
     }
@@ -296,10 +300,6 @@ class StaffController extends BaseController
             ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left')
             ->groupBy('reservations.ReservationID')
             ->findAll();
-    
-        if (empty($amihotelrevs)) {
-            throw new \Exception("No reservation amenities found.");
-        }
     
         $data = [
             'currentRoute' => 'hotelamenities',
@@ -704,6 +704,11 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'room',
             'rooms' => $this->rooms->findAll(),
+            'roomimages' => $this->roomimages
+            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson, GROUP_CONCAT(room_images.Image) AS Images')
+            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+            ->groupBy('rooms.RoomID')
+            ->findAll(),
         ]; 
         return view('Stafff/HotelStaff/room', $data);
     }
