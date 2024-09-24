@@ -96,7 +96,7 @@
                                   <div class="form-row">
                                     <div class="form-group col-md-6">
                                           <label for="ContactNumber">Contact Number</label>
-                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" value="<?= $walkin['ContactNumber'] ?>" required>
+                                          <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" value="<?= $walkin['ContactNumber'] ?>" >
                                       </div>
                                       
                                   </div>

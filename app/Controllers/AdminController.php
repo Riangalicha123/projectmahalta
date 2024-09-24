@@ -651,26 +651,23 @@ class AdminController extends BaseController
     public function updateHotelAmenitiesReservation($amenitiesID)
     {
         helper(['form']);
-    
-        // Update user information
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-        $reservation = $this->reseraminities->find($amenitiesID); // Retrieve reservation amenities data
+        $reservation = $this->reseraminities->find($amenitiesID);
         if (!$reservation) {
             return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('error', 'Reservation not found.');
         }
         $userID = $reservation['UserID'];
         $updateUserResult = $this->users->update($userID, $userData);
-    
-        // Update room information and reservation details
         if ($updateUserResult) {
             $roomNumber = $this->request->getPost('RoomNumber');
             $roomType = $this->request->getPost('RoomType');
             $roomData = $this->rooms->where('RoomNumber', $roomNumber)->where('RoomType', $roomType)->first();
             if ($roomData) {
+                $reservationID = $reservation['ReservationID'];
                 $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -684,52 +681,39 @@ class AdminController extends BaseController
                     'RoomID' => $roomData['RoomID'],
                     'UserID' => $userID,
                 ];
-                $updateReservationResult = $this->reservation->update($amenitiesID, $newReservationData);
-    
-                // Post amenities data
+                $updateReservationResult = $this->reservation->update($reservationID, $newReservationData);
                 if ($updateReservationResult) {
-                    // Retrieve selected product names and quantities
                     $roomInventoryIDs = $this->request->getPost('roomInventoryID') ?: [];
                     $insertQuantities = $this->request->getPost('insertQuantity') ?: [];
-    
-                    // Existing room inventory IDs from the database
                     $existingRoomInventoryIDs = $this->reseraminities
-                        ->where('ReservationID', $reservation['ReservationID'])
+                        ->where('ReservationID', $reservationID)
                         ->findColumn('roomInventoryID');
-    
-                    // Delete unselected room inventories
                     foreach ($existingRoomInventoryIDs as $existingRoomInventoryID) {
                         if (!in_array($existingRoomInventoryID, $roomInventoryIDs)) {
                             $this->reseraminities
-                                ->where('ReservationID', $reservation['ReservationID'])
+                                ->where('ReservationID', $reservationID)
                                 ->where('roomInventoryID', $existingRoomInventoryID)
                                 ->delete();
                         }
                     }
-    
-                    // Insert or update selected room inventories
                     foreach ($roomInventoryIDs as $roomInventoryID) {
                         $existingRecord = $this->reseraminities
-                            ->where('ReservationID', $reservation['ReservationID'])
+                            ->where('ReservationID', $reservationID)
                             ->where('roomInventoryID', $roomInventoryID)
                             ->first();
-    
                         if ($existingRecord) {
-                            // Update the existing record's InsertQuantity
                             $this->reseraminities->update($existingRecord['AmenitiesID'], [
                                 'insertQuantity' => $insertQuantities[$roomInventoryID]
                             ]);
                         } else {
-                            // Insert new record
                             $this->reseraminities->insert([
-                                'ReservationID' => $reservation['ReservationID'],
+                                'ReservationID' => $reservationID,
                                 'UserID' => $userID,
                                 'roomInventoryID' => $roomInventoryID,
                                 'insertQuantity' => $insertQuantities[$roomInventoryID],
                             ]);
                         }
                     }
-    
                     return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('success', 'Reservation updated successfully.');
                 } else {
                     return redirect()->to(base_url('/admin-hotel/reservation_amenities'))->with('error', 'Failed to update reservation. Please try again.');
@@ -741,8 +725,6 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/admin-hotel'))->with('error', 'Failed to update user information. Please try again.');
         }
     }
-    
-    
     public function updateStatus($status, $reservationID)
     {
         $session = session();
@@ -2524,7 +2506,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'FirstName'      => 'required|min_length[2]',
             'LastName'       => 'required|min_length[2]',
-            'ContactNumber'  => 'required|numeric|min_length[10]',
+            'ContactNumber'  => 'numeric|min_length[10]',
             'CheckIn'        => 'required|valid_date',
             'CheckOut'       => 'required|valid_date',
             'Adult'          => 'required|numeric',
@@ -2563,7 +2545,11 @@ class AdminController extends BaseController
                 $existingWalkinData['FirstName'] !== $WalkInn['FirstName'] ||
                 $existingWalkinData['LastName'] !== $WalkInn['LastName'] ||
                 $existingWalkinData['CheckIn'] !== $WalkInn['CheckIn'] ||
-                $existingWalkinData['CheckOut'] !== $WalkInn['CheckOut']
+                $existingWalkinData['CheckOut'] !== $WalkInn['CheckOut'] ||
+                $existingWalkinData['Adult'] !== $WalkInn['Adult'] ||
+                $existingWalkinData['Child'] !== $WalkInn['Child'] ||
+                $existingWalkinData['TotalAmount'] !== $WalkInn['TotalAmount'] ||
+                $existingWalkinData['RoomID'] !== $WalkInn['RoomID']
             ) {
                 // Delete all existing records for this Walkin
                 $this->walkins->where('walkinID', $walkinID)->delete();
@@ -2574,6 +2560,8 @@ class AdminController extends BaseController
             $insertQuantities = $this->request->getPost('insertQuantity');
     
             if ($roomInventoryIDs && $insertQuantities) {
+                // Delete existing records with the same details
+            $this->walkins->where($WalkInn)->delete();
                 // Insert new records for each selected inventory
                 foreach ($roomInventoryIDs as $inventoryID) {
                     $quantity = $insertQuantities[$inventoryID] ?? 0;
@@ -2589,6 +2577,10 @@ class AdminController extends BaseController
                 }
             } else {
                 // Handle no inventory selection
+                // Delete all records with the same details
+            $this->walkins->where($WalkInn)->delete();
+
+            // Insert a record with NULL values for inventory
                 $WalkInn['roomInventoryID'] = NULL;
                 $WalkInn['insertQuantity'] = NULL;
     
