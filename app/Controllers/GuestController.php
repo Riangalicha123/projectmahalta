@@ -1341,10 +1341,10 @@ class GuestController extends BaseController
             $totalUserRating = 0;
             $reviewContent = [];
             $userModel = new UserModel();
-            
+    
             // Updated bad keywords list
             $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
-            
+    
             foreach ($reviews as $row) {
                 $containsBadKeyword = false;
                 foreach ($badKeywords as $keyword) {
@@ -1357,13 +1357,13 @@ class GuestController extends BaseController
                     continue;
                 }
                 $user = $userModel->find($row['UserID']);
-                if ($user && isset($user['Email'])) {
-                    $email = $user['Email'];
+                if ($user && isset($user['FirstName']) && isset($user['LastName'])) {
+                    $fullName = $user['FirstName'] . ' ' . $user['LastName'];  // Concatenate first and last names
                 } else {
-                    $email = "Unknown";
+                    $fullName = "Unknown";
                 }
                 $reviewContent[] = [
-                    'Email' => $email,
+                    'FullName' => $fullName,  // Updated to display full name
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
                     'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
@@ -1403,6 +1403,7 @@ class GuestController extends BaseController
             return json_encode($output);
         }
     }
+    
     
     public function postFeedback()
     {

@@ -631,34 +631,31 @@ $(document).ready(function(){
 
                 $('#one_star_progress').css('width', (data.one_star_review/data.total_review) * 100 + '%');
 
-                if(data.review_data.length > 0) {
-                    var html = '<div class="row">'; 
-
-                    for(var count = 0; count < data.review_data.length; count++) {
-                        if (count > 0 && count % 3 === 0) { 
-                            html += '</div><div class="row">';
-                        }
-
-                        html += '<div class="col-sm-4 mb-3">'; 
-                        html += '<div class="row mb-3">';
-                        html += '<div class="col-sm-11">';
-                        html += '<div class="card">';
-                        html += '<div class="card-header bg-info text-white"><b>'+data.review_data[count].Email+'</b></div>';
-                        html += '<div class="card-body">';
-                        for(var star = 1; star <= 5; star++) {
-                            var class_name = (data.review_data[count].rating >= star) ? 'text-warning' : 'star-light';
-                            html += '<i class="fas fa-star '+class_name+' mr-1"></i>';
-                        }
-                        html += '<br />';
-                        html += data.review_data[count].FeedbackMessage;
-                        html += '</div>';
-                        html += '<div class="card-footer text-right">On '+data.review_data[count].datetime+'</div>';
-                        html += '</div>';
-                        html += '</div>';
-                        html += '</div>';
-
-                        html += '</div>'; 
+                if (data.review_data.length > 0) {
+                var html = '<div class="row">';
+                for (var count = 0; count < data.review_data.length; count++) {
+                    if (count > 0 && count % 3 === 0) {
+                        html += '</div><div class="row">';
                     }
+                    html += '<div class="col-sm-4 mb-3">';
+                    html += '<div class="row mb-3">';
+                    html += '<div class="col-sm-11">';
+                    html += '<div class="card">';
+                    html += '<div class="card-header bg-info text-white"><b>' + data.review_data[count].FullName + '</b></div>'; // Updated to display Full Name
+                    html += '<div class="card-body">';
+                    for (var star = 1; star <= 5; star++) {
+                        var class_name = (data.review_data[count].rating >= star) ? 'text-warning' : 'star-light';
+                        html += '<i class="fas fa-star ' + class_name + ' mr-1"></i>';
+                    }
+                    html += '<br />';
+                    html += data.review_data[count].FeedbackMessage;
+                    html += '</div>';
+                    html += '<div class="card-footer text-right">On ' + data.review_data[count].datetime + '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                    html += '</div>';
+                }
                     html += '</div>'; 
                     $('#review_content').html(html);
                 }
