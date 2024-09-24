@@ -2514,88 +2514,94 @@ class AdminController extends BaseController
             return redirect()->to(base_url('/u'))->with('error', 'Invalid data in sessions. Please check your input.');
         }
     }
-public function updateReservationn($walkinID)
-{
-    helper(['form']);
-
-    // Apply validation rules
-    $validation = \Config\Services::validation();
-
-    $validation->setRules([
-        'FirstName'      => 'required|min_length[2]',
-        'LastName'       => 'required|min_length[2]',
-        'ContactNumber'  => 'required|numeric|min_length[10]',
-        'CheckIn'        => 'required|valid_date',
-        'CheckOut'       => 'required|valid_date',
-        'Adult'          => 'required|numeric',
-        'Child'          => 'required|numeric',
-        'TotalAmount'    => 'required|numeric',
-        'RoomType'       => 'required'
-    ]);
-
-    if (!$validation->withRequest($this->request)->run()) {
-        // Redirect back with validation errors
-        return redirect()->back()->withInput()->with('errors', $validation->getErrors());
-    }
-
-    $roomType = $this->request->getPost('RoomType');
-    $roomData = $this->rooms->where('RoomType', $roomType)->first();
-
-    if ($roomData) {
-        // Common data for walkin record
-        $WalkInn = [
-            'FirstName'      => $this->request->getPost('FirstName'),
-            'LastName'       => $this->request->getPost('LastName'),
-            'ContactNumber'  => $this->request->getPost('ContactNumber'),
-            'CheckIn'        => $this->request->getPost('CheckIn'),
-            'CheckOut'       => $this->request->getPost('CheckOut'),
-            'Adult'          => $this->request->getPost('Adult'),
-            'Child'          => $this->request->getPost('Child'),
-            'TotalAmount'    => $this->request->getPost('TotalAmount'),
-            'RoomID'         => $roomData['RoomID'],
-        ];
-
-        // Handle room inventory insert for multiple selections
-        $roomInventoryIDs = $this->request->getPost('roomInventoryID');
-        $insertQuantities = $this->request->getPost('insertQuantity');
-
-        if ($roomInventoryIDs && $insertQuantities) {
-            // Delete existing records with the same details
-            $this->walkins->where($WalkInn)->delete();
-
-            // Insert new records for each selected inventory
-            foreach ($roomInventoryIDs as $inventoryID) {
-                $quantity = $insertQuantities[$inventoryID] ?? 0;
-
-                // Create a new walkin record for each selected inventory
-                $inventoryData = array_merge($WalkInn, [
-                    'roomInventoryID' => $inventoryID,
-                    'insertQuantity'  => $quantity
-                ]);
-
-                // Insert a new record into the walkins table
-                $this->walkins->insert($inventoryData);
-            }
-        } else {
-            // Handle no inventory selection
-            // Delete all records with the same details
-            $this->walkins->where($WalkInn)->delete();
-
-            // Insert a record with NULL values for inventory
-            $WalkInn['roomInventoryID'] = NULL;
-            $WalkInn['insertQuantity'] = NULL;
-
-            // Insert the new record into the walkins table
-            $this->walkins->insert($WalkInn);
+    public function updateReservationn($walkinID)
+    {
+        helper(['form']);
+    
+        // Apply validation rules
+        $validation = \Config\Services::validation();
+    
+        $validation->setRules([
+            'FirstName'      => 'required|min_length[2]',
+            'LastName'       => 'required|min_length[2]',
+            'ContactNumber'  => 'required|numeric|min_length[10]',
+            'CheckIn'        => 'required|valid_date',
+            'CheckOut'       => 'required|valid_date',
+            'Adult'          => 'required|numeric',
+            'Child'          => 'required|numeric',
+            'TotalAmount'    => 'required|numeric',
+            'RoomType'       => 'required'
+        ]);
+    
+        if (!$validation->withRequest($this->request)->run()) {
+            // Redirect back with validation errors
+            return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
-
-        return redirect()->to(base_url('/admin-hotel/walkin-records'))->with('success', 'Reservation updated successfully.');
-    } else {
-        return redirect()->back()->withInput()->with('error', 'Invalid Room Type. Please check your input.');
+    
+        $roomType = $this->request->getPost('RoomType');
+        $roomData = $this->rooms->where('RoomType', $roomType)->first();
+    
+        if ($roomData) {
+            // Data to check if records exist
+            $existingWalkinData = $this->walkins->find($walkinID);
+    
+            // Common data for walkin record
+            $WalkInn = [
+                'FirstName'      => $this->request->getPost('FirstName'),
+                'LastName'       => $this->request->getPost('LastName'),
+                'ContactNumber'  => $this->request->getPost('ContactNumber'),
+                'CheckIn'        => $this->request->getPost('CheckIn'),
+                'CheckOut'       => $this->request->getPost('CheckOut'),
+                'Adult'          => $this->request->getPost('Adult'),
+                'Child'          => $this->request->getPost('Child'),
+                'TotalAmount'    => $this->request->getPost('TotalAmount'),
+                'RoomID'         => $roomData['RoomID'],
+            ];
+    
+            // Check if updates were made to FirstName, LastName, CheckIn, or CheckOut
+            if (
+                $existingWalkinData['FirstName'] !== $WalkInn['FirstName'] ||
+                $existingWalkinData['LastName'] !== $WalkInn['LastName'] ||
+                $existingWalkinData['CheckIn'] !== $WalkInn['CheckIn'] ||
+                $existingWalkinData['CheckOut'] !== $WalkInn['CheckOut']
+            ) {
+                // Delete all existing records for this Walkin
+                $this->walkins->where('walkinID', $walkinID)->delete();
+            }
+    
+            // Handle room inventory insert for multiple selections
+            $roomInventoryIDs = $this->request->getPost('roomInventoryID');
+            $insertQuantities = $this->request->getPost('insertQuantity');
+    
+            if ($roomInventoryIDs && $insertQuantities) {
+                // Insert new records for each selected inventory
+                foreach ($roomInventoryIDs as $inventoryID) {
+                    $quantity = $insertQuantities[$inventoryID] ?? 0;
+    
+                    // Create a new walkin record for each selected inventory
+                    $inventoryData = array_merge($WalkInn, [
+                        'roomInventoryID' => $inventoryID,
+                        'insertQuantity'  => $quantity
+                    ]);
+    
+                    // Insert a new record into the walkins table
+                    $this->walkins->insert($inventoryData);
+                }
+            } else {
+                // Handle no inventory selection
+                $WalkInn['roomInventoryID'] = NULL;
+                $WalkInn['insertQuantity'] = NULL;
+    
+                // Insert the new record with NULL values for inventory
+                $this->walkins->insert($WalkInn);
+            }
+    
+            return redirect()->to(base_url('/admin-hotel/walkin-records'))->with('success', 'Reservation updated successfully.');
+        } else {
+            return redirect()->back()->withInput()->with('error', 'Invalid Room Type. Please check your input.');
+        }
     }
-}
-
-
+    
     public function walkinRecords()
     {
         $data = [
