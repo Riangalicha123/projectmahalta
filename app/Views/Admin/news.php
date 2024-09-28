@@ -92,14 +92,14 @@
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form action="<?= base_url('admin-addnewspromotion/') ?>" method="post" enctype="multipart/form-data" id="addForm">
+                        <form action="/admin-addnewspromotion" method="post" enctype="multipart/form-data">
                         <div class="card-body">
                           <div class="form-group">
                             <input type="hidden" class="form-control" id="NewsID" name="NewsID" placeholder="Enter Name" >
                           </div> 
                           <div class="form-group">
                             <label for="Image">Upload</label>
-                            <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" >
+                            <input type="file" class="form-control" id="Image" name="Image" accept="image/*" >
                             </div>
                           </div>
                           <div class="modal-footer">
@@ -127,7 +127,7 @@
                               <input type="hidden" name="NewsID" id="NewsID" value="<?=$new['NewsID']?>">
                               <div class="form-group">
                                   <label for="Image">Upload</label>
-                                  <input type="file" class="form-control" id="inputImage" name="Image" accept="image/*">
+                                  <input type="file" class="form-control" name="Image" accept="image/*">
                               </div>
                           </div>
                           <div class="modal-footer">
