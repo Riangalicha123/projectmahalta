@@ -181,7 +181,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                 </ul>
                 <p>Picture a special room with a peaceful ambiance and inviting decor, designed for relaxation. </p>
-                <p><a href="<?= route_to('room') ?>" class="btn btn-primary btn-sm">Room Accommodations </a></p>
+                <p><a href="<?= route_to('room-accomodation') ?>" class="btn btn-primary btn-sm">Room Accommodations </a></p>
               </div>
             </div>
           </div>
@@ -225,7 +225,7 @@
                 <h3 class="mt-0"><a href="#">Dine In</a></h3>
                 
                 <p>Savor exquisite dining at our hotel and resort restaurant with a diverse menu and inviting ambiance. </p>
-                <p><a href="<?= route_to('restaurant') ?>" class="btn btn-primary btn-sm">View Our Restaurant Options</a></p>
+                <p><a href="<?= route_to('mainmenu') ?>" class="btn btn-primary btn-sm">View Our Restaurant Options</a></p>
               </div>
             </div>
           </div>

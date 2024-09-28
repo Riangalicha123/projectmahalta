@@ -57,9 +57,7 @@
 }
 /* Sticky footer for mobile */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  } 
+
 
   .col-md-7, .col-md-5 {
     flex: 0 0 100%;
@@ -71,9 +69,11 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-height: 100%; /* Limit height to prevent overlapping header */
     background-color: #fff;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
   }
 
   .selected-room-details .details-content {

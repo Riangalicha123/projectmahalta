@@ -279,7 +279,7 @@
 
     // Load the logo image
     const logoImg = new Image();
-    logoImg.src = '<?=base_url()?>guest/images/logomahalta.png'; 
+    logoImg.src = '<?=base_url()?>guest/images/mahaltalogooo.png'; 
 
     // Ensure image loads before adding to the PDF
     logoImg.onload = function() {
@@ -340,6 +340,35 @@
       doc.text(walkin.InsertQuantities, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 8);
       doc.text("Php" + walkin.TotalAmount, leftMargin + 1.4, contentOffsetY + 0.7 + lineHeight * 9);
 
+       // Add Received By and Prepared By section
+       const footerY = paperHeight - 2.5; // Position for footer
+      doc.setFontSize(9);
+
+       // Received by
+       doc.text("Received by:", leftMargin, footerY);
+      doc.setFont('helvetica', 'bold');
+      const name = "MARIBETH BOTONES";
+      doc.text(name, leftMargin, footerY + 0.2); 
+
+      // Fixed underline width for both names
+      const underlineWidth = 1.5; // Set a fixed width for the underline
+      
+      // Add underline for MARIBETH BOTONES
+      doc.setLineWidth(0.01); 
+      doc.line(leftMargin, footerY + 0.25, leftMargin + underlineWidth, footerY + 0.25);
+      
+      doc.setFont('helvetica', 'normal');
+      doc.text("General Manager", leftMargin, footerY + 0.35); 
+
+      // Prepared by
+      const rightMargin = paperWidth - 2; // Adjust for alignment on the right
+      doc.text("Prepared by:", rightMargin, footerY);
+      
+      // Add matching underline for the Front Desk Officer, closer to the text
+      const signatureLineY = footerY + 0.22;  // Adjusted Y to move the line closer
+      doc.line(rightMargin, signatureLineY, rightMargin + underlineWidth, signatureLineY); // Use the same underline width
+      doc.setFont('helvetica', 'normal');
+      doc.text("Front Desk Officer", rightMargin, footerY + 0.35);
 
       // Closing Quote in royal blue
       doc.setFontSize(12);

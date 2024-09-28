@@ -1,8 +1,8 @@
-<header role="banner" style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom,  #3085C3, #00BFFF,#FAF2D3);color: white; padding: 20px; text-align: center; z-index: 1000;">
+<header role="banner" style="position: fixed; top: 0; width: 100%; background: linear-gradient(to bottom,  #3085C3, #00BFFF,#FAF2D3);color: white;  text-align: center; ">
       <nav class="navbar navbar-expand-md navbar-dark bg-light">
         <div class="container">
         <a class="navbar-brand" href="<?= route_to('/') ?>">
-    <img src="/guest/images/mahaltalogoo.png"  alt="Logo" class="mr-2">
+    <img src="/guest/images/mahaltalogoo.png"  alt="Logo" class="mr-2" style="width: 205px; height: 70px">
 </a>
 
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample05" aria-controls="navbarsExample05" aria-expanded="false" aria-label="Toggle navigation">

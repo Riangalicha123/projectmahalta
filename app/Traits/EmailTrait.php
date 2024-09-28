@@ -22,8 +22,9 @@ trait EmailTrait
             $mail->Port = 587; // TCP port to connect to
 
             // Recipients
-            $mail->setFrom('mahaltaweb@gmail.com', 'Mahalta_Mailer');
+            $mail->setFrom('mahaltaresortsconventioncenter@gmail.com', 'Mahalta Resorts and Convention Center');
             $mail->addAddress($to); // Add a recipient, passed via method parameter
+            $mail->addAddress('mahaltaresortsconventioncenter@gmail.com');
             // Add attachment if exists
             if ($attachmentPath && file_exists($attachmentPath)) {
                 $cid = $mail->addEmbeddedImage($attachmentPath, 'qr-code-cid', 'QRCode.png');

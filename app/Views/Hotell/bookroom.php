@@ -35,45 +35,10 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js">
   <style>
-    .popover {
-      max-width: 100%;
-      width: auto !important;
-    }
-
-    .circle {
-      display: inline-block;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      text-align: center;
-      line-height: 30px;
-      background-color: #ccc;
-      color: #fff;
-      border: 2px solid #ccc;
-      margin-right: 5px;
-    }
-
-    .number {
-      font-size: 20px;
-      border: 2px solid #ccc;
-      padding: 3px;
-    }
-
-    .btn-secondary .circle {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-
-    .btn-secondary .circle:hover {
-      background-color: #5a6268;
-      border-color: #5a6268;
-    }
 
 /* Sticky footer for mobile */
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column;
-  } 
+
 
   .col-md-7, .col-md-5 {
     flex: 0 0 100%;
@@ -85,9 +50,11 @@
     position: fixed;
     bottom: 0;
     width: 100%;
+    max-height: 100%; /* Limit height to prevent overlapping header */
     background-color: #fff;
     box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    overflow-y: auto; /* Allow scrolling if content exceeds height */
   }
 
   .selected-room-details .details-content {
