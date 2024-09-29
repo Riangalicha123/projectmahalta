@@ -88,6 +88,7 @@ class GuestController extends BaseController
                 ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, users.UserID, users.Email')
                 ->join('users', 'feedback.UserID = users.UserID')
                 ->findAll(),
+            'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
             'news' => $this->news->findAll(),
         ];
         return view('Hotell/index', $data);

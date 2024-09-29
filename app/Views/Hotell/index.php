@@ -218,33 +218,37 @@
           <div class="col-md-7">
             <div class="media d-block room mb-0">
               <figure>
-                <img src="<?=base_url()?>guest/images/MahaltaPic/20.jpg" alt="Generic placeholder image" class="img-fluid">
+              <?php if (!empty($venues)): ?>
+                <img src="<?=base_url('/uploads/'.$venues[0]['Image'])?>" alt="Generic placeholder image" class="img-fluid">
+                <?php endif; ?>
                 
               </figure>
               <div class="media-body">
-                <h3 class="mt-0"><a href="#">Dine In</a></h3>
-                
+              <?php if (!empty($venues)): ?>
+                <h3 class="mt-0"><a ><?=$venues[0]['VenueName']?></a></h3>
+                <?php endif; ?>
                 <p>Savor exquisite dining at our hotel and resort restaurant with a diverse menu and inviting ambiance. </p>
                 <p><a href="<?= route_to('mainmenu') ?>" class="btn btn-primary btn-sm">View Our Restaurant Options</a></p>
               </div>
             </div>
           </div>
           <div class="col-md-5 room-thumbnail-absolute">
-            <a href="#" class="media d-block room bg first-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/24.jpg); ">
+          <?php if (!empty($venues)): ?>
+            <a class="media d-block room bg first-room" style="background-image: url(<?=base_url('/uploads/'.$venues[1]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Restaurant
+                  <?=$venues[1]['VenueName']?>
                   </span>
                 </div>
             </a>
-
-            <a href="#" class="media d-block room bg second-room" style="background-image: url(<?=base_url()?>guest/images/MahaltaPic/20.jpg); ">
+            <a class="media d-block room bg second-room" style="background-image: url(<?=base_url('/uploads/'.$venues[2]['Image'])?>); ">
                 <div class="overlap-text">
                   <span>
-                    Venue 3
+                  <?=$venues[2]['VenueName']?>
                   </span>
                 </div>
             </a>
+            <?php endif; ?>
           </div>
         </div>
       </div>
