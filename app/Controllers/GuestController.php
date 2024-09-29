@@ -1716,6 +1716,6 @@ class GuestController extends BaseController
     }
     public function daytour()
     {
-        return view('Hotel/daytour');
+        return view('Hotell/daytour');
     }
 }

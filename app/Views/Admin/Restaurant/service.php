@@ -86,9 +86,9 @@
                                 <div class="form-group">
                                     <label for="VenueName">Venue Name</label>
                                       <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option >Main Restaurant</option>
-                                        <option >Venue 2</option>
-                                        <option >Venue 3</option>
+                                        <option >Tamaraw Hall</option>
+                                        <option >Carabao</option>
+                                        <option >Octagon</option>
                                       </select>
                                 </div>
                                 <div class="form-group">
@@ -128,9 +128,9 @@
                                 <div class="form-group">
                                     <label for="VenueName">Venue Name</label>
                                       <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option <?= ($venue['VenueName'] == 'Main Restaurant') ? 'selected' : '' ?>>Main Restaurant</option>
-                                        <option <?= ($venue['VenueName'] == 'Venue 2') ? 'selected' : '' ?>>Venue 2</option>
-                                        <option <?= ($venue['VenueName'] == 'Venue 3') ? 'selected' : '' ?>>Venue 3</option>
+                                        <option <?= ($venue['VenueName'] == 'Tamaraw Hall') ? 'selected' : '' ?>>Tamaraw Hall</option>
+                                        <option <?= ($venue['VenueName'] == 'Carabao') ? 'selected' : '' ?>>Carabao</option>
+                                        <option <?= ($venue['VenueName'] == 'Octagon') ? 'selected' : '' ?>>Octagon</option>
                                       </select>
                                 </div>
                                 <div class="form-group">

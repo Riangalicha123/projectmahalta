@@ -70,6 +70,7 @@
     </div>
     <!-- Carousel End -->
     <?php endif; ?>
+    <br>
     <!-- Exit Button -->
     <u class="exit-button" onclick="hideLoader()">Don't show</u>
 </div>

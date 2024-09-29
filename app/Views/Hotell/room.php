@@ -347,7 +347,7 @@
         roomContainers.forEach(function(roomContainer) {
             var roomPriceElement = roomContainer.querySelector('h5 a'); 
             var roomPrice = parseFloat(roomPriceElement.innerText.replace('PHP', '').replace('per', '').replace(/\s+/g, ''));
-            if (roomPrice <= priceRange) {
+            if (roomPrice >= priceRange) {
                 roomContainer.style.display = 'block'; 
             } else {
                 roomContainer.style.display = 'none'; 
