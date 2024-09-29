@@ -986,8 +986,8 @@ class GuestController extends BaseController
     public function getVenueDateandGuests()
     {
         $session = \Config\Services::session();
-        $CheckInDate = $this->request->getPost('CheckInDate');
-        $CheckOutDate = $this->request->getPost('CheckOutDate');
+        $CheckInDate = new \DateTime($this->request->getPost('CheckInDate'));
+        $CheckOutDate = new \DateTime($this->request->getPost('CheckOutDate'));
         $NumberOfGuests = $this->request->getPost('NumberOfGuests');
         $FirstName = $this->request->getPost('FirstName');
         $LastName = $this->request->getPost('LastName');
@@ -997,6 +997,8 @@ class GuestController extends BaseController
         $City = $this->request->getPost('City');
         $Barangay = $this->request->getPost('Barangay');
         $EventType = $this->request->getPost('EventType');
+        $Note = $this->request->getPost('Note');
+    
         $UserData = [
             'FirstName' => $FirstName,
             'LastName' => $LastName,
@@ -1006,21 +1008,71 @@ class GuestController extends BaseController
             'City' => $City,
             'Barangay' => $Barangay,
         ];
+    
         $ReservationData = [
-            'CheckInDate' => $CheckInDate,
-            'CheckOutDate' => $CheckOutDate,
+            'CheckInDate' => $CheckInDate->format('Y-m-d H:i:s'),
+            'CheckOutDate' => $CheckOutDate->format('Y-m-d H:i:s'),
             'NumberOfGuests' => $NumberOfGuests,
+ 
         ];
+    
         $EventData = [
             'EventType' => $EventType
         ];
+        $NoteData = [
+            'Note' => $Note,
+        ];
+    
         $session->set('UserData', $UserData);
         $session->set('ReservationData', $ReservationData);
+        $session->set('NoteData', $NoteData);
         $session->set('EventData', $EventData);
-        $TotalAmount = $NumberOfGuests * 999;
-        $session->set('TotalAmount', $TotalAmount); 
+    
+        // Get the selected venue data
+        $convenuesSelected = $session->get('convenuesSelected');
+    
+        // Define the minimum and maximum guest limits for Tamaraw
+        $minimumGuests = 25; // Set the minimum for Tamaraw
+        $maximumGuests = 30; // Set the maximum for Tamaraw
+    
+        // Calculate duration in hours
+        $duration = $CheckInDate->diff($CheckOutDate);
+        $hours = ($duration->days * 24) + $duration->h + ($duration->i > 0 ? 1 : 0); // Add extra hour if minutes are greater than 0
+    
+        // Initialize TotalAmount
+        $TotalAmount = 0;
+    
+        // Adjust the total amount based on guest limits only for Tamaraw
+        if (!empty($convenuesSelected) && $convenuesSelected['conVenueName'] === 'Tamaraw') {
+            if ($NumberOfGuests < $minimumGuests) {
+                // Adjust amount for guests below the minimum
+                $TotalAmount = 0; // or handle as applicable
+            } elseif ($NumberOfGuests >= $minimumGuests && $NumberOfGuests <= $maximumGuests) {
+                // Charge based on the minimum if guests are between minimum and maximum
+                $TotalAmount = $minimumGuests * 1000; 
+            } elseif ($NumberOfGuests > $maximumGuests) {
+                // Charge for the minimum guests plus additional for exceeding guests
+                $TotalAmount = $minimumGuests * 1000; // Charge for minimum guests
+                $exceedingGuests = $NumberOfGuests - $maximumGuests;
+                $TotalAmount += $exceedingGuests * 1000; // Add for exceeding guests
+            }
+        } else {
+            // Optionally handle other venues if necessary
+            $TotalAmount = $NumberOfGuests * 1000; // Default calculation for other venues
+        }
+    
+        // Add PHP 1000 if duration exceeds 6 hours
+        if ($hours > 6) {
+            $TotalAmount += 1000;
+        }
+    
+        $session->set('TotalAmount', $TotalAmount);
+    
         return redirect()->to(base_url('/convention-center/reservation/formdetails'));
     }
+    
+    
+
     public function conventioninformation()
     {
         if (!session()->get('isLoggedIn')) {
@@ -1029,6 +1081,7 @@ class GuestController extends BaseController
         $session = \Config\Services::session();
         $convenuesSelected = $session->get('convenuesSelected');
         $ReservationData = $session->get('ReservationData');
+        $NoteData = $session->get('NoteData');
         $EventData = $session->get('EventData');
         $UserData = $session->get('UserData');
         $TotalAmount = $session->get('TotalAmount');
@@ -1041,6 +1094,7 @@ class GuestController extends BaseController
             'UserData' => $UserData,
             'TotalAmount' => $TotalAmount,
             'ReservationData' => $ReservationData,
+            'NoteData' => $NoteData,
             'EventData' => $EventData,
             'chats' => $this->chat->findAll(),
             'qrcodes' => $qr,
@@ -1054,6 +1108,7 @@ class GuestController extends BaseController
         }
         $session = \Config\Services::session();
         $ReservationData = $session->get('ReservationData');
+        $NoteData = $session->get('NoteData');
         $convenuesSelected = $session->get('convenuesSelected');
         $EventData = $session->get('EventData');
         $UserData = $session->get('UserData');
@@ -1068,6 +1123,7 @@ class GuestController extends BaseController
             'TotalAmount' => $TotalAmount,
             'convenuesSelected' => $convenuesSelected,
             'ReservationData' => $ReservationData,
+            'NoteData' => $NoteData,
             'EventData' => $EventData,
             'DownpaymentAmount' => $DownPaymentAmount,
             'FullpaymentAmount' => $FullPaymentAmount,
@@ -1122,6 +1178,7 @@ class GuestController extends BaseController
                 ->where('Barangay', $Barangay)
                 ->first();
             $ReservationData = session()->get('ReservationData');
+            $NoteData = session()->get('NoteData');
             $EventData = session()->get('EventData');
             $EventType = $EventData['EventType'] ?? '';
             $EventData = $this->events->where('EventType', $EventType)
@@ -1131,7 +1188,7 @@ class GuestController extends BaseController
             $paymentOption = $this->request->getPost('PaymentOption');
             $referenceNumber = ($paymentOption == 'gcash') ? $this->request->getPost('ReferenceNumberGcash') : $this->request->getPost('ReferenceNumberPaymaya');
             $email = $session->get('username');
-            if ($EventData && $ReservationData && $UserData && $TotalAmount && $convenuesSelected) {
+            if ($EventData && $ReservationData && $NoteData && $UserData && $TotalAmount && $convenuesSelected) {
                 if ($image = $this->request->getFile('Image')) {
                     $newFileName = $image->getRandomName();
                     if ($image->isValid() && !$image->hasMoved()) {
@@ -1151,6 +1208,7 @@ class GuestController extends BaseController
                             'CheckInDate' => $ReservationData['CheckInDate'],
                             'CheckOutDate' => $ReservationData['CheckOutDate'],
                             'NumberOfGuests' => $ReservationData['NumberOfGuests'],
+                            'Note' => $NoteData['Note'],
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                             'ReferenceNumber' => $referenceNumber,
                             'PaymentOption' => $paymentOption,
@@ -1250,6 +1308,7 @@ class GuestController extends BaseController
         $contactNumber = $userData['ContactNumber'] ?? '';
         $eventType = $eventData['EventType'] ?? '';
         $conVenueName = $convenuesSelected['conVenueName'] ?? '';
+        $note = $NoteData['Note'] ?? '';
         $message = "Dear {$firstName} {$lastName},<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
         $message .= "Number of Guests: {$numberofGuests}<br>";
@@ -1262,6 +1321,7 @@ class GuestController extends BaseController
         $message .= "Event Type: {$eventType}<br>";
         $message .= "Contact Number: {$contactNumber}<br>";
         $message .= "Convention Venue: {$conVenueName}<br>";
+        $message .= "Note: {$note}<br>";
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         return $message;
     }
@@ -1280,6 +1340,7 @@ class GuestController extends BaseController
         $contactNumber = $userData['ContactNumber'] ?? '';
         $eventType = $eventData['EventType'] ?? '';
         $conVenueName = $convenuesSelected['conVenueName'] ?? '';
+        $note = $NoteData['Note'] ?? '';
         $message = "Dear {$firstName} {$lastName},<br><br>";
         $message .= "Your reservation has been successfully made with the following details:<br>";
         $message .= "Number of Guests: {$numberofGuests}<br>";
@@ -1292,6 +1353,7 @@ class GuestController extends BaseController
         $message .= "Event Type: {$eventType}<br>";
         $message .= "Contact Number: {$contactNumber}<br>";
         $message .= "Convention Venue: {$conVenueName}<br>";
+        $message .= "Note: {$note}<br>";
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         return $message;
     }

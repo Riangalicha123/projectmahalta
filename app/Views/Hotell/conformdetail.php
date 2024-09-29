@@ -89,6 +89,28 @@
                 <?php else: ?>
                   <p>No reservation data found.</p>
                 <?php endif; ?>
+                <div style="text-align: center;">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (isset($NoteData) && !empty($NoteData['Note'])): ?>
+                    <tr>
+                        <td><?= esc($NoteData['Note']) ?></td>
+                    </tr>
+                <?php else: ?>
+                    <tr>
+                        <td>No note data found.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
                 <?php if (isset($UserData) && !empty($UserData)): ?>
                   <table class="table table-responsive">
                     <thead>
@@ -223,22 +245,12 @@
                 </figure>
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= esc($convenuesSelected['conVenueName'] ?? '') ?></a></h3>
-                      
+                      <br>
                       <?php if (isset($TotalAmount)): ?>
-                            <h3>Total Amount:Php <?= number_format($TotalAmount, 2) ?> </h3>
+                            <h3><b>Total Amount:</b>Php <?= number_format($TotalAmount, 2) ?> </h3>
                         <?php else: ?>
                             <p>No reservation data found.</p>
                         <?php endif; ?>
-                      
-                        <div class="row additionalDetails" style="display:none;">
-                        <h6 class="mt-0"><a >Maximum Guests: <?= esc($convenuesSelected['maxGuest'] ?? '') ?></a></h6>
-                      <h6 class="mt-0"><a >Minimum Guests: <?= esc($convenuesSelected['minGuest'] ?? '') ?></a></h6>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-12 text-center">
-                          <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
-                          </div>
-                        </div>
                     </div>
                     
                   </div>

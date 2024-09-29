@@ -138,6 +138,10 @@
                 <p><strong>Total Amount:</strong> <?= $reservation->TotalAmount ?></p>
 
             </div>
+            <div class="section">
+    <h2>Note</h2>
+    <p><strong>Note:</strong> <?= !empty($reservation->Note) ? esc($reservation->Note) : 'No data' ?></p>
+</div>
             <div class="receipt-footer">
                 <p>Thank you for choosing us!</p>
             </div>
@@ -179,6 +183,8 @@ function downloadPDF() {
     const guestInfoText = `Name: <?= $reservation->FirstName ?> <?= $reservation->LastName ?>\nEmail: <?= $reservation->Email ?>\nContact Number: <?= $reservation->ContactNumber ?>`;
     const reservationInfoText = `Check-In Date: <?= $reservation->CheckInDate ?>\nCheck-Out Date: <?= $reservation->CheckOutDate ?>\nNumber of Guests: <?= $reservation->NumberOfGuests ?>\nVenue: <?= $reservation->conVenueName ?>\nEvent: <?= $reservation->EventType ?>\nStatus: <?= $reservation->Status ?>`;
     const paymentDetailsText = `Payment Option: <?= $reservation->PaymentOption ?>\nReference Number: <?= $reservation->ReferenceNumber ?>\nPayment Type: <?= $reservation->downorfullPayment ==  $reservation->TotalAmount ? 'Full Payment' : 'Down Payment' ?> - Amount: <?= $reservation->downorfullPayment ?>`;
+    const noteText = `Note: <?= !empty($reservation->Note) ? esc($reservation->Note) : 'No data' ?>`;
+
 
     doc.text(receiptTitle, paperWidth / 2, scaledFontSize, null, null, 'center');
     doc.text('Guest Information', 20, scaledFontSize * 2);
@@ -187,6 +193,8 @@ function downloadPDF() {
     doc.text(reservationInfoText, 20, scaledFontSize * 6);
     doc.text('Payment Details', 20, scaledFontSize * 9);
     doc.text(paymentDetailsText, 20, scaledFontSize * 10);
+    doc.text('Note', 20, scaledFontSize * 12);
+    doc.text(noteText, 20, scaledFontSize * 13);
 
     const footerText = 'Mahalta Resorts and Convention Center\nBrgy,Parang Calapan City,Oriental Mindoro,5200-Philippines\nMobile no.096812480329,Email:mahaltaresorts@gmail.com';
     doc.text(footerText, paperWidth / 2, paperHeight - scaledFontSize, null, null, 'center');

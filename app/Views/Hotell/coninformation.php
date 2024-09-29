@@ -61,76 +61,82 @@
             <div class="col-md-6">
               <h2 class="mb-5">Available Reservation Venues</h2>
               <form action="<?= base_url('/convention-center/reservation/information/getVenueDateandGuests') ?>" method="POST">
-                <div class="row">
+              <div class="row">
                   <div class="col-md-12 form-group">
-                    <label for="dateRange">Arrival Date to Departure Date</label>
-                    <div style="position: relative;">
-                      <input type='text' class="form-control" id='dateRange' placeholder="Check-In-Date to Check-Out-Date" required/>
-                    </div>
-                    <input type="hidden" id="CheckInDate" name="CheckInDate">
-                    <input type="hidden" id="CheckOutDate" name="CheckOutDate">
+                      <label for="dateRange">Arrival Date to Departure Date</label>
+                      <div style="position: relative;">
+                          <input type='text' class="form-control" id='dateRange' placeholder="Check-In-Date to Check-Out-Date" required/>
+                      </div>
+                      <input type="hidden" id="CheckInDate" name="CheckInDate" required>
+                      <input type="hidden" id="CheckOutDate" name="CheckOutDate" required>
                   </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                   <div class="col-md-12 form-group">
-                    <label for="NumberOfGuests">Number Of Guest</label>
-                    <input type="number" class="form-control" id="NumberOfGuests"  name="NumberOfGuests" required>
+                      <label for="NumberOfGuests">Number Of Guests</label>
+                      <input type="number" class="form-control" id="NumberOfGuests" name="NumberOfGuests" required>
                   </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                   <div class="col-md-6 form-group">
-                    <label for="FirstName">First Name</label>
-                    <input type="text" id="FirstName" name="FirstName" class="form-control" value="<?= $_SESSION['firstname'] ?? ''; ?>" disabled>
-                    <input type="hidden" name="FirstName" value="<?= $_SESSION['firstname'] ?? ''; ?>">
+                      <label for="FirstName">First Name</label>
+                      <input type="text" id="FirstName" name="FirstName" class="form-control" value="<?= $_SESSION['firstname'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="FirstName" value="<?= $_SESSION['firstname'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="LastName">Last Name</label>
-                    <input type="text" id="LastName" class="form-control" value="<?= $_SESSION['lastname'] ?? ''; ?>" disabled>
-                    <input type="hidden" name="LastName" value="<?= $_SESSION['lastname'] ?? ''; ?>">
+                      <label for="LastName">Last Name</label>
+                      <input type="text" id="LastName" class="form-control" value="<?= $_SESSION['lastname'] ?? ''; ?>" disabled>
+                      <input type="hidden" name="LastName" value="<?= $_SESSION['lastname'] ?? ''; ?>">
                   </div>
-                </div>
-                <div class="row">
+              </div>
+              <div class="row">
                   <div class="col-md-6 form-group">
-                    <label for="ContactNumber">Contact Number</label>
-                    <input type="text" id="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" disabled>
+                      <label for="ContactNumber">Contact Number</label>
+                      <input type="text" id="ContactNumber" class="form-control" value="<?= $_SESSION['contact'] ?? ''; ?>" disabled>
                       <input type="hidden" name="ContactNumber" value="<?= $_SESSION['contact'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="Region">Region</label>
-                    <input type="text" id="Region"  class="form-control" value="<?= $_SESSION['region'] ?? ''; ?>" disabled>
+                      <label for="Region">Region</label>
+                      <input type="text" id="Region" class="form-control" value="<?= $_SESSION['region'] ?? ''; ?>" disabled>
                       <input type="hidden" name="Region" value="<?= $_SESSION['region'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="Province">Province</label>
-                    <input type="text" id="Province" class="form-control" value="<?= $_SESSION['province'] ?? ''; ?>" disabled>
+                      <label for="Province">Province</label>
+                      <input type="text" id="Province" class="form-control" value="<?= $_SESSION['province'] ?? ''; ?>" disabled>
                       <input type="hidden" name="Province" value="<?= $_SESSION['province'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="City">City/Municipality</label>
-                    <input type="text" id="City" class="form-control" value="<?= $_SESSION['city'] ?? ''; ?>" disabled>
+                      <label for="City">City/Municipality</label>
+                      <input type="text" id="City" class="form-control" value="<?= $_SESSION['city'] ?? ''; ?>" disabled>
                       <input type="hidden" name="City" value="<?= $_SESSION['city'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
-                    <label for="Barangay">Barangay</label>
-                    <input type="text" id="Barangay" class="form-control" value="<?= $_SESSION['barangay'] ?? ''; ?>" disabled>
+                      <label for="Barangay">Barangay</label>
+                      <input type="text" id="Barangay" class="form-control" value="<?= $_SESSION['barangay'] ?? ''; ?>" disabled>
                       <input type="hidden" name="Barangay" value="<?= $_SESSION['barangay'] ?? ''; ?>">
                   </div>
                   <div class="col-md-6 form-group">
                       <label for="EventType">Event Type</label>
                       <select class="form-select form-control" id="EventType" name="EventType" required>
-                          <option>Select Event</option>
+                          <option value="" disabled selected>Select Event</option>
                           <?php foreach ($eventTypes as $eventType): ?>
                               <option><?= $eventType ?></option>
                           <?php endforeach; ?>
                       </select>
                   </div>
-                </div>
-                <div class="row">
-                        <div class="col-md-12 form-group text-center">
-                          <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
+              </div>
+              <div class="row">
+                            <div class="col-md-12 form-group">
+                                <label for="Note">Write a Note</label>
+                                <textarea name="Note" id="Note" class="form-control" cols="30" rows="8"></textarea>
+                            </div>
                         </div>
-                    </div>
-              </form>
+              <div class="row">
+                  <div class="col-md-12 form-group text-center">
+                      <button type="submit" value="Reserve Now" class="btn btn-primary">Check Availability</button>
+                  </div>
+              </div>
+          </form>
             </div>
               <div class="col-md-2"></div>
               <div class="col-md-4">
@@ -144,16 +150,11 @@
                 </figure>
                     <div class="media-body">
                       <h3 class="mt-0"><a href="#"><?= esc($convenuesSelected['conVenueName'] ?? '') ?></a></h3>
-                      
-                        <div class="row additionalDetails" style="display:none;">
+                        <div >
                         <h6 class="mt-0"><a >Maximum Guests: <?= esc($convenuesSelected['maxGuest'] ?? '') ?></a></h6>
                       <h6 class="mt-0"><a >Minimum Guests: <?= esc($convenuesSelected['minGuest'] ?? '') ?></a></h6>
                         </div>
-                        <div class="row">
-                          <div class="col-md-12 text-center">
-                          <h6 class="btn-info viewMoreBtn"><a>View More Details</a></h6>
-                          </div>
-                        </div>
+                        
                     </div>
                   </div>
           <?php else: ?>
@@ -177,6 +178,35 @@
     });
   });
 </script>
+<script>
+  // Assuming the minimum guests value is available from the backend in PHP
+  const minGuests = <?= $convenuesSelected['minGuest'] ?? 0 ?>;
+  
+  // Pre-fill the NumberOfGuests field with the minimum value
+  document.getElementById('NumberOfGuests').value = minGuests;
+
+  // Function to check the guest count
+  function validateGuestCount() {
+    const guestInput = document.getElementById('NumberOfGuests');
+    const guestCount = parseInt(guestInput.value, 10);
+
+    if (guestCount < minGuests) {
+      alert(`The number of guests cannot be less than ${minGuests}. Please enter a valid number.`);
+      guestInput.value = minGuests; // Reset the input field to minimum guests
+      guestInput.focus();           // Focus back on the input field
+      return false;                 // Prevent form submission
+    }
+    return true;                    // Allow form submission if the validation passes
+  }
+
+  // Attach the validation function to the form submit event
+  document.querySelector('form').addEventListener('submit', function(event) {
+    if (!validateGuestCount()) {
+      event.preventDefault(); // Stop the form from submitting if the validation fails
+    }
+  });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
     <script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>

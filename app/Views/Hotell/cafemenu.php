@@ -73,40 +73,42 @@
   </head>
   <body>
   <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
-        <div class="col-md-12 text-center">
+          <div class="col-md-12 text-center">
           <br>
-                    <br>
           <br>
-            <div class="mb-2 element-animate" style="text-align: center;">
+          <br>
+          <br>
+            <div class="mb-1 element-animate" style="text-align: center;">
               <h1 style="font-size: 3em; margin-bottom: -5px;">Restaurant</h1>
-               <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
+               <p style="margin-bottom: -25px;">Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
             <div class="row mt-4">
                 <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
               <div class="card-header text-center">À la Carte Service</div>
-                <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                <div style="flex: 0 0 50%; ">
                     <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
                   </div>
               </div>
             </div>
+
             <div class="col-md-6">
-              <div class="card text-white mb-3" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="card-header text-center">Buffet Service</div>
                 <div style="display: flex; flex-wrap: wrap;">
-                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                  <div style="flex: 0 0 50%; margin-bottom: -5px;">
                     <p style="font-size: 1.2em;">Friday-Saturday</p>
                   </div>
-                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                  <div style="flex: 0 0 50%; margin-bottom: -5px;">
                     <p style="font-size: 1.2em;">Breakfast: 7:00 AM - 10:00 AM</p>
                   </div>
-                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                  <div style="flex: 0 0 50%; margin-bottom: -5px;">
                     <p style="font-size: 1.2em;">Lunch: 12:00 PM - 3:00 PM</p>
                   </div>
-                  <div style="flex: 0 0 50%; margin-bottom: 10px;">
+                  <div style="flex: 0 0 50%; margin-bottom: -5px;">
                     <p style="font-size: 1.2em;">Dinner: 6:30 PM - 9:00 PM</p>
                   </div>
                 </div>
