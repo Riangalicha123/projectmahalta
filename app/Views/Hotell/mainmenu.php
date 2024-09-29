@@ -79,7 +79,9 @@
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
           <br>
-            <div class="mb-5 element-animate" style="text-align: center;">
+          <br>
+          <br>
+            <div class="mb-2 element-animate" style="text-align: center;">
               <h1 style="font-size: 3em; margin-bottom: -5px;">Restaurant</h1>
                <p>Savor the moment, indulge in flavor at Mahalta's Restaurant</p> 
             </div>
