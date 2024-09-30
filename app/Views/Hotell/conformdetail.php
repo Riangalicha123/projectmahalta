@@ -151,11 +151,13 @@
                             <thead>
                                 <tr>
                                     <th><h4>Event Type</h4></th>
+                                    <th><h4>Set Type</h4></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td><?= esc($EventData['EventType'] ?? '') ?></td>
+                                    <td><?= esc($EventData['Set'] ?? '') ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -186,10 +188,10 @@
                 </div>
                 
                 <div class="col-6 form-group">
-                    <label for="paymentOptionPayMaya" class="hidden">
+                    <label for="paymentOptionPayMaya">
                         <h4>PayMaya</h4>
                     </label>
-                    <input type="hidden" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
+                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
                 </div>
             </div>
 

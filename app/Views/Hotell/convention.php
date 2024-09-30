@@ -78,28 +78,50 @@
     </section>
 
     <section class="site-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
-  <div class="container">
-      <div class="col-md-12 heading-wrap text-center">
-          <h2 class="heading">Convention Venue</h2>
-      </div>
-    <div class="row">
-    <?php foreach ($convenues as $convenue): ?>
-    <div class="col-md-4 hover-effect-container">
-        <div class="post-entry">
-          <a><img src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="Image placeholder" class="img-fluid" style="background-size: cover; width: 100%; height: 310px"></a>
-          <div class="body-text">
-            <div class="category"></div>
-            <h3 class="mb-3"><a><?=$convenue['conVenueName']?></a></h3>
-            <ul class="room-specs">
-              <li><span>Minimum</span> <?=$convenue['minGuest']?></li>
-              <li><span>Maximum</span> <?=$convenue['maxGuest']?></li>
-            </ul>
-          </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center mb-5">Available Reservation Venues</h2>
+            </div>
+            <?php foreach ($convenues as $convenue): ?>
+                <div class="col-md-4 mb-4">
+                    <div class="room">
+                        <a href="#">
+                            <img src="<?= base_url('/convention/'.$convenue['Image']) ?>" alt="<?= $convenue['conVenueName'] ?>" class="img-fluid rounded">
+                        </a>
+                        <div class="media-body mt-3 text-center">
+                        <h3 class="mb-3"><a><?=$convenue['conVenueName']?></a></h3>
+                            <ul class="list-unstyled room-specs mb-0">
+                                <li><span class="ion-ios-people-outline"></span> <?= $convenue['minGuest'] ?> - <?= $convenue['maxGuest'] ?> Guests</li>
+                            </ul>
+                            
+                            <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$convenue['conVenueID']?>" style="cursor: pointer;">View More Details</a></h6>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="roomModal<?=$convenue['conVenueID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$convenue['conVenueID']?>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="roomModalLabel<?=$convenue['conVenueID']?>"><?=$convenue['conVenueName']?> Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?= $convenue['Description'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-      </div>
-      <?php endforeach; ?>
     </div>
-  </div>
 </section>
 
     <section class="site-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">

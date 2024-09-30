@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mahalta-Staff</title>
+  <title>Mahalta Admin</title>
       <!-- Site favicon -->
       <link
 			rel="apple-touch-icon"
@@ -92,17 +92,21 @@
                                     </select>
                                 </div>
                                 <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="minGuest">Minimum Guest</label>
-                                                <input type="number" class="form-control" id="minGuest" name="minGuest" required>
-                                            </div>
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="maxGuest">Maximum Guest</label>
-                                                <input type="number" class="form-control" id="maxGuest" name="maxGuest" required>
-                                            </div>
-                                        </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="minGuest">Minimum Guest</label>
+                                      <input type="number" class="form-control" id="minGuest" name="minGuest" required>
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="maxGuest">Maximum Guest</label>
+                                      <input type="number" class="form-control" id="maxGuest" name="maxGuest" required>
+                                  </div>
+                                </div>
+                                <div class="form-row">
+                                  <div class="col-md-12 form-group">
+                                    <label for="Description">Descriptions</label>
+                                      <textarea name="Description" id="Description" class="form-control" cols="20" rows="8"></textarea>
+                                  </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="Image/*" required>
@@ -144,6 +148,23 @@
                                                 <label for="maxGuest">Maximum Guest</label>
                                                 <input type="number" class="form-control" id="maxGuest" name="maxGuest" required value="<?=$convenue['maxGuest']?>">
                                             </div>
+                                            <div class="form-row">
+                                  <div class="form-group col-md-6">
+                                    <label for="minGuest">Minimum Guest</label>
+                                      <input type="number" class="form-control" id="minGuest" name="minGuest" required value="<?=$convenue['minGuest']?>">
+                                  </div>
+                                  <div class="form-group col-md-6">
+                                    <label for="maxGuest">Maximum Guest</label>
+                                      <input type="number" class="form-control" id="maxGuest" name="maxGuest" required value="<?=$convenue['maxGuest']?>">
+                                  </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                  <div class="col-md-12 form-group">
+                                  <label for="Description">Description</label>
+                                  <textarea class="form-control" id="Description" name="Description" required  cols="30" rows="10"><?=$convenue['Description']?></textarea>
+                                  </div>
+                                </div>
                                 <div class="form-group">
                                     <label for="Image">Upload</label>
                                     <input type="file" class="form-control" id="Image" id="inputImage" name="Image" accept="image/*" required>
@@ -163,6 +184,7 @@
                     <th>Venue Name</th>
                     <th>Minimum Guest</th>
                     <th>Maximum Guest</th>
+                    <th>Descriptions</th>
                     <th>Image</th>
                     <th>Action</th>
                   </tr>
@@ -173,6 +195,7 @@
                     <td><?=$convenue['conVenueName']?></td>
                     <td><?=$convenue['minGuest']?></td>
                     <td><?=$convenue['maxGuest']?></td>
+                    <td><?=$convenue['Description']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/convention/'.$convenue['Image'])?>" alt="#"/></td>
                     <th> <a class="btn btn-danger" href="<?= base_url('/deleteVenue/' . $convenue['conVenueID']) ?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#eeditModal<?=$convenue['conVenueID']?>">Edit</a></th>
                   </tr>

@@ -238,10 +238,10 @@
                 </div>
                 
                 <div class="col-6 form-group">
-                    <label for="paymentOptionPayMaya" class="hidden">
+                    <label for="paymentOptionPayMaya">
                         <h4>PayMaya</h4>
                     </label>
-                    <input type="hidden" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
+                    <input type="radio" id="paymentOptionPayMaya" name="PaymentOption" value="paymaya" onclick="showQR('paymaya')" <?php if ($paymaya['PaymentOption'] === 'paymaya') echo 'disabled'; ?>>
                 </div>
             </div>
 

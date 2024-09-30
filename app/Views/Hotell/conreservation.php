@@ -93,9 +93,30 @@
                         </a>
                         <div class="media-body mt-3 text-center">
                             <h3 class="h5"><a href="#" class="text-dark"><?= $convenue['conVenueName'] ?></a></h3>
-                            <ul class="list-unstyled room-specs mb-3">
+                            <ul class="list-unstyled room-specs mb-0">
                                 <li><span class="ion-ios-people-outline"></span> <?= $convenue['minGuest'] ?> - <?= $convenue['maxGuest'] ?> Guests</li>
                             </ul>
+                            
+                            <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h6 class="btn-info viewMoreBtn"><a data-toggle="modal" data-target="#roomModal<?=$convenue['conVenueID']?>" style="cursor: pointer;">View More Details</a></h6>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="roomModal<?=$convenue['conVenueID']?>" tabindex="-1" role="dialog" aria-labelledby="roomModalLabel<?=$convenue['conVenueID']?>" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="roomModalLabel<?=$convenue['conVenueID']?>"><?=$convenue['conVenueName']?> Details</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <?= $convenue['Description'] ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <button type="button" class="btn btn-primary btn-sm select-venue" data-toggle="modal" data-target="#venueModal" data-id="<?= $convenue['conVenueID'] ?>" data-name="<?= $convenue['conVenueName'] ?>" data-image="<?= base_url('/convention/'.$convenue['Image']) ?>" data-min-guest="<?= $convenue['minGuest'] ?>" data-max-guest="<?= $convenue['maxGuest'] ?>">Select</button>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ class ConventionVenueModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['conVenueName','minGuest','maxGuest','Image'];
+    protected $allowedFields    = ['conVenueName','minGuest','maxGuest', 'Description', 'Image'];
 
     // Dates
     protected $useTimestamps = false;

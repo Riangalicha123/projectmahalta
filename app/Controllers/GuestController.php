@@ -934,6 +934,27 @@ class GuestController extends BaseController
                 }
             }
         }
+        $setTypes = [];
+        if (!empty($selectedconVenueID)) {
+            $convenuesSelected = $this->convenues->find($selectedconVenueID);
+            $session->set('convenuesSelected', $convenuesSelected);
+            if (!empty($convenuesSelected['conVenueName'])) {
+                switch ($convenuesSelected['conVenueName']) {
+                    case 'CBRC Hall':
+                        $setTypes = ['Rental Place','Per Head w/Food'];
+                        break;
+                    case 'Tamaraw':
+                        $setTypes = ['Consumable Food','Rental Place'];
+                        break;
+                    case 'Octagon':
+                        $setTypes = ['Rental Place','Per Head w/Food'];
+                        break;
+                    default:
+                        $setTypes = [];
+                        break;
+                }
+            }
+        }
         $reservationModel = new ReservationModel();
         $conVenueID = $this->request->getPost('selectedconVenueID'); // Get selected convention venue ID
         $reservationsQuery = $reservationModel->table('reservations')
@@ -958,6 +979,7 @@ class GuestController extends BaseController
         }
         return view('Hotell/coninformation', [
             'convenuesSelected' => $convenuesSelected,
+            'setTypes' => $setTypes,
             'eventTypes' => $eventTypes,
             'unavailableDates' => $unavailableDates,
         ]);
@@ -998,6 +1020,8 @@ class GuestController extends BaseController
         $Barangay = $this->request->getPost('Barangay');
         $EventType = $this->request->getPost('EventType');
         $Note = $this->request->getPost('Note');
+        $setType = $this->request->getPost('Set'); // Retrieve selected setType from the form
+        $convenuesSelected = $session->get('convenuesSelected'); // Retrieve selected venue from session
     
         $UserData = [
             'FirstName' => $FirstName,
@@ -1013,12 +1037,16 @@ class GuestController extends BaseController
             'CheckInDate' => $CheckInDate->format('Y-m-d H:i:s'),
             'CheckOutDate' => $CheckOutDate->format('Y-m-d H:i:s'),
             'NumberOfGuests' => $NumberOfGuests,
- 
         ];
     
         $EventData = [
-            'EventType' => $EventType
+            'EventType' => $EventType,
+            'Set' => $setType,
         ];
+        $SetData = [
+            'Set' => $setType,
+        ];
+    
         $NoteData = [
             'Note' => $Note,
         ];
@@ -1027,51 +1055,60 @@ class GuestController extends BaseController
         $session->set('ReservationData', $ReservationData);
         $session->set('NoteData', $NoteData);
         $session->set('EventData', $EventData);
-    
-        // Get the selected venue data
-        $convenuesSelected = $session->get('convenuesSelected');
-    
-        // Define the minimum and maximum guest limits for Tamaraw
-        $minimumGuests = 25; // Set the minimum for Tamaraw
-        $maximumGuests = 30; // Set the maximum for Tamaraw
+        $session->set('SetData', $SetData);
     
         // Calculate duration in hours
         $duration = $CheckInDate->diff($CheckOutDate);
-        $hours = ($duration->days * 24) + $duration->h + ($duration->i > 0 ? 1 : 0); // Add extra hour if minutes are greater than 0
+        $hours = ($duration->days * 24) + $duration->h + ($duration->i > 0 ? 1 : 0);
     
-        // Initialize TotalAmount
         $TotalAmount = 0;
     
-        // Adjust the total amount based on guest limits only for Tamaraw
-        if (!empty($convenuesSelected) && $convenuesSelected['conVenueName'] === 'Tamaraw') {
-            if ($NumberOfGuests < $minimumGuests) {
-                // Adjust amount for guests below the minimum
-                $TotalAmount = 0; // or handle as applicable
-            } elseif ($NumberOfGuests >= $minimumGuests && $NumberOfGuests <= $maximumGuests) {
-                // Charge based on the minimum if guests are between minimum and maximum
-                $TotalAmount = $minimumGuests * 1000; 
-            } elseif ($NumberOfGuests > $maximumGuests) {
-                // Charge for the minimum guests plus additional for exceeding guests
-                $TotalAmount = $minimumGuests * 1000; // Charge for minimum guests
-                $exceedingGuests = $NumberOfGuests - $maximumGuests;
-                $TotalAmount += $exceedingGuests * 1000; // Add for exceeding guests
+        // Pricing logic based on selected venue and setType
+        if (!empty($convenuesSelected)) {
+            switch ($convenuesSelected['conVenueName']) {
+                case 'CBRC Hall':
+                    if ($setType === 'Rental Place') {
+                        $TotalAmount = 60000; // Fixed price for Rental
+                        if ($hours > 4) {
+                            $TotalAmount += 1000; // Extra charge for exceeding 6 hours
+                        }
+                    } elseif ($setType === 'Per Head w/Food') {
+                        $TotalAmount = $NumberOfGuests * 1800; // Per guest pricing
+                        if ($hours > 4) {
+                            $TotalAmount += 1000; // Extra charge for exceeding 6 hours
+                        }
+                    }
+                    break;
+    
+                case 'Tamaraw':
+                    if ($setType === 'Consumable Food') {
+                        $TotalAmount = 25000; // Fixed price for Consumable Food
+                        if ($hours > 4) {
+                            $TotalAmount += 1000; // Extra charge for exceeding 4 hours
+                        }
+                    } elseif ($setType === 'Rental Place') {
+                        $TotalAmount = 15000; // Fixed price for Rental
+                        if ($hours > 4) {
+                            $TotalAmount += 1000; // Extra charge for exceeding 4 hours
+                        }
+                    }
+                    break;
+    
+                case 'Octagon':
+                    if ($setType === 'Rental Place') {
+                        $TotalAmount = 25000; // Fixed price for Rental
+                    } elseif ($setType === 'Per Head w/Food') {
+                        $TotalAmount = $NumberOfGuests * 1600; // Per guest pricing
+                    }
+                    break;
             }
-        } else {
-            // Optionally handle other venues if necessary
-            $TotalAmount = $NumberOfGuests * 1000; // Default calculation for other venues
         }
-    
-        // Add PHP 1000 if duration exceeds 6 hours
-        if ($hours > 6) {
-            $TotalAmount += 1000;
-        }
-    
+        
         $session->set('TotalAmount', $TotalAmount);
-    
+        
         return redirect()->to(base_url('/convention-center/reservation/formdetails'));
+    
     }
-    
-    
 
     public function conventioninformation()
     {
@@ -1082,6 +1119,7 @@ class GuestController extends BaseController
         $convenuesSelected = $session->get('convenuesSelected');
         $ReservationData = $session->get('ReservationData');
         $NoteData = $session->get('NoteData');
+        $SetData = $session->get('SetData');
         $EventData = $session->get('EventData');
         $UserData = $session->get('UserData');
         $TotalAmount = $session->get('TotalAmount');
@@ -1095,6 +1133,7 @@ class GuestController extends BaseController
             'TotalAmount' => $TotalAmount,
             'ReservationData' => $ReservationData,
             'NoteData' => $NoteData,
+            'SetData' => $SetData,
             'EventData' => $EventData,
             'chats' => $this->chat->findAll(),
             'qrcodes' => $qr,
@@ -1111,6 +1150,7 @@ class GuestController extends BaseController
         $NoteData = $session->get('NoteData');
         $convenuesSelected = $session->get('convenuesSelected');
         $EventData = $session->get('EventData');
+        $SetData = $session->get('SetData');
         $UserData = $session->get('UserData');
         $TotalAmount = $session->get('TotalAmount');
         $DownPaymentAmount = $TotalAmount * 0.5;
@@ -1124,6 +1164,7 @@ class GuestController extends BaseController
             'convenuesSelected' => $convenuesSelected,
             'ReservationData' => $ReservationData,
             'NoteData' => $NoteData,
+            'SetData' => $SetData,
             'EventData' => $EventData,
             'DownpaymentAmount' => $DownPaymentAmount,
             'FullpaymentAmount' => $FullPaymentAmount,
@@ -1179,6 +1220,7 @@ class GuestController extends BaseController
                 ->first();
             $ReservationData = session()->get('ReservationData');
             $NoteData = session()->get('NoteData');
+            $SetData = session()->get('SetData');
             $EventData = session()->get('EventData');
             $EventType = $EventData['EventType'] ?? '';
             $EventData = $this->events->where('EventType', $EventType)
@@ -1208,6 +1250,7 @@ class GuestController extends BaseController
                             'CheckInDate' => $ReservationData['CheckInDate'],
                             'CheckOutDate' => $ReservationData['CheckOutDate'],
                             'NumberOfGuests' => $ReservationData['NumberOfGuests'],
+                            'Set' => $SetData,
                             'Note' => $NoteData['Note'],
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                             'ReferenceNumber' => $referenceNumber,

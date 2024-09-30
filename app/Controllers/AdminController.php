@@ -1670,6 +1670,7 @@ class AdminController extends BaseController
                 'conVenueName' => $this->request->getVar('conVenueName'),
                 'minGuest' => $this->request->getVar('minGuest'),
                 'maxGuest' => $this->request->getVar('maxGuest'),
+                'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
             $rules = [
@@ -1720,6 +1721,7 @@ class AdminController extends BaseController
                 'conVenueName' => $this->request->getVar('conVenueName'),
                 'minGuest' => $this->request->getVar('minGuest'),
                 'maxGuest' => $this->request->getVar('maxGuest'),
+                'Description' => $this->request->getVar('Description'),
                 'Image'                => $newFileName
             ];
             $rules = [
@@ -2067,7 +2069,7 @@ class AdminController extends BaseController
                 ->where('reservations.Status', 'Confirm')
                 ->findAll(),
             'reevents' => $this->reservation
-                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Description,convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
                 ->join('convention', 'reservations.conventionID = convention.conventionID')
                 ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
                 ->join('events', 'convention.EventID = events.EventID')
