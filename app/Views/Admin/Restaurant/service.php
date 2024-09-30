@@ -86,8 +86,8 @@
                                 <div class="form-group">
                                     <label for="VenueName">Venue Name</label>
                                       <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option >Tamaraw Hall</option>
-                                        <option >Carabao</option>
+                                        <option >Main Restaurant</option>
+                                        <option >Tamaraw</option>
                                         <option >Octagon</option>
                                       </select>
                                 </div>
@@ -128,8 +128,8 @@
                                 <div class="form-group">
                                     <label for="VenueName">Venue Name</label>
                                       <select class="custom-select form-control-border" id="VenueName" name="VenueName" required>
-                                        <option <?= ($venue['VenueName'] == 'Tamaraw Hall') ? 'selected' : '' ?>>Tamaraw Hall</option>
-                                        <option <?= ($venue['VenueName'] == 'Carabao') ? 'selected' : '' ?>>Carabao</option>
+                                        <option <?= ($venue['VenueName'] == 'Main Restaurant') ? 'selected' : '' ?>>Main Restaurant</option>
+                                        <option <?= ($venue['VenueName'] == 'Tamaraw') ? 'selected' : '' ?>>Tamaraw</option>
                                         <option <?= ($venue['VenueName'] == 'Octagon') ? 'selected' : '' ?>>Octagon</option>
                                       </select>
                                 </div>
