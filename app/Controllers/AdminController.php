@@ -2508,7 +2508,7 @@ class AdminController extends BaseController
         $validation->setRules([
             'FirstName'      => 'required|min_length[2]',
             'LastName'       => 'required|min_length[2]',
-            'ContactNumber'  => 'numeric|min_length[10]',
+            'ContactNumber'  => 'permit_empty|numeric|min_length[10]',
             'CheckIn'        => 'required|valid_date',
             'CheckOut'       => 'required|valid_date',
             'Adult'          => 'required|numeric',
@@ -2528,12 +2528,13 @@ class AdminController extends BaseController
         if ($roomData) {
             // Data to check if records exist
             $existingWalkinData = $this->walkins->find($walkinID);
+            
     
             // Common data for walkin record
             $WalkInn = [
                 'FirstName'      => $this->request->getPost('FirstName'),
                 'LastName'       => $this->request->getPost('LastName'),
-                'ContactNumber'  => $this->request->getPost('ContactNumber'),
+                'ContactNumber'  => $this->request->getPost('ContactNumber') ?: NULL,
                 'CheckIn'        => $this->request->getPost('CheckIn'),
                 'CheckOut'       => $this->request->getPost('CheckOut'),
                 'Adult'          => $this->request->getPost('Adult'),
@@ -2592,7 +2593,7 @@ class AdminController extends BaseController
     
             return redirect()->to(base_url('/admin-hotel/walkin-records'))->with('success', 'Reservation updated successfully.');
         } else {
-            return redirect()->back()->withInput()->with('error', 'Invalid Room Type. Please check your input.');
+            return redirect()->to(base_url('/admin-hotel/walkin-dashboard'))->with('error', 'Invalid Room Type. Please check your input.');
         }
     }
     
