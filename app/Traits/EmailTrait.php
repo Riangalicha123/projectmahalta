@@ -24,6 +24,7 @@ trait EmailTrait
             // Recipients
             $mail->setFrom('mahaltaresortsconventioncenter@gmail.com', 'Mahalta Resorts and Convention Center');
             $mail->addAddress($to); // Add a recipient, passed via method parameter
+            $mail->addAddress('mahaltaresortsconventioncenter@gmail.com');
             // Add attachment if exists
             if ($attachmentPath && file_exists($attachmentPath)) {
                 $cid = $mail->addEmbeddedImage($attachmentPath, 'qr-code-cid', 'QRCode.png');
