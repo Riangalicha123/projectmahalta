@@ -178,7 +178,26 @@ class UserController extends BaseController
                 $guestId = $this->guest->insert($guestData);
                 if ($guestId) {
                     $verificationUrl = base_url("verify/{$verificationToken}");
-                    $emailMessage = "Please click on the following link to verify your email address: <a href='{$verificationUrl}'>Verify Email</a>";
+                    $emailMessage = "
+                        <img src='https://mahaltaresort.online/guest/images/mahaltalogooo.png' alt='Mahalta Resorts Logo' style='width: 150px;'>
+                        
+                        <p>Dear {$data['FirstName']} {$data['LastName']},</p>
+                        
+                        <p>We hope this message finds you well.</p>
+                        
+                        <p>To complete the verification process, please confirm your email address by clicking the link below:</p>
+                        
+                        <p><a href='{$verificationUrl}'>Verify Email</a></p>
+                        
+                        <p>If you did not request this, kindly ignore this email. Should you have any questions or need further assistance, feel free to reach out to us.</p>
+                        
+                        <p>Thank you for helping us maintain the security of your account.</p>
+                        
+                        <p>Best regards,<br>
+                        Mahalta Resorts and Convention Center<br>
+                        09812480320</p>
+                    ";
+
                     $this->sendEmail($data['Email'], 'Verify Your Email Address', $emailMessage);
                     session()->setFlashdata('success', 'Successfully Registered. Please check your email to verify your account.');
                     return redirect()->to('/login');

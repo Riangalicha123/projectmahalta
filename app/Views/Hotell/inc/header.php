@@ -17,7 +17,7 @@
               <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Room</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
-                        <a class="dropdown-item" href="<?= route_to('room-accomodation') ?>">Accomdations</a>
+                        <a class="dropdown-item" href="<?= route_to('room-accommodation') ?>">Accommodations</a>
                         <a class="dropdown-item" href="<?= route_to('roompolicy') ?>">Policy</a>
                         </div>
                     </li>
@@ -33,7 +33,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Convention</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
-                        <a class="dropdown-item" href="<?= route_to('convention-center') ?>">Accomodations</a>
+                        <a class="dropdown-item" href="<?= route_to('convention-center') ?>">Accommodations</a>
                         <a class="dropdown-item" href="<?= route_to('conpackage') ?>">Package</a>
                         </div>
                     </li>

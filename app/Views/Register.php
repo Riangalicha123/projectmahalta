@@ -130,6 +130,15 @@
 											</span>
 										</div>
 									</div>
+									<div id="password-requirements" class="text-muted" style="display: none;">
+										<ul>
+											<small><li id="min-length" class="text-danger">At least 8 characters</li></small>
+											<small><li id="uppercase" class="text-danger">At least 1 uppercase letter</li></small>
+											<small><li id="lowercase" class="text-danger">At least 1 lowercase letter</li></small>
+											<small><li id="number" class="text-danger">At least 1 number</li></small>
+											<small><li id="special-char" class="text-danger">At least 1 special character</li></small>
+										</ul>
+									</div>
 									<?php if(isset($validation) && $validation->getError('Password')): ?>
 										<div class="text-danger"><?= $validation->getError('Password') ?></div>
 									<?php endif; ?>
@@ -251,6 +260,77 @@
 				this.querySelector('i').classList.toggle('fa-eye-slash');
 			});
 		});
+		document.addEventListener("DOMContentLoaded", function () {
+    const passwordField = document.getElementById("password");
+    const passwordRequirements = document.getElementById("password-requirements");
+
+    const minLength = document.getElementById("min-length");
+    const uppercase = document.getElementById("uppercase");
+    const lowercase = document.getElementById("lowercase");
+    const number = document.getElementById("number");
+    const specialChar = document.getElementById("special-char");
+
+    // Show password requirements when the user clicks on the password field
+    passwordField.addEventListener("focus", function () {
+        passwordRequirements.style.display = "block";
+    });
+
+    // Hide password requirements when the user clicks out of the field
+    passwordField.addEventListener("blur", function () {
+        passwordRequirements.style.display = "none";
+    });
+
+    // Validate the password as the user types
+    passwordField.addEventListener("input", function () {
+        const password = passwordField.value;
+
+        // Check for minimum length
+        if (password.length >= 8) {
+            minLength.classList.remove("text-danger");
+            minLength.classList.add("text-success");
+        } else {
+            minLength.classList.remove("text-success");
+            minLength.classList.add("text-danger");
+        }
+
+        // Check for at least one uppercase letter
+        if (/[A-Z]/.test(password)) {
+            uppercase.classList.remove("text-danger");
+            uppercase.classList.add("text-success");
+        } else {
+            uppercase.classList.remove("text-success");
+            uppercase.classList.add("text-danger");
+        }
+
+        // Check for at least one lowercase letter
+        if (/[a-z]/.test(password)) {
+            lowercase.classList.remove("text-danger");
+            lowercase.classList.add("text-success");
+        } else {
+            lowercase.classList.remove("text-success");
+            lowercase.classList.add("text-danger");
+        }
+
+        // Check for at least one number
+        if (/\d/.test(password)) {
+            number.classList.remove("text-danger");
+            number.classList.add("text-success");
+        } else {
+            number.classList.remove("text-success");
+            number.classList.add("text-danger");
+        }
+
+        // Check for at least one special character
+        if (/[^A-Za-z0-9]/.test(password)) {
+            specialChar.classList.remove("text-danger");
+            specialChar.classList.add("text-success");
+        } else {
+            specialChar.classList.remove("text-success");
+            specialChar.classList.add("text-danger");
+        }
+    });
+});
+
 	</script>
 </body>
 </html>

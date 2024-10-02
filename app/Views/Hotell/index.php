@@ -181,7 +181,7 @@
                   <li><span class="ion-ios-people-outline"></span> 2 Guests</li>
                 </ul>
                 <p>Picture a special room with a peaceful ambiance and inviting decor, designed for relaxation. </p>
-                <p><a href="<?= route_to('room-accomodation') ?>" class="btn btn-primary btn-sm">Room Accommodations </a></p>
+                <p><a href="<?= route_to('room-accommodation') ?>" class="btn btn-primary btn-sm">Room Accommodations </a></p>
               </div>
             </div>
           </div>

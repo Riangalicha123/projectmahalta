@@ -6,7 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'GuestController::home', ['filter' => 'noAuth']);
-$routes->get('/room-accomodation', 'GuestController::room', ['filter' => 'noAuth']);
+$routes->get('/room-accommodation', 'GuestController::room', ['filter' => 'noAuth']);
 $routes->get('/bookroom/submit', 'GuestController::getData', ['filter' => 'noAuth']);
 $routes->get('/getdataRoom', 'GuestController::getdataRoom', ['filter' => 'noAuth']);
 $routes->get('/bookroom', 'GuestController::bookroom', ['filter' => 'noAuth']);
