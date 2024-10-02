@@ -638,7 +638,7 @@ $(document).ready(function(){
 
                     // Truncate the message to display See More/See Less
                     var fullMessage = data.review_data[count].FeedbackMessage;
-                    var truncatedMessage = fullMessage.length > 100 ? fullMessage.substring(0, 100) + '...' : fullMessage;
+                    var truncatedMessage = fullMessage.length > 200 ? fullMessage.substring(0, 200) + '...' : fullMessage;
 
                     html += '<div class="col-sm-4 mb-3">';
                     html += '<div class="row mb-3">';
@@ -652,7 +652,7 @@ $(document).ready(function(){
                     }
                     html += '<br />';
                     html += '<span class="review-content" data-fullmessage="' + fullMessage + '">' + truncatedMessage + '</span>';
-                    if(fullMessage.length > 100) {
+                    if(fullMessage.length > 200) {
                         html += '<a href="javascript:void(0);" class="see-more"> See More</a>';
                     }
                     html += '</div>';
@@ -672,7 +672,7 @@ $(document).ready(function(){
     // Toggle See More/See Less functionality
     $(document).on('click', '.see-more', function(){
         var fullMessage = $(this).siblings('.review-content').data('fullmessage');
-        var truncatedMessage = fullMessage.length > 100 ? fullMessage.substring(0, 100) + '...' : fullMessage;
+        var truncatedMessage = fullMessage.length > 200 ? fullMessage.substring(0, 200) + '...' : fullMessage;
 
         if($(this).text() === ' See More') {
             $(this).siblings('.review-content').text(fullMessage);
