@@ -624,13 +624,9 @@ $(document).ready(function(){
                 $('#total_one_star_review').text(data.one_star_review);
 
                 $('#five_star_progress').css('width', (data.five_star_review/data.total_review) * 100 + '%');
-
                 $('#four_star_progress').css('width', (data.four_star_review/data.total_review) * 100 + '%');
-
                 $('#three_star_progress').css('width', (data.three_star_review/data.total_review) * 100 + '%');
-
                 $('#two_star_progress').css('width', (data.two_star_review/data.total_review) * 100 + '%');
-
                 $('#one_star_progress').css('width', (data.one_star_review/data.total_review) * 100 + '%');
 
                 if (data.review_data.length > 0) {
@@ -639,18 +635,26 @@ $(document).ready(function(){
                     if (count > 0 && count % 3 === 0) {
                         html += '</div><div class="row">';
                     }
+
+                    // Truncate the message to display See More/See Less
+                    var fullMessage = data.review_data[count].FeedbackMessage;
+                    var truncatedMessage = fullMessage.length > 100 ? fullMessage.substring(0, 100) + '...' : fullMessage;
+
                     html += '<div class="col-sm-4 mb-3">';
                     html += '<div class="row mb-3">';
                     html += '<div class="col-sm-11">';
                     html += '<div class="card">';
-                    html += '<div class="card-header bg-info text-white"><b>' + data.review_data[count].FullName + '</b></div>'; // Updated to display Full Name
+                    html += '<div class="card-header bg-info text-white"><b>' + data.review_data[count].FullName + '</b></div>'; 
                     html += '<div class="card-body">';
                     for (var star = 1; star <= 5; star++) {
                         var class_name = (data.review_data[count].rating >= star) ? 'text-warning' : 'star-light';
                         html += '<i class="fas fa-star ' + class_name + ' mr-1"></i>';
                     }
                     html += '<br />';
-                    html += data.review_data[count].FeedbackMessage;
+                    html += '<span class="review-content" data-fullmessage="' + fullMessage + '">' + truncatedMessage + '</span>';
+                    if(fullMessage.length > 100) {
+                        html += '<a href="javascript:void(0);" class="see-more"> See More</a>';
+                    }
                     html += '</div>';
                     html += '<div class="card-footer text-right">On ' + data.review_data[count].datetime + '</div>';
                     html += '</div>';
@@ -658,13 +662,28 @@ $(document).ready(function(){
                     html += '</div>';
                     html += '</div>';
                 }
-                    html += '</div>'; 
-                    $('#review_content').html(html);
+                html += '</div>'; 
+                $('#review_content').html(html);
                 }
             }
         });
     }
+
+    // Toggle See More/See Less functionality
+    $(document).on('click', '.see-more', function(){
+        var fullMessage = $(this).siblings('.review-content').data('fullmessage');
+        var truncatedMessage = fullMessage.length > 100 ? fullMessage.substring(0, 100) + '...' : fullMessage;
+
+        if($(this).text() === ' See More') {
+            $(this).siblings('.review-content').text(fullMessage);
+            $(this).text(' See Less');
+        } else {
+            $(this).siblings('.review-content').text(truncatedMessage);
+            $(this).text(' See More');
+        }
+    });
 });
+
 </script>
 
 <script>
