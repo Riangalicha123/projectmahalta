@@ -101,6 +101,15 @@
 .price-per-night {
   margin-left: 10px;
 }
+.button-container {
+    display: flex; /* Use flexbox to arrange buttons */
+    justify-content: space-between; /* Space them out evenly */
+    align-items: center; /* Align vertically */
+}
+
+.button-container button {
+    margin: 0 5px; /* Optional: add margin between buttons */
+}
 
 
 
@@ -179,8 +188,8 @@ foreach ($roinvents as $roinvent):
                 </table>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn btn-primary" style="width: 250px;">Submit</button>
-                <button type="submit" name="skip" value="true" class="btn btn-primary" style="width: 250px;">Skip</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" name="skip" value="true" class="btn btn-primary">Skip</button>
             </div>
         </form>
         </div>

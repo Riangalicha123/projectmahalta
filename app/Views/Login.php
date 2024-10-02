@@ -67,7 +67,7 @@
 								<input
 									type="email"
 									class="form-control form-control-lg" name="Email"
-									placeholder="Email" value="<?= set_value('Email')?> "
+									placeholder="Enter your Email" value="<?= set_value('Email')?> "
 								/>
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-email1"></i></span>
@@ -77,7 +77,7 @@
 								<input
 									type="password"
 									class="form-control form-control-lg" name="Password"
-									placeholder="**********" id="password"
+									placeholder="Enter your Password" id="password"
 								/>
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="dw dw-padlock1"></i></span>

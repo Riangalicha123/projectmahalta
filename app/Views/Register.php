@@ -55,7 +55,12 @@
 						</div>
 						<form action="/registerAuth" method="post">
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" name="FirstName" placeholder="First Name" value="<?= set_value('FirstName')?>" />
+								<input type="text" class="form-control form-control-lg" name="FirstName" 
+									placeholder="First Name" 
+									value="<?= set_value('FirstName')?>" 
+									required 
+									minlength="4" 
+									title="First Name must be at least 4 characters long" />
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
@@ -65,7 +70,12 @@
 							<?php endif; ?>
 
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" name="LastName" placeholder="Last Name" value="<?= set_value('LastName')?>" />
+								<input type="text" class="form-control form-control-lg" name="LastName" 
+									placeholder="Last Name" 
+									value="<?= set_value('LastName')?>" 
+									required 
+									minlength="3" 
+									title="Last Name must be at least 3 characters long" />
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-user1"></i></span>
 								</div>
@@ -75,11 +85,17 @@
 							<?php endif; ?>
 
 							<div class="input-group custom">
-								<input type="text" class="form-control form-control-lg" name="ContactNumber" placeholder="Contact Number" value="<?= set_value('ContactNumber')?>" />
+								<input type="text" class="form-control form-control-lg" name="ContactNumber" 
+									placeholder="Contact Number" 
+									value="<?= set_value('ContactNumber')?>" 
+									required 
+									pattern="^(\+63|0)[9][0-9]{9}$" 
+									title="Please enter a valid 11-digit mobile number (e.g., 09123456321)" />
 								<div class="input-group-append custom">
 									<span class="input-group-text"><i class="icon-copy dw dw-phone-call"></i></span>
 								</div>
 							</div>
+
 							<?php if(isset($validation) && $validation->getError('ContactNumber')): ?>
 								<div class="text-danger"><?= $validation->getError('ContactNumber') ?></div>
 							<?php endif; ?>
