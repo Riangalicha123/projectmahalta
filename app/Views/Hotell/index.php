@@ -672,7 +672,7 @@ $(document).ready(function(){
     // Toggle See More/See Less functionality
     $(document).on('click', '.see-more', function(){
         var fullMessage = $(this).siblings('.review-content').data('fullmessage');
-        var truncatedMessage = fullMessage.length > 200 ? fullMessage.substring(0, 200) + '...' : fullMessage;
+        var truncatedMessage = fullMessage.length > 250 ? fullMessage.substring(0, 250) + '...' : fullMessage;
 
         if($(this).text() === ' See More') {
             $(this).siblings('.review-content').text(fullMessage);
