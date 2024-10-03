@@ -89,7 +89,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="room">
                         <a href="#">
-                            <img src="<?= base_url('/convention/'.$convenue['Image']) ?>" alt="<?= $convenue['conVenueName'] ?>" class="img-fluid rounded">
+                            <img src="<?= base_url('/convention/'.$convenue['Image']) ?>" alt="<?= $convenue['conVenueName'] ?>" class="img-fluid rounded" style="width: 100%; height: 310px; object-fit: cover;">
                         </a>
                         <div class="media-body mt-3 text-center">
                             <h3 class="h5"><a href="#" class="text-dark"><?= $convenue['conVenueName'] ?></a></h3>
