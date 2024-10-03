@@ -801,13 +801,31 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'restReservation',
             'restrevs' => $this->reservation
-                ->select('reservations.ReservationID, restaurant_venue.VenueID, restaurant_venue.VenueName, reservations.ArivalDate,reservations.ArivalTime, reservations.CheckInDate, reservations.NumberOfGuests, reservations.Note, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address, reservations.UserID ')
+                ->select('
+                    reservations.ReservationID,
+                    restaurant_venue.VenueID,
+                    restaurant_venue.VenueName,
+                    reservations.ArivalDate,
+                    reservations.ArivalTime,
+                    reservations.CheckInDate,
+                    reservations.NumberOfGuests,
+                    IFNULL(reservations.Note, "NA") as Note, -- Set "NA" if Note is NULL
+                    reservations.Status,
+                    users.UserID,
+                    users.FirstName,
+                    users.LastName,
+                    users.ContactNumber,
+                    CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address,
+                    reservations.UserID
+                ')
                 ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
         ];
+    
         return view('Admin/Restaurant/reservation', $data);
     }
+    
     public function addRestauReservation()
     {
         helper(['form']);
@@ -953,7 +971,35 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'conReservation',
             'reevents' => $this->reservation
-                ->select('reservations.ReservationID, convention.conventionID, convention.conVenueID, convention_venue.conVenueID, convention_venue.conVenueName, convention_venue.minGuest, convention_venue.maxGuest, convention_venue.Image as venue_image, convention.EventID, events.EventType, events.Description as event_description, events.Image as event_image, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests, reservations.PaymentOption, reservations.ReferenceNumber, reservations.downorfullPayment, reservations.TotalAmount, reservations.Image as reservation_image, reservations.Status, users.UserID,  users.FirstName, users.LastName, users.ContactNumber, users.Email, reservations.UserID')
+                ->select('reservations.ReservationID, 
+                          convention.conventionID, 
+                          convention.conVenueID, 
+                          convention_venue.conVenueID, 
+                          convention_venue.conVenueName, 
+                          convention_venue.minGuest, 
+                          convention_venue.maxGuest, 
+                          convention_venue.Image as venue_image, 
+                          convention.EventID, 
+                          events.EventType, 
+                          events.Description as event_description, 
+                          events.Image as event_image, 
+                          reservations.CheckInDate, 
+                          reservations.CheckOutDate, 
+                          reservations.NumberOfGuests, 
+                          reservations.PaymentOption, 
+                          reservations.ReferenceNumber, 
+                          reservations.downorfullPayment, 
+                          reservations.TotalAmount, 
+                          reservations.Image as reservation_image, 
+                          reservations.Status, 
+                          reservations.Set, 
+                          IFNULL(reservations.Note, "N/A") as Note,
+                          users.UserID,  
+                          users.FirstName, 
+                          users.LastName, 
+                          users.ContactNumber, 
+                          users.Email, 
+                          reservations.UserID')
                 ->join('convention', 'reservations.conventionID = convention.conventionID')
                 ->join('convention_venue', 'convention.conVenueID = convention_venue.conVenueID')
                 ->join('events', 'convention.EventID = events.EventID')
@@ -962,6 +1008,7 @@ class AdminController extends BaseController
         ];
         return view('Admin/Convention/reservation', $data);
     }
+    
     public function addConReservation()
     {
         helper(['form']);

@@ -279,6 +279,7 @@
                     <th>Contact No.</th>
                     <th>Venue Name</th>
                     <th>Event Type</th>
+                    <th>Set Type</th>
                     <th>Preferred Date</th>
                     <th>Departure Date</th>
                     <th>Number of Guests</th>
@@ -286,6 +287,7 @@
                     <th>Reference Number</th>
                     <th>Down or Full Payment</th>
                     <th>Total Amount</th>
+                    <th>Note</th>
                     <th>Proof Image</th>
                     <th>Status</th>
                     <th>Status Action</th>
@@ -301,6 +303,7 @@
                     <td><?=$reevent['ContactNumber']?></td>
                     <td><?=$reevent['conVenueName']?></td>
                     <td><?=$reevent['EventType']?></td>
+                    <td><?=$reevent['Set']?></td>
                     <td><?=$reevent['CheckInDate']?></td>
                     <td><?=$reevent['CheckOutDate']?></td>
                     <td><?=$reevent['NumberOfGuests']?></td>
@@ -308,6 +311,7 @@
                     <td><?=$reevent['ReferenceNumber']?></td>
                     <td><?=$reevent['downorfullPayment']?></td>
                     <td><?=$reevent['TotalAmount']?></td>
+                    <td><?=$reevent['Note']?></td>
                     <td><img style="width: 350px; height: 300px;" src="<?=base_url('/proof/'.$reevent['reservation_image'])?>" alt="#"/></td>
                     <td class="project-state">
                         <?php

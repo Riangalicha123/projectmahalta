@@ -201,7 +201,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact No.</th>
@@ -217,7 +216,6 @@
                   <tbody>
                   <?php foreach ($restrevs as $restrev): ?>
                   <tr>
-                    <td><?=$restrev['ReservationID']?></td>
                     <td><?=$restrev['FirstName']?></td>
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>

@@ -1244,6 +1244,7 @@ class GuestController extends BaseController
                         $conventionID = $this->conventions->insert($conventionData);
                         $checkInDateTime = $ReservationData['CheckInDate'];
                         $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
+                        $note = isset($NoteData['Note']) && !empty($NoteData['Note']) ? $NoteData['Note'] : null;
                         $newReservationData = [
                             'UserID' => $UserData['UserID'],
                             'conventionID' => $conventionID,
@@ -1251,7 +1252,7 @@ class GuestController extends BaseController
                             'CheckOutDate' => $ReservationData['CheckOutDate'],
                             'NumberOfGuests' => $ReservationData['NumberOfGuests'],
                             'Set' => $SetData,
-                            'Note' => $NoteData['Note'],
+                            'Note' => $note,
                             'downorfullPayment' => $this->request->getPost('downorfullPayment'),
                             'ReferenceNumber' => $referenceNumber,
                             'PaymentOption' => $paymentOption,
