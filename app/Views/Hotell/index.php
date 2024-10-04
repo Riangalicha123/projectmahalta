@@ -139,7 +139,7 @@
                                     <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
                     Welcome to Mahalta Resorts and Convention Center
                   </h1>
-                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                  <p class="mb-1" style="text-align: center; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
                     The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
                   </p>
                 </div>
@@ -159,7 +159,7 @@
                                     <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
                     Welcome to Mahalta Resorts and Convention Center
                   </h1>
-                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                  <p class="mb-1" style="text-align: center; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
                     The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
                   </p>
                 </div>
@@ -179,7 +179,7 @@
                                     <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
                     Welcome to Mahalta Resorts and Convention Center
                   </h1>
-                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                  <p class="mb-1" style="text-align: center; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
                     The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
                   </p>
                 </div>
