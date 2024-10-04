@@ -97,66 +97,101 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <section class="site-hero overlay" data-stellar-background-ratio="1" style="background-image: url(<?=base_url()?>guest/images/1.1.jpg); background-repeat: no-repeat; background-size: cover;">
-      <div class="container">
-        <div class="row align-items-center site-hero-inner justify-content-center">
-          <div class="col-md-12 text-center">
+  <section id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="3000">
+    
+    <!-- Indicators (Dots) -->
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExample" data-slide-to="1"></li>
+      <li data-target="#carouselExample" data-slide-to="2"></li>
+      <li data-target="#carouselExample" data-slide-to="3"></li>
+    </ol>
 
-            <div class="mb-5 element-animate">
-            <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
-              Welcome to Mahalta Resorts and Convention Center
-          </h1>
-          </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="site-section" style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-4">
-            <div class="heading-wrap text-center element-animate">
-              <h1 >About Us</h1>
-              <p class="mb-5" style="color: #000000; text-align: justify; font-size: 17.05px;padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">The term <b><span style="color: blue;font-size:20px;">MAHALTA</span></b>
-                was coined by Florante Villarica in the book Mindoro that was published in the year 1998. Mahalta from the three things that Mindoreños are proud of: the peaceloving indigenous Mangyans who offers a rich artistic heritage to the history of the pre-colonial Philippines; Mt. Halcon, the fourt highest mountain in the Philippines and earnss the reputation of being the most difficult mountain to climb in the country. Its rich vegetation contains rich fauna and flora including the critically endangered Mindoro bleeding heart. Tamaraw, a fierce Mindoro Dwarf Buffalo, it symbolizes Mindoro since it could only be found in this island and nowhere else in the world.</p>
-                            </div>
-                          </div>
-                          <div class="col-md-1"></div>
-                          <div class="col-md-7">
-                      <div id="imageCarousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="<?=base_url()?>guest/images/pool.png" alt="Image 1" class="img-md-fluid">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/convention/pic1.jpg" alt="Image 2" class="img-md-fluid">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/convention/pic2.jpg" alt="Image 2" class="img-md-fluid">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="/convention/pic3.jpg" alt="Image 2" class="img-md-fluid">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="<?=base_url()?>guest/images/MahaltaPic/20.jpg" alt="Image 2" class="img-md-fluid">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="<?=base_url()?>guest/images/MahaltaPic/22.jpg" alt="Image 2" class="img-md-fluid">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#imageCarousel" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
+    <div class="carousel-inner">
+
+      <!-- First Slide -->
+      <div class="carousel-item active">
+        <div class="site-hero overlay" style="background-image: url('<?=base_url()?>guest/images/1.1.jpg'); background-size: cover; background-position: center; min-height: 70vh;">
+          <div class="container">
+            <div class="row align-items-center site-hero-inner justify-content-center">
+              <div class="col-md-12 text-center">
+                <div class="mb-5 element-animate">
+                  <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
+                    Welcome to Mahalta Resorts and Convention Center
+                  </h1>
+                  <p class="mb-4" style="text-align: center; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                    The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
+                  </p>
                 </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </section>
+
+      <!-- Second Slide -->
+      <div class="carousel-item">
+        <div class="site-hero overlay" style="background-image: url('<?=base_url()?>guest/images/pool.png'); background-size: cover; background-position: center; min-height: 70vh;">
+          <div class="container">
+            <div class="row align-items-center site-hero-inner justify-content-center">
+              <div class="col-md-12 text-center">
+                <div class="mb-5 element-animate">
+                                    <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
+                    Welcome to Mahalta Resorts and Convention Center
+                  </h1>
+                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                    The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Third Slide -->
+      <div class="carousel-item">
+        <div class="site-hero overlay" style="background-image: url('<?=base_url()?>convention/pic1.jpg'); background-size: cover; background-position: center; min-height: 70vh;">
+          <div class="container">
+            <div class="row align-items-center site-hero-inner justify-content-center">
+              <div class="col-md-12 text-center">
+                <div class="mb-5 element-animate">
+                                    <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
+                    Welcome to Mahalta Resorts and Convention Center
+                  </h1>
+                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                    The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fourth Slide -->
+      <div class="carousel-item">
+        <div class="site-hero overlay" style="background-image: url('<?=base_url()?>guest/images/MahaltaPic/22.jpg'); background-size: cover; background-position: center; min-height: 70vh;">
+          <div class="container">
+            <div class="row align-items-center site-hero-inner justify-content-center">
+              <div class="col-md-12 text-center">
+                <div class="mb-5 element-animate">
+                                    <h1 style="background: linear-gradient(to bottom, skyblue, lightgreen); -webkit-background-clip: text; color: transparent; font-family: 'Rubik', sans-serif; animation: shimmer 2s infinite;">
+                    Welcome to Mahalta Resorts and Convention Center
+                  </h1>
+                  <p class="mb-1" style="text-align: justify; font-size: 17.05px; padding: 10px; font-weight: 400; text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.3);">
+                    The term <b><span style="color: white;font-size:20px;">MAHALTA</span></b> coined by Florante Villarica in his 1998 book Mindoro, represents Mindoreños' pride in the Mangyan people, Mt. Halcon, the country's fourth highest mountain, and the Tamaraw, a unique dwarf buffalo found only on the island. Together, they highlight Mindoro's cultural and natural significance.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
 
     <section class="site-section "style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
