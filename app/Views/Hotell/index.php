@@ -100,12 +100,12 @@
   <section id="carouselExample" class="carousel slide" data-ride="carousel" data-interval="3000">
     
     <!-- Indicators (Dots) -->
-    <ol class="carousel-indicators">
+<!--     <ol class="carousel-indicators">
       <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
       <li data-target="#carouselExample" data-slide-to="1"></li>
       <li data-target="#carouselExample" data-slide-to="2"></li>
       <li data-target="#carouselExample" data-slide-to="3"></li>
-    </ol>
+    </ol> -->
 
     <div class="carousel-inner">
 
@@ -720,31 +720,28 @@ $(document).ready(function(){
 });
 
 </script>
-
 <script>
-    function likeFeedback(button) {
-        var likeCountElement = button.nextElementSibling;
-        var currentLikes = parseInt(likeCountElement.innerText);
-        var feedbackId = button.dataset.feedbackId;
-        var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
-        if (isLiked === 'true') {
-            likeCountElement.innerText = 0;
-            localStorage.removeItem('likedFeedback_' + feedbackId);
-        } else {
-            likeCountElement.innerText = 1;
-            localStorage.setItem('likedFeedback_' + feedbackId, 'true');
-        }
+  $(document).ready(function() {
+    // Set the interval for automatic sliding
+    var interval = 3000; // 3 seconds
+    
+    // Function to move to the next slide
+    function nextSlide() {
+      var $active = $('#carouselExample .carousel-item.active');
+      var $next = $active.next('.carousel-item');
+
+      // If there is no next slide, go to the first slide
+      if ($next.length === 0) {
+        $next = $('#carouselExample .carousel-item').first();
+      }
+
+      $active.removeClass('active'); // Remove active class from current slide
+      $next.addClass('active'); // Add active class to next slide
     }
-    document.addEventListener('DOMContentLoaded', function () {
-        var likeButtons = document.querySelectorAll('.like-btn');
-        likeButtons.forEach(function (button) {
-            var feedbackId = button.dataset.feedbackId;
-            var isLiked = localStorage.getItem('likedFeedback_' + feedbackId);
-            if (isLiked === 'true') {
-                button.nextElementSibling.innerText = 1;
-            }
-        });
-    });
+
+    // Set the interval to automatically transition to the next slide
+    setInterval(nextSlide, interval);
+  });
 </script>
 
 
