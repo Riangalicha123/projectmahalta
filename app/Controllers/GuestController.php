@@ -1450,7 +1450,7 @@ class GuestController extends BaseController
             $userModel = new UserModel();
     
             // Updated bad keywords list
-            $badKeywords = [''];
+            $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
     
             foreach ($reviews as $row) {
                 $containsBadKeyword = false;
