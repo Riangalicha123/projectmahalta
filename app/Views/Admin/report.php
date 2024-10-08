@@ -333,15 +333,58 @@
     }
 
     function exportToExcel() {
-        let dataType = getSelectedDataType();
-        let filename = dataType + '_report.xlsx';
-        let tableId = dataType + 'reportTable';
-        let table = document.getElementById(tableId);
-        let ws = XLSX.utils.table_to_sheet(table);
-        let wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-        XLSX.writeFile(wb, filename);
-    }
+    let dataType = getSelectedDataType();
+    let filename = dataType + '_report.xlsx';
+    let tableId = dataType + 'reportTable';
+    let table = document.getElementById(tableId);
+    let ws = XLSX.utils.table_to_sheet(table);
+    let wb = XLSX.utils.book_new();
+
+    // Create header data
+    const headerData = [
+        ["MAHALTA RESORTS AND CONVENTION CENTER"], 
+        [`Report Type: ${dataType.charAt(0).toUpperCase() + dataType.slice(1)}`],
+        [] 
+    ];
+
+    const combinedData = XLSX.utils.sheet_to_json(ws, { header: 1 });
+    const finalData = headerData.concat(combinedData);
+
+    const finalSheet = XLSX.utils.aoa_to_sheet(finalData);
+
+    // Merge and center headers
+    finalSheet['!merges'] = [
+        { s: { r: 0, c: 0 }, e: { r: 0, c: 10 } }, // Merge "MAHALTA RESORTS AND CONVENTION CENTER"
+        { s: { r: 1, c: 0 }, e: { r: 1, c: 10 } }  // Merge "Report Type"
+    ];
+
+    // Apply styles to header rows
+    finalSheet['A1'].s = {
+        font: { bold: true, sz: 14, color: { rgb: "FFFFFF" } },
+        alignment: { horizontal: 'center', vertical: 'center' },
+        fill: { fgColor: { rgb: "4F81BD" } }  // Blue fill color
+    };
+
+    finalSheet['A2'].s = {
+        font: { bold: true, sz: 12, color: { rgb: "FFFFFF" } },
+        alignment: { horizontal: 'center', vertical: 'center' },
+        fill: { fgColor: { rgb: "4F81BD" } }  // Blue fill color
+    };
+
+    // Adjust column widths
+    finalSheet['!cols'] = [
+        { wpx: 100 }, { wpx: 100 }, { wpx: 150 }, { wpx: 100 }, { wpx: 100 }, 
+        { wpx: 90 }, { wpx: 90 }, { wpx: 70 }, { wpx: 70 }, { wpx: 100 }, 
+        { wpx: 150 }
+    ];
+
+    // Append the styled sheet to the workbook
+    XLSX.utils.book_append_sheet(wb, finalSheet, 'Report');
+
+    // Write the file
+    XLSX.writeFile(wb, filename);
+}
+
 </script>
 
 <script>
