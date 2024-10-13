@@ -371,19 +371,27 @@
         fill: { fgColor: { rgb: "4F81BD" } }  // Blue fill color
     };
 
-    // Adjust column widths
+    // Add date format for CheckInDate and CheckOutDate columns (assuming columns F and G are dates)
+    const range = XLSX.utils.decode_range(finalSheet['!ref']);
+    for (let R = range.s.r + headerData.length; R <= range.e.r; R++) {
+        let checkInCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 5 })]; // CheckInDate (Column F)
+        let checkOutCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 6 })]; // CheckOutDate (Column G)
+        
+        if (checkInCell) checkInCell.z = 'yyyy-mm-dd';
+        if (checkOutCell) checkOutCell.z = 'yyyy-mm-dd';
+    }
+
+    // Adjust column widths to make sure content fits well
     finalSheet['!cols'] = [
         { wpx: 100 }, { wpx: 100 }, { wpx: 150 }, { wpx: 100 }, { wpx: 100 }, 
         { wpx: 90 }, { wpx: 90 }, { wpx: 70 }, { wpx: 70 }, { wpx: 100 }, 
         { wpx: 150 }
     ];
 
-    // Append the styled sheet to the workbook
     XLSX.utils.book_append_sheet(wb, finalSheet, 'Report');
-
-    // Write the file
     XLSX.writeFile(wb, filename);
 }
+
 
 </script>
 
