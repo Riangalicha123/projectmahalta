@@ -371,12 +371,18 @@
         fill: { fgColor: { rgb: "4F81BD" } }  // Blue fill color
     };
 
-    // Add date format for CheckInDate and CheckOutDate columns (assuming columns F and G are dates)
+    // Add date format for CheckInDate and CheckOutDate columns based on dataType
     const range = XLSX.utils.decode_range(finalSheet['!ref']);
     for (let R = range.s.r + headerData.length; R <= range.e.r; R++) {
-        let checkInCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 5 })]; // CheckInDate (Column F)
-        let checkOutCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 6 })]; // CheckOutDate (Column G)
+        let checkInCell, checkOutCell;
         
+        if (dataType === 'hotel' || dataType === 'convention') {
+            checkInCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 5 })]; // CheckInDate (Column F)
+            checkOutCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 6 })]; // CheckOutDate (Column G)
+        } else if (dataType === 'restaurant') {
+            checkInCell = finalSheet[XLSX.utils.encode_cell({ r: R, c: 4 })]; // CheckInDate (Column E for restaurant)
+        }
+
         if (checkInCell) checkInCell.z = 'yyyy-mm-dd';
         if (checkOutCell) checkOutCell.z = 'yyyy-mm-dd';
     }
@@ -391,8 +397,6 @@
     XLSX.utils.book_append_sheet(wb, finalSheet, 'Report');
     XLSX.writeFile(wb, filename);
 }
-
-
 </script>
 
 <script>
