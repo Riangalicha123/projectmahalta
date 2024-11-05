@@ -16,15 +16,15 @@ trait EmailTrait
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com"; // Use your SMTP host
             $mail->SMTPAuth = true;
-            $mail->Username = 'mahaltaresortsconventioncenter@gmail.com';
-            $mail->Password = 'qplh vyeb vtbe rssk';
+            $mail->Username = 'nain72787@gmail.com';
+            $mail->Password = 'rjjg njbl kqga wpcb';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Encryption - ssl or tls
             $mail->Port = 587; // TCP port to connect to
 
             // Recipients
-            $mail->setFrom('mahaltaresortsconventioncenter@gmail.com', 'Mahalta Resorts and Convention Center');
+            $mail->setFrom('nain72787@gmail.com', 'Mahalta Resorts and Convention Center');
             $mail->addAddress($to); // Add a recipient, passed via method parameter
-            $mail->addAddress('mahaltaresortsconventioncenter@gmail.com');
+            $mail->addAddress('nain72787@gmail.com');
             // Add attachment if exists
             if ($attachmentPath && file_exists($attachmentPath)) {
                 $cid = $mail->addEmbeddedImage($attachmentPath, 'qr-code-cid', 'QRCode.png');

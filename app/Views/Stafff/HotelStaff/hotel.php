@@ -93,7 +93,7 @@ button[type="submit"]:hover {
 <div class="wrapper">
   <?php include('include/navbar.php'); ?>
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <a href="<?=base_url()?>admin/index3.html" class="brand-link">
+  <a href="#" class="brand-link">
       <img src="<?=base_url()?>admin/dist/img/mahaltalogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
     </a>
     <?php include('include/sidebar.php'); ?>

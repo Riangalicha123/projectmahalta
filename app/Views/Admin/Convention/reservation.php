@@ -339,7 +339,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Confirm/{$reevent['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Pending/{$reevent['ReservationID']}") ?>">Pending</a>
+                            <!-- <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Pending/{$reevent['ReservationID']}") ?>">Pending</a> -->
                             <a class="dropdown-item" href="<?= base_url("/admin/updateconstatus/Cancel/{$reevent['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>

@@ -250,7 +250,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Confirm/{$restrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a>
+                            <!-- <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Pending/{$restrev['ReservationID']}") ?>">Pending</a> -->
                             <a class="dropdown-item" href="<?= base_url("/admin/updateRestauStatus/Cancel/{$restrev['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>

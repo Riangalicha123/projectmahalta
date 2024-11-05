@@ -432,7 +432,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="statusDropdown">
                             <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Confirm/{$hotelrev['ReservationID']}") ?>">Confirm</a>
-                            <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Pending/{$hotelrev['ReservationID']}") ?>">Pending</a>
+<!--                             <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Pending/{$hotelrev['ReservationID']}") ?>">Pending</a> -->
                             <a class="dropdown-item" href="<?= base_url("/admin/updatestatus/Cancel/{$hotelrev['ReservationID']}") ?>">Cancel</a>
                             </div>
                         </div>

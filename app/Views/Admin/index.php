@@ -442,66 +442,70 @@
 <script>
 $(function () {
   
-  $('#year-selectorr').change(function(){
+  $('#year-selectorr').change(function() {
     var selectedYear = $(this).val();
     $.ajax({
       url: "<?php echo base_url('admin/getReservationByYear'); ?>",
       method: "POST",
-      data: {selectedYear: selectedYear},
+      data: { selectedYear: selectedYear },
       dataType: "json",
       success: function(data) {
         updateMonthlyChart(data.roomreservations);
       }
     });
   });
+
   function updateMonthlyChart(data) {
     var labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     var datasets = data;
 
-    var data = [];
+    var chartData = [];
     var roomTypes = []; 
     var backgroundColors = []; 
-    var borderColor = 'rgba(255, 99, 132, 1)'; 
+
     for (var i = 0; i < datasets.length; i++) {
-      var roomTypeIndex = roomTypes.indexOf(datasets[i].RoomType); 
+      var roomTypeIndex = roomTypes.indexOf(datasets[i].RoomType);
       if (roomTypeIndex === -1) {
         roomTypes.push(datasets[i].RoomType);
-        var randomColor = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.2)';
+        var randomColor = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.6)';
         backgroundColors.push(randomColor);
 
-        data.push({
+        chartData.push({
           label: datasets[i].RoomType,
-          data: Array(12).fill(0), 
+          data: Array(12).fill(0),
           backgroundColor: randomColor,
-          borderColor: borderColor,
-          borderWidth: 1
+          borderWidth: 0 // Removed border color
         });
         roomTypeIndex = roomTypes.length - 1; 
       }
-      data[roomTypeIndex].data[datasets[i].CheckInMonth - 1] = datasets[i].ReservationCount;
+      chartData[roomTypeIndex].data[datasets[i].CheckInMonth - 1] = datasets[i].ReservationCount;
     }
+
     var barChartCanvas = $('#room').get(0).getContext('2d');
     var barChartDataMonthly = {
-        labels: labels,
-        datasets: data
+      labels: labels,
+      datasets: chartData
     };
 
     var barChartOptionsMonthly = {
-        responsive: true,
-        maintainAspectRatio: false,
-        datasetFill: false
+      responsive: true,
+      maintainAspectRatio: false,
+      datasetFill: false
     };
+
     if (window.barChart) {
       window.barChart.destroy();
     }
     window.barChart = new Chart(barChartCanvas, {
-        type: 'bar',
-        data: barChartDataMonthly,
-        options: barChartOptionsMonthly
+      type: 'bar',
+      data: barChartDataMonthly,
+      options: barChartOptionsMonthly
     });
   }
+
+  // Initial chart update with existing data
   updateMonthlyChart(<?php echo json_encode($roomreservations); ?>);
-})
+});
 </script>
 </body>
 </html>
