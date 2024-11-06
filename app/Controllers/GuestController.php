@@ -1872,7 +1872,7 @@ class GuestController extends BaseController
     public function testSendNotification()
     {
         // Replace these with actual values for testing
-        $fcmToken = 'fnz9d1aXNSMMqEGv_2ATg-:APA91bF64X9rHs6aUYsa1GhfNdZcs2gQS-bl0vpkFURgOVE3PnjMviUNuWmVg317Z5uKLJTI-CyWytoQksM2xcSFAGOq5mt6buon8CuQo3_c2G7jwMbDEJY'; // Replace with a valid FCM token
+        $fcmToken = 'eHgQuIvAkiISnt00KjzS_-:APA91bFKUFf-IWYZ2mAhh2d3tAusQw9oQthdy_om68-1deRE37Mpyqmz73-LikWXmB46vUCQKHajdY6DpH8rmsDI6GQxa94JxpFhcb5hI5LUIPL37Aj8drc'; // Replace with a valid FCM token
         $notifTitle = 'Test Notification Title';
         $notifBody = 'This is a test notification body.';
 
