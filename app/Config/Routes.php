@@ -65,7 +65,7 @@ $routes->get('/login', 'UserController::login', ['filter' => 'reslogGuard']);
 $routes->post('/loginAuth', 'UserController::loginAuth', ['filter' => 'reslogGuard']);
 $routes->get('/logout', 'UserController::logout');
 $routes->get('/verify/(:any)', 'UserController::verifyEmail/$1', ['filter' => 'reslogGuard']);
-$routes->post('/saveToken', 'UserController::saveToken', ['filter' => 'reslogGuard']);
+$routes->post('/saveToken', 'UserController::saveToken',); //wag mona lagyan or fix filter. wala din naman security issues sa post nito
 $routes->get('/recover', 'UserController::recover');
 $routes->post('/recoverPassword', 'UserController::recoverPassword');
 $routes->get('/resetPassword/(:any)', 'UserController::resetPassword/$1');
@@ -171,7 +171,7 @@ $routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1'
 //Admin-Dashboard
 $routes->match(['get', 'post'], '/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
 $routes->post('notification/getNotifications', 'AdminController::getNotifications', ['filter' => 'adminGuard']);
-$routes->post('reservation-notifications/getReservationNotifications', 'AdminController::getReservationNotifications',['filter' => 'adminGuard']);
+$routes->post('reservation-notifications/getReservationNotifications', 'AdminController::getReservationNotifications', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
 $routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
 $routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);
@@ -283,3 +283,6 @@ $routes->get('/deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filte
 $routes->get('/admin-report', 'AdminController::Report', ['filter' => 'adminGuard']);
 $routes->post('/admin-report/fetch-report-data', 'AdminController::fetchReportData', ['filter' => 'adminGuard']);
 $routes->get('/process-jobs', 'GuestController::processJobs');
+
+
+$routes->get('send-notification', 'GuestController::testSendNotification');

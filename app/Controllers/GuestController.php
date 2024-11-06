@@ -26,6 +26,8 @@ use App\Models\ConventionModel;
 use App\Models\JobModel;
 use App\Models\RoomImageModel;
 use App\Models\NewsModel;
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
 
 class GuestController extends BaseController
 {
@@ -391,19 +393,19 @@ class GuestController extends BaseController
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
         $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
-    
+
         // Handle "Skip" functionality
         if ($skipAmenities) {
             // Clear any existing amenities data
             $session->remove('amenitiesData');
-            
+
             // Redirect to form details without adding amenities
             return redirect()->to(base_url('/bookroom/formdetails'));
         }
-    
+
         // Proceed if not skipping amenities
         $amenitiesData = [];
-    
+
         if (!empty($roomInventoryIDs)) {
             foreach ($roomInventoryIDs as $index => $roomInventoryID) {
                 if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
@@ -418,10 +420,10 @@ class GuestController extends BaseController
                     ];
                 }
             }
-    
+
             // Store amenities in session
             $session->set('amenitiesData', $amenitiesData);
-    
+
             // Calculate total extra price
             $totalExtraPrice = 0;
             if (!empty($amenitiesData)) {
@@ -429,7 +431,7 @@ class GuestController extends BaseController
                     $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
                 }
             }
-    
+
             // Update total amount in reservation data
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
@@ -449,7 +451,7 @@ class GuestController extends BaseController
         $amenitiesData = $session->get('amenitiesData');
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
-    
+
         // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
@@ -457,14 +459,14 @@ class GuestController extends BaseController
                 $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
             }
         }
-    
+
         // The TotalAmount was already updated in the addAmenities function.
         // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
-    
+
         // Update the session with the new reservation data
         $session->set('roomReservationData', $roomReservationData);
         $data = [
@@ -553,7 +555,7 @@ class GuestController extends BaseController
                                     $this->roominventory->update($roomInventoryID, ['Quantity' => $newQuantity]);
                                 }
                             }
-                        }else {
+                        } else {
                             // Skip amenities, set roomInventoryID and insertQuantity to NULL
                             $amenityData = [
                                 'ReservationID' => $reservationID,
@@ -712,29 +714,72 @@ class GuestController extends BaseController
 
         return $message;
     }
-    protected function sendPushNotification($fcmToken, $title, $body)
+    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+
+    public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-        $postData = [
-            'to' => $fcmToken,
-            'notification' => [
-                'title' => $title,
-                'body' => $body,
-            ],
+        // Path to the service account key file
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
+
+
+        // Create credentials for Google API using the service account file
+        $credential = new ServiceAccountCredentials(
+            "https://www.googleapis.com/auth/firebase.messaging",
+            json_decode(file_get_contents($serviceAccountPath), true)
+        );
+
+        // Get the OAuth2 access token
+        $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
+        $accessToken = $tokenData['access_token'] ?? null;
+
+        if (!$accessToken) {
+            log_message('error', 'Failed to retrieve access token for Firebase.');
+            return false;
+        }
+
+        $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
+
+        // Prepare the notification payload
+        $payload = [
+            'message' => [
+                'token' => $token,
+                'notification' => [
+                    'title' => $title,
+                    'body' => $body,
+                    'image' => $image,  // Optional image field
+                ],
+                'webpush' => [
+                    'fcm_options' => [
+                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                    ]
+                ],
+                // Optional custom data payload
+            ]
         ];
-        $headers = [
-            'Authorization: key=' . $firebaseServerKey,
+
+        // Initialize CURL request
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            'Authorization: Bearer ' . $accessToken
+        ]);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+        // Execute CURL and log results
         $result = curl_exec($ch);
+
+        if ($result === false) {
+            log_message('error', 'CURL failed: ' . curl_error($ch));
+        } else {
+            log_message('info', 'FCM response: ' . $result);
+        }
+
         curl_close($ch);
+
+        return json_decode($result, true);
     }
     public function updateVenueOptions()
     {
@@ -793,24 +838,24 @@ class GuestController extends BaseController
                 $inserted = $this->reservation->insert($restaurantReservation);
                 if ($inserted) {
                     $reservationID = $this->reservation->getInsertID();
-                            $qrCodeInfo  = $this->generateeeQrCode($reservationID);
-                            $qrCodePath = $qrCodeInfo['file_path'];
-                            $qrCodePath2 = $qrCodeInfo['url'];
-                            $session->set('qrCodePath', $qrCodePath2);
-                            $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
+                    $qrCodeInfo  = $this->generateeeQrCode($reservationID);
+                    $qrCodePath = $qrCodeInfo['file_path'];
+                    $qrCodePath2 = $qrCodeInfo['url'];
+                    $session->set('qrCodePath', $qrCodePath2);
+                    $this->reservation->update($reservationID, ['QRCodePath' => $qrCodePath]);
                     $emailMessage = $this->prepareEmail($restaurantReservation);
                     $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                     $jobModel = new JobModel();
-                        $jobModel->insert([
-                            'type' => SendReminderEmail::class,
-                            'payload' => json_encode([
-                                'to' => $email,
-                                'subject' => 'Reservation Reminder',
-                                'message' => $this->prepareEmailReminder($restaurantReservation),
-                                'attachmentPath' => null
-                            ]),
-                            'run_at' => $emailSendDate
-                        ]);
+                    $jobModel->insert([
+                        'type' => SendReminderEmail::class,
+                        'payload' => json_encode([
+                            'to' => $email,
+                            'subject' => 'Reservation Reminder',
+                            'message' => $this->prepareEmailReminder($restaurantReservation),
+                            'attachmentPath' => null
+                        ]),
+                        'run_at' => $emailSendDate
+                    ]);
                     $fcmToken = $user['fcm_token'];
                     if (!empty($fcmToken)) {
                         $notifTitle = 'Reservation Confirmation';
@@ -837,7 +882,7 @@ class GuestController extends BaseController
         $writer = new \Endroid\QrCode\Writer\PngWriter();
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
-            mkdir($dirPath, 0777, true); 
+            mkdir($dirPath, 0777, true);
         }
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
@@ -941,13 +986,13 @@ class GuestController extends BaseController
             if (!empty($convenuesSelected['conVenueName'])) {
                 switch ($convenuesSelected['conVenueName']) {
                     case 'CBRC Hall':
-                        $setTypes = ['Rental Place','Per Head w/Food'];
+                        $setTypes = ['Rental Place', 'Per Head w/Food'];
                         break;
                     case 'Tamaraw':
-                        $setTypes = ['Consumable Food','Rental Place'];
+                        $setTypes = ['Consumable Food', 'Rental Place'];
                         break;
                     case 'Octagon':
-                        $setTypes = ['Rental Place','Per Head w/Food'];
+                        $setTypes = ['Rental Place', 'Per Head w/Food'];
                         break;
                     default:
                         $setTypes = [];
@@ -1022,7 +1067,7 @@ class GuestController extends BaseController
         $Note = $this->request->getPost('Note');
         $setType = $this->request->getPost('Set'); // Retrieve selected setType from the form
         $convenuesSelected = $session->get('convenuesSelected'); // Retrieve selected venue from session
-    
+
         $UserData = [
             'FirstName' => $FirstName,
             'LastName' => $LastName,
@@ -1032,13 +1077,13 @@ class GuestController extends BaseController
             'City' => $City,
             'Barangay' => $Barangay,
         ];
-    
+
         $ReservationData = [
             'CheckInDate' => $CheckInDate->format('Y-m-d H:i:s'),
             'CheckOutDate' => $CheckOutDate->format('Y-m-d H:i:s'),
             'NumberOfGuests' => $NumberOfGuests,
         ];
-    
+
         $EventData = [
             'EventType' => $EventType,
             'Set' => $setType,
@@ -1046,23 +1091,23 @@ class GuestController extends BaseController
         $SetData = [
             'Set' => $setType,
         ];
-    
+
         $NoteData = [
             'Note' => $Note,
         ];
-    
+
         $session->set('UserData', $UserData);
         $session->set('ReservationData', $ReservationData);
         $session->set('NoteData', $NoteData);
         $session->set('EventData', $EventData);
         $session->set('SetData', $SetData);
-    
+
         // Calculate duration in hours
         $duration = $CheckInDate->diff($CheckOutDate);
         $hours = ($duration->days * 24) + $duration->h + ($duration->i > 0 ? 1 : 0);
-    
+
         $TotalAmount = 0;
-    
+
         // Pricing logic based on selected venue and setType
         if (!empty($convenuesSelected)) {
             switch ($convenuesSelected['conVenueName']) {
@@ -1079,7 +1124,7 @@ class GuestController extends BaseController
                         }
                     }
                     break;
-    
+
                 case 'Tamaraw':
                     if ($setType === 'Consumable Food') {
                         $TotalAmount = 25000; // Fixed price for Consumable Food
@@ -1093,7 +1138,7 @@ class GuestController extends BaseController
                         }
                     }
                     break;
-    
+
                 case 'Octagon':
                     if ($setType === 'Rental Place') {
                         $TotalAmount = 25000; // Fixed price for Rental
@@ -1103,11 +1148,10 @@ class GuestController extends BaseController
                     break;
             }
         }
-        
+
         $session->set('TotalAmount', $TotalAmount);
-        
+
         return redirect()->to(base_url('/convention-center/reservation/formdetails'));
-    
     }
 
     public function conventioninformation()
@@ -1273,16 +1317,16 @@ class GuestController extends BaseController
                             $emailMessage = $this->prepareEmailConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected);
                             $emailMessage2 = $this->sendEmail($email, 'Your Reservation Confirmation', $emailMessage);
                             $jobModel = new JobModel();
-                        $jobModel->insert([
-                            'type' => SendReminderEmail::class,
-                            'payload' => json_encode([
-                                'to' => $email,
-                                'subject' => 'Reservation Reminder',
-                                'message' => $this->prepareReminderConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected),
-                                'attachmentPath' => null
-                            ]),
-                            'run_at' => $emailSendDate
-                        ]);
+                            $jobModel->insert([
+                                'type' => SendReminderEmail::class,
+                                'payload' => json_encode([
+                                    'to' => $email,
+                                    'subject' => 'Reservation Reminder',
+                                    'message' => $this->prepareReminderConventionMessage($UserData, $newReservationData, $EventData, $convenuesSelected),
+                                    'attachmentPath' => null
+                                ]),
+                                'run_at' => $emailSendDate
+                            ]);
                             $fcmToken = $UserData['fcm_token'];
                             if (!empty($fcmToken)) {
                                 $notifTitle = 'Reservation Confirmation';
@@ -1317,7 +1361,7 @@ class GuestController extends BaseController
         $writer = new \Endroid\QrCode\Writer\PngWriter();
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
-            mkdir($dirPath, 0777, true); 
+            mkdir($dirPath, 0777, true);
         }
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
@@ -1413,13 +1457,13 @@ class GuestController extends BaseController
     {
         $feedbackModel = new FeedbackModel();
         $Email = $this->request->getPost('Email');
-        $userModel = new UserModel(); 
+        $userModel = new UserModel();
         $user = $userModel->where('Email', $Email)->first();
         $data = [
-            'UserID'           => $user['UserID'], 
+            'UserID'           => $user['UserID'],
             'UserRating'       => $this->request->getPost('UserRating'),
             'FeedbackMessage'  => $this->request->getPost('FeedbackMessage'),
-            'datetime'         => date('Y-m-d H:i:s') 
+            'datetime'         => date('Y-m-d H:i:s')
         ];
         try {
             $result = $feedbackModel->insert($data);
@@ -1448,10 +1492,10 @@ class GuestController extends BaseController
             $totalUserRating = 0;
             $reviewContent = [];
             $userModel = new UserModel();
-    
+
             // Updated bad keywords list
             $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
-    
+
             foreach ($reviews as $row) {
                 $containsBadKeyword = false;
                 foreach ($badKeywords as $keyword) {
@@ -1506,12 +1550,12 @@ class GuestController extends BaseController
                 'one_star_review' => $oneStarReview,
                 'review_data' => $reviewContent
             ];
-    
+
             return json_encode($output);
         }
     }
-    
-    
+
+
     public function postFeedback()
     {
         helper(['form']);
@@ -1554,7 +1598,7 @@ class GuestController extends BaseController
         helper(['form']);
         $validationRules = [
             'FirstName' => 'required|min_length[2]|max_length[100]',
-            'LastName' => 'required|min_length[2]|max_length[100]', 
+            'LastName' => 'required|min_length[2]|max_length[100]',
             'Email' => 'required|min_length[4]|max_length[100]|valid_email',
             'ContactNumber' => 'required|max_length[11]',
             'Address' => 'required|min_length[2]|max_length[255]',
@@ -1633,7 +1677,7 @@ class GuestController extends BaseController
     public function booking()
     {
         if (!session()->get('isLoggedIn')) {
-            return redirect()->to('/login'); 
+            return redirect()->to('/login');
         }
         $userID = session()->get('id');
         $data = [
@@ -1824,5 +1868,19 @@ class GuestController extends BaseController
     public function daytour()
     {
         return view('Hotell/daytour');
+    }
+    public function testSendNotification()
+    {
+        // Replace these with actual values for testing
+        $fcmToken = 'fnz9d1aXNSMMqEGv_2ATg-:APA91bF64X9rHs6aUYsa1GhfNdZcs2gQS-bl0vpkFURgOVE3PnjMviUNuWmVg317Z5uKLJTI-CyWytoQksM2xcSFAGOq5mt6buon8CuQo3_c2G7jwMbDEJY'; // Replace with a valid FCM token
+        $notifTitle = 'Test Notification Title';
+        $notifBody = 'This is a test notification body.';
+
+
+        // Call the sendPushNotification method
+        $response = $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
+
+        // Return the response as JSON
+        return $this->response->setJSON($response);
     }
 }

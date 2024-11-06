@@ -15,6 +15,7 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "endroid/qr-code": "^5.0",
+        "google/auth": "^1.42",
         "laminas/laminas-escaper": "^2.9",
         "phpmailer/phpmailer": "^6.9",
         "picqer/php-barcode-generator": "^2.4",

@@ -30,6 +30,9 @@ use App\Traits\EmailTrait;
 use App\Models\GuestModel;
 use App\Models\WalkInModel;
 use CodeIgniter\API\ResponseTrait;
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+
 class StaffController extends BaseController
 {
     use ResponseTrait;
@@ -59,7 +62,8 @@ class StaffController extends BaseController
     private $reseraminities;
     private $roomimages;
     private $walkins;
-    function __construct(){
+    function __construct()
+    {
         helper(['form']);
         $this->rooms = new RoomModel();
         $this->tables = new TableModel();
@@ -87,12 +91,13 @@ class StaffController extends BaseController
         $this->roomimages = new RoomImageModel();
         $this->walkins = new WalkInModel();
     }
-    public function login(){
+    public function login()
+    {
         helper(['form']);
         $data = [
             'activePage' => 'StaffLogin',
         ];
-        return view('StaffLogin',$data);
+        return view('StaffLogin', $data);
     }
     public function LoginAuth()
     {
@@ -234,7 +239,7 @@ class StaffController extends BaseController
     public function logout()
     {
         $session = session();
-        $session->destroy(); 
+        $session->destroy();
         return redirect()->to('/staff-login');
     }
     public function home()
@@ -250,19 +255,19 @@ class StaffController extends BaseController
         $data = [
             'currentRoute' => 'hotel',
             'hotelrevs' => $this->reservation
-            ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
-            ->join('rooms', 'reservations.RoomID = rooms.RoomID')
-            ->join('users', 'reservations.UserID = users.UserID')
-            ->findAll(),
+                ->select('reservations.ReservationID, rooms.RoomID, rooms.RoomNumber, rooms.RoomType, reservations.CheckInDate, reservations.CheckOutDate, reservations.NumberOfGuests,reservations.PaymentOption,reservations.ReferenceNumber,reservations.Adult,reservations.Child, reservations.downorfullPayment,reservations.Image, reservations.TotalAmount, reservations.Status, users.UserID, users.FirstName, users.LastName, users.ContactNumber, CONCAT(users.Region, ", ", users.Province, ", ", users.City, ", ", users.Barangay) as Address', false)
+                ->join('rooms', 'reservations.RoomID = rooms.RoomID')
+                ->join('users', 'reservations.UserID = users.UserID')
+                ->findAll(),
             'regions' => $this->regions->findAll(),
-        ]; 
+        ];
         return view('Stafff/HotelStaff/reservation', $data);
     }
     public function holreservationAmenities()
     {
         $regions = $this->regions->findAll();
         $roomInventories = $this->roominventory->findAll();
-    
+
         $amihotelrevs = $this->reseraminities
             ->select('
                 reservations.ReservationID as resv_ReservationID,
@@ -303,14 +308,14 @@ class StaffController extends BaseController
             ->join('room_inventory', 'reservation_amenities.roomInventoryID = room_inventory.roomInventoryID', 'left')
             ->groupBy('reservations.ReservationID')
             ->findAll();
-    
+
         $data = [
             'currentRoute' => 'hotelamenities',
             'regions' => $regions,
             'amihotelrevs' => $amihotelrevs,
             'roomInventories' => $roomInventories,
         ];
-    
+
         return view('Stafff/HotelStaff/reservation_amenities', $data);
     }
     public function addhotelReservation()
@@ -357,8 +362,8 @@ class StaffController extends BaseController
                     'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                     'PaymentOption' => $this->request->getPost('PaymentOption'),
                     'Status' => 'Confirm',
-                    'RoomID' => $roomDataByType['RoomID'], 
-                    'UserID' => $UserID, 
+                    'RoomID' => $roomDataByType['RoomID'],
+                    'UserID' => $UserID,
                 ];
                 $inserted = $this->reservation->insert($newReservationData);
                 if ($inserted) {
@@ -386,7 +391,7 @@ class StaffController extends BaseController
         } else {
             return redirect()->to('/staff-hotelroom')->with('error', 'Room not found');
         }
-    }    
+    }
     public function updatehotelReservation($reservationID)
     {
         helper(['form']);
@@ -436,19 +441,19 @@ class StaffController extends BaseController
     public function addhotelamenitiesReservation()
     {
         helper(['form']);
-    
+
         // Retrieve form data
         $regionCode = $this->request->getVar('Region');
         $provinceCode = $this->request->getVar('Province');
         $cityCode = $this->request->getVar('City');
         $barangayCode = $this->request->getVar('Barangay');
-    
+
         // Get descriptions
         $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
         $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
         $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
         $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
-    
+
         // Prepare user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
@@ -462,20 +467,20 @@ class StaffController extends BaseController
             'verification_token' => bin2hex(random_bytes(16)),
             'is_verified' => 1,
         ];
-    
+
         // Insert user data
         $UserID = $this->users->insert($userData, true);
         if ($UserID) {
             // Insert guest data
             $guestData = ['UserID' => $UserID];
             $this->guest->insert($guestData);
-    
+
             // Retrieve room and reservation data
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
             $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
             $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
-    
+
             if ($roomDataByType && $roomDataByNumber) {
                 // Prepare reservation data
                 $newReservationData = [
@@ -491,7 +496,7 @@ class StaffController extends BaseController
                     'RoomID' => $roomDataByType['RoomID'],
                     'UserID' => $UserID,
                 ];
-    
+
                 // Insert reservation data
                 $inserted = $this->reservation->insert($newReservationData);
                 $reservationID = $this->reservation->getInsertID();
@@ -499,7 +504,7 @@ class StaffController extends BaseController
                     // Handle room amenities
                     $amenitiesData = $this->request->getPost('roomInventoryID');
                     $insertQuantities = $this->request->getPost('insertQuantity');
-    
+
                     if ($amenitiesData && $insertQuantities) {
                         foreach ($amenitiesData as $amenityID) {
                             $insertQuantity = $insertQuantities[$amenityID] ?? 0;
@@ -511,7 +516,7 @@ class StaffController extends BaseController
                                     'UserID' => $UserID,
                                 ];
                                 $this->reseraminities->insert($amenityData);
-    
+
                                 // Update room inventory
                                 $roomInventory = $this->roominventory->find($amenityID);
                                 if ($roomInventory) {
@@ -531,7 +536,7 @@ class StaffController extends BaseController
                         ];
                         $this->reseraminities->insert($amenityData);
                     }
-    
+
                     return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('success', 'Reservation added successfully.');
                 } else {
                     return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Failed to add reservation. Please try again.');
@@ -546,7 +551,7 @@ class StaffController extends BaseController
     public function updatehotelamenitiesReservation($amenitiesID)
     {
         helper(['form']);
-    
+
         // Update user information
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
@@ -559,7 +564,7 @@ class StaffController extends BaseController
         }
         $userID = $reservation['UserID'];
         $updateUserResult = $this->users->update($userID, $userData);
-    
+
         // Update room information and reservation details
         if ($updateUserResult) {
             $roomNumber = $this->request->getPost('RoomNumber');
@@ -580,18 +585,18 @@ class StaffController extends BaseController
                     'UserID' => $userID,
                 ];
                 $updateReservationResult = $this->reseraminities->update($amenitiesID, $newReservationData);
-    
+
                 // Post amenities data
                 if ($updateReservationResult) {
                     // Retrieve selected product names and quantities
                     $roomInventoryIDs = $this->request->getPost('roomInventoryID') ?: [];
                     $insertQuantities = $this->request->getPost('insertQuantity') ?: [];
-    
+
                     // Existing room inventory IDs from the database
                     $existingRoomInventoryIDs = $this->reseraminities
                         ->where('ReservationID', $reservation['ReservationID'])
                         ->findColumn('roomInventoryID');
-    
+
                     // Delete unselected room inventories
                     foreach ($existingRoomInventoryIDs as $existingRoomInventoryID) {
                         if (!in_array($existingRoomInventoryID, $roomInventoryIDs)) {
@@ -601,14 +606,14 @@ class StaffController extends BaseController
                                 ->delete();
                         }
                     }
-    
+
                     // Insert or update selected room inventories
                     foreach ($roomInventoryIDs as $roomInventoryID) {
                         $existingRecord = $this->reseraminities
                             ->where('ReservationID', $reservation['ReservationID'])
                             ->where('roomInventoryID', $roomInventoryID)
                             ->first();
-    
+
                         if ($existingRecord) {
                             // Update the existing record's InsertQuantity
                             $this->reseraminities->update($existingRecord['AmenitiesID'], [
@@ -624,7 +629,7 @@ class StaffController extends BaseController
                             ]);
                         }
                     }
-    
+
                     return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('success', 'Reservation updated successfully.');
                 } else {
                     return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Failed to update reservation. Please try again.');
@@ -654,18 +659,18 @@ class StaffController extends BaseController
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
         if ($updated) {
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Adult: {$reservation['Adult']}<br>";
-        $emailMessage .= "Kid: {$reservation['Child']}<br>";
-        $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
-        $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
-        $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
-        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+            $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+            $emailMessage .= "Adult: {$reservation['Adult']}<br>";
+            $emailMessage .= "Kid: {$reservation['Child']}<br>";
+            $emailMessage .= "Payment Option: {$reservation['PaymentOption']}<br>";
+            $emailMessage .= "ReferenceNumber: {$reservation['ReferenceNumber']}<br>";
+            $emailMessage .= "Down or Full Payment: {$reservation['downorfullPayment']}<br>";
+            $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -679,28 +684,71 @@ class StaffController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
-    protected function sendPushNotification($fcmToken, $title, $body) {
-        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-        $postData = [
-            'to' => $fcmToken,
-            'notification' => [
-                'title' => $title,
-                'body' => $body,
-            ],
+    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+
+    public function sendPushNotification($token, $title, $body, $data = [], $image = null)
+    {
+        // Path to the service account key file
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
+
+        // Create credentials for Google API using the service account file
+        $credential = new ServiceAccountCredentials(
+            "https://www.googleapis.com/auth/firebase.messaging",
+            json_decode(file_get_contents($serviceAccountPath), true)
+        );
+
+        // Get the OAuth2 access token
+        $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
+        $accessToken = $tokenData['access_token'] ?? null;
+
+        if (!$accessToken) {
+            log_message('error', 'Failed to retrieve access token for Firebase.');
+            return false;
+        }
+
+        $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
+
+        // Prepare the notification payload
+        $payload = [
+            'message' => [
+                'token' => $token,
+                'notification' => [
+                    'title' => $title,
+                    'body' => $body,
+                    'image' => $image,  // Optional image field
+                ],
+                'webpush' => [
+                    'fcm_options' => [
+                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                    ]
+                ],
+                // Optional custom data payload
+            ]
         ];
-        $headers = [
-            'Authorization: key=' . $firebaseServerKey,
+
+        // Initialize CURL request
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            'Authorization: Bearer ' . $accessToken
+        ]);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+        // Execute CURL and log results
         $result = curl_exec($ch);
+
+        if ($result === false) {
+            log_message('error', 'CURL failed: ' . curl_error($ch));
+        } else {
+            log_message('info', 'FCM response: ' . $result);
+        }
+
         curl_close($ch);
+
+        return json_decode($result, true);
     }
     public function room()
     {
@@ -708,14 +756,15 @@ class StaffController extends BaseController
             'currentRoute' => 'room',
             'rooms' => $this->rooms->findAll(),
             'roomimages' => $this->roomimages
-            ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson, GROUP_CONCAT(room_images.Image) AS Images')
-            ->join('rooms', 'room_images.RoomID = rooms.RoomID')
-            ->groupBy('rooms.RoomID')
-            ->findAll(),
-        ]; 
+                ->select('rooms.RoomID, rooms.RoomNumber, rooms.RoomType, rooms.Description, rooms.PricePerNight, rooms.minPerson, rooms.maxPerson, GROUP_CONCAT(room_images.Image) AS Images')
+                ->join('rooms', 'room_images.RoomID = rooms.RoomID')
+                ->groupBy('rooms.RoomID')
+                ->findAll(),
+        ];
         return view('Stafff/HotelStaff/room', $data);
     }
-    public function addRoom(){
+    public function addRoom()
+    {
         $file = $this->request->getFile('Image');
         if ($file) {
             $newFileName = $file->getRandomName();
@@ -732,7 +781,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -748,9 +797,9 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
-    
+
         return redirect()->to('/staff-hotelroom');
     }
     public function hotelsetting()
@@ -787,7 +836,8 @@ class StaffController extends BaseController
             return view('Stafff/HotelStaff/setting', $data);
         }
     }
-    public function updateRoom(){
+    public function updateRoom()
+    {
 
         $file = $this->request->getFile('Image');
         if ($file && $file->isValid()) {
@@ -806,7 +856,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -823,7 +873,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-hotelroom');
     }
@@ -843,8 +893,8 @@ class StaffController extends BaseController
                 ->join('restaurant_venue', 'reservations.VenueID = restaurant_venue.VenueID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
-        ]; 
-        return view('Stafff/RestaurantStaff/reservation',$data);
+        ];
+        return view('Stafff/RestaurantStaff/reservation', $data);
     }
 
     public function addrestauReservation()
@@ -865,7 +915,7 @@ class StaffController extends BaseController
             $this->guest->insert($guestData);
             $VenueName = $this->request->getPost('VenueName');
             $restaurantVenue = $this->venues->where('VenueName', $VenueName)->first();
-            if ($restaurantVenue ) {
+            if ($restaurantVenue) {
                 $availableCapacity = $restaurantVenue['AvailableCapacity'];
                 $numberOfGuests = $this->request->getPost('NumberOfGuests');
                 if ($availableCapacity >= $numberOfGuests) {
@@ -892,7 +942,6 @@ class StaffController extends BaseController
             } else {
                 return redirect()->to(base_url('/staff-restaurant-reservation'))->with('error', 'Invalid user or venue information. Please check your input.');
             }
-    
         } else {
             return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Failed to create user. Please try again.');
         }
@@ -951,12 +1000,12 @@ class StaffController extends BaseController
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
         if (!in_array($status, $allowedStatuses)) {
-            
+
             return redirect()->back()->with('error', 'Invalid status');
         }
         $reservation = $this->reservation->where('ReservationID', $reservationID)->first();
         if (!$reservation) {
-           
+
             return redirect()->back()->with('error', 'Reservation not found');
         }
         $user = $this->users->where('UserID', $reservation['UserID'])->first();
@@ -966,14 +1015,14 @@ class StaffController extends BaseController
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
         if ($updated) {
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Arrival Date: {$reservation['ArivalDate']}<br>";
-        $emailMessage .= "Arrival Date: {$reservation['ArivalTime']}<br>";
-        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
-        $emailMessage .= "Note : {$reservation['Note']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Arrival Date: {$reservation['ArivalDate']}<br>";
+            $emailMessage .= "Arrival Date: {$reservation['ArivalTime']}<br>";
+            $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+            $emailMessage .= "Note : {$reservation['Note']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -1026,14 +1075,15 @@ class StaffController extends BaseController
         $data = [
             'currenttRoute' => 'venue',
             'venues' => $this->venues->select('restaurant_venue.VenueID,restaurant_venue.VenueName,restaurant_venue.VenueCapacity,restaurant_venue.AvailableCapacity,restaurant_venue.Image ')->findAll(),
-        ]; 
-        return view('Stafff/RestaurantStaff/venue',$data);
+        ];
+        return view('Stafff/RestaurantStaff/venue', $data);
     }
-    public function addVenue(){
+    public function addVenue()
+    {
         $file = $this->request->getFile('Image');
         if ($file) {
             $newFileName = $file->getRandomName();
-    
+
             $data = [
                 'VenueID' => $this->request->getVar('VenueID'),
                 'VenueName' => $this->request->getVar('VenueName'),
@@ -1044,7 +1094,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1060,7 +1110,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-restaurant-venue');
     }
@@ -1078,7 +1128,8 @@ class StaffController extends BaseController
             return redirect()->to('/staff-restaurant-venue')->with('error', 'Room not found');
         }
     }
-    public function updateVenue(){
+    public function updateVenue()
+    {
         $file = $this->request->getFile('Image');
         if ($file && $file->isValid()) {
             $newFileName = $file->getRandomName();
@@ -1092,7 +1143,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1109,45 +1160,46 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-restaurant-venue');
     }
-    public function resMenu(){
+    public function resMenu()
+    {
         $data = [
             'currenttRoute' => 'menu',
             'menumains' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(1, 11))
-            ->where('menu.MenuType', 'Main Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(1, 11))
+                ->where('menu.MenuType', 'Main Menu')
+                ->findAll(),
             'menubars' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(12, 21))
-            ->where('menu.MenuType', 'Bar Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(12, 21))
+                ->where('menu.MenuType', 'Bar Menu')
+                ->findAll(),
             'menucafes' => $this->products
-            ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_product.MenuID = menu.MenuID')
-            ->whereIn('menu_category.CategoryID', range(21, 24))
-            ->where('menu.MenuType', 'Cafe Menu')
-            ->findAll(),
+                ->select('menu_product.ProductID, menu_product.ProductName, menu_product.ProductPrice, menu_product.Image, menu_product.MenuID, menu_product.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_product.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_product.MenuID = menu.MenuID')
+                ->whereIn('menu_category.CategoryID', range(21, 24))
+                ->where('menu.MenuType', 'Cafe Menu')
+                ->findAll(),
             'menuices' => $this->iced
-            ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
-            ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
-            ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
-            ->where('menu_category.CategoryID', 22)
-            ->where('menu.MenuType', 'Cafe Menu')
-            ->findAll(),
+                ->select('menu_producticed.IcedID, menu_producticed.IcedName, menu_producticed.PriceTall, menu_producticed.PriceGrande, menu_producticed.Image, menu_producticed.MenuID, menu_producticed.CategoryID, menu_category.CategoryID, menu_category.CategoryName, menu.MenuID, menu.MenuType')
+                ->join('menu_category', 'menu_producticed.CategoryID = menu_category.CategoryID')
+                ->join('menu', 'menu_producticed.MenuID = menu.MenuID')
+                ->where('menu_category.CategoryID', 22)
+                ->where('menu.MenuType', 'Cafe Menu')
+                ->findAll(),
         ];
         return view('Stafff/RestaurantStaff/menu', $data);
     }
-    
+
     public function conhome()
     {
         $data = [
@@ -1166,7 +1218,7 @@ class StaffController extends BaseController
                 ->join('events', 'convention.EventID = events.EventID')
                 ->join('users', 'reservations.UserID = users.UserID')
                 ->findAll()
-        ]; 
+        ];
         return view('Stafff/ConventionStaff/reservation', $data);
     }
     public function addconReservation()
@@ -1192,7 +1244,7 @@ class StaffController extends BaseController
             $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
             if ($venueDataByName && $eventDataByType) {
                 $conventionData = [
-                    'EventID' => $eventDataByType['EventID'], 
+                    'EventID' => $eventDataByType['EventID'],
                     'conVenueID' => $venueDataByName['conVenueID'],
                 ];
                 $conventionID = $this->conventions->insert($conventionData);
@@ -1206,8 +1258,8 @@ class StaffController extends BaseController
                         'ReferenceNumber' => $this->request->getPost('ReferenceNumber'),
                         'PaymentOption' => $this->request->getPost('PaymentOption'),
                         'Status' => 'Confirm',
-                        'conventionID' => $conventionID, 
-                        'UserID' => $UserID, 
+                        'conventionID' => $conventionID,
+                        'UserID' => $UserID,
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
                     if ($inserted) {
@@ -1250,8 +1302,8 @@ class StaffController extends BaseController
             $eventDataByType = $this->events->where('EventType', $inputEventType)->first();
             if ($venueDataByName && $eventDataByType) {
                 $conventionData = [
-                    'EventID' => $eventDataByType['EventID'], 
-                    'conVenueID' => $venueDataByName['conVenueID'], 
+                    'EventID' => $eventDataByType['EventID'],
+                    'conVenueID' => $venueDataByName['conVenueID'],
                 ];
                 $conventionID = $existingReservation['conventionID'];
                 $conventionUpdated = $this->conventions->update($conventionID, $conventionData);
@@ -1286,9 +1338,9 @@ class StaffController extends BaseController
     {
         $session = session();
         $allowedStatuses = ['Confirm', 'Pending', 'Cancel'];
-    
+
         if (!in_array($status, $allowedStatuses)) {
-            
+
             return redirect()->back()->with('error', 'Invalid status');
         }
         $reservation = $this->reservation->where('ReservationID', $reservationID)->first();
@@ -1302,14 +1354,14 @@ class StaffController extends BaseController
         $updateData = ['Status' => $status];
         $updated = $this->reservation->update($reservationID, $updateData);
         if ($updated) {
-        $emailMessage = "Dear customer,<br><br>";
-        $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
-        $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
-        $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
-        $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
-        $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
-        $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
-        $emailMessage .= "If you have any questions, please contact us.<br>";
+            $emailMessage = "Dear customer,<br><br>";
+            $emailMessage .= "Your reservation status has been updated to: <strong style='color:" . ($status == 'Confirm' ? 'green' : 'red') . ";'>{$status}</strong>.<br>";
+            $emailMessage .= "Reservation ID: {$reservation['ReservationID']}<br>";
+            $emailMessage .= "Check-In Date: {$reservation['CheckInDate']}<br>";
+            $emailMessage .= "Check-Out Date: {$reservation['CheckOutDate']}<br>";
+            $emailMessage .= "Number of Guests: {$reservation['NumberOfGuests']}<br>";
+            $emailMessage .= "Total Amount: {$reservation['TotalAmount']}<br>";
+            $emailMessage .= "If you have any questions, please contact us.<br>";
             $this->sendEmail($user['Email'], 'Reservation Status Updated', $emailMessage);
             $fcmToken = $user['fcm_token'];
             if (!empty($fcmToken)) {
@@ -1328,10 +1380,11 @@ class StaffController extends BaseController
         $data = [
             'currentttRoute' => 'venue',
             'convenues' => $this->convenues->findAll(),
-        ]; 
+        ];
         return view('Stafff/ConventionStaff/venue', $data);
     }
-    public function addconVenue(){
+    public function addconVenue()
+    {
         $file = $this->request->getFile('Image');
         if ($file) {
             $newFileName = $file->getRandomName();
@@ -1345,7 +1398,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1361,7 +1414,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-convention-venue');
     }
@@ -1395,7 +1448,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1411,7 +1464,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-convention-venue');
     }
@@ -1420,11 +1473,12 @@ class StaffController extends BaseController
         $data = [
             'currentttRoute' => 'event',
             'events' => $this->events->findAll(),
-        ]; 
+        ];
         return view('Stafff/ConventionStaff/events', $data);
     }
 
-    public function addEvent(){
+    public function addEvent()
+    {
         $file = $this->request->getFile('Image');
         if ($file) {
             $newFileName = $file->getRandomName();
@@ -1437,7 +1491,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1453,7 +1507,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-convention-event');
     }
@@ -1486,7 +1540,7 @@ class StaffController extends BaseController
             $rules = [
                 'Image' => [
                     'uploaded[Image]',
-                    'max_size[Image,10240]', 
+                    'max_size[Image,10240]',
                     'ext_in[Image,png,jpg,gif]'
                 ]
             ];
@@ -1502,7 +1556,7 @@ class StaffController extends BaseController
                 $data['validation'] = $this->validator;
             }
         } else {
-            echo('error');
+            echo ('error');
         }
         return redirect()->to('/staff-convention-event');
     }
@@ -1656,13 +1710,13 @@ class StaffController extends BaseController
         $session = \Config\Services::session();
         $reservationData = $session->get('reservationData');
         $roomSelected = $session->get('roomSelected');
-    
+
         if (!empty($reservationData) && !empty($roomSelected)) {
             $checkInDate = new \DateTime($reservationData['CheckIn']);
             $checkOutDate = new \DateTime($reservationData['CheckOut']);
             $numberOfNights = $checkInDate->diff($checkOutDate)->days;
             $TotalAmount = 0;
-    
+
             if ($roomSelected['PerNightHead'] === 'Head') {
                 $numberOfAdults = (int) $reservationData['Adult'];
                 $numberOfChildren = (int) $reservationData['Child'];
@@ -1671,29 +1725,29 @@ class StaffController extends BaseController
             } else {
                 $TotalAmount = $numberOfNights * $roomSelected['PricePerNight'];
             }
-    
+
             $addAdult = $this->request->getGet('addAdult');
             $addChild = $this->request->getGet('addChild');
             $addAdult = max(0, (int) $addAdult);
             $addChild = max(0, (int) $addChild);
             $extraGuestAmount = ($addAdult + $addChild) * 500;
             $TotalAmount += $extraGuestAmount;
-    
+
             $numberOfAdults = (int) $reservationData['Adult'];
             $numberOfChildren = (int) $reservationData['Child'];
             $totalGuests = $numberOfAdults + $numberOfChildren;
-    
+
             if ($totalGuests > $roomSelected['maxPerson']) {
                 $additionalGuests = $totalGuests - $roomSelected['maxPerson'];
                 $TotalAmount += $additionalGuests * 500;
             }
-    
+
             $session->set('roomReservationData', [
                 'reservationData' => $reservationData,
                 'roomSelected' => $roomSelected,
                 'TotalAmount' => $TotalAmount,
             ]);
-    
+
             // Return the view instead of redirecting
             return view('Stafff/HotelStaff/amenities', [
                 'reservationData' => $reservationData,
@@ -1706,7 +1760,7 @@ class StaffController extends BaseController
             return redirect()->to(base_url('/error'));
         }
     }
-    
+
     public function amenitiess()
     {
         $session = \Config\Services::session();
@@ -1729,19 +1783,19 @@ class StaffController extends BaseController
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
         $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
-    
+
         // Handle "Skip" functionality
         if ($skipAmenities) {
             // Clear any existing amenities data
             $session->remove('amenitiesData');
-            
+
             // Redirect to form details without adding amenities
             return redirect()->to(base_url('/staff-walkin-availability/dataroomreservation/amenities/formdetails'));
         }
-    
+
         // Proceed if not skipping amenities
         $amenitiesData = [];
-    
+
         if (!empty($roomInventoryIDs)) {
             foreach ($roomInventoryIDs as $index => $roomInventoryID) {
                 if (isset($roinvents[$roomInventoryID]) && is_array($roinvents[$roomInventoryID])) {
@@ -1756,10 +1810,10 @@ class StaffController extends BaseController
                     ];
                 }
             }
-    
+
             // Store amenities in session
             $session->set('amenitiesData', $amenitiesData);
-    
+
             // Calculate total extra price
             $totalExtraPrice = 0;
             if (!empty($amenitiesData)) {
@@ -1767,12 +1821,12 @@ class StaffController extends BaseController
                     $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
                 }
             }
-    
+
             // Update total amount in reservation data
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
             $session->set('roomReservationData', $roomReservationData);
-    
+
             // Redirect to form details
             return redirect()->to(base_url('/staff-walkin-availability/dataroomreservation/amenities/formdetails'));
         } else {
@@ -1781,7 +1835,7 @@ class StaffController extends BaseController
                 ->with('error', 'Please select at least one amenity or skip.');
         }
     }
-    
+
     public function formdetailss()
     {
         $session = \Config\Services::session();
@@ -1789,7 +1843,7 @@ class StaffController extends BaseController
         $amenitiesData = $session->get('amenitiesData');
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
-    
+
         // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
@@ -1797,17 +1851,17 @@ class StaffController extends BaseController
                 $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
             }
         }
-    
+
         // The TotalAmount was already updated in the addAmenities function.
         // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
-    
+
         // Update the session with the new reservation data
         $session->set('roomReservationData', $roomReservationData);
-    
+
         $data = [
             'currentRoute' => 'walkin',
             'rooms' => $this->rooms
@@ -1817,7 +1871,7 @@ class StaffController extends BaseController
             'amenitiesData' => $amenitiesData,
             'totalExtraPrice' => $totalExtraPrice, // Total for amenities, but not added to TotalAmount again
         ];
-    
+
         return view('Stafff/HotelStaff/checkout', $data);
     }
     public function addReservationn()
@@ -1830,18 +1884,18 @@ class StaffController extends BaseController
         $totalExtraPrice = $session->get('totalExtraPrice');
         $roomReservationData = $session->get('roomReservationData');
         $TotalAmount = $roomReservationData['TotalAmount'] + $totalExtraPrice;
-    
+
         $skipAmenities = $this->request->getGet('skip') === 'true';
-    
+
         if ($roomSelected && $reservationData && $TotalAmount) {
             $checkInTime = '14:00:00'; // 2:00 PM
             $checkOutTime = '12:00:00'; // 12:00 PM
             $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
             $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
             $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
-    
+
             $discount = $this->request->getPost('Discount'); // Get the selected discount
-    
+
             // Check if a discount is applied
             if ($discount !== null && $discount !== '') {
                 // Remove the '%' symbol from the discount and calculate the discount value
@@ -1851,11 +1905,11 @@ class StaffController extends BaseController
             } else {
                 $discount = null; // If no discount is selected, set it to NULL
             }
-    
+
             // Get contact number, if not provided set to NULL
             $contactNumber = $this->request->getVar('ContactNumber');
             $contactNumber = !empty($contactNumber) ? $contactNumber : null;
-    
+
             // Loop through amenities and insert each one with reservation data
             if (!$skipAmenities && $amenitiesData) {
                 foreach ($amenitiesData as $amenity) {
@@ -1874,9 +1928,9 @@ class StaffController extends BaseController
                         'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
                         'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
                     ];
-    
+
                     $inserted = $this->walkins->insert($newReservationData);
-    
+
                     if ($inserted) {
                         // Update room inventory quantity
                         $roomInventoryID = $amenity['roomInventoryID'];
@@ -1907,10 +1961,10 @@ class StaffController extends BaseController
                     'roomInventoryID' => null, // No amenities, so set to null
                     'insertQuantity' => null,  // No amenities, so set to null
                 ];
-    
+
                 $this->walkins->insert($newReservationData);
             }
-    
+
             // Set success message and redirect
             $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
             return redirect()->to('/staff-walkin');
@@ -1928,4 +1982,3 @@ class StaffController extends BaseController
         return $this->response->setJSON($lowStockItems);
     }
 }
-

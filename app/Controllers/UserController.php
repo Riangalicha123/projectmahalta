@@ -21,7 +21,8 @@ use App\Models\LoginAttempModel;
 use App\Traits\EmailTrait;
 use CodeIgniter\API\ResponseTrait;
 use Config\Services;
-
+use Google\Auth\Credentials\ServiceAccountCredentials;
+use Google\Auth\HttpHandler\HttpHandlerFactory;
 
 class UserController extends BaseController
 {
@@ -230,8 +231,8 @@ class UserController extends BaseController
         $email = $this->request->getVar('Email');
         $password = $this->request->getVar('Password');
         $ipAddress = $this->request->getIPAddress();
-        $maxAttempts = 5; 
-        $lockoutTime = 15; 
+        $maxAttempts = 5;
+        $lockoutTime = 15;
         $loginAttemptModel = new LoginAttempModel();
         $attempts = $loginAttemptModel->where('email', $email)
             ->where('ip_address', $ipAddress)
@@ -339,23 +340,36 @@ class UserController extends BaseController
     }
     public function saveToken()
     {
+        // Start session
         $session = session();
         $userId = $session->get('id');
+
+        // Check if user is logged in
         if (!$userId) {
-            return $this->response->setJSON(['success' => false, 'message' => 'User not logged in.']);
+            return $this->response->setStatusCode(401)
+                ->setJSON(['success' => false, 'message' => 'User not logged in.']);
         }
-        $request = \Config\Services::request();
-        $tokenData = $request->getJSON();
-        $saved = $this->users->update($userId, [
-            'fcm_token' => $tokenData->fcm_token,
-        ]);
+
+        // Parse the JSON request to get the token
+        $tokenData = $this->request->getJSON();
+
+        if (!$tokenData || !isset($tokenData->fcm_token)) {
+            return $this->response->setStatusCode(400)
+                ->setJSON(['success' => false, 'message' => 'Invalid request: Token missing.']);
+        }
+
+        // Update user's FCM token in the database
+        $saved = $this->users->update($userId, ['fcm_token' => $tokenData->fcm_token]);
 
         if ($saved) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Device token updated successfully.']);
+            return $this->response->setStatusCode(200)
+                ->setJSON(['success' => true, 'message' => 'Device token updated successfully.']);
         } else {
-            return $this->response->setJSON(['success' => false, 'message' => 'Failed to update device token.']);
+            return $this->response->setStatusCode(500)
+                ->setJSON(['success' => false, 'message' => 'Failed to update device token.']);
         }
     }
+
     public function recover()
     {
         $data = [
@@ -367,13 +381,13 @@ class UserController extends BaseController
     {
         $email = $this->request->getPost('email');
         $userModel = new UserModel();
-        
+
         $user = $userModel->where('Email', $email)->first();
         if ($user) {
             $tempPass = md5(uniqid());
             $verificationUrl = base_url("resetPassword/$tempPass");
             $emailMessage = "Please click on the following link to reset your password: <a href='{$verificationUrl}'>Reset Password</a>";
-            
+
             if ($this->sendEmail($email, 'Reset Your Password', $emailMessage)) {
                 // Update the user with the verification token
                 if ($userModel->update($user['UserID'], ['verification_token' => $tempPass])) {
@@ -394,31 +408,79 @@ class UserController extends BaseController
             return redirect()->to(base_url('recover'));
         }
     }
-    
-    protected function sendPushNotification($fcmToken, $title, $body)
+
+
+
+
+    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+
+    public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        $firebaseServerKey = 'AAAAKoechE8:APA91bEJSQ3bMHlFCb8pFAQ_kJ_xaA5yi4Zy9hR0t1Wqugqy7JUPYgpeNzvl9CJTN67sx4M_f8_9hrKKsnFQaxPCV4bYhtrgrOXdPntM2GpQnPuc07YEa3dkLJhlpzxmv6gXOnRQeNCA';
-        $postData = [
-            'to' => $fcmToken,
-            'notification' => [
-                'title' => $title,
-                'body' => $body,
-            ],
+        // Path to the service account key file
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
+
+        // Create credentials for Google API using the service account file
+        $credential = new ServiceAccountCredentials(
+            "https://www.googleapis.com/auth/firebase.messaging",
+            json_decode(file_get_contents($serviceAccountPath), true)
+        );
+
+        // Get the OAuth2 access token
+        $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
+        $accessToken = $tokenData['access_token'] ?? null;
+
+        if (!$accessToken) {
+            log_message('error', 'Failed to retrieve access token for Firebase.');
+            return false;
+        }
+
+        $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
+
+        // Prepare the notification payload
+        $payload = [
+            'message' => [
+                'token' => $token,
+                'notification' => [
+                    'title' => $title,
+                    'body' => $body,
+                    'image' => $image,  // Optional image field
+                ],
+                'webpush' => [
+                    'fcm_options' => [
+                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                    ]
+                ],
+                // Optional custom data payload
+            ]
         ];
-        $headers = [
-            'Authorization: key=' . $firebaseServerKey,
+
+        // Initialize CURL request
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-        ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            'Authorization: Bearer ' . $accessToken
+        ]);
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+
+        // Execute CURL and log results
         $result = curl_exec($ch);
+
+        if ($result === false) {
+            log_message('error', 'CURL failed: ' . curl_error($ch));
+        } else {
+            log_message('info', 'FCM response: ' . $result);
+        }
+
         curl_close($ch);
+
+        return json_decode($result, true);
     }
+
+
+
     public function resetPassword($tempPass)
     {
         $userModel = new UserModel();
@@ -435,24 +497,24 @@ class UserController extends BaseController
         $tempPass = $this->request->getPost('temp_pass');
         $password = $this->request->getPost('password');
         $cpassword = $this->request->getPost('cpassword');
-    
+
         if ($password === $cpassword) {
             $userModel = new UserModel();
             $user = $userModel->where('verification_token', $tempPass)->first();
-    
+
             if ($user) {
                 $userModel->update($user['UserID'], [
                     'Password' => password_hash($password, PASSWORD_DEFAULT),
                     'verification_token' => null
                 ]);
-    
+
                 $emailMessage = "Your password has been successfully updated.";
                 $this->sendEmail($user['Email'], 'Password Updated', $emailMessage);
-    
+
                 if (!empty($user['fcm_token'])) {
                     $this->sendPushNotification($user['fcm_token'], 'Password Updated', 'Your password has been successfully updated.');
                 }
-    
+
                 session()->setFlashdata('success', 'Your password has been successfully updated.');
                 return redirect()->to(base_url('login'));
             } else {
@@ -463,5 +525,5 @@ class UserController extends BaseController
             session()->setFlashdata('error', 'Passwords do not match.');
             return redirect()->back();
         }
-    }    
+    }
 }
