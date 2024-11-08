@@ -209,7 +209,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -222,14 +221,17 @@
                   <tbody>
                   <?php foreach ($staffs as $staff): ?>
                   <tr>
-                    <td><?=$staff['StaffDetailsID']?></td>
                     <td><?=$staff['FirstName']?></td>
                     <td><?=$staff['LastName']?></td>
                     <td><?=$staff['Email']?></td>
                     <td><?=$staff['ContactNumber']?></td>
                     <td><?=$staff['Address']?></td>
                     <td><?=$staff['DepartmentName']?></td>
-                    <th><a class="btn btn-danger" href="/deleteRoom/<?= $staff['StaffDetailsID']?>">Delete</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$staff['StaffDetailsID']?>">Edit</a></th>
+                    <th><a href="<?= base_url('/admin-staffaccounts/delete/' . $staff['StaffDetailsID']); ?>" 
+   class="btn btn-danger" 
+   onclick="return confirm('Are you sure you want to delete this staff?');">
+   Delete
+</a> <a class="btn btn-info" data-toggle="modal" data-target="#editModal<?=$staff['StaffDetailsID']?>">Edit</a></th>
                   </tr>
                   <?php endforeach; ?>
                   </tbody>

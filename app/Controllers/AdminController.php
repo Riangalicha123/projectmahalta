@@ -1387,6 +1387,40 @@ class AdminController extends BaseController
         $this->users->update($userID, $updatedUserData);
         return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
     }
+    public function deleteStaffDetails($staffDetailsID)
+{
+    // Retrieve the staff details by StaffDetailsID
+    $staffDetails = $this->staffDetail->where('StaffDetailsID', $staffDetailsID)->first();
+
+    if (!$staffDetails) {
+        // If staff details do not exist, return an error
+        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Staff not found.');
+    }
+
+    // Retrieve the corresponding UserID from staff details
+    $userID = $staffDetails['UserID'];
+
+    // Delete the staff details from staff_details table
+    $deletedStaff = $this->staffDetail->delete($staffDetailsID);
+
+    if (!$deletedStaff) {
+        // If deletion of staff details failed, return an error
+        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete staff details. Please try again.');
+    }
+
+    // Delete the user from the users table
+    $deletedUser = $this->users->delete($userID);
+
+    if (!$deletedUser) {
+        // If deletion of user failed, restore the staff details and return an error
+        $this->staffDetail->insert($staffDetails);
+        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete user. Please try again.');
+    }
+
+    // If both deletions are successful, return a success message
+    return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff deleted successfully.');
+}
+
     public function feedback()
     {
         $data = [

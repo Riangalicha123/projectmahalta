@@ -225,6 +225,8 @@ $routes->post('/fetch-city', 'AdminController::fetchCity');
 $routes->post('/fetch-barangay', 'AdminController::fetchBarangay');
 $routes->match(['get', 'post'], '/admin-addstaffdetails', 'AdminController::addStaffDetails', ['filter' => 'adminGuard']);
 $routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
+$routes->get('/admin-staffaccounts/delete/(:num)', 'AdminController::deleteStaffDetails/$1');
+
 //Admin-Feedback
 $routes->get('/admin-feedback', 'AdminController::feedback', ['filter' => 'adminGuard']);
 
