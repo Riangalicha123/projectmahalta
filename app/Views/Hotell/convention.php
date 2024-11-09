@@ -51,7 +51,7 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -81,7 +81,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="text-center mb-5">Available Reservation Venues</h2>
+                <h2 class="text-center mb-5">Mahalta Convention Venues</h2>
             </div>
             <?php foreach ($convenues as $convenue): ?>
                 <div class="col-md-4 mb-4">

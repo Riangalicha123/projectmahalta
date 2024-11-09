@@ -66,23 +66,24 @@
     <!-- Messenger form -->
     <div id="messenger-form" style="position: fixed; bottom: 80px; right: 20px; width: 300px; background-color: #fff; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); border-radius: 10px; display: none;">
         <div class="card" style="border: none;">
-            <div class="card-header text-center" style="background-color: #4e8cff; color: #fff; border-radius: 10px 10px 0 0;">
+            <div class="card-header text-center" style="background-color: #00BFFF; color: #fff; border-radius: 10px 10px 0 0;">
                 MESSAGE
             </div>
             <div class="card-body" style="padding: 15px;">
-                <div class="text-center" style="font-size: 10px;">
-                    <?php foreach ($chats as $chat): ?>
-                        <div class="row" style="overflow-y: auto; max-height: 130px;">
-                            <div class="col-md-12 text-center">
-                                <button id="chatmsgs" style="cursor: pointer; padding: 10px 20px; font-size: 14px; background-color: #007bff; color: white; border: none; border-radius: 5px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease;" 
-                                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0px 6px 8px rgba(0, 0, 0, 0.2)';"
-                                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 6px rgba(0, 0, 0, 0.1)';">
-                                    <?= $chat['Question'] ?>
-                                </button>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
+            <div class="text-center" style="font-size: 10px;">
+    <?php foreach ($chats as $chat): ?>
+        <div class="row" style="overflow-y: auto; max-height: 130px;">
+            <div class="col-md-12 text-center" style="margin-bottom: 10px;"> <!-- Added margin-bottom to space out questions -->
+                <button id="chatmsgs" style="cursor: pointer; padding: 10px 20px; font-size: 14px; background-color: #00BFFF; color: black; border: none; border-radius: 5px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease;" 
+                    onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0px 6px 8px rgba(0, 0, 0, 0.2)';"
+                    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0px 4px 6px rgba(0, 0, 0, 0.1)';">
+                    <?= $chat['Question'] ?>
+                </button>
+            </div>
+        </div>
+    <?php endforeach; ?>
+</div>
+
                 <div id="chatmsg" class="chatmsg" style="z-index: 99999 !important; overflow-y: auto; max-height: 200px; color: black"></div>
                 <hr style="border-top: 1px solid #ccc; margin: 10px 0;">
                 <form id="chatForm">

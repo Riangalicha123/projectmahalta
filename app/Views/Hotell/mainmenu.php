@@ -74,7 +74,7 @@
   </head>
   <body>
   <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -88,7 +88,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-6">
-              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0.4); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
               <div class="card-header text-center">À la Carte Service</div>
                 <div style="flex: 0 0 50%; ">
                     <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
@@ -97,7 +97,7 @@
             </div>
 
             <div class="col-md-6">
-              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0.4); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="card-header text-center">Buffet Service</div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div style="flex: 0 0 50%; margin-bottom: -5px;">
@@ -293,30 +293,35 @@
     <div class="menu-title" style="text-align: center;">
         <h1>Main Menu</h1>
     </div>
-    <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-        <button onclick="showCategory('1')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Pasta</button>
-        <button onclick="showCategory('2')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Breakfast</button>
-        <button onclick="showCategory('3')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Sizzling</button>
-        <button onclick="showCategory('4')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Chicken</button>
-        <button onclick="showCategory('5')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Pork</button>
-        <button onclick="showCategory('6')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Soup</button>
-        <button onclick="showCategory('7')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Meal Deals</button>
-        <button onclick="showCategory('8')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Veggies</button>
-        <button onclick="showCategory('9')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Solo Meal</button>
-        <button onclick="showCategory('10')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Seafood/Fish</button>
-        <button onclick="showCategory('11')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF); color: #333; border: none; border-radius: 5px; cursor: pointer;">Appetizer/Snack</button>
-    </div>
+    <div class="category-buttons" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+            <button onclick="showCategory('1')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Pasta</button>
+            <button onclick="showCategory('2')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Breakfast</button>
+            <button onclick="showCategory('3')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Sizzling</button>
+            <button onclick="showCategory('4')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Chicken</button>
+            <button onclick="showCategory('5')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Pork</button>
+            <button onclick="showCategory('6')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Soup</button>
+            <button onclick="showCategory('7')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Meal Deals</button>
+            <button onclick="showCategory('8')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Veggies</button>
+            <button onclick="showCategory('9')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Solo Meal</button>
+            <button onclick="showCategory('10')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Seafood</button>
+            <button onclick="showCategory('11')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Appetizer</button>
+        </div>
+
+
     <div style="margin-top: 20px;">
         <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
             <?php foreach ($menumains as $menumain): ?>
                 <?php if ($menumain['MenuType'] === 'Main Menu' && $menumain['CategoryID'] >= 1 && $menumain['CategoryID'] <= 11): ?>
-                    <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;" data-category="<?= $menumain['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-                        <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="<?= $menumain['ProductName'] ?>" style="width: 100%; height: 200px; object-fit: cover;">
-                        <div style="padding: 15px;">
-                            <h3 style="margin: 0; color: #333;"><?= $menumain['ProductName'] ?></h3>
-                            <p style="margin: 10px 0; color: #999;">Php<?= $menumain['ProductPrice'] ?></p>
-                        </div>
+                    <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7));" data-category="<?= $menumain['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                    <div style="width: 100%; height: 200px; overflow: hidden;">
+                        <img src="<?= base_url('/restaurant/' . $menumain['Image']) ?>" alt="<?= $menumain['ProductName'] ?>" style="width: 100%; height: 100%; object-fit: cover;">
                     </div>
+                    <div style="padding: 15px;">
+                        <h3 style="margin: 0; color: #333;"><?= $menumain['ProductName'] ?></h3>
+                        <p style="margin: 10px 0; color: #999;">Php<?= $menumain['ProductPrice'] ?></p>
+                    </div>
+                </div>
+
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>

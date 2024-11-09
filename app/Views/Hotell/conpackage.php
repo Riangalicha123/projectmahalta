@@ -83,7 +83,7 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body" style=background-color: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7));>
                   
                     <ul>
                       <li>AM Snacks</li>

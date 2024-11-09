@@ -73,7 +73,7 @@
   </head>
   <body>
   <?php include('inc/header.php') ?>
-  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -87,7 +87,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col-md-6">
-              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0.4); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
               <div class="card-header text-center">À la Carte Service</div>
                 <div style="flex: 0 0 50%; ">
                     <p style="font-size: 1.2em;">  Monday-Thursday (7:00 PM - 9:00 PM)</p>
@@ -96,7 +96,7 @@
             </div>
 
             <div class="col-md-6">
-              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
+              <div class="card text-white mb-1" style="background-color: rgba(135, 206, 235, 0.4); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
                 <div class="card-header text-center">Buffet Service</div>
                 <div style="display: flex; flex-wrap: wrap;">
                   <div style="flex: 0 0 50%; margin-bottom: -5px;">
@@ -289,19 +289,22 @@
 </div>
               <section  class="site-section"style="background: #FAF2D3;">
                   <div class="menu-title">
-                    <h1>Restaurant Menu</h1>
+                    <h1>Cafe Menu</h1>
                   </div>
-                      <div class="category-buttons" style="margin-top: 20px; text-align: center;">
-                        <button onclick="showCategory('22')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Iced Coffee</button>
-                        <button onclick="showCategory('23')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Hot Coffee</button>
-                        <button onclick="showCategory('24')" style="padding: 10px 20px; margin: 5px; background: linear-gradient(to bottom,  #3085C3, #00BFFF);color: #333; border: none; border-radius: 5px; cursor: pointer;">Cold Brew</button>
+                      <div class="category-buttons" style="margin-top: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                        <button onclick="showCategory('22')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Iced Coffee</button>
+                        <button onclick="showCategory('23')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Hot Coffee</button>
+                        <button onclick="showCategory('24')" style="padding: 10px 20px; flex: 1 1 100px; max-width: 150px; min-width: 100px; background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7)); color: #333; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); transition: background 0.3s, transform 0.2s; text-align: center;">Cold Brew</button>
                       </div>
                       <div style="margin-top: 20px;">
                     <div class="row" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
                     <?php foreach ($menuices as $menuice): ?>
                         <?php if ($menuice['MenuType'] === 'Cafe Menu' && $menuice['CategoryID'] == 22): ?>
-                            <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;" data-category="<?= $menuice['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-                                <img src="<?= base_url('/restaurant/' . $menuice['Image']) ?>" alt="<?= $menuice['IcedName'] ?>" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7));" data-category="<?= $menuice['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                            <div style="width: 100%; height: 200px; overflow: hidden;">
+                            <img src="<?= base_url('/restaurant/' . $menuice['Image']) ?>" alt="<?= $menuice['IcedName'] ?>" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
+                                
                                 <div style="padding: 15px;">
                                     <h3 style="margin: 0; color: #333;"><?= $menuice['IcedName'] ?></h3>
                                     <p style="margin: 10px 0; color: #999;">Tall: Php<?= $menuice['PriceTall'] ?></p>
@@ -312,8 +315,12 @@
                     <?php endforeach; ?>
                     <?php foreach ($menucafes as $menucafe): ?>
                         <?php if ($menucafe['MenuType'] === 'Cafe Menu' && $menucafe['CategoryID'] >= 22 && $menucafe['CategoryID'] <= 24): ?>
-                            <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;" data-category="<?= $menucafe['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
-                                <img src="<?= base_url('/restaurant/' . $menucafe['Image']) ?>" alt="<?= $menucafe['ProductName'] ?>" style="width: 100%; height: 200px; object-fit: cover;">
+                            <div class="col-md-3 menu-record" style="width: 300px; border: 1px solid #ddd; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer;background: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7));" data-category="<?= $menucafe['CategoryID'] ?>" data-toggle="modal" data-target="#aaddFormModal">
+                            <div style="width: 100%; height: 200px; overflow: hidden;">
+                            <img src="<?= base_url('/restaurant/' . $menucafe['Image']) ?>" alt="<?= $menucafe['ProductName'] ?>" style="width: 100%; height: 200px; object-fit: cover;">
+                                </div>
+
+                                
                                 <div style="padding: 15px;">
                                     <h3 style="margin: 0; color: #333;"><?= $menucafe['ProductName'] ?></h3>
                                     <p style="margin: 10px 0; color: #999;">Php<?= $menucafe['ProductPrice'] ?></p>

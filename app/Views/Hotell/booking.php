@@ -45,12 +45,19 @@
 
 <section class="site-section" style="background: #FAF2D3;">
   <div class="container">
-    <h2 class="mb-5 text-center">Booking</h2>
-    <div class="text-center">
-      <button class="btn btn-primary" onclick="showHotel()">Hotel</button>
-      <button class="btn btn-primary" onclick="showRestaurant()">Restaurant</button>
-      <button class="btn btn-primary" onclick="showConvention()">Convention</button>
-    </div>
+    <h2 class="mb-5 text-center">Booking </h2>
+    <div class="row text-center">
+  <div class="col-12 col-md-4 mb-2">
+    <button class="btn btn-primary w-100" onclick="showHotel()">Hotel</button>
+  </div>
+  <div class="col-12 col-md-4 mb-2">
+    <button class="btn btn-primary w-100" onclick="showRestaurant()">Restaurant</button>
+  </div>
+  <div class="col-12 col-md-4 mb-2">
+    <button class="btn btn-primary w-100" onclick="showConvention()">Convention</button>
+  </div>
+</div>
+
     <br>
     <div class="row" id="hotelTable">
       <?php foreach ($hotelrevs as $hotelrev): ?>
@@ -85,10 +92,15 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-12 text-center">
-              <p><a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>" class="btn btn-danger btn-sm">Cancel Reservation</a></p>
-              </div>
-            </div>  
+            <div class="col-12 text-center">
+              <p>
+                <a href="<?= base_url("/cancelbooking/updatehotelstatus/Cancel/{$hotelrev['ReservationID']}") ?>" class="btn btn-danger btn-sm" style="width: 80%; max-width: 300px;">
+                  Cancel Reservation
+                </a>
+              </p>
+            </div>
+          </div>
+  
           </div>
         </div>
       </div>

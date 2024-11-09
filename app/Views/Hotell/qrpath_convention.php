@@ -62,7 +62,7 @@
 <body>
 
     <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
+    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
         <div class="container">
             <div class="row align-items-center site-hero-inner justify-content-center">
                 <div class="col-md-12 text-center">
@@ -72,13 +72,20 @@
                 </div>
             </div>
         </div>
-    </section>
-    <section class="site-section">
-        <h1>Your QR Code</h1>
-        <p>Download this QR code and show it upon walk-in.</p>
-        <img src="<?= $qrCodePath ?>" alt="Your QR Code" style="max-width: 100%; height: auto;">
-        <br><br>
-        <a href="<?= $qrCodePath ?>" download="QRCode.png" class="download-btn">Download QR Code</a>
+    </section> -->
+    <section class="site-section"style="background: rgba(250, 242, 211, 0.9); padding: 20px; height:700px;">
+    <br>
+    <br>
+    <br>
+        <h1 class="text-center" style="font-size: 2.5rem; margin-bottom: 20px; line-height: 1.3; font-weight: bold;">Your QR Code</h1>
+        <p class="text-center" style="font-size: 1.2rem; margin-bottom: 30px; line-height: 1.5; font-weight: 300;">Download this QR code and show it upon walk-in.</p>
+        <div style="text-align: center;">
+        <img src="<?= $qrCodePath ?>" alt="Your QR Code" style="max-width: 100%; height: auto; display: block; margin: 0 auto; max-width: 300px; width: 100%; object-fit: contain;">
+        </div>
+        <div class="text-center" style="margin-top: 20px;">
+        <a href="<?= $qrCodePath ?>" download="QRCode.png" class="download-btn" style="padding: 10px 20px; font-size: 1.2rem; text-decoration: none; background-color: #0056b3; color: white; border-radius: 5px; display: inline-block;">Download QR Code</a>
+        </div>
+        
     </section>
     <?php include('inc/footer.php') ?>
     <?php include('inc/loader.php') ?>

@@ -92,14 +92,14 @@
 
 <body>
   <?php include('inc/header.php') ?>
-  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
+  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
   <div class="container">
     <div class="row align-items-center site-hero-inner justify-content-center">
      
       <div class="col-md-12 text-center">
       <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
     <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
-</div>
+     </div>
         <div class="container">
           <div class="row">
             <div class="col-sm-12">
@@ -137,11 +137,11 @@
 </section>
 
 
-<section class="site-section" style="background: #FAF2D3;">
-  <div class="container">
-    <div class="row">
+<section class="site-section" style="background: rgba(250, 242, 211, 0.9);">
+  
+    <div class="row" style="margin: 10px;">
       <div class="col-md-6">
-        <h2 class="mb-5">Available Reservation Rooms</h2>
+      <h2 class="container text-center" >Available Reservation Rooms</h2>
         <form action="<?= base_url('getdataRoom') ?>" method="GET">
           <div class="row">
             <?php if (!empty($availableRooms)) : ?>
@@ -293,8 +293,8 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </di>
+  
 </section>
 
   <?php include('inc/footer.php') ?>

@@ -46,7 +46,7 @@
   <body>
     
   <?php include('inc/header.php') ?>
-    <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
       <div class="container">
         <div class="row align-items-center site-hero-inner justify-content-center">
           <div class="col-md-12 text-center">
@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> -->
     <section class="site-section" style="background: #FAF2D3;">
       <div class="container">
         <div class="row">

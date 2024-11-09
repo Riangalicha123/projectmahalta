@@ -91,13 +91,12 @@
                 </div>
             <?php endif; ?>
  
-            <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
+            <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
               <div class="container">
                 <div class="row align-items-center site-hero-inner justify-content-center">
-                
                   <div class="col-md-12 text-center">
-                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
-                <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:140px;">
+                   <h1 style="font-size: 4em; margin-bottom: 28px;">Room Reservation</h1>
                 <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
                         <div style="display: flex; flex-wrap: wrap;">
                           <div style="flex: 0 0 100%; margin-bottom: 10px;">
@@ -134,7 +133,8 @@
               <div class="col-md-4 mb-4">
                 <div class="media d-block room mb-0">
                   <figure>
-                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height:300 px; width:788px;">
+                  <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Room Image" class="img-fluid" style="width: 100%; max-width: 700px; height: 300px; object-fit: cover; border-radius: 8px;">
+
                     <div class="overlap-text">
                       <span>
                       Room<?=$room['RoomNumber']?> 
@@ -208,13 +208,13 @@
         </div>
       </section>  
     <?php else: ?>
-      <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
+      <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url('<?=base_url()?>guest/images/3.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; height: 100vh;">
               <div class="container">
                 <div class="row align-items-center site-hero-inner justify-content-center">
                 
                   <div class="col-md-12 text-center">
-                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:120px;">
-                <h1 style="font-size: 3.5em; margin-bottom: 20px;">Room Reservation</h1>
+                  <div class="mb-5 element-animate text-center" style="max-width: 100%; margin-top:140px;">
+                <h1 style="font-size: 3.5em; margin-bottom: 28px;">Room Reservation</h1>
                 <div class="card-header text-center" style="color: white; font-size: 1.5em;">Estimated Check In and Out Time</div>
                         <div style="display: flex; flex-wrap: wrap;">
                           <div style="flex: 0 0 100%; margin-bottom: 10px;">
@@ -242,7 +242,7 @@
                 </div>
               </div>
             </section>
-    <section class="site-section"style="background: #FAF2D3;">
+    <section class="site-section"style="background-image: url(<?=base_url()?>guest/images/malabomahalta.jpg); background-repeat: no-repeat; background-size: cover;">
       <div class="container">
       <div class="row" id="room-container">
             <?php foreach ($rooms as $room): ?>
@@ -250,7 +250,7 @@
               <div class="col-md-4 mb-4">
                 <div class="media d-block room mb-0">
                   <figure>
-                    <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Generic placeholder image" class="img-fluid" style="height:300 px; width:788px;">
+                  <img src="<?=base_url('/uploads/'.$room['Image'])?>" alt="Room Image" class="img-fluid" style="width: 100%; max-width: 700px; height: 300px; object-fit: cover; border-radius: 8px;">
                     <div class="overlap-text">
                       <span>
                       Room<?=$room['RoomNumber']?> 
@@ -347,7 +347,7 @@
         roomContainers.forEach(function(roomContainer) {
             var roomPriceElement = roomContainer.querySelector('h5 a'); 
             var roomPrice = parseFloat(roomPriceElement.innerText.replace('PHP', '').replace('per', '').replace(/\s+/g, ''));
-            if (roomPrice >= priceRange) {
+            if (roomPrice <= priceRange) {
                 roomContainer.style.display = 'block'; 
             } else {
                 roomContainer.style.display = 'none'; 

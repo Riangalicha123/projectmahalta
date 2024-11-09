@@ -199,7 +199,7 @@
     <div class="container">
       <div class="row mb-5">
         <div class="col-md-12 heading-wrap text-center">
-          <h4 class="sub-heading" style="color: #404040;"> Hotel Rooms</h4>
+          <h4 class="sub-heading" style="color: #404040;">Mahalta's Hotel Rooms</h4>
           <h2 class="heading">Featured Rooms</h2>
         </div>
       </div>
@@ -209,7 +209,6 @@
             <figure>
               <img src="<?= base_url('/uploads/' . $rooms[8]['Image']) ?>" alt="Generic placeholder image" class="img-fluid" style="height: auto; width: 1000px;">
               <div class="overlap-text">
-
               </div>
             </figure>
             <div class="media-body">

@@ -48,8 +48,10 @@
                   <br>
                     <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Restaurant Policies</strong></h4>
                     <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to dine with us. Please take a moment to review our restaurant policies.</p>
+                    <div class="card" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); margin: 20px auto; padding: 20px; max-width: 950px; width: 100%;">
+                    <div class="card-body">
                     <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
-                    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Walk-in Priority:</strong> We prioritize walk-in guests and do not accept reservations.</li>
+                    <li style="font-size: 18px; margin-bottom: 15px;"><strong>Walk-in Priority:</strong> We prioritize walk-in guests and do not accept online reservations.</li>
                     <li style="font-size: 18px; margin-bottom: 15px;"><strong>Table Availability:</strong> Tables are allocated on a first-come, first-served basis.</li>
                     <li style="font-size: 18px; margin-bottom: 15px;"><strong>Waiting Area:</strong> A comfortable waiting area is provided for guests during peak hours.</li>
                     <li style="font-size: 18px; margin-bottom: 15px;"><strong>Limited Group Sizes:</strong> Due to our walk-in policy, we can accommodate groups of up to six guests.</li>
@@ -58,6 +60,9 @@
                     <li style="font-size: 18px; margin-bottom: 15px;"><strong>Feedback:</strong> We welcome feedback from our walk-in guests to continually improve our service.</li>
                     <li style="font-size: 18px; margin-bottom: 15px;"><strong>Special Occasions:</strong> While we don't accept reservations, we're happy to accommodate special occasions for walk-in guests whenever possible.</li>
                     </ul>
+                      </div>
+                    </div>
+                    
                     <div style="text-align: center;">
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">If you have any questions or need further assistance, please don't hesitate to contact our restaurant staff.</p>
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">We look forward to serving you!</p>

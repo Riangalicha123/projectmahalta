@@ -49,18 +49,24 @@
                     
                     <h4 style="font-size: 32px; font-weight: bold; margin-bottom: 20px; color: black; text-align: center;"><strong>Room Reservations Policies</strong></h4>
                     <p style="font-size: 18px; margin-bottom: .5rem; line-height: 1.6;text-align: center;">Thank you for choosing to stay with us. Please take a moment to review our hotel room policies.</p>
-                    <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px;">
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-in:</strong> Check-in time is 2:00 PM. Early check-in is subject to availability.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-out:</strong> Check-out time is 12:00 PM. Late check-out may be available upon request, subject to an additional charge.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Reservation Policy:</strong>All reservations must be done online booking and walk in.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Payment:</strong> Payment is required upon check-in. We accept cash or by Gcashor Paymaya.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Cancellation Policy:</strong> Cancellations made less than 24 hours prior to arrival will be subject to a one-night cancellation fee.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>No-shows:</strong> Guests who do not arrive on the scheduled arrival date will be charged for the full stay.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Smoking Policy:</strong> Smoking is strictly prohibited in all guest rooms and public areas. A cleaning fee will be charged for smoking in non-smoking rooms.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Pet Policy:</strong> Pets are not allowed in the hotel premises.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Damage Policy:</strong> Guests will be responsible for any damage to the room or hotel property caused during their stay.</li>
-                        <li style="font-size: 18px; margin-bottom: 15px;"><strong>Noise Policy:</strong> Please respect the privacy and comfort of other guests by keeping noise levels to a minimum, especially during quiet hours from 10:00 PM to 7:00 AM.</li>
-                    </ul>
+                    <div class="card" style="background-color: rgba(255, 255, 255, 0.2); border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); margin: 20px auto; padding: 20px; max-width: 950px; width: 100%;">
+                        <div class="card-body">
+                            <ul class="policy-list" style="list-style-type: none; padding: 0; margin-bottom: 20px; text-align:justify;">
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-in:</strong> Check-in time is 2:00 PM. Early check-in is subject to availability.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Check-out:</strong> Check-out time is 12:00 PM. Late check-out may be available upon request, subject to an additional charge.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Reservation Policy:</strong> All reservations must be done online booking and walk-in.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Payment:</strong> Payment is required upon check-in. We accept cash or by Gcash.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Cancellation Policy:</strong> Cancellations made less than 24 hours prior to arrival will be subject to a one-night cancellation fee.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>No-shows:</strong> Guests who do not arrive on the scheduled arrival date will be charged for the full stay.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Smoking Policy:</strong> Smoking is strictly prohibited in all guest rooms and public areas. A cleaning fee will be charged for smoking in non-smoking rooms.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Pet Policy:</strong> Pets are not allowed on the hotel premises.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Damage Policy:</strong> Guests will be responsible for any damage to the room or hotel property caused during their stay.</li>
+                                <li style="font-size: 18px; margin-bottom: 15px;"><strong>Noise Policy:</strong> Please respect the privacy and comfort of other guests by keeping noise levels to a minimum, especially during quiet hours from 10:00 PM to 7:00 AM.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
                     <div style="text-align: center;">
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">If you have any questions or need further assistance, please don't hesitate to contact our front desk staff.</p>
                         <p style="font-size: 18px; margin-bottom: 1.5rem; line-height: 1.6;">We hope you have a pleasant stay!</p>

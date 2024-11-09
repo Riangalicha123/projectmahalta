@@ -121,7 +121,7 @@
 
   <?php include('inc/header.php') ?>
 
-  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
+  <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
     <div class="container">
       <div class="row align-items-center site-hero-inner justify-content-center">
@@ -132,10 +132,10 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> -->
   
-  <section class="site-section"style="background: #FAF2D3;">
-    <div class="container">
+  <section class="site-section"style="background: rgba(250, 242, 211, 0.9);">
+    <div class="container-fluid">
         <div class="col-md-12 text-center">
         <div class="mb-5 element-animate">
             <h6><b>--ADD ONS--</b></h6>
@@ -145,52 +145,54 @@
       <div class="row">
         <div class="col-md-6">
         <form method="post" action="<?= base_url('/addAmenities') ?>">
-    <div class="table-responsive">
-        <table class="table">
-            <thead style="background: linear-gradient(to bottom,#00BFFF, white);">
-                <tr>
-                    <th>Select</th>
-                    <th>Product Name</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="table-responsive" style="overflow-x: auto;">
+    <table class="table" style="min-width: 100%; table-layout: auto;">
+        <thead >
+            <tr>
+                <th>Select</th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php 
-foreach ($roinvents as $roinvent): 
-    $availableQuantity = $roinvent['Quantity'];
-?>
-    <?php if ($availableQuantity > 0): ?>
-        <tr style="border-bottom: 1px solid #000;">
-            <td>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
-                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
-                    <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
-                </div>
-            </td>
-            <td><?= $roinvent['ProductName'] ?></td>
-            <td>Php<?= $roinvent['Price'] ?></td>
-            <td>
-                <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
-                    <?php for ($i = 0; $i <= $availableQuantity; $i++) : ?>
-                        <option value="<?= $i ?>"><?= $i ?></option>
-                    <?php endfor; ?>
-                </select>
-                <?php if ($availableQuantity <= 10): ?>
-                    <span style="color: red;">Warning: Only <?= $availableQuantity ?> left in stock!</span>
-                <?php endif; ?>
-            </td>
-        </tr>
-    <?php endif; ?>
-        <?php endforeach; ?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="submit" name="skip" value="true" class="btn btn-primary">Skip</button>
-            </div>
+            foreach ($roinvents as $roinvent): 
+                $availableQuantity = $roinvent['Quantity'];
+            ?>
+            <?php if ($availableQuantity > 0): ?>
+                <tr style="border-bottom: 1px solid #000;">
+                    <td>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="roomInventoryID[]" name="roomInventoryID[]" value="<?= $roinvent['roomInventoryID'] ?>">
+                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][ProductName]" value="<?= $roinvent['ProductName'] ?>">
+                            <input type="hidden" name="roinvents[<?= $roinvent['roomInventoryID'] ?>][Price]" value="<?= $roinvent['Price'] ?>">
+                        </div>
+                    </td>
+                    <td><?= $roinvent['ProductName'] ?></td>
+                    <td>Php<?= $roinvent['Price'] ?></td>
+                    <td>
+                        <select class="form-control" name="insertQuantity[<?= $roinvent['roomInventoryID'] ?>]">
+                            <?php for ($i = 0; $i <= $availableQuantity; $i++) : ?>
+                                <option value="<?= $i ?>"><?= $i ?></option>
+                            <?php endfor; ?>
+                        </select>
+                        <?php if ($availableQuantity <= 10): ?>
+                            <span style="color: red;">Warning: Only <?= $availableQuantity ?> left in stock!</span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+
+<div class="form-group" style="display: flex; justify-content: center; gap: 10px; width: 100%; flex-wrap: wrap;">
+    <button type="submit" class="btn btn-primary" style="flex: 1; padding: 10px 20px; max-width: 200px; width: 48%;">Submit</button>
+    <button type="submit" name="skip" value="true" class="btn btn-primary" style="flex: 1; padding: 10px 20px; max-width: 200px; width: 48%;">Skip</button>
+</div>
+
         </form>
         </div>
         <div class="col-md-1"></div>
@@ -200,12 +202,12 @@ foreach ($roinvents as $roinvent):
               ▼
             </div>
             <div class="details-content">
-            <h2 class="mb-3">Featured Room</h2>
+            <h2 class="mb-1">Featured Room</h2>
             <?php if (isset($roomReservationData)): ?>
               <div class="media d-block room mb-0">
                 <figure>
                   <img src="<?= base_url('/uploads/' . esc($roomReservationData['roomSelected']['Image'] ?? '')) ?> "
-                    alt="Generic placeholder image" class="img-fluid" style="height:auto; width:444px; display: block;">
+                    alt="Generic placeholder image" class="img-fluid" style="height:auto; width:650px; display: block;">
                   <div class="overlap-text">
                     <span>
                       Room
@@ -226,30 +228,7 @@ foreach ($roinvents as $roinvent):
                     <p>Number of Adults: <?= esc($roomReservationData['reservationData']['Adult'] ?? '') ?></p>
                     <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
                     <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
-                  <hr>
-                  <div class="row additionalDetails" style="display:none;">
-                      <div style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; background-color: #f9f9f9; font-family: Arial, sans-serif; color: #333;">
-                          <h3 style="color: #0056b3;">Room Inclusions:</h3>
-                          <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
-                              <li style="font-size: 16px;">Complimentary Breakfast (Plated Service)</li>
-                              <li style="font-size: 16px;">Free Flow or Brewed Coffee</li>
-                              <li style="font-size: 16px;">Complete Amenities</li>
-                              <li style="font-size: 16px;">Swimming Pool Access</li>
-                              <li style="font-size: 16px;">Stand By Generator Set</li>
-                          </ul>
-
-                          <p style="font-size: 16px; font-weight: bold;">
-                              NOTE: Extra person will be charged PHP 500.00 per head
-                          </p>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12 text-center">
-                          <h6 class="btn-info viewMoreBtn" style="background-color: #0056b3; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px;">
-                              <a href="#" style="color: white; text-decoration: none;">View More Details</a>
-                          </h6>
-                      </div>
-                  </div>
+                  
 
                 </div>
               </div>

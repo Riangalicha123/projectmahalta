@@ -105,7 +105,7 @@
 </head>
 <body>
   <?php include('inc/header.php') ?>
-  <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
+  <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5"
     style="background-image: url(<?=base_url()?>guest/images/3.jpg);">
     <div class="container">
       <div class="row align-items-center site-hero-inner justify-content-center">
@@ -116,8 +116,8 @@
         </div>
       </div>
     </div>
-  </section>
-  <section class="site-section"style="background: #FAF2D3;">
+  </section> -->
+  <section class="site-section" style="background: rgba(250, 242, 211, 0.9);">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -320,31 +320,7 @@
                     <p>Number of Childs: <?= esc($roomReservationData['reservationData']['Child'] ?? '') ?></p>
                     
                     <h5><b>Total Amount: PHP <?= number_format($roomReservationData['TotalAmount'], 2) ?></b></h5>
-                  <hr>
-                  <div class="row additionalDetails" style="display:none;">
-                      <div style="border: 1px solid #ddd; padding: 20px; border-radius: 10px; background-color: #f9f9f9; font-family: Arial, sans-serif; color: #333;">
-
-                          <h3 style="color: #0056b3;">Room Inclusions:</h3>
-                          <ul style="list-style-type: disc; margin-left: 20px; margin-bottom: 20px;">
-                              <li style="font-size: 16px;">Complimentary Breakfast (Plated Service)</li>
-                              <li style="font-size: 16px;">Free Flow or Brewed Coffee</li>
-                              <li style="font-size: 16px;">Complete Amenities</li>
-                              <li style="font-size: 16px;">Swimming Pool Access</li>
-                              <li style="font-size: 16px;">Stand By Generator Set</li>
-                          </ul>
-
-                          <p style="font-size: 16px; font-weight: bold;">
-                              NOTE: Extra person will be charged PHP 500.00 per head
-                          </p>
-                      </div>
-                  </div>
-                  <div class="row">
-                      <div class="col-md-12 text-center">
-                          <h6 class="btn-info viewMoreBtn" style="background-color: #0056b3; color: white; display: inline-block; padding: 10px 20px; border-radius: 5px;">
-                              <a href="#" style="color: white; text-decoration: none;">View More Details</a>
-                          </h6>
-                      </div>
-                  </div>
+                 
                 </div>
               </div>
             <?php else: ?>

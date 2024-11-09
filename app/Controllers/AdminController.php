@@ -2035,7 +2035,7 @@ class AdminController extends BaseController
             ->groupBy('reservations.ReservationID, users.FirstName, users.LastName, users.Email, users.ContactNumber, convention_venue.conVenueName, events.EventType, events.Description ')
             ->get();
         $reservationDetails = $query->getRow();
-        if ($reservationDetails && new DateTime($reservationDetails->CheckOutDate) < new DateTime()) {
+        if ($reservationDetails && new DateTime($reservationDetails->CheckInDate) < new DateTime()) {
             $reservationDetails->Status = 'Expired';
         } else {
             $reservationDetails->Status = 'Valid';
