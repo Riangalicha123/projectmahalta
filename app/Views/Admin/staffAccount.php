@@ -151,61 +151,61 @@
                         </div>
                     </div>
                     <?php foreach ($staffs as $staff): ?>
-                    <div class="modal fade" id="editModal<?=$staff['StaffDetailsID']?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel<?=$staff['StaffDetailsID']?>" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="editModalLabel<?=$staff['StaffDetailsID']?>">Edit Staff</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <form action="<?= base_url('/updateStaffDetails/' . $staff['StaffDetailsID']) ?>" method="post" enctype="multipart/form-data">
-                                    <div class="card-body">
-                                        <input type="hidden" name="StaffDetailsID" id="StaffDetailsID" value="<?= $staff['StaffDetailsID'] ?>">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="FirstName">First Name</label>
-                                                <input type="text" class="form-control" id="FirstName" name="FirstName" required value="<?= $staff['FirstName'] ?>">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="LastName">Last Name</label>
-                                                <input type="text" class="form-control" id="LastName" name="LastName" required value="<?= $staff['LastName'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="Email">Email</label>
-                                            <input type="email" class="form-control" id="Email" name="Email" required value="<?= $staff['Email'] ?>">
-                                        </div>
-                                        <div class="form-row">
-                                            <div class="form-group col-md-6">
-                                                <label for="ContactNumber">Contact Number</label>
-                                                <input type="number" class="form-control" id="ContactNumber" name="ContactNumber" required value="<?= $staff['ContactNumber'] ?>">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="Address">Address</label>
-                                                <input type="text" class="form-control" id="Address" name="Address" required value="<?= $staff['Address'] ?>">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="DepartmentName">Department</label>
-                                            <select class="custom-select form-control-border" id="DepartmentName" name="DepartmentName" required>
-                                                <option <?= ($staff['DepartmentName'] == 'Convention') ? 'selected' : '' ?>>Convention</option>
-                                                <option <?= ($staff['DepartmentName'] == 'Hotel') ? 'selected' : '' ?>>Hotel</option>
-                                                <option <?= ($staff['DepartmentName'] == 'Restaurant') ? 'selected' : '' ?>>Restaurant</option>
-                                                <option <?= ($staff['DepartmentName'] == 'Inventory') ? 'selected' : '' ?>>Inventory</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </div>
-                                </form>
-
-                            </div>
+<div class="modal fade" id="editModal<?=$staff['StaffDetailsID']?>" tabindex="-1" aria-labelledby="editModalLabel<?=$staff['StaffDetailsID']?>" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel<?=$staff['StaffDetailsID']?>">Edit Staff</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('/updateStaffDetails/' . $staff['StaffDetailsID']) ?>" method="post">
+                <div class="card-body">
+                    <input type="hidden" name="StaffDetailsID" value="<?= $staff['StaffDetailsID'] ?>">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="FirstName">First Name</label>
+                            <input type="text" class="form-control" id="FirstName" name="FirstName" required value="<?= esc($staff['FirstName']) ?>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="LastName">Last Name</label>
+                            <input type="text" class="form-control" id="LastName" name="LastName" required value="<?= esc($staff['LastName']) ?>">
                         </div>
                     </div>
-                    <?php endforeach; ?>
+                    <div class="form-group">
+                        <label for="Email">Email</label>
+                        <input type="email" class="form-control" id="Email" name="Email" required value="<?= esc($staff['Email']) ?>">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="ContactNumber">Contact Number</label>
+                            <input type="text" class="form-control" id="ContactNumber" name="ContactNumber" required value="<?= esc($staff['ContactNumber']) ?>">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="Address">Address</label>
+                            <input type="text" class="form-control" id="Address" name="Address" required value="<?= esc($staff['Address']) ?>">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="DepartmentName">Department</label>
+                        <select class="custom-select form-control-border" id="DepartmentName" name="DepartmentName" required>
+                            <option <?= $staff['DepartmentName'] === 'Convention' ? 'selected' : '' ?>>Convention</option>
+                            <option <?= $staff['DepartmentName'] === 'Hotel' ? 'selected' : '' ?>>Hotel</option>
+                            <option <?= $staff['DepartmentName'] === 'Restaurant' ? 'selected' : '' ?>>Restaurant</option>
+                            <option <?= $staff['DepartmentName'] === 'Inventory' ? 'selected' : '' ?>>Inventory</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<?php endforeach; ?>
+
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>

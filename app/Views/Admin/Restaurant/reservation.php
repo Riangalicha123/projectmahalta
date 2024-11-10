@@ -70,9 +70,9 @@
                 <h3 class="card-title">Reservation</h3>
               </div>
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+              <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                     Add
-                    </button>
+                    </button> -->
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -185,7 +185,7 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-12">
                                                 <label for="Note">Note</label>
-                                                <textarea class="form-control" id="Note" name="Note" required  cols="30" rows="10"><?= $restrev['Note'] ?></textarea>
+                                                <textarea class="form-control" id="Note" name="Note"  cols="30" rows="10"><?= $restrev['Note'] ?></textarea>
                                             </div>
                                         </div>
                                     </div>

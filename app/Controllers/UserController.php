@@ -340,17 +340,15 @@ class UserController extends BaseController
     }
     public function saveToken()
     {
-        // Start session
+        
         $session = session();
         $userId = $session->get('id');
 
-        // Check if user is logged in
         if (!$userId) {
             return $this->response->setStatusCode(401)
                 ->setJSON(['success' => false, 'message' => 'User not logged in.']);
         }
 
-        // Parse the JSON request to get the token
         $tokenData = $this->request->getJSON();
 
         if (!$tokenData || !isset($tokenData->fcm_token)) {
@@ -358,7 +356,6 @@ class UserController extends BaseController
                 ->setJSON(['success' => false, 'message' => 'Invalid request: Token missing.']);
         }
 
-        // Update user's FCM token in the database
         $saved = $this->users->update($userId, ['fcm_token' => $tokenData->fcm_token]);
 
         if ($saved) {
@@ -389,13 +386,13 @@ class UserController extends BaseController
             $emailMessage = "Please click on the following link to reset your password: <a href='{$verificationUrl}'>Reset Password</a>";
 
             if ($this->sendEmail($email, 'Reset Your Password', $emailMessage)) {
-                // Update the user with the verification token
+
                 if ($userModel->update($user['UserID'], ['verification_token' => $tempPass])) {
-                    // Send push notification if fcm_token exists
+
                     if (!empty($user['fcm_token'])) {
                         $this->sendPushNotification($user['fcm_token'], 'Password Reset Request', 'Please check your email to reset your password.');
                     }
-                    // Set flashdata message
+
                     session()->setFlashdata('success', 'Please check your email to reset your password.');
                     return redirect()->to(base_url('recover'));
                 }
@@ -412,14 +409,13 @@ class UserController extends BaseController
 
 
 
-    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+    protected $googleProjectId = 'push-notif-309d3'; 
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        // Path to the service account key file
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
+        
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
 
-        // Create credentials for Google API using the service account file
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
             json_decode(file_get_contents($serviceAccountPath), true)
@@ -436,25 +432,23 @@ class UserController extends BaseController
 
         $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
 
-        // Prepare the notification payload
         $payload = [
             'message' => [
                 'token' => $token,
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image,  // Optional image field
+                    'image' => $image,  
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                        'link' => 'https://mahalta.online/'  
                     ]
                 ],
-                // Optional custom data payload
+                
             ]
         ];
 
-        // Initialize CURL request
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
@@ -465,7 +459,6 @@ class UserController extends BaseController
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
-        // Execute CURL and log results
         $result = curl_exec($ch);
 
         if ($result === false) {

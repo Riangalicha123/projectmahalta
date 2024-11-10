@@ -140,15 +140,7 @@
                                       <option <?= ($convenue['conVenueName'] == 'Tamaraw') ? 'selected' : '' ?>>Tamaraw</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-6">
-                                                <label for="minGuest">Minimum Guest</label>
-                                                <input type="number" class="form-control" id="minGuest" name="minGuest" required value="<?=$convenue['minGuest']?>">
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label for="maxGuest">Maximum Guest</label>
-                                                <input type="number" class="form-control" id="maxGuest" name="maxGuest" required value="<?=$convenue['maxGuest']?>">
-                                            </div>
-                                            <div class="form-row">
+                                <div class="form-row">
                                   <div class="form-group col-md-6">
                                     <label for="minGuest">Minimum Guest</label>
                                       <input type="number" class="form-control" id="minGuest" name="minGuest" required value="<?=$convenue['minGuest']?>">

@@ -442,19 +442,16 @@ class StaffController extends BaseController
     {
         helper(['form']);
 
-        // Retrieve form data
         $regionCode = $this->request->getVar('Region');
         $provinceCode = $this->request->getVar('Province');
         $cityCode = $this->request->getVar('City');
         $barangayCode = $this->request->getVar('Barangay');
 
-        // Get descriptions
         $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
         $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
         $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
         $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
 
-        // Prepare user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -468,21 +465,19 @@ class StaffController extends BaseController
             'is_verified' => 1,
         ];
 
-        // Insert user data
         $UserID = $this->users->insert($userData, true);
         if ($UserID) {
-            // Insert guest data
+            
             $guestData = ['UserID' => $UserID];
             $this->guest->insert($guestData);
 
-            // Retrieve room and reservation data
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
             $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
             $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
 
             if ($roomDataByType && $roomDataByNumber) {
-                // Prepare reservation data
+                
                 $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -496,12 +491,9 @@ class StaffController extends BaseController
                     'RoomID' => $roomDataByType['RoomID'],
                     'UserID' => $UserID,
                 ];
-
-                // Insert reservation data
                 $inserted = $this->reservation->insert($newReservationData);
                 $reservationID = $this->reservation->getInsertID();
                 if ($inserted) {
-                    // Handle room amenities
                     $amenitiesData = $this->request->getPost('roomInventoryID');
                     $insertQuantities = $this->request->getPost('insertQuantity');
 
@@ -516,8 +508,6 @@ class StaffController extends BaseController
                                     'UserID' => $UserID,
                                 ];
                                 $this->reseraminities->insert($amenityData);
-
-                                // Update room inventory
                                 $roomInventory = $this->roominventory->find($amenityID);
                                 if ($roomInventory) {
                                     $currentQuantity = $roomInventory['Quantity'];
@@ -527,7 +517,7 @@ class StaffController extends BaseController
                             }
                         }
                     } else {
-                        // Skip amenities
+                        
                         $amenityData = [
                             'ReservationID' => $reservationID,
                             'roomInventoryID' => null,
@@ -552,20 +542,18 @@ class StaffController extends BaseController
     {
         helper(['form']);
 
-        // Update user information
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
             'ContactNumber' => $this->request->getVar('ContactNumber'),
         ];
-        $reservation = $this->reseraminities->find($amenitiesID); // Retrieve reservation amenities data
+        $reservation = $this->reseraminities->find($amenitiesID); 
         if (!$reservation) {
             return redirect()->to(base_url('/staff-hotelreservation-amenities'))->with('error', 'Reservation not found.');
         }
         $userID = $reservation['UserID'];
         $updateUserResult = $this->users->update($userID, $userData);
 
-        // Update room information and reservation details
         if ($updateUserResult) {
             $roomNumber = $this->request->getPost('RoomNumber');
             $roomType = $this->request->getPost('RoomType');
@@ -586,18 +574,14 @@ class StaffController extends BaseController
                 ];
                 $updateReservationResult = $this->reseraminities->update($amenitiesID, $newReservationData);
 
-                // Post amenities data
                 if ($updateReservationResult) {
-                    // Retrieve selected product names and quantities
                     $roomInventoryIDs = $this->request->getPost('roomInventoryID') ?: [];
                     $insertQuantities = $this->request->getPost('insertQuantity') ?: [];
 
-                    // Existing room inventory IDs from the database
                     $existingRoomInventoryIDs = $this->reseraminities
                         ->where('ReservationID', $reservation['ReservationID'])
                         ->findColumn('roomInventoryID');
 
-                    // Delete unselected room inventories
                     foreach ($existingRoomInventoryIDs as $existingRoomInventoryID) {
                         if (!in_array($existingRoomInventoryID, $roomInventoryIDs)) {
                             $this->reseraminities
@@ -607,7 +591,6 @@ class StaffController extends BaseController
                         }
                     }
 
-                    // Insert or update selected room inventories
                     foreach ($roomInventoryIDs as $roomInventoryID) {
                         $existingRecord = $this->reseraminities
                             ->where('ReservationID', $reservation['ReservationID'])
@@ -615,12 +598,12 @@ class StaffController extends BaseController
                             ->first();
 
                         if ($existingRecord) {
-                            // Update the existing record's InsertQuantity
+
                             $this->reseraminities->update($existingRecord['AmenitiesID'], [
                                 'insertQuantity' => $insertQuantities[$roomInventoryID]
                             ]);
                         } else {
-                            // Insert new record
+
                             $this->reseraminities->insert([
                                 'ReservationID' => $reservation['ReservationID'],
                                 'UserID' => $userID,
@@ -684,20 +667,18 @@ class StaffController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
-    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+    protected $googleProjectId = 'push-notif-309d3'; 
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        // Path to the service account key file
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
 
-        // Create credentials for Google API using the service account file
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
             json_decode(file_get_contents($serviceAccountPath), true)
         );
 
-        // Get the OAuth2 access token
+        
         $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
         $accessToken = $tokenData['access_token'] ?? null;
 
@@ -708,25 +689,23 @@ class StaffController extends BaseController
 
         $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
 
-        // Prepare the notification payload
         $payload = [
             'message' => [
                 'token' => $token,
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image,  // Optional image field
+                    'image' => $image, 
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                        'link' => 'https://mahalta.online/'  
                     ]
                 ],
-                // Optional custom data payload
+                
             ]
         ];
 
-        // Initialize CURL request
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
@@ -737,7 +716,6 @@ class StaffController extends BaseController
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
-        // Execute CURL and log results
         $result = curl_exec($ch);
 
         if ($result === false) {
@@ -863,7 +841,7 @@ class StaffController extends BaseController
             if ($this->validate($rules)) {
                 if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Update room details with new image
+                        
                         $this->rooms->update($data['RoomID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1150,7 +1128,7 @@ class StaffController extends BaseController
             if ($this->validate($rules)) {
                 if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Update room details with new image
+                        
                         $this->venues->update($data['VenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1748,7 +1726,6 @@ class StaffController extends BaseController
                 'TotalAmount' => $TotalAmount,
             ]);
 
-            // Return the view instead of redirecting
             return view('Stafff/HotelStaff/amenities', [
                 'reservationData' => $reservationData,
                 'roomSelected' => $roomSelected,
@@ -1782,18 +1759,13 @@ class StaffController extends BaseController
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
-        $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
+        $skipAmenities = $this->request->getPost('skip'); 
 
-        // Handle "Skip" functionality
         if ($skipAmenities) {
-            // Clear any existing amenities data
-            $session->remove('amenitiesData');
 
-            // Redirect to form details without adding amenities
+            $session->remove('amenitiesData');
             return redirect()->to(base_url('/staff-walkin-availability/dataroomreservation/amenities/formdetails'));
         }
-
-        // Proceed if not skipping amenities
         $amenitiesData = [];
 
         if (!empty($roomInventoryIDs)) {
@@ -1811,10 +1783,8 @@ class StaffController extends BaseController
                 }
             }
 
-            // Store amenities in session
             $session->set('amenitiesData', $amenitiesData);
 
-            // Calculate total extra price
             $totalExtraPrice = 0;
             if (!empty($amenitiesData)) {
                 foreach ($amenitiesData as $amenity) {
@@ -1822,15 +1792,12 @@ class StaffController extends BaseController
                 }
             }
 
-            // Update total amount in reservation data
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
             $session->set('roomReservationData', $roomReservationData);
 
-            // Redirect to form details
             return redirect()->to(base_url('/staff-walkin-availability/dataroomreservation/amenities/formdetails'));
         } else {
-            // No amenities selected, redirect with an error if not skipped
             return redirect()->to(base_url('/staff-walkin-availability/dataroomreservation/amenities/'))
                 ->with('error', 'Please select at least one amenity or skip.');
         }
@@ -1844,22 +1811,17 @@ class StaffController extends BaseController
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
 
-        // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
                 $amenity['UserID'] = $userID;
                 $totalExtraPrice += $amenity['Price'] * $amenity['insertQuantity'];
             }
         }
-
-        // The TotalAmount was already updated in the addAmenities function.
-        // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
 
-        // Update the session with the new reservation data
         $session->set('roomReservationData', $roomReservationData);
 
         $data = [
@@ -1869,7 +1831,7 @@ class StaffController extends BaseController
                 ->findAll(),
             'roomReservationData' => $roomReservationData,
             'amenitiesData' => $amenitiesData,
-            'totalExtraPrice' => $totalExtraPrice, // Total for amenities, but not added to TotalAmount again
+            'totalExtraPrice' => $totalExtraPrice, 
         ];
 
         return view('Stafff/HotelStaff/checkout', $data);
@@ -1888,51 +1850,48 @@ class StaffController extends BaseController
         $skipAmenities = $this->request->getGet('skip') === 'true';
 
         if ($roomSelected && $reservationData && $TotalAmount) {
-            $checkInTime = '14:00:00'; // 2:00 PM
-            $checkOutTime = '12:00:00'; // 12:00 PM
+            $checkInTime = '14:00:00'; 
+            $checkOutTime = '12:00:00'; 
             $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
             $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
             $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
 
-            $discount = $this->request->getPost('Discount'); // Get the selected discount
+            $discount = $this->request->getPost('Discount'); 
 
-            // Check if a discount is applied
             if ($discount !== null && $discount !== '') {
-                // Remove the '%' symbol from the discount and calculate the discount value
+
                 $discountValue = (int) str_replace('%', '', $discount);
-                // Correct calculation: apply (100 - discount) percent to the total amount
+                
                 $TotalAmount = $TotalAmount * ((100 - $discountValue) / 100);
             } else {
-                $discount = null; // If no discount is selected, set it to NULL
+                $discount = null; 
             }
 
-            // Get contact number, if not provided set to NULL
             $contactNumber = $this->request->getVar('ContactNumber');
             $contactNumber = !empty($contactNumber) ? $contactNumber : null;
 
-            // Loop through amenities and insert each one with reservation data
             if (!$skipAmenities && $amenitiesData) {
                 foreach ($amenitiesData as $amenity) {
-                    // Prepare reservation data with amenities
+
                     $newReservationData = [
                         'FirstName' => $this->request->getVar('FirstName'),
                         'LastName' => $this->request->getVar('LastName'),
-                        'ContactNumber' => $contactNumber, // Use the possibly null contact number
+                        'ContactNumber' => $contactNumber, 
                         'CheckIn' => $checkInDateTime,
                         'CheckOut' => $checkOutDateTime,
                         'Adult' => $reservationData['Adult'],
                         'Child' => $reservationData['Child'],
                         'RoomID' => $roomSelected['RoomID'],
                         'TotalAmount' => $TotalAmount,
-                        'Discount' => $discount, // Save the discount percentage or NULL
-                        'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
-                        'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
+                        'Discount' => $discount, 
+                        'roomInventoryID' => $amenity['roomInventoryID'], 
+                        'insertQuantity' => $amenity['insertQuantity'],  
                     ];
 
                     $inserted = $this->walkins->insert($newReservationData);
 
                     if ($inserted) {
-                        // Update room inventory quantity
+                        
                         $roomInventoryID = $amenity['roomInventoryID'];
                         $insertQuantity = $amenity['insertQuantity'];
                         $roomInventory = $this->roominventory->find($roomInventoryID);
@@ -1946,26 +1905,25 @@ class StaffController extends BaseController
                     }
                 }
             } else {
-                // If amenities are skipped, insert reservation without amenities
+                
                 $newReservationData = [
                     'FirstName' => $this->request->getVar('FirstName'),
                     'LastName' => $this->request->getVar('LastName'),
-                    'ContactNumber' => $contactNumber, // Use the possibly null contact number
+                    'ContactNumber' => $contactNumber, 
                     'CheckIn' => $checkInDateTime,
                     'CheckOut' => $checkOutDateTime,
                     'Adult' => $reservationData['Adult'],
                     'Child' => $reservationData['Child'],
                     'RoomID' => $roomSelected['RoomID'],
                     'TotalAmount' => $TotalAmount,
-                    'Discount' => $discount, // Save the discount percentage or NULL
-                    'roomInventoryID' => null, // No amenities, so set to null
-                    'insertQuantity' => null,  // No amenities, so set to null
+                    'Discount' => $discount, 
+                    'roomInventoryID' => null, 
+                    'insertQuantity' => null,  
                 ];
 
                 $this->walkins->insert($newReservationData);
             }
 
-            // Set success message and redirect
             $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
             return redirect()->to('/staff-walkin');
         } else {
@@ -1976,7 +1934,6 @@ class StaffController extends BaseController
     {
         $model = new RoomInventoryModel();
 
-        // Fetch items with stock quantity less than or equal to 10
         $lowStockItems = $model->getLowQuantityItems(10);
 
         return $this->response->setJSON($lowStockItems);

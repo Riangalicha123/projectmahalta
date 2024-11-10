@@ -543,19 +543,16 @@ class AdminController extends BaseController
     {
         helper(['form']);
 
-        // Retrieve form data
         $regionCode = $this->request->getVar('Region');
         $provinceCode = $this->request->getVar('Province');
         $cityCode = $this->request->getVar('City');
         $barangayCode = $this->request->getVar('Barangay');
 
-        // Get descriptions
         $regionDesc = $this->regions->where('regCode', $regionCode)->first()['regDesc'] ?? '';
         $provinceDesc = $this->province->where('provCode', $provinceCode)->first()['provDesc'] ?? '';
         $cityDesc = $this->cities->where('citymunCode', $cityCode)->first()['citymunDesc'] ?? '';
         $barangayDesc = $this->barangay->where('brgyCode', $barangayCode)->first()['brgyDesc'] ?? '';
 
-        // Prepare user data
         $userData = [
             'FirstName' => $this->request->getVar('FirstName'),
             'LastName' => $this->request->getVar('LastName'),
@@ -569,21 +566,17 @@ class AdminController extends BaseController
             'is_verified' => 1,
         ];
 
-        // Insert user data
         $UserID = $this->users->insert($userData, true);
         if ($UserID) {
-            // Insert guest data
+
             $guestData = ['UserID' => $UserID];
             $this->guest->insert($guestData);
-
-            // Retrieve room and reservation data
             $inputRoomType = $this->request->getPost('RoomType');
             $inputRoomNumber = $this->request->getPost('RoomNumber');
             $roomDataByType = $this->rooms->where('RoomType', $inputRoomType)->first();
             $roomDataByNumber = $this->rooms->where('RoomNumber', $inputRoomNumber)->first();
 
             if ($roomDataByType && $roomDataByNumber) {
-                // Prepare reservation data
                 $newReservationData = [
                     'CheckInDate' => $this->request->getPost('CheckInDate'),
                     'CheckOutDate' => $this->request->getPost('CheckOutDate'),
@@ -597,12 +590,9 @@ class AdminController extends BaseController
                     'RoomID' => $roomDataByType['RoomID'],
                     'UserID' => $UserID,
                 ];
-
-                // Insert reservation data
                 $inserted = $this->reservation->insert($newReservationData);
                 $reservationID = $this->reservation->getInsertID();
                 if ($inserted) {
-                    // Handle room amenities
                     $amenitiesData = $this->request->getPost('roomInventoryID');
                     $insertQuantities = $this->request->getPost('insertQuantity');
 
@@ -617,8 +607,6 @@ class AdminController extends BaseController
                                     'UserID' => $UserID,
                                 ];
                                 $this->reseraminities->insert($amenityData);
-
-                                // Update room inventory
                                 $roomInventory = $this->roominventory->find($amenityID);
                                 if ($roomInventory) {
                                     $currentQuantity = $roomInventory['Quantity'];
@@ -628,7 +616,6 @@ class AdminController extends BaseController
                             }
                         }
                     } else {
-                        // Skip amenities
                         $amenityData = [
                             'ReservationID' => $reservationID,
                             'roomInventoryID' => null,
@@ -774,20 +761,15 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
-    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+    protected $googleProjectId = 'push-notif-309d3'; 
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        // Path to the service account key file
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
-
-        // Create credentials for Google API using the service account file
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
             json_decode(file_get_contents($serviceAccountPath), true)
         );
-
-        // Get the OAuth2 access token
         $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
         $accessToken = $tokenData['access_token'] ?? null;
 
@@ -797,26 +779,22 @@ class AdminController extends BaseController
         }
 
         $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
-
-        // Prepare the notification payload
         $payload = [
             'message' => [
                 'token' => $token,
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image,  // Optional image field
+                    'image' => $image, 
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                        'link' => 'https://mahalta.online/'  
                     ]
                 ],
-                // Optional custom data payload
             ]
         ];
 
-        // Initialize CURL request
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
@@ -827,7 +805,6 @@ class AdminController extends BaseController
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
-        // Execute CURL and log results
         $result = curl_exec($ch);
 
         if ($result === false) {
@@ -1353,71 +1330,71 @@ class AdminController extends BaseController
         return empty($existingUser);
     }
     public function updateStaffDetails($userID)
-    {
-        helper(['form']);
-        $validationRules = [
-            'FirstName' => 'required|min_length[4]|max_length[100]',
-            'LastName' => 'required|min_length[4]|max_length[100]',
-            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
-            'ContactNumber' => 'required|max_length[11]',
-            'Address' => 'required|min_length[4]|max_length[100]',
-            'DepartmentName' => 'required',
-        ];
-        if (!$this->validate($validationRules)) {
-            $validationErrors = $this->validator->getErrors();
-            return view('/admin-dashboard', ['validationErrors' => $validationErrors]);
-        }
-        $inputDepartmentName = $this->request->getPost('DepartmentName');
-        $staffDataByType = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-        if (!$staffDataByType) {
-            return redirect()->to(base_url('/admin-dashboard'))->with('error', 'Invalid DepartmentName. Please check your input.');
-        }
-        $updatedStaffData = [
-            'DepartmentID' => $staffDataByType['DepartmentID'],
-            'UserID' => $userID,
-        ];
-        $this->staffDetail->update($userID, $updatedStaffData);
-        $updatedUserData = [
-            'FirstName' => $this->request->getVar('FirstName'),
-            'LastName' => $this->request->getVar('LastName'),
-            'Email' => $this->request->getVar('Email'),
-            'ContactNumber' => $this->request->getVar('ContactNumber'),
-            'Address' => $this->request->getVar('Address'),
-        ];
-        $this->users->update($userID, $updatedUserData);
-        return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff details updated successfully.')->with('staffData', $staffDataByType);
+{
+    helper(['form']);
+
+    $validationRules = [
+        'FirstName' => 'required|min_length[4]|max_length[100]',
+        'LastName' => 'required|min_length[4]|max_length[100]',
+        'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+        'ContactNumber' => 'required|max_length[11]',
+        'Address' => 'required|min_length[4]|max_length[100]',
+        'DepartmentName' => 'required|in_list[Convention,Hotel,Restaurant,Inventory]'
+    ];
+
+    if (!$this->validate($validationRules)) {
+        $validationErrors = $this->validator->getErrors();
+        return view('admin-dashboard', ['validationErrors' => $validationErrors]);
     }
+
+    $inputDepartmentName = $this->request->getPost('DepartmentName');
+    $department = $this->department->where('DepartmentName', $inputDepartmentName)->first();
+    
+    if (!$department) {
+        return redirect()->to('/admin-dashboard')
+                         ->with('error', 'Invalid Department. Please check your input.');
+    }
+
+    $updatedStaffData = [
+        'DepartmentID' => $department['DepartmentID']
+    ];
+    $updatedUserData = [
+        'FirstName' => $this->request->getVar('FirstName'),
+        'LastName' => $this->request->getVar('LastName'),
+        'Email' => $this->request->getVar('Email'),
+        'ContactNumber' => $this->request->getVar('ContactNumber'),
+        'Address' => $this->request->getVar('Address')
+    ];
+
+    $this->staffDetail->update($userID, $updatedStaffData);
+    $this->users->update($userID, $updatedUserData);
+
+    return redirect()->to('/admin-staffaccounts')
+                     ->with('success', 'Staff details updated successfully.')
+                     ->with('staffData', $department);
+}
+
     public function deleteStaffDetails($staffDetailsID)
 {
-    // Retrieve the staff details by StaffDetailsID
+
     $staffDetails = $this->staffDetail->where('StaffDetailsID', $staffDetailsID)->first();
 
     if (!$staffDetails) {
-        // If staff details do not exist, return an error
+
         return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Staff not found.');
     }
-
-    // Retrieve the corresponding UserID from staff details
     $userID = $staffDetails['UserID'];
-
-    // Delete the staff details from staff_details table
     $deletedStaff = $this->staffDetail->delete($staffDetailsID);
 
     if (!$deletedStaff) {
-        // If deletion of staff details failed, return an error
         return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete staff details. Please try again.');
     }
-
-    // Delete the user from the users table
     $deletedUser = $this->users->delete($userID);
 
     if (!$deletedUser) {
-        // If deletion of user failed, restore the staff details and return an error
         $this->staffDetail->insert($staffDetails);
         return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete user. Please try again.');
     }
-
-    // If both deletions are successful, return a success message
     return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff deleted successfully.');
 }
 
@@ -1574,7 +1551,6 @@ class AdminController extends BaseController
             if ($this->validate($rules)) {
                 if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Update room details with new image
                         $this->rooms->update($data['RoomID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -1626,7 +1602,7 @@ class AdminController extends BaseController
                     ]);
                 }
             }
-            return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.'); // Redirect to room details page
+            return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.'); 
         }
         return redirect()->back();
     }
@@ -1745,7 +1721,7 @@ class AdminController extends BaseController
             if ($this->validate($rules)) {
                 if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'uploads/', $newFileName)) {
-                        // Update room details with new image
+
                         $this->venues->update($data['VenueID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -2125,7 +2101,6 @@ class AdminController extends BaseController
             if ($this->validate($rules)) {
                 if (!$file->hasMoved()) {
                     if ($file->move(FCPATH . 'news/', $newFileName)) {
-                        // Update room details with new image
                         $this->news->update($data['NewsID'], $data);
                     } else {
                         echo $file->getErrorString() . ' ' . $file->getError();
@@ -2379,8 +2354,6 @@ class AdminController extends BaseController
                 'roomSelected' => $roomSelected,
                 'TotalAmount' => $TotalAmount,
             ]);
-
-            // Return the view instead of redirecting
             return view('Admin/WalkIn/amenities', [
                 'reservationData' => $reservationData,
                 'roomSelected' => $roomSelected,
@@ -2414,18 +2387,13 @@ class AdminController extends BaseController
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
-        $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
+        $skipAmenities = $this->request->getPost('skip'); 
 
-        // Handle "Skip" functionality
         if ($skipAmenities) {
-            // Clear any existing amenities data
             $session->remove('amenitiesData');
-
-            // Redirect to form details without adding amenities
             return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails'));
         }
 
-        // Proceed if not skipping amenities
         $amenitiesData = [];
 
         if (!empty($roomInventoryIDs)) {
@@ -2443,10 +2411,8 @@ class AdminController extends BaseController
                 }
             }
 
-            // Store amenities in session
             $session->set('amenitiesData', $amenitiesData);
 
-            // Calculate total extra price
             $totalExtraPrice = 0;
             if (!empty($amenitiesData)) {
                 foreach ($amenitiesData as $amenity) {
@@ -2454,15 +2420,12 @@ class AdminController extends BaseController
                 }
             }
 
-            // Update total amount in reservation data
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
             $session->set('roomReservationData', $roomReservationData);
 
-            // Redirect to form details
             return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails'));
         } else {
-            // No amenities selected, redirect with an error if not skipped
             return redirect()->to(base_url('/admin-hotel/walkin-availability/dataroomreservation/amenities/'))
                 ->with('error', 'Please select at least one amenity or skip.');
         }
@@ -2476,7 +2439,6 @@ class AdminController extends BaseController
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
 
-        // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
                 $amenity['UserID'] = $userID;
@@ -2484,14 +2446,11 @@ class AdminController extends BaseController
             }
         }
 
-        // The TotalAmount was already updated in the addAmenities function.
-        // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
 
-        // Update the session with the new reservation data
         $session->set('roomReservationData', $roomReservationData);
 
         $data = [
@@ -2502,7 +2461,7 @@ class AdminController extends BaseController
             'qrcodes' => $this->qr->findAll(),
             'roomReservationData' => $roomReservationData,
             'amenitiesData' => $amenitiesData,
-            'totalExtraPrice' => $totalExtraPrice, // Total for amenities, but not added to TotalAmount again
+            'totalExtraPrice' => $totalExtraPrice, 
         ];
 
         return view('Admin/WalkIn/checkout', $data);
@@ -2521,51 +2480,49 @@ class AdminController extends BaseController
         $skipAmenities = $this->request->getGet('skip') === 'true';
 
         if ($roomSelected && $reservationData && $TotalAmount) {
-            $checkInTime = '14:00:00'; // 2:00 PM
-            $checkOutTime = '12:00:00'; // 12:00 PM
+            $checkInTime = '14:00:00'; 
+            $checkOutTime = '12:00:00'; 
             $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
             $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
             $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
 
-            $discount = $this->request->getPost('Discount'); // Get the selected discount
+            $discount = $this->request->getPost('Discount'); 
 
-            // Check if a discount is applied
+
             if ($discount !== null && $discount !== '') {
-                // Remove the '%' symbol from the discount and calculate the discount value
+
                 $discountValue = (int) str_replace('%', '', $discount);
-                // Correct calculation: apply (100 - discount) percent to the total amount
+
                 $TotalAmount = $TotalAmount * ((100 - $discountValue) / 100);
             } else {
-                $discount = null; // If no discount is selected, set it to NULL
+                $discount = null; 
             }
 
-            // Get contact number, if not provided set to NULL
             $contactNumber = $this->request->getVar('ContactNumber');
             $contactNumber = !empty($contactNumber) ? $contactNumber : null;
 
-            // Loop through amenities and insert each one with reservation data
             if (!$skipAmenities && $amenitiesData) {
                 foreach ($amenitiesData as $amenity) {
-                    // Prepare reservation data with amenities
+
                     $newReservationData = [
                         'FirstName' => $this->request->getVar('FirstName'),
                         'LastName' => $this->request->getVar('LastName'),
-                        'ContactNumber' => $contactNumber, // Use the possibly null contact number
+                        'ContactNumber' => $contactNumber, 
                         'CheckIn' => $checkInDateTime,
                         'CheckOut' => $checkOutDateTime,
                         'Adult' => $reservationData['Adult'],
                         'Child' => $reservationData['Child'],
                         'RoomID' => $roomSelected['RoomID'],
                         'TotalAmount' => $TotalAmount,
-                        'Discount' => $discount, // Save the discount percentage or NULL
-                        'roomInventoryID' => $amenity['roomInventoryID'], // Include room inventory
-                        'insertQuantity' => $amenity['insertQuantity'],   // Include insert quantity
+                        'Discount' => $discount, 
+                        'roomInventoryID' => $amenity['roomInventoryID'], 
+                        'insertQuantity' => $amenity['insertQuantity'],   
                     ];
 
                     $inserted = $this->walkins->insert($newReservationData);
 
                     if ($inserted) {
-                        // Update room inventory quantity
+                        
                         $roomInventoryID = $amenity['roomInventoryID'];
                         $insertQuantity = $amenity['insertQuantity'];
                         $roomInventory = $this->roominventory->find($roomInventoryID);
@@ -2579,26 +2536,25 @@ class AdminController extends BaseController
                     }
                 }
             } else {
-                // If amenities are skipped, insert reservation without amenities
+
                 $newReservationData = [
                     'FirstName' => $this->request->getVar('FirstName'),
                     'LastName' => $this->request->getVar('LastName'),
-                    'ContactNumber' => $contactNumber, // Use the possibly null contact number
+                    'ContactNumber' => $contactNumber, 
                     'CheckIn' => $checkInDateTime,
                     'CheckOut' => $checkOutDateTime,
                     'Adult' => $reservationData['Adult'],
                     'Child' => $reservationData['Child'],
                     'RoomID' => $roomSelected['RoomID'],
                     'TotalAmount' => $TotalAmount,
-                    'Discount' => $discount, // Save the discount percentage or NULL
-                    'roomInventoryID' => null, // No amenities, so set to null
-                    'insertQuantity' => null,  // No amenities, so set to null
+                    'Discount' => $discount, 
+                    'roomInventoryID' => null, 
+                    'insertQuantity' => null,  
                 ];
 
                 $this->walkins->insert($newReservationData);
             }
 
-            // Set success message and redirect
             $session->setFlashdata('success', 'Reservation added successfully and confirmation email sent.');
             return redirect()->to('/admin-hotel/walkin');
         } else {
@@ -2609,7 +2565,6 @@ class AdminController extends BaseController
     {
         helper(['form']);
 
-        // Apply validation rules
         $validation = \Config\Services::validation();
 
         $validation->setRules([
@@ -2625,7 +2580,7 @@ class AdminController extends BaseController
         ]);
 
         if (!$validation->withRequest($this->request)->run()) {
-            // Redirect back with validation errors
+
             return redirect()->back()->withInput()->with('errors', $validation->getErrors());
         }
 
@@ -2633,11 +2588,9 @@ class AdminController extends BaseController
         $roomData = $this->rooms->where('RoomType', $roomType)->first();
 
         if ($roomData) {
-            // Data to check if records exist
+
             $existingWalkinData = $this->walkins->find($walkinID);
 
-
-            // Common data for walkin record
             $WalkInn = [
                 'FirstName'      => $this->request->getPost('FirstName'),
                 'LastName'       => $this->request->getPost('LastName'),
@@ -2650,7 +2603,6 @@ class AdminController extends BaseController
                 'RoomID'         => $roomData['RoomID'],
             ];
 
-            // Check if updates were made to FirstName, LastName, CheckIn, or CheckOut
             if (
                 $existingWalkinData['FirstName'] !== $WalkInn['FirstName'] ||
                 $existingWalkinData['LastName'] !== $WalkInn['LastName'] ||
@@ -2661,40 +2613,34 @@ class AdminController extends BaseController
                 $existingWalkinData['TotalAmount'] !== $WalkInn['TotalAmount'] ||
                 $existingWalkinData['RoomID'] !== $WalkInn['RoomID']
             ) {
-                // Delete all existing records for this Walkin
+
                 $this->walkins->where('walkinID', $walkinID)->delete();
             }
 
-            // Handle room inventory insert for multiple selections
             $roomInventoryIDs = $this->request->getPost('roomInventoryID');
             $insertQuantities = $this->request->getPost('insertQuantity');
 
             if ($roomInventoryIDs && $insertQuantities) {
-                // Delete existing records with the same details
+
                 $this->walkins->where($WalkInn)->delete();
-                // Insert new records for each selected inventory
+
                 foreach ($roomInventoryIDs as $inventoryID) {
                     $quantity = $insertQuantities[$inventoryID] ?? 0;
 
-                    // Create a new walkin record for each selected inventory
                     $inventoryData = array_merge($WalkInn, [
                         'roomInventoryID' => $inventoryID,
                         'insertQuantity'  => $quantity
                     ]);
 
-                    // Insert a new record into the walkins table
                     $this->walkins->insert($inventoryData);
                 }
             } else {
-                // Handle no inventory selection
-                // Delete all records with the same details
+
                 $this->walkins->where($WalkInn)->delete();
 
-                // Insert a record with NULL values for inventory
                 $WalkInn['roomInventoryID'] = NULL;
                 $WalkInn['insertQuantity'] = NULL;
 
-                // Insert the new record with NULL values for inventory
                 $this->walkins->insert($WalkInn);
             }
 
@@ -2752,7 +2698,6 @@ class AdminController extends BaseController
     {
         $model = new RoomInventoryModel();
 
-        // Fetch items with stock quantity less than or equal to 10
         $lowStockItems = $model->getLowQuantityItems(10);
 
         return $this->response->setJSON($lowStockItems);
@@ -2761,10 +2706,8 @@ class AdminController extends BaseController
     {
         $model = new ReservationModel();
 
-        // Fetch reservations with RoomID, VenueID, or conventionID
         $reservations = $model->getReservationsWithID();
 
-        // Format the response to include the type of reservation
         $formattedReservations = [];
 
         foreach ($reservations as $reservation) {

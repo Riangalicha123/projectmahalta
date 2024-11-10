@@ -392,18 +392,14 @@ class GuestController extends BaseController
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
-        $skipAmenities = $this->request->getPost('skip'); // Handle Skip via button click
-
-        // Handle "Skip" functionality
+        $skipAmenities = $this->request->getPost('skip'); 
         if ($skipAmenities) {
-            // Clear any existing amenities data
+
             $session->remove('amenitiesData');
 
-            // Redirect to form details without adding amenities
             return redirect()->to(base_url('/bookroom/formdetails'));
         }
 
-        // Proceed if not skipping amenities
         $amenitiesData = [];
 
         if (!empty($roomInventoryIDs)) {
@@ -421,10 +417,8 @@ class GuestController extends BaseController
                 }
             }
 
-            // Store amenities in session
             $session->set('amenitiesData', $amenitiesData);
 
-            // Calculate total extra price
             $totalExtraPrice = 0;
             if (!empty($amenitiesData)) {
                 foreach ($amenitiesData as $amenity) {
@@ -432,7 +426,6 @@ class GuestController extends BaseController
                 }
             }
 
-            // Update total amount in reservation data
             $roomReservationData = $session->get('roomReservationData');
             $roomReservationData['TotalAmount'] += $totalExtraPrice;
             $session->set('roomReservationData', $roomReservationData);
@@ -452,7 +445,6 @@ class GuestController extends BaseController
         $roomReservationData = $session->get('roomReservationData');
         $totalExtraPrice = 0;
 
-        // No need to add extra price to TotalAmount here again, it's already done in addAmenities.
         if (isset($amenitiesData) && !empty($amenitiesData)) {
             foreach ($amenitiesData as &$amenity) {
                 $amenity['UserID'] = $userID;
@@ -460,14 +452,11 @@ class GuestController extends BaseController
             }
         }
 
-        // The TotalAmount was already updated in the addAmenities function.
-        // Here, we just prepare the down payment and full payment amounts based on TotalAmount.
         $downPaymentAmount = $roomReservationData['TotalAmount'] * 0.5;
         $fullPaymentAmount = $roomReservationData['TotalAmount'];
         $roomReservationData['DownpaymentAmount'] = $downPaymentAmount;
         $roomReservationData['FullpaymentAmount'] = $fullPaymentAmount;
 
-        // Update the session with the new reservation data
         $session->set('roomReservationData', $roomReservationData);
         $data = [
             'activePage' => 'Reservation',
@@ -508,8 +497,8 @@ class GuestController extends BaseController
                 $newFileName = $image->getRandomName();
                 if ($image->isValid() && !$image->hasMoved()) {
                     $image->move(FCPATH . 'proof/', $newFileName);
-                    $checkInTime = '14:00:00'; // 2:00 PM
-                    $checkOutTime = '12:00:00'; // 12:00 PM
+                    $checkInTime = '14:00:00'; 
+                    $checkOutTime = '12:00:00'; 
                     $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
                     $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
                     $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
@@ -526,8 +515,8 @@ class GuestController extends BaseController
                         'UserID' => $user['UserID'],
                         'TotalAmount' => $TotalAmount,
                         'Image' => $newFileName,
-                        'email_send_date' => $emailSendDate, // Add email send date
-                        'email_sent' => 0 // Initial email sent status
+                        'email_send_date' => $emailSendDate, 
+                        'email_sent' => 0 
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
                     $reservationID = $this->reservation->getInsertID();
@@ -556,7 +545,7 @@ class GuestController extends BaseController
                                 }
                             }
                         } else {
-                            // Skip amenities, set roomInventoryID and insertQuantity to NULL
+
                             $amenityData = [
                                 'ReservationID' => $reservationID,
                                 'roomInventoryID' => null,
@@ -614,7 +603,7 @@ class GuestController extends BaseController
         $writer = new \Endroid\QrCode\Writer\PngWriter();
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
-            mkdir($dirPath, 0777, true); // Adjust permissions as necessary
+            mkdir($dirPath, 0777, true); 
         }
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
@@ -667,7 +656,7 @@ class GuestController extends BaseController
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= $amenitiesMessage; // Add amenities information
+        $message .= $amenitiesMessage; 
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         $message .= "<br>We look forward to hosting you.<br>";
         $message .= "<br>Below is your qr code. Please download and show this when entering our business.<br>";
@@ -707,28 +696,25 @@ class GuestController extends BaseController
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= $amenitiesMessage; // Add amenities information
+        $message .= $amenitiesMessage; 
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         $message .= "<br>We look forward to hosting you.<br>";
         $message .= "<br>Below is your qr code. Please download and show this when entering our business.<br>";
 
         return $message;
     }
-    protected $googleProjectId = 'push-notif-309d3'; // Set your Google Project ID here
+    protected $googleProjectId = 'push-notif-309d3'; 
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        // Path to the service account key file
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; // Store pvKey.json in writable directory
 
+        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
 
-        // Create credentials for Google API using the service account file
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
             json_decode(file_get_contents($serviceAccountPath), true)
         );
 
-        // Get the OAuth2 access token
         $tokenData = $credential->fetchAuthToken(HttpHandlerFactory::build());
         $accessToken = $tokenData['access_token'] ?? null;
 
@@ -739,25 +725,23 @@ class GuestController extends BaseController
 
         $url = "https://fcm.googleapis.com/v1/projects/{$this->googleProjectId}/messages:send";
 
-        // Prepare the notification payload
         $payload = [
             'message' => [
                 'token' => $token,
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image,  // Optional image field
+                    'image' => $image,  
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  // Replace with your web app link
+                        'link' => 'https://mahalta.online/'  
                     ]
                 ],
-                // Optional custom data payload
+                
             ]
         ];
 
-        // Initialize CURL request
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
@@ -768,7 +752,6 @@ class GuestController extends BaseController
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
-        // Execute CURL and log results
         $result = curl_exec($ch);
 
         if ($result === false) {
@@ -787,7 +770,7 @@ class GuestController extends BaseController
 
         $venues = $this->venues->where('AvailableCapacity >=', $NumberOfGuests)->findAll();
 
-        return $this->response->setJSON($venues); // Return venues as JSON
+        return $this->response->setJSON($venues); 
     }
     public function tableReservation()
     {
@@ -832,8 +815,8 @@ class GuestController extends BaseController
                     'VenueName' => $VenueName,
                     'VenueID' => $restaurantVenue['VenueID'],
                     'UserID' => $user['UserID'],
-                    'email_send_date' => $emailSendDate, // Add email send date
-                    'email_sent' => 0 // Initial email sent status
+                    'email_send_date' => $emailSendDate, 
+                    'email_sent' => 0 
                 ];
                 $inserted = $this->reservation->insert($restaurantReservation);
                 if ($inserted) {
@@ -902,7 +885,7 @@ class GuestController extends BaseController
         }
         return view('Hotell/qrpath_restaurant', ['qrCodePath' => $qrCodePath]);
     }
-    private function prepareEmail(array $reservationDataa): string // Corrected method name
+    private function prepareEmail(array $reservationDataa): string 
     {
         $CheckInDate = $reservationDataa['CheckInDate'];
         $NumberOfGuests = $reservationDataa['NumberOfGuests'];
@@ -917,7 +900,7 @@ class GuestController extends BaseController
         $message .= "<br>We look forward to hosting you.<br>";
         return $message;
     }
-    private function prepareEmailReminder(array $reservationDataa): string // Corrected method name
+    private function prepareEmailReminder(array $reservationDataa): string 
     {
         $CheckInDate = $reservationDataa['CheckInDate'];
         $NumberOfGuests = $reservationDataa['NumberOfGuests'];
@@ -1001,7 +984,7 @@ class GuestController extends BaseController
             }
         }
         $reservationModel = new ReservationModel();
-        $conVenueID = $this->request->getPost('selectedconVenueID'); // Get selected convention venue ID
+        $conVenueID = $this->request->getPost('selectedconVenueID'); 
         $reservationsQuery = $reservationModel->table('reservations')
             ->select('DATE_FORMAT(CheckInDate, "%Y-%m-%d") as StartDate, DATE_FORMAT(CheckOutDate, "%Y-%m-%d") as EndDate, Status, convention.conventionID, convention.conVenueID')
             ->join('convention', 'reservations.conventionID = convention.conventionID')
@@ -1044,7 +1027,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Convention Reservation',
             'events' => $this->events->findAll(),
-            'convenues' => $this->convenues->findAll(), // Pass $convenues to the view
+            'convenues' => $this->convenues->findAll(), 
             'convenuesSelected' => $convenuesSelected,
             'chats' => $this->chat->findAll()
         ];
@@ -1065,8 +1048,8 @@ class GuestController extends BaseController
         $Barangay = $this->request->getPost('Barangay');
         $EventType = $this->request->getPost('EventType');
         $Note = $this->request->getPost('Note');
-        $setType = $this->request->getPost('Set'); // Retrieve selected setType from the form
-        $convenuesSelected = $session->get('convenuesSelected'); // Retrieve selected venue from session
+        $setType = $this->request->getPost('Set'); 
+        $convenuesSelected = $session->get('convenuesSelected'); 
 
         $UserData = [
             'FirstName' => $FirstName,
@@ -1102,48 +1085,46 @@ class GuestController extends BaseController
         $session->set('EventData', $EventData);
         $session->set('SetData', $SetData);
 
-        // Calculate duration in hours
         $duration = $CheckInDate->diff($CheckOutDate);
         $hours = ($duration->days * 24) + $duration->h + ($duration->i > 0 ? 1 : 0);
 
         $TotalAmount = 0;
 
-        // Pricing logic based on selected venue and setType
         if (!empty($convenuesSelected)) {
             switch ($convenuesSelected['conVenueName']) {
                 case 'CBRC Hall':
                     if ($setType === 'Rental Place') {
-                        $TotalAmount = 60000; // Fixed price for Rental
+                        $TotalAmount = 60000; 
                         if ($hours > 4) {
-                            $TotalAmount += 1000; // Extra charge for exceeding 6 hours
+                            $TotalAmount += 1000; 
                         }
                     } elseif ($setType === 'Per Head w/Food') {
-                        $TotalAmount = $NumberOfGuests * 1800; // Per guest pricing
+                        $TotalAmount = $NumberOfGuests * 1800; 
                         if ($hours > 4) {
-                            $TotalAmount += 1000; // Extra charge for exceeding 6 hours
+                            $TotalAmount += 1000; 
                         }
                     }
                     break;
 
                 case 'Tamaraw':
                     if ($setType === 'Consumable Food') {
-                        $TotalAmount = 25000; // Fixed price for Consumable Food
+                        $TotalAmount = 25000; 
                         if ($hours > 4) {
-                            $TotalAmount += 1000; // Extra charge for exceeding 4 hours
+                            $TotalAmount += 1000; 
                         }
                     } elseif ($setType === 'Rental Place') {
-                        $TotalAmount = 15000; // Fixed price for Rental
+                        $TotalAmount = 15000; 
                         if ($hours > 4) {
-                            $TotalAmount += 1000; // Extra charge for exceeding 4 hours
+                            $TotalAmount += 1000; 
                         }
                     }
                     break;
 
                 case 'Octagon':
                     if ($setType === 'Rental Place') {
-                        $TotalAmount = 25000; // Fixed price for Rental
+                        $TotalAmount = 25000; 
                     } elseif ($setType === 'Per Head w/Food') {
-                        $TotalAmount = $NumberOfGuests * 1600; // Per guest pricing
+                        $TotalAmount = $NumberOfGuests * 1600; 
                     }
                     break;
             }
@@ -1303,8 +1284,8 @@ class GuestController extends BaseController
                             'Status' => 'Confirm',
                             'TotalAmount' => $TotalAmount,
                             'Image' => $newFileName,
-                            'email_send_date' => $emailSendDate, // Add email send date
-                            'email_sent' => 0 // Initial email sent status
+                            'email_send_date' => $emailSendDate, 
+                            'email_sent' => 0 
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
@@ -1493,7 +1474,7 @@ class GuestController extends BaseController
             $reviewContent = [];
             $userModel = new UserModel();
 
-            // Updated bad keywords list
+            
             $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
 
             foreach ($reviews as $row) {
@@ -1509,12 +1490,12 @@ class GuestController extends BaseController
                 }
                 $user = $userModel->find($row['UserID']);
                 if ($user && isset($user['FirstName']) && isset($user['LastName'])) {
-                    $fullName = $user['FirstName'] . ' ' . $user['LastName'];  // Concatenate first and last names
+                    $fullName = $user['FirstName'] . ' ' . $user['LastName'];  
                 } else {
                     $fullName = "Unknown";
                 }
                 $reviewContent[] = [
-                    'FullName' => $fullName,  // Updated to display full name
+                    'FullName' => $fullName,  
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
                     'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
@@ -1871,16 +1852,13 @@ class GuestController extends BaseController
     }
     public function testSendNotification()
     {
-        // Replace these with actual values for testing
-        $fcmToken = 'eHgQuIvAkiISnt00KjzS_-:APA91bFKUFf-IWYZ2mAhh2d3tAusQw9oQthdy_om68-1deRE37Mpyqmz73-LikWXmB46vUCQKHajdY6DpH8rmsDI6GQxa94JxpFhcb5hI5LUIPL37Aj8drc'; // Replace with a valid FCM token
+        
+        $fcmToken = 'eHgQuIvAkiISnt00KjzS_-:APA91bFKUFf-IWYZ2mAhh2d3tAusQw9oQthdy_om68-1deRE37Mpyqmz73-LikWXmB46vUCQKHajdY6DpH8rmsDI6GQxa94JxpFhcb5hI5LUIPL37Aj8drc'; 
         $notifTitle = 'Test Notification Title';
         $notifBody = 'This is a test notification body.';
 
-
-        // Call the sendPushNotification method
         $response = $this->sendPushNotification($fcmToken, $notifTitle, $notifBody);
 
-        // Return the response as JSON
         return $this->response->setJSON($response);
     }
 }
