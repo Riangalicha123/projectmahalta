@@ -86,6 +86,49 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
+body {
+  background-color: #f0f2f5; /* Light gray background for subtle contrast */
+}
+
+.content-fluid .room {
+  background-color: #ffffff; /* White card background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
+}
+
+h4 {
+  font-size: 22px;
+  color: #333333; /* Dark gray for better readability */
+  font-weight: bold;
+}
+
+.form-label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333333; /* Dark text color for readability */
+}
+
+.form-control {
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc; /* Light border for a clean look */
+}
+
+.btn-dark {
+  background-color: #333333;
+  border: none;
+  font-size: 18px;
+  color: #ffffff; /* White text on dark button */
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-dark:hover {
+  background-color: #222222; /* Slightly darker on hover */
+  transform: scale(1.05); /* Small scale effect on hover */
+}
 
   </style>
 </head>
@@ -121,38 +164,38 @@ button[type="submit"]:hover {
       </div>
     </section>
     <section class="content">
-        <div class="content-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-              <div class="media d-block room mb-0" style="background-color: rgba(128, 128, 128, 0.5); display: flex; flex-direction: column; justify-content: flex-end; height: 100%;">
-                <div class="media-body">
-                  <form action="<?= base_url('/admin-hotel/walkin-availability') ?>" method="get">
-                    <div class="row">
-                      <div class="col-sm-3 form-group"></div>
-                      <div class="col-md-3 form-group">
-                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Adult</label>
-                        <input type="number" class="form-control" id="Adult" name="Adult" value="0">
-                      </div>
-                      <div class="col-md-3 form-group">
-                        <label for="Adult" style="color: white; font-size: 18px; font-weight: bold;">Kids</label>
-                        <input type="number" class="form-control" id="Child" name="Child" value="0">
-                      </div>
-                      <div class="col-sm-3 form-group"></div>
-                    </div>
-                    <input type="hidden" id="CheckIn" name="CheckIn">
-                    <input type="hidden" id="CheckOut" name="CheckOut">
-                    <div class="row">
-                      <div class="col-md-12 form-group text-center">
-                        <button type="submit" class="btn btn-primary">Check Availability</button>
-                      </div>
-                    </div>
-                  </form>
-                </div>
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-sm-10 col-md-8">
+        <div class="media d-block room rounded shadow p-4" style="background-color: #ffffff;">
+          <h4 class="text-center text-dark mb-4 font-weight-bold">Check Walk-In Availability</h4>
+          <form action="<?= base_url('/admin-hotel/walkin-availability') ?>" method="get">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="Adult" class="form-label text-dark">Adults</label>
+                <input type="number" class="form-control" id="Adult" name="Adult" value="0" min="0">
+              </div>
+              <div class="col-md-6">
+                <label for="Child" class="form-label text-dark">Kids</label>
+                <input type="number" class="form-control" id="Child" name="Child" value="0" min="0">
               </div>
             </div>
-          </div>
+            <input type="hidden" id="CheckIn" name="CheckIn">
+            <input type="hidden" id="CheckOut" name="CheckOut">
+            <div class="row">
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-dark rounded-pill px-5 py-2">Check Availability</button>
+              </div>
+            </div>
+          </form>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<br>
+
     <section class="content">
       <div class="container-fluid">
       <div class="row">
