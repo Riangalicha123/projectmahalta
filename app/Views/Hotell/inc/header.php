@@ -15,14 +15,14 @@
                 <a class="nav-link <?= (isset($activePage) && $activePage === 'Home') ? 'active' : '' ?>" href="<?= route_to('/') ?>" style="color: black; font-size: 20px;">Home</a>
             </li>
               <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Room</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Room</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
                         <a class="dropdown-item" href="<?= route_to('room-accommodation') ?>">Accommodations</a>
                         <a class="dropdown-item" href="<?= route_to('roompolicy') ?>">Policy</a>
                         </div>
                     </li>
               <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Restaurant</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Restaurant</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
                         <a class="dropdown-item" href="<?= route_to('mainmenu') ?>">Main Menu</a>
                         <a class="dropdown-item" href="<?= route_to('barmenu') ?>">Bar Menu</a>
@@ -31,7 +31,7 @@
                         </div>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Convention</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Convention</a>
                         <div class="dropdown-menu" aria-labelledbqy="dropdown04">
                         <a class="dropdown-item" href="<?= route_to('convention-center') ?>">Accommodations</a>
                         <a class="dropdown-item" href="<?= route_to('conpackage') ?>">Package</a>
@@ -39,7 +39,7 @@
                     </li>
                 <?php if(session()->get('isLoggedIn')): ?>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="rooms.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Accounts</a>
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black; font-size: 20px;">Accounts</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown04">
                         <a class="dropdown-item" href="<?= route_to('profile') ?>">Profile</a>
                         <!-- <a class="dropdown-item" href="<?= route_to('change-password') ?>">Change Password</a> -->
