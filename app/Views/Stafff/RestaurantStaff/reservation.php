@@ -69,9 +69,6 @@
                 <h3 class="card-title">Reservation</h3>
               </div>
               <div class="card-body">
-              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Add
-                    </button>
                     <div class="modal fade " id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                             <div class="modal-content">
@@ -200,7 +197,6 @@
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>#</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact No.</th>
@@ -216,7 +212,6 @@
                   <tbody>
                   <?php foreach ($restrevs as $restrev): ?>
                   <tr>
-                    <td><?=$restrev['ReservationID']?></td>
                     <td><?=$restrev['FirstName']?></td>
                     <td><?=$restrev['LastName']?></td>
                     <td><?=$restrev['ContactNumber']?></td>
