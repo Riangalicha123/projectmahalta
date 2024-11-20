@@ -374,71 +374,91 @@
 </script>
 
 <script>
-        $(function () {
-            $('#year-sselectorr').change(function () {
-                var selectedYear = $(this).val();
-                updateMonthlyChart(selectedYear);
-            });
-            function updateMonthlyChart(year) {
-                $.ajax({
-                    url: '<?= base_url('admin/getMonthlyData') ?>',
-                    type: 'POST',
-                    data: { year: year },
-                    dataType: 'json',
-                    success: function (data) {
-                        var productNames = [];
-                        var monthlyData = {};
-                        data.forEach(function (item) {
-                            if (!monthlyData[item.ProductName]) {
-                                monthlyData[item.ProductName] = Array(12).fill(0);
-                            }
-                            monthlyData[item.ProductName][item.ReservationMonth - 1] = item.TotalQuantity;
-                        });
+    $(function () {
+        let chartInstance; // Keep track of the current chart instance
 
-                        var datasets = [];
+        $('#year-sselectorr').change(function () {
+            var selectedYear = $(this).val();
+            updateMonthlyChart(selectedYear);
+        });
 
-                        for (var productName in monthlyData) {
-                            productNames.push(productName);
-                            datasets.push({
-                                label: productName,
-                                backgroundColor: getRandomColor(),
-                                borderColor: getRandomColor(),
-                                data: monthlyData[productName]
-                            });
+        function updateMonthlyChart(year) {
+            $.ajax({
+                url: '<?= base_url('admin/getMonthlyData') ?>',
+                type: 'POST',
+                data: { year: year },
+                dataType: 'json',
+                success: function (data) {
+                    var productNames = [];
+                    var monthlyData = {};
+                    data.forEach(function (item) {
+                        if (!monthlyData[item.ProductName]) {
+                            monthlyData[item.ProductName] = Array(12).fill(0);
                         }
+                        monthlyData[item.ProductName][item.ReservationMonth - 1] = item.TotalQuantity;
+                    });
 
-                        var barChartDataMonthly = {
-                            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-                            datasets: datasets
-                        };
-
-                        var barChartOptionsMonthly = {
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            datasetFill: false
-                        };
-
-                        var barChartCanvas = $('#inventoryreportchart-monthly').get(0).getContext('2d');
-                        new Chart(barChartCanvas, {
-                            type: 'line',
-                            data: barChartDataMonthly,
-                            options: barChartOptionsMonthly
+                    var datasets = [];
+                    for (var productName in monthlyData) {
+                        productNames.push(productName);
+                        datasets.push({
+                            label: productName,
+                            borderColor: getRandomColor(),
+                            borderWidth: 2, // Make the lines thicker for better visibility
+                            fill: false, // Avoid filling the area under the line
+                            data: monthlyData[productName]
                         });
                     }
-                });
-            }
 
-            function getRandomColor() {
-                var letters = '0123456789ABCDEF';
-                var color = '#';
-                for (var i = 0; i < 6; i++) {
-                    color += letters[Math.floor(Math.random() * 16)];
+                    var barChartDataMonthly = {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                        datasets: datasets
+                    };
+
+                    var barChartOptionsMonthly = {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                                labels: {
+                                    boxWidth: 20
+                                }
+                            }
+                        }
+                    };
+
+                    // Clear the previous chart instance if it exists
+                    if (chartInstance) {
+                        chartInstance.destroy();
+                    }
+
+                    // Create a new chart instance
+                    var barChartCanvas = $('#inventoryreportchart-monthly').get(0).getContext('2d');
+                    chartInstance = new Chart(barChartCanvas, {
+                        type: 'line',
+                        data: barChartDataMonthly,
+                        options: barChartOptionsMonthly
+                    });
                 }
-                return color;
+            });
+        }
+
+        function getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
             }
-            updateMonthlyChart('2024');
-        });
-    </script>
+            return color;
+        }
+
+        // Initialize with default year
+        updateMonthlyChart('2024');
+    });
+</script>
+
 <script>
 $(function () {
   
