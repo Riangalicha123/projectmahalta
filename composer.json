@@ -16,8 +16,12 @@
         "ext-mbstring": "*",
         "endroid/qr-code": "^5.0",
         "google/auth": "^1.42",
+        "google/cloud-language": "^0.34.1",
+        "google/cloud-translate": "^1.20",
         "laminas/laminas-escaper": "^2.9",
+        "php-ai/php-ml": "^0.10.0",
         "phpmailer/phpmailer": "^6.9",
+        "phpoffice/phpspreadsheet": "^3.5",
         "picqer/php-barcode-generator": "^2.4",
         "psr/log": "^1.1"
     },
