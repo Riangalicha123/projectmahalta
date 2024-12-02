@@ -489,7 +489,7 @@ document.addEventListener('click', function(e) {
 
     // Header
     doc.setFontSize(20);
-    doc.text("Hotel, Restaurant, and Convention Report", 148, 15, { align: "center" });
+    doc.text("Mahalta Resorts and Convention Center", 148, 15, { align: "center" });
     doc.setFontSize(12);
     doc.setFont("Times New Roman", "normal"); // Use Lucida Calligraphy
     doc.text("Parang, Calapan City, Oriental Mindoro", 148, 20, { align: "center" });
