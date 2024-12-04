@@ -119,7 +119,7 @@
       <!-- Modal Footer -->
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" onclick="printPDF()">Preview PDF Content</button>
-        <button class="btn btn-success" onclick="downloadExcel()">Download as Excel</button>
+        <!-- <button class="btn btn-success" onclick="downloadExcel()">Download as Excel</button> -->
       </div>
     </div>
   </div>
