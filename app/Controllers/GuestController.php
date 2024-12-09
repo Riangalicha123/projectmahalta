@@ -392,7 +392,7 @@ class GuestController extends BaseController
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
-        $skipAmenities = $this->request->getPost('skip'); 
+        $skipAmenities = $this->request->getPost('skip');
         if ($skipAmenities) {
 
             $session->remove('amenitiesData');
@@ -497,8 +497,8 @@ class GuestController extends BaseController
                 $newFileName = $image->getRandomName();
                 if ($image->isValid() && !$image->hasMoved()) {
                     $image->move(FCPATH . 'proof/', $newFileName);
-                    $checkInTime = '14:00:00'; 
-                    $checkOutTime = '12:00:00'; 
+                    $checkInTime = '14:00:00';
+                    $checkOutTime = '12:00:00';
                     $checkInDateTime = $reservationData['CheckInDate'] . ' ' . $checkInTime;
                     $checkOutDateTime = $reservationData['CheckOutDate'] . ' ' . $checkOutTime;
                     $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
@@ -515,8 +515,8 @@ class GuestController extends BaseController
                         'UserID' => $user['UserID'],
                         'TotalAmount' => $TotalAmount,
                         'Image' => $newFileName,
-                        'email_send_date' => $emailSendDate, 
-                        'email_sent' => 0 
+                        'email_send_date' => $emailSendDate,
+                        'email_sent' => 0
                     ];
                     $inserted = $this->reservation->insert($newReservationData);
                     $reservationID = $this->reservation->getInsertID();
@@ -603,7 +603,7 @@ class GuestController extends BaseController
         $writer = new \Endroid\QrCode\Writer\PngWriter();
         $dirPath = FCPATH . 'qr-codes';
         if (!is_dir($dirPath)) {
-            mkdir($dirPath, 0777, true); 
+            mkdir($dirPath, 0777, true);
         }
         $filePath = $dirPath . '/qr-code-' . $reservationID . '.png';
         $result = $writer->write($qrCode);
@@ -656,7 +656,7 @@ class GuestController extends BaseController
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= $amenitiesMessage; 
+        $message .= $amenitiesMessage;
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         $message .= "<br>We look forward to hosting you.<br>";
         $message .= "<br>Below is your qr code. Please download and show this when entering our business.<br>";
@@ -696,19 +696,19 @@ class GuestController extends BaseController
         $message .= "Down or Full Payment: {$downorfullPayment}<br>";
         $message .= "Reference Number: {$referenceNumber}<br>";
         $message .= "Rate Amount: {$totalAmount}<br>";
-        $message .= $amenitiesMessage; 
+        $message .= $amenitiesMessage;
         $message .= "Proof of Payment: <a href='" . base_url('/proof/' . $image) . "'>" . $image . "</a><br>";
         $message .= "<br>We look forward to hosting you.<br>";
         $message .= "<br>Below is your qr code. Please download and show this when entering our business.<br>";
 
         return $message;
     }
-    protected $googleProjectId = 'push-notif-309d3'; 
+    protected $googleProjectId = 'push-notif-309d3';
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
 
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
+        $serviceAccountPath = ROOTPATH . 'pvKey.json';
 
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
@@ -731,14 +731,14 @@ class GuestController extends BaseController
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image,  
+                    'image' => $image,
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  
+                        'link' => 'https://mahalta.online/'
                     ]
                 ],
-                
+
             ]
         ];
 
@@ -770,7 +770,7 @@ class GuestController extends BaseController
 
         $venues = $this->venues->where('AvailableCapacity >=', $NumberOfGuests)->findAll();
 
-        return $this->response->setJSON($venues); 
+        return $this->response->setJSON($venues);
     }
     public function tableReservation()
     {
@@ -815,8 +815,8 @@ class GuestController extends BaseController
                     'VenueName' => $VenueName,
                     'VenueID' => $restaurantVenue['VenueID'],
                     'UserID' => $user['UserID'],
-                    'email_send_date' => $emailSendDate, 
-                    'email_sent' => 0 
+                    'email_send_date' => $emailSendDate,
+                    'email_sent' => 0
                 ];
                 $inserted = $this->reservation->insert($restaurantReservation);
                 if ($inserted) {
@@ -885,7 +885,7 @@ class GuestController extends BaseController
         }
         return view('Hotell/qrpath_restaurant', ['qrCodePath' => $qrCodePath]);
     }
-    private function prepareEmail(array $reservationDataa): string 
+    private function prepareEmail(array $reservationDataa): string
     {
         $CheckInDate = $reservationDataa['CheckInDate'];
         $NumberOfGuests = $reservationDataa['NumberOfGuests'];
@@ -900,7 +900,7 @@ class GuestController extends BaseController
         $message .= "<br>We look forward to hosting you.<br>";
         return $message;
     }
-    private function prepareEmailReminder(array $reservationDataa): string 
+    private function prepareEmailReminder(array $reservationDataa): string
     {
         $CheckInDate = $reservationDataa['CheckInDate'];
         $NumberOfGuests = $reservationDataa['NumberOfGuests'];
@@ -984,7 +984,7 @@ class GuestController extends BaseController
             }
         }
         $reservationModel = new ReservationModel();
-        $conVenueID = $this->request->getPost('selectedconVenueID'); 
+        $conVenueID = $this->request->getPost('selectedconVenueID');
         $reservationsQuery = $reservationModel->table('reservations')
             ->select('DATE_FORMAT(CheckInDate, "%Y-%m-%d") as StartDate, DATE_FORMAT(CheckOutDate, "%Y-%m-%d") as EndDate, Status, convention.conventionID, convention.conVenueID')
             ->join('convention', 'reservations.conventionID = convention.conventionID')
@@ -1027,7 +1027,7 @@ class GuestController extends BaseController
         $data = [
             'activePage' => 'Convention Reservation',
             'events' => $this->events->findAll(),
-            'convenues' => $this->convenues->findAll(), 
+            'convenues' => $this->convenues->findAll(),
             'convenuesSelected' => $convenuesSelected,
             'chats' => $this->chat->findAll()
         ];
@@ -1048,8 +1048,8 @@ class GuestController extends BaseController
         $Barangay = $this->request->getPost('Barangay');
         $EventType = $this->request->getPost('EventType');
         $Note = $this->request->getPost('Note');
-        $setType = $this->request->getPost('Set'); 
-        $convenuesSelected = $session->get('convenuesSelected'); 
+        $setType = $this->request->getPost('Set');
+        $convenuesSelected = $session->get('convenuesSelected');
 
         $UserData = [
             'FirstName' => $FirstName,
@@ -1094,37 +1094,37 @@ class GuestController extends BaseController
             switch ($convenuesSelected['conVenueName']) {
                 case 'CBRC Hall':
                     if ($setType === 'Rental Place') {
-                        $TotalAmount = 60000; 
+                        $TotalAmount = 60000;
                         if ($hours > 4) {
-                            $TotalAmount += 1000; 
+                            $TotalAmount += 1000;
                         }
                     } elseif ($setType === 'Per Head w/Food') {
-                        $TotalAmount = $NumberOfGuests * 1800; 
+                        $TotalAmount = $NumberOfGuests * 1800;
                         if ($hours > 4) {
-                            $TotalAmount += 1000; 
+                            $TotalAmount += 1000;
                         }
                     }
                     break;
 
                 case 'Tamaraw':
                     if ($setType === 'Consumable Food') {
-                        $TotalAmount = 25000; 
+                        $TotalAmount = 25000;
                         if ($hours > 4) {
-                            $TotalAmount += 1000; 
+                            $TotalAmount += 1000;
                         }
                     } elseif ($setType === 'Rental Place') {
-                        $TotalAmount = 15000; 
+                        $TotalAmount = 15000;
                         if ($hours > 4) {
-                            $TotalAmount += 1000; 
+                            $TotalAmount += 1000;
                         }
                     }
                     break;
 
                 case 'Octagon':
                     if ($setType === 'Rental Place') {
-                        $TotalAmount = 25000; 
+                        $TotalAmount = 25000;
                     } elseif ($setType === 'Per Head w/Food') {
-                        $TotalAmount = $NumberOfGuests * 1600; 
+                        $TotalAmount = $NumberOfGuests * 1600;
                     }
                     break;
             }
@@ -1284,8 +1284,8 @@ class GuestController extends BaseController
                             'Status' => 'Confirm',
                             'TotalAmount' => $TotalAmount,
                             'Image' => $newFileName,
-                            'email_send_date' => $emailSendDate, 
-                            'email_sent' => 0 
+                            'email_send_date' => $emailSendDate,
+                            'email_sent' => 0
                         ];
                         $inserted = $this->reservation->insert($newReservationData);
                         if ($inserted) {
@@ -1440,24 +1440,69 @@ class GuestController extends BaseController
         $Email = $this->request->getPost('Email');
         $userModel = new UserModel();
         $user = $userModel->where('Email', $Email)->first();
+
         $data = [
             'UserID'           => $user['UserID'],
             'UserRating'       => $this->request->getPost('UserRating'),
             'FeedbackMessage'  => $this->request->getPost('FeedbackMessage'),
             'datetime'         => date('Y-m-d H:i:s')
         ];
+
         try {
-            $result = $feedbackModel->insert($data);
-            if ($result === false) {
+            // Insert feedback into the database
+            $feedbackID = $feedbackModel->insert($data);
+
+            if (!$feedbackID) {
                 return "Failed to submit review.";
-            } else {
-                return "Your Review & Rating Have Been Successfully Submitted";
             }
+
+            // Prepare data for sentiment analysis API
+            $feedback = [
+                [
+                    'FeedbackID' => $feedbackID,
+                    'FeedbackMessage' => $data['FeedbackMessage']
+                ]
+            ];
+
+            $ch = curl_init('http://127.0.0.1:5000/analyze');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(['feedbacks' => $feedback]));
+
+            $response = curl_exec($ch);
+
+            if (curl_errno($ch)) {
+                log_message('error', 'Curl error: ' . curl_error($ch));
+                return "Review submitted, but sentiment analysis failed.";
+            }
+
+            curl_close($ch);
+
+            // Decode the API response
+            $result = json_decode($response, true);
+
+            if ($result && isset($result[0]['SentimentLabel'], $result[0]['Confidence'])) {
+                $sentimentLabel = $result[0]['SentimentLabel'];
+                $confidenceScore = $result[0]['Confidence'];
+
+                // Update the feedback record with sentiment data
+                $feedbackModel->update($feedbackID, [
+                    'SentimentLabel' => $sentimentLabel,
+                    'ConfidenceScore' => $confidenceScore
+                ]);
+            } else {
+                log_message('error', 'Invalid response from sentiment analysis API: ' . $response);
+                return "Review submitted, but sentiment analysis failed.";
+            }
+
+            return "Your Review & Rating Have Been Successfully Submitted with Sentiment Analysis.";
         } catch (\Exception $e) {
             log_message('error', $e->getMessage());
             return "An error occurred while submitting the review.";
         }
     }
+
     public function Review()
     {
         if ($this->request->getPost('action')) {
@@ -1474,7 +1519,7 @@ class GuestController extends BaseController
             $reviewContent = [];
             $userModel = new UserModel();
 
-            
+
             $badKeywords = ['bad', 'terrible', 'awful', 'poor', 'disappointing', 'horrible', 'dreadful', 'abysmal', 'disgusting'];
 
             foreach ($reviews as $row) {
@@ -1490,12 +1535,12 @@ class GuestController extends BaseController
                 }
                 $user = $userModel->find($row['UserID']);
                 if ($user && isset($user['FirstName']) && isset($user['LastName'])) {
-                    $fullName = $user['FirstName'] . ' ' . $user['LastName'];  
+                    $fullName = $user['FirstName'] . ' ' . $user['LastName'];
                 } else {
                     $fullName = "Unknown";
                 }
                 $reviewContent[] = [
-                    'FullName' => $fullName,  
+                    'FullName' => $fullName,
                     'FeedbackMessage' => $row['FeedbackMessage'],
                     'rating' => $row['UserRating'],
                     'datetime' => date('l jS, F Y H:i:s A', strtotime($row['datetime']))
@@ -1852,8 +1897,8 @@ class GuestController extends BaseController
     }
     public function testSendNotification()
     {
-        
-        $fcmToken = 'eHgQuIvAkiISnt00KjzS_-:APA91bFKUFf-IWYZ2mAhh2d3tAusQw9oQthdy_om68-1deRE37Mpyqmz73-LikWXmB46vUCQKHajdY6DpH8rmsDI6GQxa94JxpFhcb5hI5LUIPL37Aj8drc'; 
+
+        $fcmToken = 'eHgQuIvAkiISnt00KjzS_-:APA91bFKUFf-IWYZ2mAhh2d3tAusQw9oQthdy_om68-1deRE37Mpyqmz73-LikWXmB46vUCQKHajdY6DpH8rmsDI6GQxa94JxpFhcb5hI5LUIPL37Aj8drc';
         $notifTitle = 'Test Notification Title';
         $notifBody = 'This is a test notification body.';
 

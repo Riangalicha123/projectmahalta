@@ -445,4 +445,50 @@ FeedbackID,UserID,UserRating,FeedbackMessage,datetime,Sentiment
 
 
 
+471,45,5,The service was excellent I couldn’t have asked for a better experience The staff was courteous attentive and went above and beyond to ensure my satisfaction Will definitely come back again,2024-10-13 09:00:00,Positive
+472,32,2,The product arrived late and was damaged upon delivery The customer support team was unhelpful and it took forever to get any response I am really disappointed and wouldn’t recommend this,2024-10-13 09:15:30,Negative
+473,78,3,The food tasted okay but the portions were smaller than expected The delivery was on time which was a plus but the packaging could have been better Overall it was just average,2024-10-13 09:25:10,Neutral
+474,56,4,Great experience overall The booking process was simple and the service was delivered as promised There were minor delays but nothing that ruined the experience Highly satisfied,2024-10-13 09:40:45,Positive
+475,67,1,The worst experience I’ve ever had The staff was rude and unprofessional The product didn’t work and when I asked for help they ignored me Completely unacceptable,2024-10-13 09:55:00,Negative
+476,23,3,The movie was neither great nor terrible Some parts were entertaining but others felt dragged out I wouldn’t mind watching it again but it’s not something I’d recommend,2024-10-13 10:05:25,Neutral
+477,89,5,An absolutely amazing service The team was responsive professional and genuinely cared about solving my problem I am beyond impressed and would gladly recommend this to anyone,2024-10-13 10:20:15,Positive
+478,41,2,The app is frustratingly slow and keeps crashing I had high hopes but it’s been nothing but a headache since I downloaded it Definitely needs major improvements,2024-10-13 10:35:00,Negative
+479,29,4,The hotel stay was pleasant The rooms were clean and the staff was helpful but the breakfast options were limited It wasn’t perfect but I’d still consider staying there again,2024-10-13 10:50:30,Neutral
+480,12,5,Fantastic experience from start to finish The product quality was superb and the delivery was quicker than I expected A huge thumbs up to the team for doing such a great job,2024-10-13 11:05:00,Positive
+
+481,34,4,The concert was enjoyable and the performers were very talented However the seating arrangement was a bit cramped and could use better organization Overall a decent experience,2024-10-13 11:20:15,Neutral
+482,58,2,The customer service was absolutely terrible I waited on hold for over an hour and when I finally got through they didn’t resolve my issue A complete waste of time,2024-10-13 11:35:30,Negative
+483,71,5,The new software update is amazing The interface is so much cleaner and the performance is noticeably faster I’m very happy with the improvements great job by the developers,2024-10-13 11:50:45,Positive
+484,39,3,The event was okay The speakers were knowledgeable but the sessions felt repetitive and lacked engagement It wasn’t bad but I probably wouldn’t attend again,2024-10-13 12:05:00,Neutral
+485,66,1,The restaurant was a disaster The service was slow the food was cold and the waiter was rude I regret wasting my money here and would never go back,2024-10-13 12:20:15,Negative
+486,22,5,I couldn’t be happier with my purchase The product is of excellent quality and exactly as described The shipping was fast and the customer service was outstanding,2024-10-13 12:35:30,Positive
+487,49,3,The class was fine but the instructor seemed disinterested in answering questions The material was decent but not particularly engaging It was a passable experience overall,2024-10-13 12:50:45,Neutral
+488,93,2,The experience was quite poor The website kept glitching and I couldn’t complete my booking Even after contacting support the issue wasn’t resolved very frustrating,2024-10-13 13:05:00,Negative
+489,15,5,Excellent service from start to finish The staff was friendly efficient and went out of their way to help me I’ll definitely be using this service again soon,2024-10-13 13:20:15,Positive
+490,64,3,The product was decent for the price but nothing extraordinary The packaging was basic and the instructions were a bit unclear Not bad but I’ve seen better,2024-10-13 13:35:30,Neutral
+491,78,4,The service was good overall The staff was polite and helpful but the waiting time was longer than expected It was a positive experience but could be improved,2024-10-13 13:50:45,Neutral
+492,87,1,Absolutely awful experience The delivery was late and the product was completely different from what I ordered The customer support was no help at all Will never order again,2024-10-13 14:05:00,Negative
+493,53,5,This has been one of the best purchases I’ve ever made The quality is outstanding and it’s worth every penny I’m thrilled with it and highly recommend it to others,2024-10-13 14:20:15,Positive
+494,61,2,The course was disappointing The instructor was not clear and the material was outdated I expected a lot more considering the price of the course,2024-10-13 14:35:30,Negative
+495,77,3,The trip was okay The guide was knowledgeable but the itinerary felt rushed Some parts were enjoyable while others were a bit underwhelming It was a mixed experience,2024-10-13 14:50:45,Neutral
+496,35,5,Fantastic service from start to finish The team was professional and delivered exactly what was promised I couldn’t be happier with the outcome Truly exceptional,2024-10-13 15:05:00,Positive
+497,90,1,This was an absolute nightmare The staff was rude the process was overly complicated and I felt completely ignored I regret choosing this company for my needs,2024-10-13 15:20:15,Negative
+498,28,4,The workshop was informative and well-organized The instructor was knowledgeable and made the material engaging While there’s room for improvement it was a solid experience,2024-10-13 15:35:30,Positive
+499,82,3,The hotel was decent but not remarkable The rooms were clean but the amenities were lacking and the staff seemed indifferent It was an average stay overall,2024-10-13 15:50:45,Neutral
+500,16,5,An absolutely wonderful experience The support team was quick to respond and resolved my issue with ease I couldn’t be happier with the service I received,2024-10-13 16:05:00,Positive
+501,74,2,The website was incredibly frustrating to use Pages took forever to load and the checkout process kept failing I eventually gave up and went elsewhere,2024-10-13 16:20:15,Negative
+502,38,5,I had a fantastic time using this app It’s user-friendly fast and has all the features I need I’ve already recommended it to several friends Amazing job,2024-10-13 16:35:30,Positive
+503,44,3,The product was alright It functions as described but the build quality feels a bit cheap For the price it’s okay but I probably wouldn’t buy it again,2024-10-13 16:50:45,Neutral
+504,55,1,This was by far the worst service I’ve ever received The staff was dismissive the product was defective and getting a refund was a nightmare Totally unacceptable,2024-10-13 17:05:00,Negative
+505,62,4,The meal was delicious and the service was quick The ambiance of the restaurant was lovely but the prices were a bit high Overall a good dining experience,2024-10-13 17:20:15,Positive
+506,80,3,The event was average The speakers were okay but the topics felt repetitive and there weren’t many interactive sessions It wasn’t bad but not particularly memorable,2024-10-13 17:35:30,Neutral
+507,19,5,Excellent product quality and top-notch customer service They were prompt in resolving my issue and I felt valued as a customer Highly recommend this company,2024-10-13 17:50:45,Positive
+508,47,1,The delivery was delayed for days and when it finally arrived the item was broken Customer support ignored my complaints This was a terrible experience,2024-10-13 18:05:00,Negative
+509,25,4,The spa experience was very relaxing The staff was professional and the facilities were clean but the session felt a bit rushed Overall I had a positive time,2024-10-13 18:20:15,Positive
+510,11,3,The book was okay It had some interesting parts but the plot felt predictable and the characters lacked depth It wasn’t terrible but I wouldn’t read it again,2024-10-13 18:35:30,Neutral
+511,33,1,The flight was a disaster The staff was unhelpful the seats were uncomfortable and we were delayed for hours with no clear explanation I’ll avoid this airline in the future,2024-10-13 18:50:45,Negative
+512,88,1,The product stopped working after just one day of use When I contacted customer support they refused to help and blamed me for the issue Extremely disappointed,2024-10-13 19:05:00,Negative
+513,50,1,The movie was horrible The storyline was confusing the acting was terrible and I left the theater feeling like I had wasted my money Not worth it at all,2024-10-13 19:20:15,Negative
+514,73,3,The webinar was decent but not particularly engaging The content was informative but the presenter lacked energy and it felt monotonous I wouldn’t recommend it but it wasn’t terrible,2024-10-13 19:35:30,Neutral
+515,42,3,The game was alright The graphics were decent but the gameplay felt repetitive and the story wasn’t very compelling It’s okay for a casual playthrough but not memorable,2024-10-13 19:50:45,Neutral
 

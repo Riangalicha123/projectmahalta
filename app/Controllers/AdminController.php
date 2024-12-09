@@ -241,32 +241,44 @@ class AdminController extends BaseController
     }
     public function dashboard()
     {
-        $positiveCount = 0;
-        $neutralCount = 0;
-        $negativeCount = 0;
+        // Initialize sentiment counts and confidence scores
+        $positiveCount = $neutralCount = $negativeCount = 0;
+        $positiveConfidence = $neutralConfidence = $negativeConfidence = 0;
 
+        // Retrieve all feedbacks
         $feedbackData = $this->feedbacks->findAll();
+
         foreach ($feedbackData as $feedback) {
-            switch ($feedback['UserRating']) {
-                case '1':
-                case '2':
-                    $negativeCount++;
-                    break;
-                case '3':
-                    $neutralCount++;
-                    break;
-                case '4':
-                case '5':
+            switch ($feedback['SentimentLabel']) {
+                case 'Positive':
                     $positiveCount++;
+                    $positiveConfidence += $feedback['ConfidenceScore'];
+                    break;
+                case 'Neutral':
+                    $neutralCount++;
+                    $neutralConfidence += $feedback['ConfidenceScore'];
+                    break;
+                case 'Negative':
+                    $negativeCount++;
+                    $negativeConfidence += $feedback['ConfidenceScore'];
                     break;
             }
         }
-        $totalRating = count($feedbackData);
-        $positivePercentage = ($positiveCount / $totalRating) * 100;
-        $neutralPercentage = ($neutralCount / $totalRating) * 100;
-        $negativePercentage = ($negativeCount / $totalRating) * 100;
+
+        // Calculate percentages
+        $totalFeedback = count($feedbackData);
+        $positivePercentage = $totalFeedback > 0 ? ($positiveCount / $totalFeedback) * 100 : 0;
+        $neutralPercentage = $totalFeedback > 0 ? ($neutralCount / $totalFeedback) * 100 : 0;
+        $negativePercentage = $totalFeedback > 0 ? ($negativeCount / $totalFeedback) * 100 : 0;
+
+        // Calculate average confidence scores
+        $averagePositiveConfidence = $positiveCount > 0 ? ($positiveConfidence / $positiveCount) * 100 : 0;
+        $averageNeutralConfidence = $neutralCount > 0 ? ($neutralConfidence / $neutralCount) * 100 : 0;
+        $averageNegativeConfidence = $negativeCount > 0 ? ($negativeConfidence / $negativeCount) * 100 : 0;
+
         $roomreservations = $this->reservation->select('reservations.RoomID, rooms.RoomType, MONTH(reservations.CheckInDate) AS CheckInMonth, YEAR(reservations.CheckInDate) AS CheckInYear, COUNT(*) AS ReservationCount')->join('rooms', 'reservations.RoomID = rooms.RoomID')->where('reservations.Status', 'Confirm')->where('reservations.RoomID IS NOT NULL', null, false)->groupBy('reservations.RoomID, rooms.RoomType, CheckInMonth, CheckInYear')->findAll();
         $regions = $this->regions->findAll();
+
         $data = [
             'adminRoutes' => 'dashboard',
             'roinvents' => $this->roominventory->findAll(),
@@ -306,11 +318,17 @@ class AdminController extends BaseController
             'positivePercentage' => $positivePercentage,
             'neutralPercentage' => $neutralPercentage,
             'negativePercentage' => $negativePercentage,
+            'averagePositiveConfidence' => $averagePositiveConfidence,
+            'averageNeutralConfidence' => $averageNeutralConfidence,
+            'averageNegativeConfidence' => $averageNegativeConfidence,
             'roomreservations' => $roomreservations,
             'roomTypes' => $this->rooms->getRoomTypes(),
         ];
+
         return view('Admin/index', $data);
     }
+
+
     public function getReservationData()
     {
         $year = $this->request->getPost('year');
@@ -761,11 +779,11 @@ class AdminController extends BaseController
             return redirect()->back()->with('error', 'Failed to update reservation status');
         }
     }
-    protected $googleProjectId = 'push-notif-309d3'; 
+    protected $googleProjectId = 'push-notif-309d3';
 
     public function sendPushNotification($token, $title, $body, $data = [], $image = null)
     {
-        $serviceAccountPath = ROOTPATH . 'pvKey.json'; 
+        $serviceAccountPath = ROOTPATH . 'pvKey.json';
         $credential = new ServiceAccountCredentials(
             "https://www.googleapis.com/auth/firebase.messaging",
             json_decode(file_get_contents($serviceAccountPath), true)
@@ -785,11 +803,11 @@ class AdminController extends BaseController
                 'notification' => [
                     'title' => $title,
                     'body' => $body,
-                    'image' => $image, 
+                    'image' => $image,
                 ],
                 'webpush' => [
                     'fcm_options' => [
-                        'link' => 'https://mahalta.online/'  
+                        'link' => 'https://mahalta.online/'
                     ]
                 ],
             ]
@@ -1330,73 +1348,73 @@ class AdminController extends BaseController
         return empty($existingUser);
     }
     public function updateStaffDetails($userID)
-{
-    helper(['form']);
+    {
+        helper(['form']);
 
-    $validationRules = [
-        'FirstName' => 'required|min_length[4]|max_length[100]',
-        'LastName' => 'required|min_length[4]|max_length[100]',
-        'Email' => 'required|min_length[4]|max_length[100]|valid_email',
-        'ContactNumber' => 'required|max_length[11]',
-        'Address' => 'required|min_length[4]|max_length[100]',
-        'DepartmentName' => 'required|in_list[Convention,Hotel,Restaurant,Inventory]'
-    ];
+        $validationRules = [
+            'FirstName' => 'required|min_length[4]|max_length[100]',
+            'LastName' => 'required|min_length[4]|max_length[100]',
+            'Email' => 'required|min_length[4]|max_length[100]|valid_email',
+            'ContactNumber' => 'required|max_length[11]',
+            'Address' => 'required|min_length[4]|max_length[100]',
+            'DepartmentName' => 'required|in_list[Convention,Hotel,Restaurant,Inventory]'
+        ];
 
-    if (!$this->validate($validationRules)) {
-        $validationErrors = $this->validator->getErrors();
-        return view('admin-dashboard', ['validationErrors' => $validationErrors]);
+        if (!$this->validate($validationRules)) {
+            $validationErrors = $this->validator->getErrors();
+            return view('admin-dashboard', ['validationErrors' => $validationErrors]);
+        }
+
+        $inputDepartmentName = $this->request->getPost('DepartmentName');
+        $department = $this->department->where('DepartmentName', $inputDepartmentName)->first();
+
+        if (!$department) {
+            return redirect()->to('/admin-dashboard')
+                ->with('error', 'Invalid Department. Please check your input.');
+        }
+
+        $updatedStaffData = [
+            'DepartmentID' => $department['DepartmentID']
+        ];
+        $updatedUserData = [
+            'FirstName' => $this->request->getVar('FirstName'),
+            'LastName' => $this->request->getVar('LastName'),
+            'Email' => $this->request->getVar('Email'),
+            'ContactNumber' => $this->request->getVar('ContactNumber'),
+            'Address' => $this->request->getVar('Address')
+        ];
+
+        $this->staffDetail->update($userID, $updatedStaffData);
+        $this->users->update($userID, $updatedUserData);
+
+        return redirect()->to('/admin-staffaccounts')
+            ->with('success', 'Staff details updated successfully.')
+            ->with('staffData', $department);
     }
-
-    $inputDepartmentName = $this->request->getPost('DepartmentName');
-    $department = $this->department->where('DepartmentName', $inputDepartmentName)->first();
-    
-    if (!$department) {
-        return redirect()->to('/admin-dashboard')
-                         ->with('error', 'Invalid Department. Please check your input.');
-    }
-
-    $updatedStaffData = [
-        'DepartmentID' => $department['DepartmentID']
-    ];
-    $updatedUserData = [
-        'FirstName' => $this->request->getVar('FirstName'),
-        'LastName' => $this->request->getVar('LastName'),
-        'Email' => $this->request->getVar('Email'),
-        'ContactNumber' => $this->request->getVar('ContactNumber'),
-        'Address' => $this->request->getVar('Address')
-    ];
-
-    $this->staffDetail->update($userID, $updatedStaffData);
-    $this->users->update($userID, $updatedUserData);
-
-    return redirect()->to('/admin-staffaccounts')
-                     ->with('success', 'Staff details updated successfully.')
-                     ->with('staffData', $department);
-}
 
     public function deleteStaffDetails($staffDetailsID)
-{
+    {
 
-    $staffDetails = $this->staffDetail->where('StaffDetailsID', $staffDetailsID)->first();
+        $staffDetails = $this->staffDetail->where('StaffDetailsID', $staffDetailsID)->first();
 
-    if (!$staffDetails) {
+        if (!$staffDetails) {
 
-        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Staff not found.');
+            return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Staff not found.');
+        }
+        $userID = $staffDetails['UserID'];
+        $deletedStaff = $this->staffDetail->delete($staffDetailsID);
+
+        if (!$deletedStaff) {
+            return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete staff details. Please try again.');
+        }
+        $deletedUser = $this->users->delete($userID);
+
+        if (!$deletedUser) {
+            $this->staffDetail->insert($staffDetails);
+            return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete user. Please try again.');
+        }
+        return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff deleted successfully.');
     }
-    $userID = $staffDetails['UserID'];
-    $deletedStaff = $this->staffDetail->delete($staffDetailsID);
-
-    if (!$deletedStaff) {
-        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete staff details. Please try again.');
-    }
-    $deletedUser = $this->users->delete($userID);
-
-    if (!$deletedUser) {
-        $this->staffDetail->insert($staffDetails);
-        return redirect()->to(base_url('/admin-staffaccounts'))->with('error', 'Failed to delete user. Please try again.');
-    }
-    return redirect()->to(base_url('/admin-staffaccounts'))->with('success', 'Staff deleted successfully.');
-}
 
     public function feedback()
     {
@@ -1602,7 +1620,7 @@ class AdminController extends BaseController
                     ]);
                 }
             }
-            return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.'); 
+            return redirect()->to(base_url('/admin-hotel/service/'))->with('success', 'Images uploaded successfully.');
         }
         return redirect()->back();
     }
@@ -2387,7 +2405,7 @@ class AdminController extends BaseController
         $roomInventoryIDs = (array) $this->request->getPost('roomInventoryID');
         $insertQuantities = $this->request->getPost('insertQuantity');
         $roinvents = $this->request->getPost('roinvents');
-        $skipAmenities = $this->request->getPost('skip'); 
+        $skipAmenities = $this->request->getPost('skip');
 
         if ($skipAmenities) {
             $session->remove('amenitiesData');
@@ -2461,7 +2479,7 @@ class AdminController extends BaseController
             'qrcodes' => $this->qr->findAll(),
             'roomReservationData' => $roomReservationData,
             'amenitiesData' => $amenitiesData,
-            'totalExtraPrice' => $totalExtraPrice, 
+            'totalExtraPrice' => $totalExtraPrice,
         ];
 
         return view('Admin/WalkIn/checkout', $data);
@@ -2480,13 +2498,13 @@ class AdminController extends BaseController
         $skipAmenities = $this->request->getGet('skip') === 'true';
 
         if ($roomSelected && $reservationData && $TotalAmount) {
-            $checkInTime = '14:00:00'; 
-            $checkOutTime = '12:00:00'; 
+            $checkInTime = '14:00:00';
+            $checkOutTime = '12:00:00';
             $checkInDateTime = $reservationData['CheckIn'] . ' ' . $checkInTime;
             $checkOutDateTime = $reservationData['CheckOut'] . ' ' . $checkOutTime;
             $emailSendDate = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($checkInDateTime)));
 
-            $discount = $this->request->getPost('Discount'); 
+            $discount = $this->request->getPost('Discount');
 
 
             if ($discount !== null && $discount !== '') {
@@ -2495,7 +2513,7 @@ class AdminController extends BaseController
 
                 $TotalAmount = $TotalAmount * ((100 - $discountValue) / 100);
             } else {
-                $discount = null; 
+                $discount = null;
             }
 
             $contactNumber = $this->request->getVar('ContactNumber');
@@ -2507,22 +2525,22 @@ class AdminController extends BaseController
                     $newReservationData = [
                         'FirstName' => $this->request->getVar('FirstName'),
                         'LastName' => $this->request->getVar('LastName'),
-                        'ContactNumber' => $contactNumber, 
+                        'ContactNumber' => $contactNumber,
                         'CheckIn' => $checkInDateTime,
                         'CheckOut' => $checkOutDateTime,
                         'Adult' => $reservationData['Adult'],
                         'Child' => $reservationData['Child'],
                         'RoomID' => $roomSelected['RoomID'],
                         'TotalAmount' => $TotalAmount,
-                        'Discount' => $discount, 
-                        'roomInventoryID' => $amenity['roomInventoryID'], 
-                        'insertQuantity' => $amenity['insertQuantity'],   
+                        'Discount' => $discount,
+                        'roomInventoryID' => $amenity['roomInventoryID'],
+                        'insertQuantity' => $amenity['insertQuantity'],
                     ];
 
                     $inserted = $this->walkins->insert($newReservationData);
 
                     if ($inserted) {
-                        
+
                         $roomInventoryID = $amenity['roomInventoryID'];
                         $insertQuantity = $amenity['insertQuantity'];
                         $roomInventory = $this->roominventory->find($roomInventoryID);
@@ -2540,16 +2558,16 @@ class AdminController extends BaseController
                 $newReservationData = [
                     'FirstName' => $this->request->getVar('FirstName'),
                     'LastName' => $this->request->getVar('LastName'),
-                    'ContactNumber' => $contactNumber, 
+                    'ContactNumber' => $contactNumber,
                     'CheckIn' => $checkInDateTime,
                     'CheckOut' => $checkOutDateTime,
                     'Adult' => $reservationData['Adult'],
                     'Child' => $reservationData['Child'],
                     'RoomID' => $roomSelected['RoomID'],
                     'TotalAmount' => $TotalAmount,
-                    'Discount' => $discount, 
-                    'roomInventoryID' => null, 
-                    'insertQuantity' => null,  
+                    'Discount' => $discount,
+                    'roomInventoryID' => null,
+                    'insertQuantity' => null,
                 ];
 
                 $this->walkins->insert($newReservationData);
