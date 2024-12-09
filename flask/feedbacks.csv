@@ -1,0 +1,448 @@
+FeedbackID,UserID,UserRating,FeedbackMessage,datetime,Sentiment
+52,23,4,I feel bad,2024-10-13 08:58:19,Neutral
+53,29,2,I feel bad,2024-10-13 08:59:41,Negative
+54,23,4,Amazing website,2024-11-03 16:21:55,Positive
+56,23,1,I feel bad,2024-11-21 10:27:26,Negative
+57,23,5,Amazing website,2024-12-01 13:49:10,Positive
+58,23,4,This is amazing,2024-12-01 13:50:22,Positive
+59,23,5,"I love this service amazing experience!",2024-12-02 18:36:11,Positive
+60,23,2,bad,2024-12-02 18:45:49,Negative
+61,23,1,i hate the website,2024-12-02 18:46:35,Negative
+62,23,5,good great,2024-12-02 18:47:16,Positive
+63,23,5,good,2024-12-04 17:17:10,Positive
+64,25,3,This is a great example,2024-09-15 13:42:17,Neutral
+65,27,4,The product exceeded expectations,2024-08-20 11:28:39,Positive
+66,23,5,The website is really helpful,2024-11-05 15:48:22,Positive
+67,29,2,I don't like the quality,2024-10-07 09:22:01,Negative
+68,21,1,The service is terrible,2024-12-01 08:34:12,Negative
+69,22,4,Highly recommended for everyone,2024-09-10 18:50:31,Positive
+70,28,3,It was an okay experience,2024-07-14 17:23:54,Neutral
+71,26,5,Amazing support and fast service,2024-10-30 12:00:45,Positive
+72,24,2,Not what I expected,2024-11-12 10:45:19,Negative
+73,20,1,Very bad quality product,2024-08-19 14:22:38,Negative
+74,27,5,This is the best service I've used,2024-09-26 19:11:33,Positive
+75,23,3,Average but acceptable performance,2024-12-03 16:38:49,Neutral
+76,25,4,Great experience overall,2024-11-15 20:21:08,Positive
+77,29,1,Horrible! Will not recommend,2024-10-24 14:11:26,Negative
+78,22,5,Outstanding and reliable,2024-07-18 13:37:02,Positive
+79,21,2,The product is below standard,2024-12-06 09:55:14,Negative
+80,28,4,Very satisfied with my purchase,2024-08-29 17:46:33,Positive
+81,24,1,This is unacceptable quality,2024-10-19 11:58:12,Negative
+82,20,3,Could be better but not bad,2024-07-31 13:13:48,Neutral
+83,23,4,The delivery was quick and efficient,2024-11-08 08:50:57,Positive
+84,25,5,Exceptional service highly recommend,2024-12-02 21:03:14,Positive
+85,27,1,Disappointed with the experience,2024-08-11 07:29:41,Negative
+86,22,3,Just average nothing special,2024-10-23 10:16:59,Neutral
+87,21,5,Superb! Exceeded my expectations,2024-09-02 22:07:11,Positive
+88,28,2,Had a poor experience,2024-10-15 18:27:33,Negative
+89,26,4,Very good and reliable,2024-09-08 15:36:27,Positive
+90,23,3,It was decent enough for the price,2024-08-14 09:47:04,Neutral
+91,24,2,Needs improvement in some areas,2024-10-05 13:51:38,Negative
+92,20,5,Fantastic! Couldn't be happier,2024-07-20 19:38:45,Positive
+93,25,1,Not worth the money,2024-09-17 08:42:11,Negative
+94,29,3,Neutral experience,2024-10-28 11:55:22,Neutral
+95,22,4,Good quality and delivery,2024-11-25 16:27:03,Positive
+96,21,2,The website is hard to navigate,2024-08-30 14:18:52,Negative
+97,28,5,I love this! Highly recommend,2024-12-04 22:49:07,Positive
+98,23,1,Poor service and rude support,2024-11-19 09:03:16,Negative
+99,24,4,Great quality and reasonable price,2024-09-24 18:38:12,Positive
+100,20,3,Nothing extraordinary,2024-12-03 07:12:51,Neutral
+101,29,5,Exceptional product and service,2024-11-04 13:48:22
+102,23,2,Not happy with the experience,2024-08-16 15:12:33,Negative
+103,27,4,Good value for money,2024-09-09 14:45:09,Positive
+104,22,3,Adequate service but needs improvement,2024-12-02 12:21:08,Neutral
+105,24,5,Loved the quick support response,2024-10-07 10:13:45,Positive
+106,28,1,Completely dissatisfied,2024-08-21 16:54:23,Negative
+107,21,4,Great for the price range,2024-09-18 09:36:12,Positive
+108,20,3,The product is fine but nothing special,2024-11-23 11:48:10,Neutral
+109,26,5,I am impressed with the quality,2024-07-25 20:12:38,Positive
+110,25,2,The delivery was delayed and support unhelpful,2024-12-01 15:34:25,Negative
+111,22,4,Overall I am quite satisfied,2024-10-30 18:49:36,Positive
+112,29,1,I wouldn't recommend this to anyone,2024-11-14 13:21:45,Negative
+113,23,5,Amazing features and functionality,2024-09-13 12:30:52,Positive
+114,27,3,It’s okay but has room for improvement,2024-08-03 19:42:16,Neutral
+115,24,4,Very convenient and easy to use,2024-11-10 08:14:22,Positive
+116,20,1,Horrible experience,2024-09-16 09:45:31,Negative
+117,28,5,Exceptional value,2024-07-28 17:11:47,Positive
+118,21,2,The process was unnecessarily complicated,2024-12-05 18:29:58,Negative
+119,26,3,Neither bad nor great,2024-08-08 07:39:10,Neutral
+120,25,4,Very reliable service,2024-10-20 15:58:23,Positive
+121,23,1,I wouldn’t use this service again,2024-12-06 14:24:14,Negative
+122,29,5,The experience was fantastic,2024-08-13 18:36:52,Positive
+123,22,3,A decent option for the price,2024-11-22 09:48:12,Neutral
+124,27,4,Good product would buy again,2024-09-30 13:17:04,Positive
+125,24,2,Did not meet my expectations,2024-11-06 20:50:36,Negative
+126,28,5,This is outstanding,2024-10-04 16:47:19,Positive
+127,20,1,Unacceptable behavior from support staff,2024-08-31 08:21:49,Negative
+128,23,4,Efficient and reliable,2024-07-14 15:45:12,Positive
+129,21,3,The experience was just average,2024-12-03 10:30:25,Neutral
+130,25,5,Excellent! I will recommend it to my friends,2024-08-25 13:09:38,Positive
+131,29,1,One of the worst experiences,2024-09-08 19:41:12,Negative
+132,27,3,Could have been better,2024-10-12 16:11:43,Neutral
+133,24,4,Very happy with my purchase,2024-11-28 22:40:15,Positive
+134,22,2,The service is too slow,2024-07-21 14:37:08,Negative
+135,23,5,I absolutely love it,2024-12-02 13:58:10,Positive
+136,20,3,Not bad but not great,2024-11-15 17:22:31,Neutral
+137,28,1,Terrible experience,2024-10-18 11:49:56,Negative
+138,21,4,The product quality is amazing,2024-09-19 08:57:23,Positive
+139,25,3,A good option for basic needs,2024-11-05 12:15:38,Neutral
+140,27,5,Perfect in every way,2024-12-04 19:30:47,Positive
+141,23,4,The website design is user-friendly,2024-10-01 12:10:15,Positive
+142,29,3,It’s an acceptable service overall,2024-09-18 14:40:20,Neutral
+143,22,5,Absolutely loved the experience,2024-11-03 16:45:08,Positive
+144,24,2,The product needs improvement,2024-08-28 09:55:12,Negative
+145,21,1,The service quality is poor,2024-12-01 18:20:30,Negative
+146,28,5,A fantastic product for the price,2024-10-19 13:35:48,Positive
+147,20,3,It’s decent but nothing special,2024-09-15 10:25:45,Neutral
+148,26,4,I am very pleased with my purchase,2024-11-30 19:45:19,Positive
+149,25,2,Not up to the mark,2024-12-06 14:15:33,Negative
+150,27,5,Amazing performance and speed,2024-09-11 20:50:28,Positive
+151,23,3,It’s okay but could be better,2024-11-27 10:18:11,Neutral
+152,29,4,The service is good overall,2024-08-20 15:45:10,Positive
+153,22,5,One of the best products I’ve used,2024-07-17 17:22:29,Positive
+154,24,2,Very disappointing experience,2024-10-06 14:10:14,Negative
+155,21,1,Will never use this again,2024-09-25 08:45:49,Negative
+156,28,4,Great quality and functionality,2024-12-02 21:30:10,Positive
+157,20,3,A reasonable choice for most,2024-08-23 12:15:42,Neutral
+158,26,5,I had an excellent experience,2024-11-12 11:25:33,Positive
+159,25,2,The response time was very slow,2024-09-30 16:50:12,Negative
+160,27,1,Unhelpful and rude customer support,2024-07-29 09:20:41,Negative
+161,23,5,I’m impressed with the service,2024-12-04 14:15:27,Positive
+162,29,3,The product meets expectations,2024-08-14 10:55:39,Neutral
+163,22,4,Good delivery time and quality,2024-09-21 19:50:18,Positive
+164,24,2,Needs significant improvements,2024-11-01 18:15:08,Negative
+165,21,5,Perfect service and product,2024-10-10 22:30:22,Positive
+166,28,1,I regret buying this,2024-08-11 13:12:17,Negative
+167,20,4,An above-average experience,2024-12-03 11:20:42,Positive
+168,26,3,The experience was average,2024-09-02 16:25:11,Neutral
+169,25,5,Exceptional! Would buy again,2024-08-31 17:55:08,Positive
+170,27,2,The service could be better,2024-11-22 14:30:15,Negative
+171,23,4,The team was very helpful,2024-10-18 09:45:30,Positive
+172,29,1,Not a good experience,2024-09-05 08:40:27,Negative
+173,22,5,This exceeded my expectations,2024-11-07 15:10:12,Positive
+174,24,3,It’s fine for casual use,2024-07-13 18:12:50,Neutral
+175,21,2,The quality was not satisfactory,2024-08-29 12:22:14,Negative
+176,28,5,A reliable and trustworthy option,2024-10-21 11:50:33,Positive
+177,20,3,It was average overall,2024-12-05 09:35:27,Neutral
+178,26,4,Very good and professional,2024-09-20 19:20:15,Positive
+179,25,1,The experience was frustrating,2024-08-06 16:55:08,Negative
+180,27,5,Everything worked perfectly,2024-11-18 17:15:20,Positive
+181,23,3,Service was acceptable but not great,2024-12-06 10:45:34,Neutral
+182,29,4,Highly efficient and useful,2024-10-12 15:20:50,Positive
+183,22,2,Too many delays in response,2024-08-17 11:14:27,Negative
+184,24,5,I am thrilled with the outcome,2024-11-29 13:45:40,Positive
+185,21,1,Awful product and service,2024-12-07 18:20:25,Negative
+186,28,4,Very convenient platform,2024-09-16 08:25:11,Positive
+187,20,3,Average experience,2024-08-25 17:12:33,Neutral
+188,26,5,Fast and reliable,2024-10-18 14:30:55,Positive
+189,25,2,Support staff was not helpful,2024-07-22 09:25:43,Negative
+190,27,4,Would recommend to friends,2024-12-01 12:34:29,Positive
+191,23,5,Exceptional value and service,2024-11-03 16:25:10,Positive
+192,29,1,The worst experience ever,2024-09-18 19:45:17,Negative
+193,22,3,Service was just okay,2024-10-08 17:50:24,Neutral
+194,24,5,Absolutely loved it,2024-12-04 21:45:35,Positive
+195,21,2,Not worth the price,2024-08-10 14:10:48,Negative
+196,28,5,Exceeds expectations,2024-07-30 18:20:25,Positive
+197,20,3,Could be improved,2024-09-29 15:30:17,Neutral
+198,26,1,Extremely disappointing experience,2024-08-19 10:40:29,Negative
+199,25,4,Satisfied with the service,2024-11-21 16:25:19,Positive
+200,27,5,Perfect execution,2024-12-05 11:50:12,Positive
+201,30,3,The service is okay,2024-12-06 10:30:12,Neutral
+202,31,2,Not what I expected,2024-12-07 11:40:19,Neutral
+203,32,4,It was fine but not great,2024-12-08 12:50:24,Neutral
+204,33,3,A bit disappointing,2024-12-09 13:00:45,Neutral
+205,34,4,Adequate but needs improvement,2024-12-10 14:10:55,Neutral
+206,35,3,Could use some enhancements,2024-12-11 15:20:30,Neutral
+207,36,2,It’s alright for casual use,2024-12-12 16:30:12,Neutral
+208,37,3,Neither bad nor great,2024-12-13 17:40:21,Neutral
+209,38,2,Not very impressive,2024-12-14 18:50:43,Neutral
+210,39,4,A standard experience,2024-12-15 19:55:55,Neutral
+211,40,3,Acceptable but forgettable,2024-12-16 20:10:40,Neutral
+212,41,4,It’s fine but nothing special,2024-12-17 21:15:30,Neutral
+213,42,3,Service was mediocre,2024-12-18 22:20:15,Neutral
+214,43,2,An average experience,2024-12-19 23:25:05,Neutral
+215,44,3,Could have been better,2024-12-20 00:30:40,Neutral
+216,45,2,It’s a mixed bag,2024-12-21 01:35:20,Neutral
+217,46,3,An okay performance,2024-12-22 02:40:10,Neutral
+218,47,4,Adequate service,2024-12-23 03:45:05,Neutral
+219,48,2,It’s acceptable,2024-12-24 04:50:25,Neutral
+220,49,3,An ordinary experience,2024-12-25 05:55:30,Neutral
+221,50,3,Not the best but okay,2024-12-26 06:00:12,Neutral
+222,51,3,Standard performance,2024-12-27 07:05:50,Neutral
+223,52,2,Service was fair,2024-12-28 08:10:22,Neutral
+224,53,3,Average but functional,2024-12-29 09:15:40,Neutral
+225,54,2,A reasonable choice,2024-12-30 10:20:12,Neutral
+226,55,3,Met basic expectations,2024-12-31 11:25:55,Neutral
+227,56,4,A decent service,2025-01-01 12:30:50,Neutral
+228,57,3,Could be a bit better,2025-01-02 13:35:25,Neutral
+229,58,2,Not outstanding,2025-01-03 14:40:12,Neutral
+230,59,3,A bit below average,2025-01-04 15:45:05,Neutral
+231,60,2,A little underwhelming,2025-01-05 16:50:30,Neutral
+232,61,3,It’s okay for the price,2025-01-06 17:55:12,Neutral
+233,62,2,Not remarkable,2025-01-07 18:00:10,Neutral
+234,63,3,Somewhat acceptable,2025-01-08 19:05:40,Neutral
+235,64,2,Adequate performance,2025-01-09 20:10:20,Neutral
+236,65,3,Neutral feelings overall,2025-01-10 21:15:50,Neutral
+237,66,4,Nothing exceptional,2025-01-11 22:20:30,Neutral
+238,67,3,Good but average,2025-01-12 23:25:05,Neutral
+
+
+241,30,1,Very bad service,2024-12-06 10:30:12,Negative
+242,31,1,Poor customer experience,2024-12-07 11:40:19,Negative
+243,32,1,Not satisfied at all,2024-12-08 12:50:24,Negative
+244,33,1,Worst product ever,2024-12-09 13:00:45,Negative
+245,34,1,I will never recommend this,2024-12-10 14:10:55,Negative
+246,35,1,The quality is unacceptable,2024-12-11 15:20:30,Negative
+247,36,1,Horrible experience,2024-12-12 16:30:12,Negative
+248,37,1,Customer support was rude,2024-12-13 17:40:21,Negative
+249,38,1,Very disappointing,2024-12-14 18:50:43,Negative
+250,39,1,I hate this service,2024-12-15 19:55:55,Negative
+251,40,1,Completely dissatisfied,2024-12-16 20:10:40,Negative
+252,41,1,The delivery was terrible,2024-12-17 21:15:30,Negative
+253,42,1,Not worth the money,2024-12-18 22:20:15,Negative
+254,43,1,I regret purchasing this,2024-12-19 23:25:05,Negative
+255,44,1,Product quality is poor,2024-12-20 00:30:40,Negative
+256,45,1,Unacceptable performance,2024-12-21 01:35:20,Negative
+257,46,1,Wouldn’t use again,2024-12-22 02:40:10,Negative
+258,47,1,Service was horrible,2024-12-23 03:45:05,Negative
+259,48,1,Not worth the effort,2024-12-24 04:50:25,Negative
+260,49,1,Failed expectations,2024-12-25 05:55:30,Negative
+261,50,1,I dislike this service,2024-12-26 06:00:12,Negative
+
+262,51,3,Just an okay service,2025-01-07 10:15:12,Neutral  
+263,52,3,Nothing to write home about,2025-01-08 11:20:15,Neutral  
+264,53,3,Service was standard,2025-01-09 12:30:25,Neutral  
+265,54,3,Could use some minor improvements,2025-01-10 13:45:30,Neutral  
+266,55,3,Met the basic requirements,2025-01-11 14:50:40,Neutral  
+267,56,3,Not memorable but functional,2025-01-12 15:55:50,Neutral  
+268,57,3,It worked as expected,2025-01-13 16:10:55,Neutral  
+269,58,3,Service was neither good nor bad,2025-01-14 17:25:05,Neutral  
+270,59,3,An average experience overall,2025-01-15 18:35:20,Neutral  
+271,60,3,Could have been more polished,2025-01-16 19:50:12,Neutral  
+
+
+272,61,5,Amazing product quality,2025-01-17 10:15:30,Positive  
+273,62,4,Happy with the service provided,2025-01-18 11:20:45,Positive  
+274,63,5,Quick delivery and excellent support,2025-01-19 12:35:50,Positive  
+275,64,4,Service was efficient,2025-01-20 13:40:20,Positive  
+276,65,5,Exceeded my expectations in every way,2025-01-21 14:45:35,Positive  
+277,66,4,Good value for money,2025-01-22 15:50:50,Positive  
+278,67,5,Will definitely recommend this,2025-01-23 16:55:05,Positive  
+279,68,5,Outstanding experience overall,2025-01-24 17:00:20,Positive  
+280,69,4,Very pleased with the outcome,2025-01-25 18:10:40,Positive  
+281,70,5,Top-notch service and delivery,2025-01-26 19:20:15,Positive  
+
+
+282,71,1,Highly disappointed with the experience,2025-01-27 10:10:12,Negative  
+283,72,1,The quality was below standard,2025-01-28 11:15:25,Negative  
+284,73,1,Did not meet my expectations at all,2025-01-29 12:20:40,Negative  
+285,74,1,Worst customer service ever encountered,2025-01-30 13:25:50,Negative  
+286,75,1,I feel cheated,2025-01-31 14:30:12,Negative  
+287,76,1,The product broke within days,2025-02-01 15:35:20,Negative  
+288,77,1,Delivery was delayed and unprofessional,2025-02-02 16:40:35,Negative  
+289,78,1,Not worth the price tag,2025-02-03 17:50:50,Negative  
+290,79,1,Poorly handled complaint process,2025-02-04 18:55:05,Negative  
+291,80,1,Would never buy this again,2025-02-05 19:10:20,Negative  
+
+
+292,81,4,The service was fine,2025-01-13 10:00:15,Neutral
+293,82,3,It met the basic requirements,2025-01-14 11:05:30,Neutral
+294,83,3,A standard experience overall,2025-01-15 12:10:45,Neutral
+295,84,3,Satisfactory but not memorable,2025-01-16 13:15:20,Neutral
+296,85,4,Decent quality for the price,2025-01-17 14:20:30,Neutral
+297,86,3,It served its purpose,2025-01-18 15:25:10,Neutral
+298,87,4,The product was adequate,2025-01-19 16:30:25,Neutral
+299,88,3,Nothing to write home about,2025-01-20 17:35:40,Neutral
+300,89,3,Average but workable,2025-01-21 18:40:50,Neutral
+301,90,3,It’s alright but could be better,2025-01-22 19:45:10,Neutral
+
+302,91,5,Fantastic service and quality,2025-01-23 10:50:30,Positive
+303,92,5,Exceptional customer experience,2025-01-24 11:55:40,Positive
+304,93,5,Definitely worth the price,2025-01-25 12:00:15,Positive
+305,94,5,Highly recommended,2025-01-26 13:05:20,Positive
+306,95,4,Very satisfied with the purchase,2025-01-27 14:10:30,Positive
+307,96,5,A wonderful experience overall,2025-01-28 15:15:10,Positive
+308,97,5,Exceeded my expectations completely,2025-01-29 16:20:25,Positive
+309,98,4,I’ll definitely use this again,2025-01-30 17:25:40,Positive
+310,99,5,Top-notch quality and service,2025-01-31 18:30:50,Positive
+311,100,5,Absolutely loved everything about it,2025-02-01 19:35:10,Positive
+
+312,101,1,Completely unacceptable quality,2025-02-02 10:40:30,Negative
+313,102,1,A terrible experience overall,2025-02-03 11:45:40,Negative
+314,103,1,I wouldn’t recommend this,2025-02-04 12:50:15,Negative
+315,104,1,Very disappointing product,2025-02-05 13:55:20,Negative
+316,105,1,Horrendous customer service,2025-02-06 14:00:30,Negative
+317,106,1,A total waste of money,2025-02-07 15:05:10,Negative
+318,107,1,This was a frustrating purchase,2025-02-08 16:10:25,Negative
+319,108,1,Poor quality and service,2025-02-09 17:15:40,Negative
+320,109,1,Didn’t meet any expectations,2025-02-10 18:20:50,Negative
+321,110,1,A regrettable decision,2025-02-11 19:25:10,Negative
+
+322,111,3,It was just okay,2025-02-12 10:30:15,Neutral
+323,112,3,Nothing stood out,2025-02-13 11:40:25,Neutral
+324,113,3,Meets basic expectations,2025-02-14 12:50:35,Neutral
+325,114,4,It’s neither good nor bad,2025-02-15 13:10:45,Neutral
+326,115,3,Not remarkable but functional,2025-02-16 14:20:55,Neutral
+327,116,3,Can’t complain but not great,2025-02-17 15:30:10,Neutral
+328,117,4,Acceptable but unremarkable,2025-02-18 16:40:20,Neutral
+329,118,3,Pretty average experience,2025-02-19 17:50:30,Neutral
+330,119,3,Fair but needs improvement,2025-02-20 18:10:40,Neutral
+331,120,3,Meh nothing special,2025-02-21 19:20:50,Neutral
+
+332,121,5,Amazing experience,2025-02-22 10:30:15,Positive
+333,122,5,Superb service,2025-02-23 11:40:25,Positive
+334,123,5,Thrilled with the outcome,2025-02-24 12:50:35,Positive
+335,124,5,Everything was perfect,2025-02-25 13:10:45,Positive
+336,125,5,Incredible quality,2025-02-26 14:20:55,Positive
+337,126,5,I’m extremely happy with this,2025-02-27 15:30:10,Positive
+338,127,5,This made my day,2025-02-28 16:40:20,Positive
+339,128,5,Unmatched quality and service,2025-03-01 17:50:30,Positive
+340,129,5,Truly a delightful experience,2025-03-02 18:10:40,Positive
+341,130,5,Will recommend to everyone,2025-03-03 19:20:50,Positive
+
+342,131,1,Utterly dissatisfied,2025-03-04 10:30:15,Negative
+343,132,1,Couldn’t be worse,2025-03-05 11:40:25,Negative
+344,133,1,A complete letdown,2025-03-06 12:50:35,Negative
+345,134,1,Horrible experience,2025-03-07 13:10:45,Negative
+346,135,1,Will never use this again,2025-03-08 14:20:55,Negative
+347,136,1,Totally unacceptable,2025-03-09 15:30:10,Negative
+348,137,1,Absolutely not worth it,2025-03-10 16:40:20,Negative
+349,138,1,Disgusted by the experience,2025-03-11 17:50:30,Negative
+350,139,1,I’m very disappointed,2025-03-12 18:10:40,Negative
+351,140,1,Won’t recommend to anyone,2025-03-13 19:20:50,Negative
+
+
+352,141,3,Nothing to complain about,2025-03-14 10:30:15,Neutral
+353,142,3,It was decent overall,2025-03-15 11:40:25,Neutral
+354,143,3,Neither great nor bad,2025-03-16 12:50:35,Neutral
+355,144,3,Moderate experience,2025-03-17 13:10:45,Neutral
+356,145,3,Service was passable,2025-03-18 14:20:55,Neutral
+357,146,3,Pretty standard stuff,2025-03-19 15:30:10,Neutral
+358,147,3,Average service,2025-03-20 16:40:20,Neutral
+359,148,3,Sufficient for my needs,2025-03-21 17:50:30,Neutral
+360,149,3,Could be better but okay,2025-03-22 18:10:40,Neutral
+361,23,3,Nothing memorable here,2025-03-23 19:20:50,Neutral
+
+362,23,5,Exceeded all expectations,2025-03-24 10:30:15,Positive
+363,23,5,Absolutely fantastic,2025-03-25 11:40:25,Positive
+364,23,5,The best decision I made,2025-03-26 12:50:35,Positive
+365,23,5,I loved every second,2025-03-27 13:10:45,Positive
+366,23,5,Flawless execution,2025-03-28 14:20:55,Positive
+367,23,5,I’m beyond impressed,2025-03-29 15:30:10,Positive
+368,23,5,Outstanding support,2025-03-30 16:40:20,Positive
+369,23,5,Highly recommended,2025-03-31 17:50:30,Positive
+370,23,5,Will definitely return,2025-04-01 18:10:40,Positive
+371,23,5,A memorable experience,2025-04-02 19:20:50,Positive
+
+372,23,1,Completely useless,2025-04-03 10:30:15,Negative
+373,23,1,Worst experience ever,2025-04-04 11:40:25,Negative
+374,23,1,Won’t trust them again,2025-04-05 12:50:35,Negative
+375,23,1,They ruined everything,2025-04-06 13:10:45,Negative
+376,23,1,Extremely frustrating,2025-04-07 14:20:55,Negative
+377,23,1,Nothing worked as promised,2025-04-08 15:30:10,Negative
+378,23,1,Complete waste of time,2025-04-09 16:40:20,Negative
+379,23,1,It was a nightmare,2025-04-10 17:50:30,Negative
+380,23,1,Utter disappointment,2025-04-11 18:10:40,Negative
+381,23,1,I regret this entirely,2025-04-12 19:20:50,Negative
+
+382,23,3,It met basic expectations,2025-04-13 10:30:15,Neutral
+383,23,3,Pretty much average,2025-04-14 11:40:25,Neutral
+384,23,3,Not bad not good,2025-04-15 12:50:35,Neutral
+385,23,3,Reasonably acceptable,2025-04-16 13:10:45,Neutral
+386,23,3,Did the job nothing more,2025-04-17 14:20:55,Neutral
+387,23,3,A standard experience,2025-04-18 15:30:10,Neutral
+388,23,3,Sufficiently adequate,2025-04-19 16:40:20,Neutral
+389,23,3,It was just okay,2025-04-20 17:50:30,Neutral
+390,23,3,Neither pleased nor annoyed,2025-04-21 18:10:40,Neutral
+391,23,3,So-so nothing stood out,2025-04-22 19:20:50,Neutral
+
+392,23,5,Truly exceptional service,2025-04-23 10:30:15,Positive
+393,23,5,This was amazing!,2025-04-24 11:40:25,Positive
+394,23,5,I couldn’t be happier,2025-04-25 12:50:35,Positive
+395,23,5,It was perfect in every way,2025-04-26 13:10:45,Positive
+396,23,5,Absolutely loved it!,2025-04-27 14:20:55,Positive
+397,23,5,The team was phenomenal,2025-04-28 15:30:10,Positive
+398,23,5,Truly unforgettable,2025-04-29 16:40:20,Positive
+399,23,5,I’ll definitely recommend,2025-04-30 17:50:30,Positive
+400,23,5,Beyond my wildest hopes,2025-05-01 18:10:40,Positive
+401,23,5,A top-tier experience,2025-05-02 19:20:50,Positive
+
+402,23,1,This was a disaster,2025-05-03 10:30:15,Negative
+403,23,1,They completely failed,2025-05-04 11:40:25,Negative
+404,23,1,I was left furious,2025-05-05 12:50:35,Negative
+405,23,1,Everything went wrong,2025-05-06 13:10:45,Negative
+406,23,1,Totally unacceptable,2025-05-07 14:20:55,Negative
+407,23,1,They ruined my day,2025-05-08 15:30:10,Negative
+408,23,1,An utter disaster,2025-05-09 16:40:20,Negative
+409,23,1,So disappointed,2025-05-10 17:50:30,Negative
+410,23,1,Never again,2025-05-11 18:10:40,Negative
+411,23,1,Completely unsatisfactory,2025-05-12 19:20:50,Negative
+
+412,23,3,The experience was ordinary,2025-05-13 10:30:15,Neutral
+413,23,3,Nothing memorable about it,2025-05-14 11:40:25,Neutral
+414,23,3,A middle-of-the-road experience,2025-05-15 12:50:35,Neutral
+415,23,3,Not impressed but not let down,2025-05-16 13:10:45,Neutral
+416,23,3,Neither good nor bad,2025-05-17 14:20:55,Neutral
+417,23,3,It was fairly standard,2025-05-18 15:30:10,Neutral
+418,23,3,I’d call it average,2025-05-19 16:40:20,Neutral
+419,23,3,Meh nothing stood out,2025-05-20 17:50:30,Neutral
+420,23,3,An okay experience overall,2025-05-21 18:10:40,Neutral
+421,23,3,Serviceable but unremarkable,2025-05-22 19:20:50,Neutral
+
+422,23,5,The service was incredible!,2025-05-23 10:30:15,Positive
+423,23,5,I felt so valued here,2025-05-24 11:40:25,Positive
+424,23,5,They went above and beyond,2025-05-25 12:50:35,Positive
+425,23,5,Absolutely thrilled with this,2025-05-26 13:10:45,Positive
+426,23,5,A truly delightful experience,2025-05-27 14:20:55,Positive
+427,23,5,I can’t wait to return,2025-05-28 15:30:10,Positive
+428,23,5,Top-notch service all around,2025-05-29 16:40:20,Positive
+429,23,5,Highly recommend this place,2025-05-30 17:50:30,Positive
+430,23,5,They exceeded all my expectations,2025-05-31 18:10:40,Positive
+431,23,5,A flawless experience,2025-06-01 19:20:50,Positive
+
+432,23,1,The service was horrible,2025-06-02 10:30:15,Negative
+433,23,1,This place is a joke,2025-06-03 11:40:25,Negative
+434,23,1,I felt completely ignored,2025-06-04 12:50:35,Negative
+435,23,1,I regret coming here,2025-06-05 13:10:45,Negative
+436,23,1,The worst experience ever,2025-06-06 14:20:55,Negative
+437,23,1,They didn’t even try,2025-06-07 15:30:10,Negative
+438,23,1,Utterly disappointing,2025-06-08 16:40:20,Negative
+439,23,1,I won’t be back,2025-06-09 17:50:30,Negative
+440,23,1,Unacceptable service standards,2025-06-10 18:10:40,Negative
+441,23,1,A waste of my time,2025-06-11 19:20:50,Negative
+
+442,23,3,It was just fine nothing more,2025-06-12 10:30:15,Neutral
+443,23,3,Neither here nor there,2025-06-13 11:40:25,Neutral
+444,23,3,A mixed bag of feelings,2025-06-14 12:50:35,Neutral
+445,23,3,It didn’t stand out,2025-06-15 13:10:45,Neutral
+446,23,3,Pretty average overall,2025-06-16 14:20:55,Neutral
+447,23,3,It didn’t leave much of an impression,2025-06-17 15:30:10,Neutral
+448,23,3,I wasn’t swayed either way,2025-06-18 16:40:20,Neutral
+449,23,3,It was okay but forgettable,2025-06-19 17:50:30,Neutral
+450,23,3,Could have been better,2025-06-20 18:10:40,Neutral
+451,23,3,I have no strong feelings about it,2025-06-21 19:20:50,Neutral
+
+452,23,5,The best service I’ve had in years,2025-06-22 10:30:15,Positive
+453,23,5,I absolutely loved it here,2025-06-23 11:40:25,Positive
+454,23,5,Everything was perfect,2025-06-24 12:50:35,Positive
+455,23,5,This was an amazing experience,2025-06-25 13:10:45,Positive
+456,23,5,I’d give it 10 stars if I could,2025-06-26 14:20:55,Positive
+457,23,5,Truly outstanding service,2025-06-27 15:30:10,Positive
+458,23,5,They made me feel so welcome,2025-06-28 16:40:20,Positive
+459,23,5,I’m so impressed by this place,2025-06-29 17:50:30,Positive
+460,23,5,This was a highlight of my trip,2025-06-30 18:10:40,Positive
+
+
+462,23,1,I can’t believe how bad this was,2025-07-02 10:30:15,Negative
+463,23,1,This place should be avoided,2025-07-03 11:40:25,Negative
+464,23,1,What a disaster of a service,2025-07-04 12:50:35,Negative
+465,23,1,I left feeling angry and frustrated,2025-07-05 13:10:45,Negative
+466,23,1,They ruined my day,2025-07-06 14:20:55,Negative
+467,23,1,This was an absolute nightmare,2025-07-07 15:30:10,Negative
+468,23,1,They completely dropped the ball,2025-07-08 16:40:20,Negative
+469,23,1,I’ve never been treated this poorly,2025-07-09 17:50:30,Negative
+470,23,1,They clearly don’t care about customers,2025-07-10 18:10:40,Negative
+
+
+
+

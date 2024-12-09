@@ -127,3 +127,5 @@ nb-configuration.xml
 /.phpunit.*.cache
 
 pvKey.json
+/flask/venv/Lib/site-packages
+/flask/venv/Scripts

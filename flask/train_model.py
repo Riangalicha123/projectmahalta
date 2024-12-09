@@ -11,31 +11,47 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import classification_report
 import matplotlib.pyplot as plt
 import pickle
+import seaborn as sns
 
 # Load the dataset
 data = pd.read_csv('feedbacks.csv')
 
 # Ensure the 'Sentiment' column has valid values
-valid_labels = [0, 1, 2]  # Only allow these labels: Negative (0), Neutral (1), Positive (2)
+valid_labels = ['Neutral', 'Negative', 'Positive']
+
+# Debug: Initial dataset
+print("Initial Dataset:")
+print(data.head())
+
+# Remove rows with invalid or NaN Sentiment labels
+data = data.dropna(subset=['Sentiment'])
+data = data[data['Sentiment'].isin(valid_labels)]
+
+# Raise error if the dataset is empty after preprocessing
 if data.empty:
     raise ValueError("The dataset is empty after preprocessing. Please check your input data.")
 
-if 'Sentiment' not in data.columns:
-    raise ValueError("The 'Sentiment' column is missing in the dataset.")
-
-# Remove invalid labels if any
-data = data[data['Sentiment'].isin(valid_labels)]
-
-# Preprocess the text (convert to lowercase, remove punctuation)
-data['FeedbackMessage'] = data['FeedbackMessage'].apply(lambda x: re.sub(r'[^\w\s]', '', str(x).lower()))
-
 # Encode sentiment labels
 label_encoder = LabelEncoder()
-data['Sentiment'] = label_encoder.fit_transform(data['Sentiment'])  # Convert labels to numeric values
+data['Sentiment'] = label_encoder.fit_transform(data['Sentiment'])
+print("Encoded Classes:", label_encoder.classes_)
 
-# Check class distribution
+# Debug: Check class distribution
 print("Class Distribution:")
 print(data['Sentiment'].value_counts())
+
+# Visualize class distribution
+plt.figure(figsize=(8, 5))
+sns.countplot(x=data['Sentiment'], palette='Set2')
+plt.title("Class Distribution")
+plt.xlabel("Sentiment Class")
+plt.ylabel("Count")
+plt.show()
+
+# Preprocess the text (convert to lowercase, remove punctuation)
+data['FeedbackMessage'] = data['FeedbackMessage'].apply(
+    lambda x: re.sub(r'[^\w\s]', '', str(x).lower())
+)
 
 # Split the data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
@@ -65,7 +81,7 @@ model = Sequential([
 # Compile the model
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
-# View the model summary
+# Debug: View the model summary
 print("Model Summary:")
 model.summary()
 
@@ -88,13 +104,18 @@ print(f"Test Accuracy: {accuracy * 100:.2f}%")
 # Generate a classification report
 y_pred = model.predict(X_test).argmax(axis=1)
 print("Classification Report:")
-print(classification_report(y_test, y_pred, target_names=['Negative', 'Neutral', 'Positive']))
+print(classification_report(y_test, y_pred, target_names=label_encoder.classes_))
 
 # Save the model and tokenizer
-model.save('sentiment_model.h5')
+model.save('sentiment_model.keras')
 
 with open('tokenizer.pkl', 'wb') as f:
     pickle.dump(tokenizer, f)
+
+# Verify tokenizer saving
+with open('tokenizer.pkl', 'rb') as f:
+    loaded_tokenizer = pickle.load(f)
+print("Tokenizer reloaded successfully:", loaded_tokenizer.word_index != {})
 
 # Plot training history
 plt.figure(figsize=(12, 6))
