@@ -1421,7 +1421,7 @@ class AdminController extends BaseController
         $data = [
             'adminRoutes' => 'feedback',
             'feedbacks' => $this->feedbacks
-                ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, users.UserID, users.Email')
+                ->select('feedback.FeedbackID,feedback.UserRating,feedback.FeedbackMessage,feedback.datetime, feedback.SentimentLabel, feedback.ConfidenceScore, users.UserID, users.Email')
                 ->join('users', 'feedback.UserID = users.UserID')
                 ->findAll()
         ];

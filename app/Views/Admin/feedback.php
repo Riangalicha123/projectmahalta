@@ -75,6 +75,8 @@
                     <th>Email</th>
                     <th>Feedback Rating</th>
                     <th>Feedback Message</th>
+                    <th>SentimentLabel</th>
+                    <th>ConfidenceScore</th>
                     <th>datetime</th>
                   </tr>
                   </thead>
@@ -84,6 +86,8 @@
                     <td><?=$feedback['Email']?></td>
                     <td><?=$feedback['UserRating']?></td>
                     <td><?=$feedback['FeedbackMessage']?></td>
+                    <td><?=$feedback['SentimentLabel']?></td>
+                    <td><?=$feedback['ConfidenceScore']?></td>
                     <td><?=$feedback['datetime']?></td>
                   </tr>
                   <?php endforeach; ?>
