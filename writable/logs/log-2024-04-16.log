@@ -1,0 +1,8 @@
+CRITICAL - 2024-04-16 00:40:47 --> App\Controllers\GuestController::prepareEmailMessage(): Argument #4 ($amenitiesData) must be of type array, null given, called in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 587
+in APPPATH\Controllers\GuestController.php on line 612.
+ 1 APPPATH\Controllers\GuestController.php(587): App\Controllers\GuestController->prepareEmailMessage([...], [...], [...], null)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

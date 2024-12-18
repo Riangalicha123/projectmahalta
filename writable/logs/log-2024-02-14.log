@@ -1,0 +1,12 @@
+CRITICAL - 2024-02-14 05:23:28 --> Undefined variable $reinvents
+in APPPATH\Views\Stafff\Inventory\restaurant.php on line 108.
+ 1 APPPATH\Views\Stafff\Inventory\restaurant.php(108): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reinvents', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\restaurant.php', 108)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\Inventory\\restaurant.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\Inventory\\restaurant', [], true)
+ 5 APPPATH\Controllers\InventoryController.php(145): view('Stafff\\Inventory\\restaurant', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\InventoryController->addinRestaurant()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

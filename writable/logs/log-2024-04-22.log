@@ -1,0 +1,36 @@
+CRITICAL - 2024-04-22 12:58:02 --> Undefined array key "ReservationID"
+in APPPATH\Views\Hotell\booking.php on line 99.
+ 1 APPPATH\Views\Hotell\booking.php(99): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ReservationID"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 99)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1430): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-22 12:58:16 --> Undefined array key "ReservationID"
+in APPPATH\Views\Hotell\booking.php on line 99.
+ 1 APPPATH\Views\Hotell\booking.php(99): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "ReservationID"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 99)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1430): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-22 15:32:25 --> Undefined variable $reevent
+in APPPATH\Views\Hotell\booking.php on line 116.
+ 1 APPPATH\Views\Hotell\booking.php(116): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reevent', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php', 116)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\booking.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\booking', [], true)
+ 5 APPPATH\Controllers\GuestController.php(1430): view('Hotell\\booking', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->booking()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

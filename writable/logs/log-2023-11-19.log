@@ -1,0 +1,24 @@
+CRITICAL - 2023-11-19 03:29:24 --> include(Hotel/include/head.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Hotel\home.php on line 2.
+ 1 APPPATH\Views\Hotel\home.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(Hotel/include/head.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php', 2)
+ 2 APPPATH\Views\Hotel\home.php(2): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\home.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\home', [], true)
+ 6 APPPATH\Controllers\GuestController.php(16): view('Hotel\\home')
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-11-19 04:04:28 --> include(Hotel/include/head.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Hotel\about.php on line 2.
+ 1 APPPATH\Views\Hotel\about.php(2): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(Hotel/include/head.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\about.php', 2)
+ 2 APPPATH\Views\Hotel\about.php(2): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Hotel\\about.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotel\\about', [], true)
+ 6 APPPATH\Controllers\GuestController.php(20): view('Hotel\\about')
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->about()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

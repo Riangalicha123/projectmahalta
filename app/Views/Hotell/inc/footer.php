@@ -1,0 +1,34 @@
+<footer class="site-footer">
+      <div class="container">
+        <div class="row mb-5">
+          <div class="col-md-4">
+            <h3 style="background: linear-gradient(to bottom, blue, lightgreen); -webkit-background-clip: text; color: transparent;font-weight: bold; font-size: 20px;">Phone Support</h3>
+            <p class="lead">
+    <a href="tel://"> 
+        <i class="fa fa-phone"style="color: #007bff;"></i> 09812480320
+    </a>
+</p>
+<p class="lead">
+    <a href="mahaltaresortconventioncenter@gmail.com" style="font-size: 14.5px;">
+        <i class="fa fa-envelope"style="color: #d93025; "></i> mahaltaresortconventioncenter@gmail.com
+    </a>
+</p>
+
+            <h3 style="color: black;">Connect With Us</h3>
+            <p>
+            <a href="https://www.facebook.com/DrCEB/" class="pl-0 p-3"style="color: #1877f2;"><span class="fa fa-facebook fa-lg"></span></a>
+              <a href="https://www.mahaltaresort.online/" class="p-3"style="color: #1da1f2;"><span class="social-icon fa fa-globe fa-lg"></span></a>
+              <a href="https://www.youtube.com/watch?v=9phZlJodJPA&t=7s" class="p-3" style="color: #ff0000;"><span class="fa fa-youtube fa-lg"></span></a>
+            </p>
+          </div>
+         <div >
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7761.750176350001!2d121.20824972542549!3d13.42005806230071!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bce9395c682133%3A0x2a54eb8df931b1c2!2sMahalta%20Resorts%20and%20Convention%20Center!5e0!3m2!1sen!2sph!4v1700304323303!5m2!1sen!2sph" width="1000" ma height="250" style="border:0; width: 700px; max-width: 100%; " allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe>
+        </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-7 text-center" style="color: black;font-size: 16px;">
+         &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a target="_blank">Mahalta Resort and Convention Center</a>
+          </div>
+        </div>
+      </div>
+    </footer>

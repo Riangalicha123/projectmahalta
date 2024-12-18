@@ -1,0 +1,68 @@
+CRITICAL - 2024-04-02 00:15:41 --> Undefined variable $totalExtraPrice
+in APPPATH\Views\Hotell\checkOutReservation.php on line 181.
+ 1 APPPATH\Views\Hotell\checkOutReservation.php(181): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $totalExtraPrice', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php', 181)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\checkOutReservation', [], true)
+ 5 APPPATH\Controllers\GuestController.php(441): view('Hotell\\checkOutReservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-02 01:47:13 --> Undefined array key "AmenitiesID"
+in APPPATH\Controllers\GuestController.php on line 510.
+ 1 APPPATH\Controllers\GuestController.php(510): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "AmenitiesID"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 510)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-02 02:12:33 --> Undefined variable $UserID
+in APPPATH\Views\Hotell\checkOutReservation.php on line 177.
+ 1 APPPATH\Views\Hotell\checkOutReservation.php(177): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $UserID', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php', 177)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\checkOutReservation', [], true)
+ 5 APPPATH\Controllers\GuestController.php(439): view('Hotell\\checkOutReservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-02 02:20:52 --> Undefined variable $userID
+in APPPATH\Views\Hotell\checkOutReservation.php on line 177.
+ 1 APPPATH\Views\Hotell\checkOutReservation.php(177): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userID', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php', 177)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\checkOutReservation', [], true)
+ 5 APPPATH\Controllers\GuestController.php(447): view('Hotell\\checkOutReservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-02 02:21:04 --> Undefined variable $UserID
+in APPPATH\Views\Hotell\checkOutReservation.php on line 177.
+ 1 APPPATH\Views\Hotell\checkOutReservation.php(177): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $UserID', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php', 177)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\checkOutReservation', [], true)
+ 5 APPPATH\Controllers\GuestController.php(447): view('Hotell\\checkOutReservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-02 02:21:05 --> Undefined variable $UserID
+in APPPATH\Views\Hotell\checkOutReservation.php on line 177.
+ 1 APPPATH\Views\Hotell\checkOutReservation.php(177): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $UserID', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php', 177)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\checkOutReservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\checkOutReservation', [], true)
+ 5 APPPATH\Controllers\GuestController.php(447): view('Hotell\\checkOutReservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

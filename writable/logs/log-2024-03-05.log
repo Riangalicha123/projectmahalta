@@ -1,0 +1,24 @@
+CRITICAL - 2024-03-05 13:06:38 --> Undefined variable $iced
+in APPPATH\Views\Hotell\mainmenu.php on line 207.
+ 1 APPPATH\Views\Hotell\mainmenu.php(207): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $iced', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\mainmenu.php', 207)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Hotell\\mainmenu.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Hotell\\mainmenu', [], true)
+ 5 APPPATH\Controllers\GuestController.php(374): view('Hotell\\mainmenu', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->mainmenu()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-05 13:07:35 --> Undefined array key "BreakfastsName"
+in APPPATH\Views\Admin\Restaurant\service.php on line 226.
+ 1 APPPATH\Views\Admin\Restaurant\service.php(226): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "BreakfastsName"', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\Restaurant\\service.php', 226)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\Restaurant\\service.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/Restaurant/service', [], true)
+ 5 APPPATH\Controllers\AdminController.php(1283): view('Admin/Restaurant/service', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->restService()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

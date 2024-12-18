@@ -1,0 +1,530 @@
+CRITICAL - 2024-05-05 05:39:13 --> Call to undefined method App\Models\ReservationModel::getConfirmedReservations
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(249): CodeIgniter\Model->__call('getConfirmedReservations', [])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:29 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:31 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:31 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:32 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:33 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:34 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:35 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:42:37 --> count(): Argument #1 ($value) must be of type Countable|array, null given
+in APPPATH\Views\Admin\index.php on line 65.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(270): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 05:55:25 --> Undefined variable $reservations
+in APPPATH\Views\Admin\index.php on line 477.
+ 1 APPPATH\Views\Admin\index.php(477): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 477)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(251): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 09:56:07 --> Call to undefined method App\Models\ReservationModel::fetchRoomDataByMonthAndYear
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(270): CodeIgniter\Model->__call('fetchRoomDataByMonthAndYear', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 09:56:08 --> Call to undefined method App\Models\ReservationModel::fetchRoomDataByMonthAndYear
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(270): CodeIgniter\Model->__call('fetchRoomDataByMonthAndYear', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 09:56:09 --> Call to undefined method App\Models\ReservationModel::fetchRoomDataByMonthAndYear
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(270): CodeIgniter\Model->__call('fetchRoomDataByMonthAndYear', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 09:56:10 --> Call to undefined method App\Models\ReservationModel::fetchRoomDataByMonthAndYear
+in SYSTEMPATH\Model.php on line 873.
+ 1 APPPATH\Controllers\AdminController.php(270): CodeIgniter\Model->__call('fetchRoomDataByMonthAndYear', [...])
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:13 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('1', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:13 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('1', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:14 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('4', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:14 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('4', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:15 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('5', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:15 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('5', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:17 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('1', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:17 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('1', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:17 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('2', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:17 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('2', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:18 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('4', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:18 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('4', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 10:31:18 --> mysqli_sql_exception: Column 'RoomID' in field list is ambiguous in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('6', '2024')
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-05-05 10:31:18 --> Column 'RoomID' in field list is ambiguous
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(RoomID) as TotalRooms
+FROM `rooms`
+JOIN `reservations` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `reservations`.`Status` = :reservations.Status:
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 APPPATH\Models\ReservationModel.php(64): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(268): App\Models\ReservationModel->fetchRoomData('6', '2024')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchRoomData()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 12:23:20 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '1')
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-05-05 12:23:20 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `rooms`.`RoomNumber`, `rooms`.`RoomType`
+FROM `reservations`
+JOIN `rooms` ON `rooms`.`RoomID` = `reservations`.`RoomID`
+WHERE `Status` = :Status:
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '1')
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 12:23:22 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '5')
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-05-05 12:23:22 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `rooms`.`RoomNumber`, `rooms`.`RoomType`
+FROM `reservations`
+JOIN `rooms` ON `rooms`.`RoomID` = `reservations`.`RoomID`
+WHERE `Status` = :Status:
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '5')
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-05 12:23:22 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `reserva...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `reserva...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `reserva...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reserva...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '2')
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#10 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#12 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#13 {main}
+CRITICAL - 2024-05-05 12:23:22 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'caps.reservations.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `reservations`.*, `rooms`.`RoomNumber`, `rooms`.`RoomType`
+FROM `reservations`
+JOIN `rooms` ON `rooms`.`RoomID` = `reservations`.`RoomID`
+WHERE `Status` = :Status:
+AND YEAR(reservations.CheckInDate) = :YEAR(reservations.CheckInDate):
+AND MONTH(reservations.CheckInDate) = :MONTH(reservations.CheckInDate):
+GROUP BY `RoomType`', [...], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\ReservationModel.php(62): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\AdminController.php(267): App\Models\ReservationModel->getReservationsByYearMonth('2024', '2')
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->fetchReservations()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 13:48:16 --> Undefined variable $reservations
+in APPPATH\Views\Admin\index.php on line 468.
+ 1 APPPATH\Views\Admin\index.php(468): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 468)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(263): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 13:52:41 --> CodeIgniter\Database\BaseConnection::query(): Argument #1 ($sql) must be of type string, CodeIgniter\Database\MySQLi\Result given, called in C:\laragon\www\projectmahalta\system\Model.php on line 867
+in SYSTEMPATH\Database\BaseConnection.php on line 570.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query(Object(CodeIgniter\Database\MySQLi\Result))
+ 2 APPPATH\Controllers\AdminController.php(225): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 13:58:01 --> Undefined variable $reservations
+in APPPATH\Views\Admin\index.php on line 473.
+ 1 APPPATH\Views\Admin\index.php(473): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $reservations', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php', 473)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\index.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 5 APPPATH\Controllers\AdminController.php(257): view('Admin\\index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 13:58:15 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\index.php on line 475.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(257): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 13:58:35 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\index.php on line 475.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\index', [], true)
+ 4 APPPATH\Controllers\AdminController.php(257): view('Admin\\index', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 14:09:18 --> Call to a member function getPost() on null
+in APPPATH\Models\ReservationModel.php on line 59.
+ 1 APPPATH\Controllers\AdminController.php(217): App\Models\ReservationModel->getReservationRoomData()
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 14:11:01 --> Object of class CodeIgniter\Database\MySQLi\Result could not be converted to string
+in APPPATH\Controllers\AdminController.php on line 227.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-05 14:11:30 --> Undefined variable $selectedYear
+in APPPATH\Controllers\AdminController.php on line 220.
+ 1 APPPATH\Controllers\AdminController.php(220): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selectedYear', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\AdminController.php', 220)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->dashboard()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

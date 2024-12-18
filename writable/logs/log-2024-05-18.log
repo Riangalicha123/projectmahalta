@@ -1,0 +1,121 @@
+CRITICAL - 2024-05-18 09:37:27 --> unlink(C:\laragon\www\projectmahalta\public\uploads/): Is a directory
+in APPPATH\Controllers\AdminController.php on line 1488.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'unlink(C:\\laragon\\www\\projectmahalta\\public\\uploads/): Is a directory', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\AdminController.php', 1488)
+ 2 APPPATH\Controllers\AdminController.php(1488): unlink('C:\\laragon\\www\\projectmahalta\\public\\uploads/')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->deleteserviceRoom('16')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-18 09:40:17 --> unlink(C:\laragon\www\projectmahalta\public\uploads/): Is a directory
+in APPPATH\Controllers\AdminController.php on line 1488.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'unlink(C:\\laragon\\www\\projectmahalta\\public\\uploads/): Is a directory', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\AdminController.php', 1488)
+ 2 APPPATH\Controllers\AdminController.php(1488): unlink('C:\\laragon\\www\\projectmahalta\\public\\uploads/')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->deleteserviceRoom('17')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-18 09:43:42 --> unlink(C:\laragon\www\projectmahalta\public\uploads): Is a directory
+in APPPATH\Controllers\AdminController.php on line 1488.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'unlink(C:\\laragon\\www\\projectmahalta\\public\\uploads): Is a directory', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\AdminController.php', 1488)
+ 2 APPPATH\Controllers\AdminController.php(1488): unlink('C:\\laragon\\www\\projectmahalta\\public\\uploads')
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->deleteserviceRoom('18')
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-05-18 10:37:07 --> Undefined variable $event
+in APPPATH\Views\Admin\Restaurant\service.php on line 252.
+ 1 APPPATH\Views\Admin\Restaurant\service.php(252): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $event', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\Restaurant\\service.php', 252)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\Restaurant\\service.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/Restaurant/service', [], true)
+ 5 APPPATH\Controllers\AdminController.php(1626): view('Admin/Restaurant/service', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->restService()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-18 11:31:55 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`caps`.`reservation_amenities`, CONSTRAINT `reservation_amenities_ibfk_1` FOREIGN KEY (`roomInventoryID`) REFERENCES `room_inventory` (`roomInventoryID`)) in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('DELETE FROM `ro...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `ro...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `ro...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query('DELETE FROM `ro...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(1080): CodeIgniter\Model->doDelete(Array, false)
+#6 C:\laragon\www\projectmahalta\app\Controllers\InventoryController.php(157): CodeIgniter\BaseModel->delete(Array)
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\InventoryController->deleteAmenitiesItem('1')
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-05-18 11:31:55 --> Cannot delete or update a parent row: a foreign key constraint fails (`caps`.`reservation_amenities`, CONSTRAINT `reservation_amenities_ibfk_1` FOREIGN KEY (`roomInventoryID`) REFERENCES `room_inventory` (`roomInventoryID`))
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query('DELETE FROM `room_inventory`
+WHERE `roomInventoryID` IN :roomInventoryID:', [...], false)
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete([...], false)
+ 4 APPPATH\Controllers\InventoryController.php(157): CodeIgniter\BaseModel->delete([...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\InventoryController->deleteAmenitiesItem('1')
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\InventoryController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-18 11:37:53 --> mysqli_sql_exception: Cannot delete or update a parent row: a foreign key constraint fails (`caps`.`room_images`, CONSTRAINT `room_images_ibfk_1` FOREIGN KEY (`RoomID`) REFERENCES `rooms` (`RoomID`)) in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('DELETE FROM `ro...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('DELETE FROM `ro...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('DELETE FROM `ro...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query('DELETE FROM `ro...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(1080): CodeIgniter\Model->doDelete(Array, false)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(1560): CodeIgniter\BaseModel->delete(Array)
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->deleteServiceRoom('6')
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-05-18 11:37:53 --> Cannot delete or update a parent row: a foreign key constraint fails (`caps`.`room_images`, CONSTRAINT `room_images_ibfk_1` FOREIGN KEY (`RoomID`) REFERENCES `rooms` (`RoomID`))
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2790): CodeIgniter\Database\BaseConnection->query('DELETE FROM `rooms`
+WHERE `RoomID` IN :RoomID:', [...], false)
+ 2 SYSTEMPATH\Model.php(445): CodeIgniter\Database\BaseBuilder->delete()
+ 3 SYSTEMPATH\BaseModel.php(1080): CodeIgniter\Model->doDelete([...], false)
+ 4 APPPATH\Controllers\AdminController.php(1560): CodeIgniter\BaseModel->delete([...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->deleteServiceRoom('6')
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-05-18 13:26:14 --> mysqli_sql_exception: Unknown column 'guest.Status' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `guest`....', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `guest`....')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `guest`....')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `guest`....', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(305): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->customer()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+CRITICAL - 2024-05-18 13:26:14 --> Unknown column 'guest.Status' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `guest`.`GuestID`, `guest`.`Status`, `users`.`UserID`, `users`.`FirstName`, `users`.`LastName`, `users`.`Email`, `users`.`ContactNumber`, CONCAT(users.Region, ", ", `users`.`Province`, ", ", `users`.`City`, ", ", users.Barangay) as Address
+FROM `guest`
+JOIN `users` ON `guest`.`UserID` = `users`.`UserID`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(305): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->customer()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

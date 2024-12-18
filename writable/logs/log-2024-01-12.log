@@ -1,0 +1,12 @@
+CRITICAL - 2024-01-12 00:38:05 --> Undefined variable $hotelrevs
+in APPPATH\Views\Stafff\ConventionStaff\reservation.php on line 85.
+ 1 APPPATH\Views\Stafff\ConventionStaff\reservation.php(85): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $hotelrevs', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\ConventionStaff\\reservation.php', 85)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\ConventionStaff\\reservation.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\ConventionStaff\\reservation', [], true)
+ 5 APPPATH\Controllers\StaffController.php(341): view('Stafff\\ConventionStaff\\reservation', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\StaffController->conReservation()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StaffController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

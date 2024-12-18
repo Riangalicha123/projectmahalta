@@ -1,0 +1,55 @@
+CRITICAL - 2024-03-31 13:00:35 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 431.
+ 1 APPPATH\Controllers\GuestController.php(431): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 431)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 13:00:39 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 405.
+ 1 APPPATH\Controllers\GuestController.php(405): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 405)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 13:00:40 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 431.
+ 1 APPPATH\Controllers\GuestController.php(431): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 431)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 13:00:41 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 151.
+ 1 APPPATH\Controllers\GuestController.php(151): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 151)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->getdataRoom()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 13:14:33 --> Call to a member function findAll() on null
+in APPPATH\Controllers\GuestController.php on line 415.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 23:25:27 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 427.
+ 1 APPPATH\Controllers\GuestController.php(427): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 427)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->formdetails()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-03-31 23:25:29 --> Trying to access array offset on value of type null
+in APPPATH\Controllers\GuestController.php on line 403.
+ 1 APPPATH\Controllers\GuestController.php(403): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Trying to access array offset on value of type null', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 403)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->amenities()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

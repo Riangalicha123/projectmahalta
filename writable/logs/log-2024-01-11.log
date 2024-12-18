@@ -1,0 +1,25 @@
+CRITICAL - 2024-01-11 01:36:17 --> include(inc/navbar.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Staff\HotelStaff\index.php on line 23.
+ 1 APPPATH\Views\Staff\HotelStaff\index.php(23): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(inc/navbar.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Staff\\HotelStaff\\index.php', 23)
+ 2 APPPATH\Views\Staff\HotelStaff\index.php(23): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Staff\\HotelStaff\\index.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Staff\\HotelStaff\\index', [], true)
+ 6 APPPATH\Controllers\StaffController.php(32): view('Staff\\HotelStaff\\index')
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\StaffController->home()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StaffController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-11 12:26:07 --> Undefined variable $rooms
+in APPPATH\Views\Stafff\ConventionStaff\events.php on line 131.
+ 1 APPPATH\Views\Stafff\ConventionStaff\events.php(131): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rooms', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\ConventionStaff\\events.php', 131)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Stafff\\ConventionStaff\\events.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Stafff\\ConventionStaff\\events', [], true)
+ 5 APPPATH\Controllers\StaffController.php(345): view('Stafff\\ConventionStaff\\events', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\StaffController->conEvent()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\StaffController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

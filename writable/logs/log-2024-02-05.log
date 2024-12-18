@@ -1,0 +1,405 @@
+CRITICAL - 2024-02-05 11:36:53 --> Undefined variable $staffs
+in APPPATH\Views\Admin\rate.php on line 107.
+ 1 APPPATH\Views\Admin\rate.php(107): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $staffs', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 107)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(799): view('Admin\\rate', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 11:37:16 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\rate.php on line 109.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 4 APPPATH\Controllers\AdminController.php(799): view('Admin\\rate', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 11:37:50 --> mysqli_sql_exception: Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'capston.r.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT\r\n       ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT\r\n       ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT\r\n       ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT\r\n       ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-02-05 11:37:50 --> Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'capston.r.ReservationID' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT
+                ReservationID,
+                RoomType,
+                YEAR(CheckInDate) AS Year,
+                COUNT(*) AS ReservationsCount,
+                COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\' AND YEAR(CheckInDate) = Year) * 100 AS RatePercentage
+            FROM
+                reservations r
+            JOIN
+                rooms ro ON r.RoomID = ro.RoomID
+            WHERE
+                Status = \'Confirm\'
+            GROUP BY
+                RoomType, Year
+            ORDER BY
+                Year, RoomType')
+ 2 APPPATH\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 11:38:13 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\rate.php on line 108.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 4 APPPATH\Controllers\AdminController.php(799): view('Admin\\rate', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 11:38:58 --> Cannot use object of type stdClass as array
+in APPPATH\Views\Admin\rate.php on line 108.
+ 1 SYSTEMPATH\View\View.php(228): include()
+ 2 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 3 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 4 APPPATH\Controllers\AdminController.php(799): view('Admin\\rate', [...])
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 12:03:06 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND MONTH(CheckInDate) = 
+            GROUP BY
+                RoomType, Month' at line 11 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT\r\n       ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT\r\n       ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT\r\n       ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT\r\n       ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(802): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(777): App\Controllers\AdminController->fetchRateData(NULL, NULL)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-02-05 12:03:06 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AND MONTH(CheckInDate) = 
+            GROUP BY
+                RoomType, Month' at line 11
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT
+                RoomType,
+                Month(CheckInDate) AS Month,
+                COUNT(*) AS ReservationsCount,
+                COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\' AND Month(CheckInDate) = Month) * 100 AS RatePercentage
+            FROM
+                reservations r
+            JOIN
+                rooms ro ON r.RoomID = ro.RoomID
+            WHERE
+                Status = \'Confirm\' AND YEAR(CheckInDate) =  AND MONTH(CheckInDate) = 
+            GROUP BY
+                RoomType, Month
+            ORDER BY
+                Month, RoomType')
+ 2 APPPATH\Controllers\AdminController.php(802): CodeIgniter\Model->__call('query', [...])
+ 3 APPPATH\Controllers\AdminController.php(777): App\Controllers\AdminController->fetchRateData(null, null)
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 12:34:16 --> Undefined variable $rateData
+in APPPATH\Views\Admin\rate.php on line 101.
+ 1 APPPATH\Views\Admin\rate.php(101): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $rateData', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 101)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(794): view('Admin\\rate')
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 12:41:32 --> Undefined variable $data
+in APPPATH\Views\Admin\rate.php on line 107.
+ 1 APPPATH\Views\Admin\rate.php(107): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $data', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 107)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(798): view('Admin\\rate', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 12:42:33 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT
+                RoomType,
+                YEAR(CheckInDate) AS Year,
+ ' at line 2 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT\r\n       ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT\r\n       ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT\r\n       ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT\r\n       ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(771): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-02-05 12:42:33 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SELECT
+                RoomType,
+                YEAR(CheckInDate) AS Year,
+ ' at line 2
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT
+                SELECT
+                RoomType,
+                YEAR(CheckInDate) AS Year,
+                MONTH(CheckInDate) AS Month,
+                COUNT(*) AS ReservationsCount,
+                COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\' AND YEAR(CheckInDate) = Year AND MONTH(CheckInDate) = Month) * 100 AS RatePercentage
+            FROM
+                reservations r
+            JOIN
+                rooms ro ON r.RoomID = ro.RoomID
+            WHERE
+                Status = \'Confirm\'
+            GROUP BY
+                RoomType, Year, Month
+            ORDER BY
+                Year, Month, RoomType')
+ 2 APPPATH\Controllers\AdminController.php(771): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 12:57:58 --> mysqli_sql_exception: Unknown column 'RoomType' in 'field list' in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT RoomType...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT RoomType...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT RoomType...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT RoomType...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(822): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->submitRateForm()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-02-05 12:57:58 --> Unknown column 'RoomType' in 'field list'
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT RoomType, RatePercentage FROM reservations WHERE Month(CheckInDate) = 1 AND YEAR(CheckInDate) = 2022')
+ 2 APPPATH\Controllers\AdminController.php(822): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->submitRateForm()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 13:16:47 --> Undefined property: stdClass::$RatePercentage
+in APPPATH\Views\Admin\rate.php on line 103.
+ 1 APPPATH\Views\Admin\rate.php(103): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$RatePercentage', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 103)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(798): view('Admin\\rate', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 13:32:32 --> Undefined variable $selectedMonth
+in APPPATH\Views\Admin\rate.php on line 76.
+ 1 APPPATH\Views\Admin\rate.php(76): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $selectedMonth', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 76)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(798): view('Admin\\rate', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 13:44:54 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 13 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT \r\n      ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-02-05 13:44:54 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 13
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT 
+                RoomType,
+                YEAR(CheckInDate) AS ReservationYear,
+                MONTH(CheckInDate) AS ReservationMonth,
+                COUNT(*) AS ReservationCount,
+                ROUND((COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\')) * 100, 2) AS ReservationPercentage
+            FROM 
+                reservations
+            JOIN 
+                rooms ON reservations.RoomID = rooms.RoomID
+            WHERE 
+                Status = \'Confirm\'
+                AND RoomType IN (\'Deluxe Room\', \'Jr. Suite Room\', \'Family Room\', \'Barkada Room\'')
+ 2 APPPATH\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 13:47:13 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-02-05 13:47:13 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, COUNT(* AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\')) * 100, 2) AS ReservationPercentage
+FROM `reservations`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `Status` = :Status:
+AND `RoomType` IN :RoomType:
+GROUP BY `RoomType`, `ReservationYear`, `ReservationMonth`', [...], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 13:48:59 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-02-05 13:48:59 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, YEAR(CheckInDate) AS ReservationYear, MONTH(CheckInDate) AS ReservationMonth, COUNT(* AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\')) * 100, 2) AS ReservationPercentage
+FROM `reservations`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `Status` = :Status:
+AND `RoomType` IN :RoomType:
+GROUP BY `RoomType`, `ReservationYear`, `ReservationMonth`', [...], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 13:49:00 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `RoomTyp...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `RoomTyp...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `RoomTyp...')
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomTyp...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', Array)
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-02-05 13:49:00 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COU' at line 1
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `RoomType`, YEAR(CheckInDate) AS ReservationYear, MONTH(CheckInDate) AS ReservationMonth, COUNT(* AS `ReservationCount`) AS `* AS ReservationCount`, ROUND((COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\')) * 100, 2) AS ReservationPercentage
+FROM `reservations`
+JOIN `rooms` ON `reservations`.`RoomID` = `rooms`.`RoomID`
+WHERE `Status` = :Status:
+AND `RoomType` IN :RoomType:
+GROUP BY `RoomType`, `ReservationYear`, `ReservationMonth`', [...], false)
+ 2 SYSTEMPATH\Model.php(871): CodeIgniter\Database\BaseBuilder->get()
+ 3 APPPATH\Controllers\AdminController.php(792): CodeIgniter\Model->__call('get', [])
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-02-05 13:50:23 --> mysqli_sql_exception: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 13 in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT \r\n      ...', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT \r\n      ...')
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT \r\n      ...')
+#3 C:\laragon\www\projectmahalta\system\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT \r\n      ...')
+#4 C:\laragon\www\projectmahalta\app\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', Array)
+#5 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#8 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#9 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#10 {main}
+CRITICAL - 2024-02-05 13:50:23 --> You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 13
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Model.php(867): CodeIgniter\Database\BaseConnection->query('SELECT 
+                RoomType,
+                YEAR(CheckInDate) AS ReservationYear,
+                MONTH(CheckInDate) AS ReservationMonth,
+                COUNT(*) AS ReservationCount,
+                ROUND((COUNT(*) / (SELECT COUNT(*) FROM reservations WHERE Status = \'Confirm\')) * 100, 2) AS ReservationPercentage
+            FROM 
+                reservations
+            JOIN 
+                rooms ON reservations.RoomID = rooms.RoomID
+            WHERE 
+                Status = \'Confirm\'
+                AND RoomType IN (\'Deluxe Room\', \'Jr. Suite Room\', \'Family Room\', \'Barkada Room\'')
+ 2 APPPATH\Controllers\AdminController.php(772): CodeIgniter\Model->__call('query', [...])
+ 3 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->Rate()
+ 4 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 5 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-02-05 13:52:46 --> Undefined property: stdClass::$RatePercentage
+in APPPATH\Views\Admin\rate.php on line 108.
+ 1 APPPATH\Views\Admin\rate.php(108): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined property: stdClass::$RatePercentage', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php', 108)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\rate.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/rate', [], true)
+ 5 APPPATH\Controllers\AdminController.php(805): view('Admin/rate', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->rate()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

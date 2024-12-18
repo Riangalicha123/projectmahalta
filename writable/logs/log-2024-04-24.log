@@ -1,0 +1,211 @@
+CRITICAL - 2024-04-24 04:00:38 --> Undefined array key "created_at"
+in APPPATH\Controllers\GuestController.php on line 1463.
+ 1 APPPATH\Controllers\GuestController.php(1463): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "created_at"', 'C:\\laragon\\www\\projectmahalta\\app\\Controllers\\GuestController.php', 1463)
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->bookinghotelupdatestatus('Cancel', '171')
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 04:46:06 --> Maximum execution time of 60 seconds exceeded
+in APPPATH\Controllers\GuestController.php on line 679.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+ERROR - 2024-04-24 11:59:29 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'caps', 3306, '', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-04-24 11:59:29 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `Email` = :Email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(662): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-04-24 12:00:28 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'caps', 3306, '', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-04-24 12:00:28 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `Email` = :Email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(662): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+ERROR - 2024-04-24 12:00:52 --> Error connecting to the database: mysqli_sql_exception: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:185
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php(185): mysqli->real_connect('localhost', 'root', '', 'caps', 3306, '', 0)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#2 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#3 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#6 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#9 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#12 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: No connection could be made because the target machine actively refused it in C:\laragon\www\projectmahalta\system\Database\MySQLi\Connection.php:229
+Stack trace:
+#0 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(392): CodeIgniter\Database\MySQLi\Connection->connect(false)
+#1 C:\laragon\www\projectmahalta\system\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+#2 C:\laragon\www\projectmahalta\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#3 C:\laragon\www\projectmahalta\system\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+#4 C:\laragon\www\projectmahalta\system\BaseModel.php(662): CodeIgniter\Model->doFirst()
+#5 C:\laragon\www\projectmahalta\app\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+#6 C:\laragon\www\projectmahalta\system\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+#7 C:\laragon\www\projectmahalta\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+#8 C:\laragon\www\projectmahalta\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 C:\laragon\www\projectmahalta\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#10 C:\laragon\www\projectmahalta\system\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\...')
+#11 {main}
+CRITICAL - 2024-04-24 12:00:52 --> Unable to connect to the database.
+Main connection [MySQLi]: No connection could be made because the target machine actively refused it
+in SYSTEMPATH\Database\BaseConnection.php on line 428.
+ 1 SYSTEMPATH\Database\BaseConnection.php(575): CodeIgniter\Database\BaseConnection->initialize()
+ 2 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT *
+FROM `users`
+WHERE `Email` = :Email:
+ LIMIT 1', [...], false)
+ 3 SYSTEMPATH\Model.php(264): CodeIgniter\Database\BaseBuilder->get()
+ 4 SYSTEMPATH\BaseModel.php(662): CodeIgniter\Model->doFirst()
+ 5 APPPATH\Controllers\UserController.php(237): CodeIgniter\BaseModel->first()
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\UserController->LoginAuth()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\UserController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 13:46:18 --> Char a is unsupported
+in VENDORPATH\picqer\php-barcode-generator\src\Types\TypeCode39.php on line 91.
+ 1 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGenerator.php(108): Picqer\Barcode\Types\TypeCode39->getBarcodeData('*a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966378_5b88eba05affc21e9989.jpg";}*')
+ 2 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGeneratorHTML.php(20): Picqer\Barcode\BarcodeGenerator->getBarcodeData('a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966378_5b88eba05affc21e9989.jpg";}', 'C39')
+ 3 APPPATH\Controllers\GuestController.php(590): Picqer\Barcode\BarcodeGeneratorHTML->getBarcode('a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966378_5b88eba05affc21e9989.jpg";}', 'C39')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 13:46:31 --> Char a is unsupported
+in VENDORPATH\picqer\php-barcode-generator\src\Types\TypeCode39.php on line 91.
+ 1 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGenerator.php(108): Picqer\Barcode\Types\TypeCode39->getBarcodeData('*a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966391_2e49862efb0e60ebb8e7.jpg";}*')
+ 2 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGeneratorHTML.php(20): Picqer\Barcode\BarcodeGenerator->getBarcodeData('a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966391_2e49862efb0e60ebb8e7.jpg";}', 'C39')
+ 3 APPPATH\Controllers\GuestController.php(590): Picqer\Barcode\BarcodeGeneratorHTML->getBarcode('a:13:{s:11:"CheckInDate";s:19:"2024-04-26 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-27 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"2537";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"9";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5049;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713966391_2e49862efb0e60ebb8e7.jpg";}', 'C39')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 14:02:34 --> Char { is unsupported
+in VENDORPATH\picqer\php-barcode-generator\src\Types\TypeCodabar.php on line 47.
+ 1 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGenerator.php(108): Picqer\Barcode\Types\TypeCodabar->getBarcodeData('AA:13:{S:11:"CHECKINDATE";S:19:"2024-04-29 14:00:00";S:12:"CHECKOUTDATE";S:19:"2024-04-30 12:00:00";S:5:"ADULT";S:1:"2";S:5:"CHILD";S:1:"0";S:17:"DOWNORFULLPAYMENT";S:4:"4534";S:15:"REFERENCENUMBER";S:13:"1234567890123";S:13:"PAYMENTOPTION";S:5:"GCASH";S:6:"STATUS";S:7:"PENDING";S:6:"ROOMID";S:1:"7";S:6:"USERID";S:2:"23";S:11:"TOTALAMOUNT";D:4524;S:11:"AMENITIESID";A:1:{I:0;A:4:{S:15:"ROOMINVENTORYID";S:1:"4";S:11:"PRODUCTNAME";S:10:"TOOTHPASTE";S:5:"PRICE";S:5:"10.00";S:14:"INSERTQUANTITY";S:1:"1";}}S:5:"IMAGE";S:35:"1713967354_78818D2A23D9430987B9.PNG";}A')
+ 2 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGeneratorHTML.php(20): Picqer\Barcode\BarcodeGenerator->getBarcodeData('a:13:{s:11:"CheckInDate";s:19:"2024-04-29 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-30 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"4534";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"7";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:4524;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"4";s:11:"ProductName";s:10:"Toothpaste";s:5:"Price";s:5:"10.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713967354_78818d2a23d9430987b9.png";}', 'CODABAR')
+ 3 APPPATH\Controllers\GuestController.php(590): Picqer\Barcode\BarcodeGeneratorHTML->getBarcode('a:13:{s:11:"CheckInDate";s:19:"2024-04-29 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-30 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"4534";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"7";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:4524;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"4";s:11:"ProductName";s:10:"Toothpaste";s:5:"Price";s:5:"10.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713967354_78818d2a23d9430987b9.png";}', 'CODABAR')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 14:02:58 --> Undefined constant Picqer\Barcode\BarcodeGeneratorHTML::TYPE_CODE_50
+in APPPATH\Controllers\GuestController.php on line 590.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 14:03:07 --> Undefined constant Picqer\Barcode\BarcodeGeneratorHTML::TYPE_CODE_60
+in APPPATH\Controllers\GuestController.php on line 590.
+ 1 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 2 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 3 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 14:03:34 --> Character "a" is not supported.
+in VENDORPATH\picqer\php-barcode-generator\src\Types\TypeCode32.php on line 58.
+ 1 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGenerator.php(108): Picqer\Barcode\Types\TypeCode32->getBarcodeData('a:13:{s:11:"CheckInDate";s:19:"2024-04-29 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-30 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"4534";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"7";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:4524;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"4";s:11:"ProductName";s:10:"Toothpaste";s:5:"Price";s:5:"10.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713967414_b987892f0d3b351ba03a.png";}')
+ 2 VENDORPATH\picqer\php-barcode-generator\src\BarcodeGeneratorHTML.php(20): Picqer\Barcode\BarcodeGenerator->getBarcodeData('a:13:{s:11:"CheckInDate";s:19:"2024-04-29 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-30 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"4534";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"7";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:4524;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"4";s:11:"ProductName";s:10:"Toothpaste";s:5:"Price";s:5:"10.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713967414_b987892f0d3b351ba03a.png";}', 'C32')
+ 3 APPPATH\Controllers\GuestController.php(590): Picqer\Barcode\BarcodeGeneratorHTML->getBarcode('a:13:{s:11:"CheckInDate";s:19:"2024-04-29 14:00:00";s:12:"CheckOutDate";s:19:"2024-04-30 12:00:00";s:5:"Adult";s:1:"2";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"4534";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"7";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:4524;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"4";s:11:"ProductName";s:10:"Toothpaste";s:5:"Price";s:5:"10.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713967414_b987892f0d3b351ba03a.png";}', 'C32')
+ 4 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 5 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 6 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-04-24 14:17:51 --> Picqer\Barcode\BarcodeGeneratorHTML::getBarcode(): Argument #3 ($widthFactor) must be of type int, string given, called in C:\laragon\www\projectmahalta\app\Controllers\GuestController.php on line 591
+in VENDORPATH\picqer\php-barcode-generator\src\BarcodeGeneratorHTML.php on line 18.
+ 1 APPPATH\Controllers\GuestController.php(591): Picqer\Barcode\BarcodeGeneratorHTML->getBarcode(478749, 'a:13:{s:11:"CheckInDate";s:19:"2024-05-16 14:00:00";s:12:"CheckOutDate";s:19:"2024-05-17 12:00:00";s:5:"Adult";s:1:"3";s:5:"Child";s:1:"0";s:17:"downorfullPayment";s:4:"5034";s:15:"ReferenceNumber";s:13:"1234567890123";s:13:"PaymentOption";s:5:"gcash";s:6:"Status";s:7:"Pending";s:6:"RoomID";s:1:"6";s:6:"UserID";s:2:"23";s:11:"TotalAmount";d:5009;s:11:"AmenitiesID";a:1:{i:0;a:4:{s:15:"roomInventoryID";s:1:"3";s:11:"ProductName";s:10:"Toothbrush";s:5:"Price";s:5:"25.00";s:14:"insertQuantity";s:1:"1";}}s:5:"Image";s:35:"1713968271_7c6745e18c959b1c88e0.jpg";}', 'C128')
+ 2 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->addReservation()
+ 3 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 4 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 5 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')

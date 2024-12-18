@@ -1,0 +1,63 @@
+ERROR - 2023-12-16 01:31:24 --> mysqli_sql_exception: Table 'capstone.room' doesn't exist in C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `room_ty...', 0)
+#1 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `room_ty...')
+#2 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `room_ty...')
+#3 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_ty...', Array, false)
+#4 C:\laragon\www\MahaltaCalapanCity\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\MahaltaCalapanCity\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\MahaltaCalapanCity\app\Controllers\GuestController.php(31): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(942): App\Controllers\GuestController->home()
+#8 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+#9 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\MahaltaCalapanCity\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2023-12-16 01:31:24 --> Table 'capstone.room' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_type`, `price`, `description`, `status`, `image`
+FROM `room`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\GuestController.php(31): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\GuestController->home()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\GuestController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+CRITICAL - 2023-12-16 01:33:00 --> Undefined array key "FullName"
+in APPPATH\Views\Admin\guest.php on line 102.
+ 1 APPPATH\Views\Admin\guest.php(102): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "FullName"', 'C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\guest.php', 102)
+ 2 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\MahaltaCalapanCity\\app\\Views\\Admin\\guest.php')
+ 3 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin/guest', [], true)
+ 5 APPPATH\Controllers\AdminController.php(32): view('Admin/guest', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->guest()
+ 7 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 8 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+ERROR - 2023-12-16 01:33:13 --> mysqli_sql_exception: Table 'capstone.room_reservation' doesn't exist in C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php:306
+Stack trace:
+#0 C:\laragon\www\MahaltaCalapanCity\system\Database\MySQLi\Connection.php(306): mysqli->query('SELECT `room_re...', 0)
+#1 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(693): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `room_re...')
+#2 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseConnection.php(607): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `room_re...')
+#3 C:\laragon\www\MahaltaCalapanCity\system\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_re...', Array, false)
+#4 C:\laragon\www\MahaltaCalapanCity\system\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\laragon\www\MahaltaCalapanCity\system\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+#6 C:\laragon\www\MahaltaCalapanCity\app\Controllers\AdminController.php(49): CodeIgniter\BaseModel->findAll()
+#7 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+#8 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+#9 C:\laragon\www\MahaltaCalapanCity\system\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 C:\laragon\www\MahaltaCalapanCity\public\index.php(79): CodeIgniter\CodeIgniter->run()
+#11 {main}
+CRITICAL - 2023-12-16 01:33:13 --> Table 'capstone.room_reservation' doesn't exist
+in SYSTEMPATH\Database\BaseConnection.php on line 647.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1615): CodeIgniter\Database\BaseConnection->query('SELECT `room_reservation`.`reservation_id`, `room_reservation`.`check_in`, `room_reservation`.`check_out`, `room_reservation`.`status`, `room_reservation`.`contact`, `room_reservation`.`MahaltaId`, `users`.`FullName`, `room_reservation`.`room_id`, `room`.`room_type`
+FROM `room_reservation`
+JOIN `users` ON `room_reservation`.`MahaltaId` = `users`.`MahaltaId`
+JOIN `room` ON `room_reservation`.`room_id` = `room`.`room_id`', [], false)
+ 2 SYSTEMPATH\Model.php(237): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(624): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Controllers\AdminController.php(49): CodeIgniter\BaseModel->findAll()
+ 5 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->booking()
+ 6 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 7 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()

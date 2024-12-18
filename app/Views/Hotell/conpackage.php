@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Mahalta</title>
+        <!-- Site favicon -->
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="<?=base_url()?>guest/images/mahaltalogooo.png"
+		/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900|Rubik:300,400,700" rel="stylesheet">
+
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/animate.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/owl.carousel.min.css">
+
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/magnific-popup.css">
+
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="<?=base_url()?>guest/css/style.css">
+    <?= $this->renderSection('stylesheets') ?>
+  </head>
+  <style>
+    .card {
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+  background: linear-gradient(to bottom, lightblue, white);
+  border-radius: 10px;
+}
+.card:hover {
+  transform: scale(1.05);
+}
+  </style>
+  <body> 
+  <?php include('inc/header.php') ?>
+    <!-- END header -->
+
+    <!-- <section class="site-hero site-hero-innerpage overlay" data-stellar-background-ratio="0.5" style="background-image: url(<?=base_url()?>guest/images/big_image_1.jpg);">
+      <div class="container">
+        <div class="row align-items-center site-hero-inner justify-content-center">
+          <div class="col-md-12 text-center">
+
+            <div class="mb-5 element-animate">
+              <h1>Room Policy</h1>
+              <p>Stay updated with our reservation policies and events. </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section> -->
+    <section class="site-section" style="background: #FAF2D3;">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-12">
+            <div class="heading-wrap  element-animate">
+              <br>
+              <br>
+              <br>
+              <h4 style="text-align: center;font-size: 30px;"><strong>Convention Center Reservations Package</strong></h4>
+              <br>
+              <div class="three-column-container">
+              <br>
+              <div class="container">
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body" style=background-color: linear-gradient(to bottom, rgba(245, 245, 245, 0.9), rgba(230, 230, 230, 0.7));>
+                  
+                    <ul>
+                      <li>AM Snacks</li>
+                      <li>PM Snack</li>
+                      <li>Lunch (meat, veggies, soup ,and drinks)</li>
+                      <li>Brewed Coffee</li>
+                      <li>Pica-Pica and Candies</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+                    <ul>
+                      <li>Parking Area</li>
+                      <li>Beach View and Tour to Mahalta's facilities</li>
+                      <li>Sound System w/ microphone</li>
+                      <li>Technical Support</li>
+                      <li>24Hours CCTV</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="card">
+                  <div class="card-body">
+
+                    <ul>
+                      <li>Projector</li>
+                      <li>Venue with fully air-conditioned</li>
+                      <li>Stand-by generator</li>
+                      <li>Seminar Set-up (table and chairs)</li>
+                      <li>Assisted by Fully Vaccinated and trained Staff</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+    <?php include('inc/footer.php') ?>
+    <?php include('inc/loader.php') ?>
+
+    <script src="<?=base_url()?>guest/js/jquery-3.2.1.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery-migrate-3.0.0.js"></script>
+    <script src="<?=base_url()?>guest/js/popper.min.js"></script>
+    <script src="<?=base_url()?>guest/js/bootstrap.min.js"></script>
+    <script src="<?=base_url()?>guest/js/owl.carousel.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.waypoints.min.js"></script>
+    <script src="<?=base_url()?>guest/js/jquery.stellar.min.js"></script>
+
+    <script src="<?=base_url()?>guest/js/jquery.magnific-popup.min.js"></script>
+    <script src="<?=base_url()?>guest/js/magnific-popup-options.js"></script>
+
+    <script src="<?=base_url()?>guest/js/main.js"></script>
+    
+  </body>
+</html>

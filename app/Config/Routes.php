@@ -1,0 +1,290 @@
+<?php
+
+use CodeIgniter\Router\RouteCollection;
+
+/**
+ * @var RouteCollection $routes
+ */
+$routes->get('/', 'GuestController::home', ['filter' => 'noAuth']);
+$routes->get('/room-accommodation', 'GuestController::room', ['filter' => 'noAuth']);
+$routes->get('/bookroom/submit', 'GuestController::getData', ['filter' => 'noAuth']);
+$routes->get('/getdataRoom', 'GuestController::getdataRoom', ['filter' => 'noAuth']);
+$routes->get('/bookroom', 'GuestController::bookroom', ['filter' => 'noAuth']);
+$routes->get('/bookroom/getdataRoom', 'GuestController::getdataRoomReservation', ['filter' => 'noAuth']);
+$routes->get('/bookroom/amenities', 'GuestController::amenities', ['filter' => 'noAuth']);
+$routes->post('/addAmenities', 'GuestController::addAmenities', ['filter' => 'noAuth']);
+$routes->get('/bookroom/formdetails', 'GuestController::formdetails', ['filter' => 'noAuth']);
+$routes->get('/qrpath', 'GuestController::qrpath', ['filter' => 'noAuth']);
+$routes->get('/qrcoventionpath', 'GuestController::qrconventionPath', ['filter' => 'noAuth']);
+$routes->get('/qrrestaurantpath', 'GuestController::qrrestaurantPath', ['filter' => 'noAuth']);
+$routes->post('/bookroom/addReservation', 'GuestController::addReservation', ['filter' => 'noAuth']);
+$routes->get('/roompolicy', 'GuestController::roomPolicy', ['filter' => 'noAuth']);
+$routes->get('/restaurantt', 'GuestController::restaurantt', ['filter' => 'noAuth']);
+$routes->get('/mainmenu', 'GuestController::mainmenu', ['filter' => 'noAuth']);
+$routes->get('/updateVenueOptions', 'GuestController::updateVenueOptions', ['filter' => 'noAuth']);
+$routes->get('/barmenu', 'GuestController::barmenu', ['filter' => 'noAuth']);
+$routes->get('/cafemenu', 'GuestController::cafemenu', ['filter' => 'noAuth']);
+$routes->get('/respolicy', 'GuestController::restaurantPolicy', ['filter' => 'noAuth']);
+$routes->get('/daytour', 'GuestController::daytour', ['filter' => 'noAuth']);
+$routes->get('/convention-center', 'GuestController::convention', ['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation', 'GuestController::conReservation', ['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation', 'GuestController::getdataconVenue', ['filter' => 'noAuth']);
+$routes->post('/convention-center/reservation/getconvenuedirectInformation', 'GuestController::getconvenuedirectInformation', ['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/information', 'GuestController::conventioninformation', ['filter' => 'noAuth']);
+$routes->post('/convention-center/reservation/information/getVenueDateandGuests', 'GuestController::getVenueDateandGuests', ['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/getdataconVenueReservation', 'GuestController::getdataconVenueReservation', ['filter' => 'noAuth']);
+$routes->post('/conventionReservation', 'GuestController::conventionReservation', ['filter' => 'noAuth']);
+$routes->get('/convention-center/reservation/formdetails', 'GuestController::conventionformdetails', ['filter' => 'noAuth']);
+$routes->get('/conpackage', 'GuestController::conPackage', ['filter' => 'noAuth']);
+$routes->get('/profile', 'GuestController::profile', ['filter' => 'noAuth']);
+$routes->get('/booking', 'GuestController::booking', ['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updatehotelstatus/(:segment)/(:num)', 'GuestController::bookinghotelupdatestatus/$1/$2', ['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updaterestaustatus/(:segment)/(:num)', 'GuestController::bookingrestauupdatestatus/$1/$2', ['filter' => 'noAuth']);
+$routes->get('/cancelbooking/updateconvenstatus/(:segment)/(:num)', 'GuestController::bookingconvenupdatestatus/$1/$2', ['filter' => 'noAuth']);
+$routes->get('/chat', 'GuestController::chat', ['filter' => 'noAuth']);
+$routes->post('/updateProfile/(:num)', 'GuestController::updateProfile/$1', ['filter' => 'noAuth']);
+$routes->get('/change-password', 'GuestController::changePassword', ['filter' => 'noAuth']);
+$routes->post('/update-password', 'GuestController::updatePassword', ['filter' => 'noAuth']);
+
+$routes->post('/tableReservation', 'GuestController::tableReservation', ['filter' => 'noAuth']);
+$routes->post('/eventReservation', 'GuestController::eventReservation', ['filter' => 'noAuth']);
+$routes->get('/getFeedback', 'GuestController::getFeedback', ['filter' => 'noAuth']);
+$routes->post('/submit-review', 'GuestController::submitReview', ['filter' => 'noAuth']);
+$routes->post('/review', 'GuestController::Review', ['filter' => 'noAuth']);
+$routes->post('/postFeedback', 'GuestController::postFeedback', ['filter' => 'noAuth']);
+
+$routes->post('/get_chat_data', 'GuestController::get_chat_data', ['filter' => 'noAuth']);
+
+$routes->get('/register', 'UserController::register', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-province', 'UserController::fetchProvince', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-city', 'UserController::fetchCity', ['filter' => 'reslogGuard']);
+$routes->post('/api/fetch-barangay', 'UserController::fetchBarangay', ['filter' => 'reslogGuard']);
+$routes->match(['get', 'post'], '/registerAuth', 'UserController::registerAuth');
+
+$routes->get('/login', 'UserController::login', ['filter' => 'reslogGuard']);
+$routes->post('/loginAuth', 'UserController::loginAuth', ['filter' => 'reslogGuard']);
+$routes->get('/logout', 'UserController::logout');
+$routes->get('/verify/(:any)', 'UserController::verifyEmail/$1', ['filter' => 'reslogGuard']);
+$routes->post('/saveToken', 'UserController::saveToken',); //wag mona lagyan or fix filter. wala din naman security issues sa post nito
+$routes->get('/recover', 'UserController::recover');
+$routes->post('/recoverPassword', 'UserController::recoverPassword');
+$routes->get('/resetPassword/(:any)', 'UserController::resetPassword/$1');
+$routes->post('/updatePassword', 'UserController::updatePassword');
+
+
+$routes->get('/admin-login', 'AdminController::login', ['filter' => 'reslogGuard']);
+$routes->post('/adminloginAuth', 'AdminController::loginAuth', ['filter' => 'reslogGuard']);
+$routes->post('/uupdate-password', 'AdminController::uupdatePassword', ['filter' => 'adminGuard']);
+$routes->get('/admin-logout', 'AdminController::logout');
+
+$routes->get('/staff-login', 'StaffController::login', ['filter' => 'reslogGuard']);
+$routes->post('/staffloginAuth', 'StaffController::loginAuth', ['filter' => 'reslogGuard']);
+$routes->get('/staff-logout', 'StaffController::logout');
+
+
+$routes->get('/staff-hotel', 'StaffController::home', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotelreservation', 'StaffController::reservation', ['filter' => 'staffGuard']);
+$routes->post('/addhotelReservation', 'StaffController::addhotelReservation', ['filter' => 'staffGuard']);
+$routes->post('/updatehotelReservation/(:num)', 'StaffController::updatehotelReservation/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotelreservation-amenities', 'StaffController::holreservationAmenities', ['filter' => 'staffGuard']);
+$routes->post('/addhotelamenitiesReservation', 'StaffController::addhotelamenitiesReservation', ['filter' => 'staffGuard']);
+$routes->post('/updatehotelamenitiesReservation/(:num)', 'StaffController::updatehotelamenitiesReservation/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff/updatestatus/(:segment)/(:num)', 'StaffController::updateStatus/$1/$2', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotelroom', 'StaffController::room', ['filter' => 'staffGuard']);
+$routes->post('/addRoom', 'StaffController::addRoom', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotel/service/delete/(:num)', 'AdminController::deleteServiceRoom/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateRoom', 'StaffController::updateRoom', ['filter' => 'staffGuard']);
+$routes->get('/staff-hotelsetting', 'StaffController::hotelsetting', ['filter' => 'staffGuard']);
+$routes->post('/staff/hotel/update-password', 'StaffController::hotelupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updatehotelProfile/(:num)', 'StaffController::updatehotelProfile/$1', ['filter' => 'staffGuard']);
+
+$routes->get('/staff-walkin', 'StaffController::walkin', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability', 'StaffController::getDataa', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroom', 'StaffController::getdataRoomm', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation', 'StaffController::getdataRoomReservationn', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation/amenities', 'StaffController::amenitiess', ['filter' => 'staffGuard']);
+$routes->post('/staff-walkin-availability/dataroomreservation/addAmenities', 'StaffController::addAmenitiess', ['filter' => 'staffGuard']);
+$routes->get('/staff-walkin-availability/dataroomreservation/amenities/formdetails', 'StaffController::formdetailss', ['filter' => 'staffGuard']);
+$routes->post('/staff-walkin-availability/dataroomreservation/amenities/formdetails/addReservation', 'StaffController::addReservationn', ['filter' => 'staffGuard']);
+
+$routes->post('staff-getNotifications', 'StaffController::getNotifications', ['filter' => 'staffGuard']);
+
+$routes->get('/staff-restaurant', 'StaffController::reshome', ['filter' => 'staffGuard']);
+$routes->get('/staff-restaurant-reservation', 'StaffController::resReservation', ['filter' => 'staffGuard']);
+$routes->post('/addrestauReservation', 'StaffController::addrestauReservation', ['filter' => 'staffGuard']);
+$routes->post('/updaterestauReservation/(:num)', 'StaffController::updaterestauReservation/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff/updaterestauStatus/(:segment)/(:num)', 'StaffController::updaterestauStatus/$1/$2', ['filter' => 'staffGuard']);
+$routes->get('/staff-restaurant-venue', 'StaffController::resVenue', ['filter' => 'staffGuard']);
+$routes->post('/addVenue', 'StaffController::addVenue', ['filter' => 'staffGuard']);
+$routes->get('/staff-restaurant/service/delete/(:num)', 'StaffController::deleteServiceTable/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateVenue', 'StaffController::updateVenue', ['filter' => 'staffGuard']);
+$routes->get('/staff-restaurant-menu', 'StaffController::resMenu', ['filter' => 'staffGuard']);
+$routes->post('/addMainMenuu', 'RestaurantController::addMainMenuu', ['filter' => 'staffGuard']);
+$routes->get('/deletemenumainn/(:num)', 'RestaurantController::deleteMainMenuu/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateMainMenuu', 'RestaurantController::updateMainMenuu', ['filter' => 'staffGuard']);
+$routes->post('/addBarMenuu', 'RestaurantController::addBarMenuu', ['filter' => 'staffGuard']);
+$routes->get('/deletemenubarr/(:num)', 'RestaurantController::deleteBarMenuu/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateBarMenuu', 'RestaurantController::updateBarMenuu', ['filter' => 'staffGuard']);
+$routes->post('/addCafeMenuu', 'RestaurantController::addCafeMenuu', ['filter' => 'staffGuard']);
+$routes->get('/deletemenucafee/(:num)', 'RestaurantController::deleteCafeMenuu/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateCafeMenuu', 'RestaurantController::updateCafeMenuu', ['filter' => 'staffGuard']);
+$routes->post('/addCafeMenuIcedd', 'RestaurantController::addCafeMenuIcedd', ['filter' => 'staffGuard']);
+$routes->get('/deletemenucafeicedd/(:num)', 'RestaurantController::deleteCafeMenuIcedd/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateCafeMenuIcedd', 'RestaurantController::updateCafeMenuIcedd', ['filter' => 'staffGuard']);
+$routes->get('/staff-ressetting', 'StaffController::ressetting', ['filter' => 'staffGuard']);
+$routes->post('/staff/restaurant/update-password', 'StaffController::resupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updaterestaurantProfile/(:num)', 'StaffController::updaterestaurantProfile/$1', ['filter' => 'staffGuard']);
+
+
+$routes->get('/staff-convention', 'StaffController::conhome', ['filter' => 'staffGuard']);
+$routes->get('/staff-convention-reservation', 'StaffController::conReservation', ['filter' => 'staffGuard']);
+$routes->post('/addconReservation', 'StaffController::addconReservation', ['filter' => 'staffGuard']);
+$routes->post('/updateconReservation/(:num)', 'StaffController::updateconReservation/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff/updateconStatus/(:segment)/(:num)', 'StaffController::updateconStatus/$1/$2', ['filter' => 'staffGuard']);
+$routes->get('/staff-convention-event', 'StaffController::conEvent', ['filter' => 'staffGuard']);
+$routes->post('/addEvent', 'StaffController::addEvent', ['filter' => 'staffGuard']);
+$routes->get('/staff/deleteEvent/(:num)', 'StaffController::deleteServiceConEvent/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateEvent', 'StaffController::updateEvent', ['filter' => 'staffGuard']);
+$routes->get('/staff-convention-venue', 'StaffController::conVenue', ['filter' => 'staffGuard']);
+$routes->post('/addconVenue', 'StaffController::addconVenue', ['filter' => 'staffGuard']);
+$routes->get('/staff/deleteVenue/(:num)', 'StaffController::deleteServiceConVenue/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateconVenue', 'StaffController::updateconVenue', ['filter' => 'staffGuard']);
+$routes->get('/staff-consetting', 'StaffController::consetting', ['filter' => 'staffGuard']);
+$routes->post('/staff/convention/update-password', 'StaffController::conupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updateconventionProfile/(:num)', 'StaffController::updateconventionProfile/$1', ['filter' => 'staffGuard']);
+
+
+$routes->get('/staff-inventory', 'InventoryController::inhome', ['filter' => 'staffGuard']);
+$routes->get('/staff-inventory/hotel', 'InventoryController::inhotel', ['filter' => 'staffGuard']);
+$routes->post('/addinHotel', 'InventoryController::addinHotel', ['filter' => 'staffGuard']);
+$routes->get('/staff-inventoryhotel/delete/(:num)', 'InventoryController::deleteAmenitiesItemm/$1', ['filter' => 'staffGuard']);
+$routes->post('/updateinHotel/(:num)', 'InventoryController::updateinHotel/$1', ['filter' => 'staffGuard']);
+$routes->get('/staff-invensetting', 'InventoryController::invensetting', ['filter' => 'staffGuard']);
+$routes->post('/staff/inven/update-password', 'InventoryController::invenupdatePassword', ['filter' => 'staffGuard']);
+$routes->post('/updateinventoryProfile/(:num)', 'InventoryController::updateinventoryProfile/$1', ['filter' => 'staffGuard']);
+
+$routes->get('/admin-inventoryhotel', 'InventoryController::inventoryHotel', ['filter' => 'adminGuard']);
+$routes->post('/adddinHotel', 'InventoryController::adddinHotel', ['filter' => 'adminGuard']);
+$routes->get('/admin-inventoryhotel/delete/(:num)', 'InventoryController::deleteAmenitiesItem/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateeinHotel/(:num)', 'InventoryController::updateeinHotel/$1', ['filter' => 'adminGuard']);
+
+//Admin-Dashboard
+$routes->match(['get', 'post'], '/admin-dashboard', 'AdminController::dashboard', ['filter' => 'adminGuard']);
+$routes->post('notification/getNotifications', 'AdminController::getNotifications', ['filter' => 'adminGuard']);
+$routes->post('reservation-notifications/getReservationNotifications', 'AdminController::getReservationNotifications', ['filter' => 'adminGuard']);
+$routes->post('/admin/getReservationData', 'AdminController::getReservationData', ['filter' => 'adminGuard']);
+$routes->post('/admin/getReservationByYear', 'AdminController::getReservationByYear', ['filter' => 'adminGuard']);
+$routes->post('/admin/getMonthlyData', 'AdminController::getMonthlyData', ['filter' => 'adminGuard']);
+
+$routes->get('/admin-setting', 'AdminController::setting', ['filter' => 'adminGuard']);
+$routes->post('/updateadminProfile/(:num)', 'AdminController::updateadminProfile/$1', ['filter' => 'adminGuard']);
+
+$routes->get('/admin-customer', 'AdminController::customer', ['filter' => 'adminGuard']);
+$routes->post('/admin-addCustomer', 'AdminController::addCustomer', ['filter' => 'adminGuard']);
+$routes->post('/updateCustomer/(:num)', 'AdminController::updateCustomer/$1', ['filter' => 'adminGuard']);
+//Admin-Hotel-Reservation
+$routes->get('/admin-hotel/reservation', 'AdminController::holReservation', ['filter' => 'adminGuard']);
+$routes->post('/addHotelReservation', 'AdminController::addHotelReservation', ['filter' => 'adminGuard']);
+$routes->post('/updateHotelReservation/(:num)', 'AdminController::updateHotelReservation/$1', ['filter' => 'adminGuard']);
+$routes->post('/addHotelAmenitiesReservation', 'AdminController::addHotelAmenitiesReservation', ['filter' => 'adminGuard']);
+$routes->post('/updateHotelAmenitiesReservation/(:num)', 'AdminController::updateHotelAmenitiesReservation/$1', ['filter' => 'adminGuard']);
+$routes->get('/admin/updatestatus/(:segment)/(:num)', 'AdminController::updateStatus/$1/$2', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/reservation_amenities', 'AdminController::holReservationAmenities', ['filter' => 'adminGuard']);
+//Admin-Restaurant-Reservation
+$routes->get('/admin-restaurant/reservation', 'AdminController::resReservation', ['filter' => 'adminGuard']);
+$routes->post('/addRestauReservation', 'AdminController::addRestauReservation', ['filter' => 'adminGuard']);
+$routes->post('/updateRestauReservation/(:num)', 'AdminController::updateRestauReservation/$1', ['filter' => 'adminGuard']);
+$routes->get('/admin/updateRestauStatus/(:segment)/(:num)', 'AdminController::updateResStatus/$1/$2', ['filter' => 'adminGuard']);
+//Admin-Convention-Reservation
+$routes->get('/admin-convention/reservation', 'AdminController::conReservation', ['filter' => 'adminGuard']);
+$routes->post('/addConReservation', 'AdminController::addConReservation', ['filter' => 'adminGuard']);
+$routes->post('/updateConReservation/(:num)', 'AdminController::updateConReservation/$1', ['filter' => 'adminGuard']);
+$routes->get('/admin/updateconstatus/(:segment)/(:num)', 'AdminController::updateconStatus/$1/$2', ['filter' => 'adminGuard']);
+$routes->get('/reservation/(:num)', 'AdminController::viewReservation/$1',); //lagay mo nalang inalis ko for checing  ['filter' => 'adminGuard']
+$routes->get('/conreservation/(:num)', 'AdminController::viewconvetionReservation/$1',);
+$routes->get('/resreservation/(:num)', 'AdminController::viewrestaurantReservation/$1',);
+//Admin-RateManagement
+$routes->get('/admin-rate', 'AdminController::rate', ['filter' => 'adminGuard']);
+$routes->post('/submit-rate-form', 'AdminController::submitRateForm', ['filter' => 'adminGuard']);
+//Admin-POS
+$routes->get('/admin-hotel/walkin', 'AdminController::walkin', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability', 'AdminController::getDataa', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroom', 'AdminController::getdataRoomm', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation', 'AdminController::getdataRoomReservationn', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation/amenities', 'AdminController::amenitiess', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/addAmenities', 'AdminController::addAmenitiess', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails', 'AdminController::formdetailss', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails/addReservation', 'AdminController::addReservationn', ['filter' => 'adminGuard']);
+$routes->post('/admin-hotel/walkin-availability/dataroomreservation/amenities/formdetails/updateReservation/(:num)', 'AdminController::updateReservationn/$1', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/walkin-records', 'AdminController::walkinRecords', ['filter' => 'adminGuard']);
+//Admin-Staff Accounts
+$routes->get('/admin-staffaccounts', 'AdminController::staffAccounts', ['filter' => 'adminGuard']);
+// routes.php
+$routes->post('/fetch-province', 'AdminController::fetchProvince');
+$routes->post('/fetch-city', 'AdminController::fetchCity');
+$routes->post('/fetch-barangay', 'AdminController::fetchBarangay');
+$routes->match(['get', 'post'], '/admin-addstaffdetails', 'AdminController::addStaffDetails', ['filter' => 'adminGuard']);
+$routes->post('/updateStaffDetails/(:num)', 'AdminController::updateStaffDetails/$1');
+$routes->get('/admin-staffaccounts/delete/(:num)', 'AdminController::deleteStaffDetails/$1');
+
+//Admin-Feedback
+$routes->get('/admin-feedback', 'AdminController::feedback', ['filter' => 'adminGuard']);
+
+//Admin-ChatBot
+$routes->get('/admin-chat', 'AdminController::chat', ['filter' => 'adminGuard']);
+$routes->post('/addChat', 'AdminController::addChat', ['filter' => 'adminGuard']);
+$routes->get('/admin-chat/delete/(:num)', 'AdminController::deleteChat/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateChat/(:num)', 'AdminController::updateChat/$1', ['filter' => 'adminGuard']);
+
+
+//Admin-Service Catalog Management
+//Hotel
+$routes->get('/admin-hotel/service', 'AdminController::holService', ['filter' => 'adminGuard']);
+$routes->post('/addserviceRoom', 'AdminController::addserviceRoom', ['filter' => 'adminGuard']);
+$routes->get('/admin-hotel/service/delete/(:num)', 'AdminController::deleteServiceRoom/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateserviceRoom', 'AdminController::updateserviceRoom', ['filter' => 'adminGuard']);
+$routes->post('/room-image/add', 'AdminController::addserviceRoomImage', ['filter' => 'adminGuard']);
+$routes->get('services/delete/(:num)', 'AdminController::deleteServiceRoomImage/$1', ['filter' => 'adminGuard']);
+//Restaurant
+$routes->get('/admin-restaurant/service', 'AdminController::restService', ['filter' => 'adminGuard']);
+$routes->post('/addserviceTable', 'AdminController::addserviceTable', ['filter' => 'adminGuard']);
+$routes->get('/admin-convention/service/delete/(:num)', 'AdminController::deleteServiceTable/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateserviceTable', 'AdminController::updateserviceTable', ['filter' => 'adminGuard']);
+//Convention
+$routes->get('/admin-convention/service', 'AdminController::conService', ['filter' => 'adminGuard']);
+$routes->post('/addserviceconVenue', 'AdminController::addserviceconVenue', ['filter' => 'adminGuard']);
+$routes->get('/staff/deleteVenue/(:num)', 'AdminController::deleteServiceConVenue/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateserviceconVenue', 'AdminController::updateserviceconVenue', ['filter' => 'adminGuard']);
+$routes->post('/addserviceEvent', 'AdminController::addserviceEvent', ['filter' => 'adminGuard']);
+$routes->get('/deleteEvent/(:num)', 'AdminController::deleteServiceConEvent/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateserviceEvent', 'AdminController::updateserviceEvent', ['filter' => 'adminGuard']);
+
+$routes->get('/admin-qrcode', 'AdminController::Qrcode', ['filter' => 'adminGuard']);
+$routes->post('/updateQrcode', 'AdminController::updateQrcode', ['filter' => 'adminGuard']);
+
+$routes->post('/addMainMenu', 'RestaurantController::addMainMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenumain/(:num)', 'RestaurantController::deleteMainMenu/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateMainMenu', 'RestaurantController::updateMainMenu', ['filter' => 'adminGuard']);
+
+$routes->post('/addBarMenu', 'RestaurantController::addBarMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenubar/(:num)', 'RestaurantController::deleteBarMenu/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateBarMenu', 'RestaurantController::updateBarMenu', ['filter' => 'adminGuard']);
+
+$routes->post('/addCafeMenu', 'RestaurantController::addCafeMenu', ['filter' => 'adminGuard']);
+$routes->get('/deletemenucafe/(:num)', 'RestaurantController::deleteCafeMenu/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateCafeMenu', 'RestaurantController::updateCafeMenu', ['filter' => 'adminGuard']);
+$routes->post('/addCafeMenuIced', 'RestaurantController::addCafeMenuIced', ['filter' => 'adminGuard']);
+$routes->get('/deletemenucafeiced/(:num)', 'RestaurantController::deleteCafeMenuIced/$1', ['filter' => 'adminGuard']);
+$routes->post('/updateCafeMenuIced', 'RestaurantController::updateCafeMenuIced', ['filter' => 'adminGuard']);
+
+$routes->get('/admin-newspromotion', 'AdminController::newsPromotion', ['filter' => 'adminGuard']);
+$routes->post('/admin-addnewspromotion', 'AdminController::addnewsPromotion', ['filter' => 'adminGuard']);
+$routes->post('/admin-editnewspromotion', 'AdminController::editnewsPromotion', ['filter' => 'adminGuard']);
+$routes->get('/deleteNews/(:segment)', 'AdminController::deleteNews/$1', ['filter' => 'adminGuard']);
+
+$routes->get('/admin-report', 'AdminController::Report', ['filter' => 'adminGuard']);
+$routes->post('/admin-report/fetch-report-data', 'AdminController::fetchReportData', ['filter' => 'adminGuard']);
+$routes->get('/process-jobs', 'GuestController::processJobs');
+
+
+$routes->get('send-notification', 'GuestController::testSendNotification');

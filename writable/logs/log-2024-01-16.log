@@ -1,0 +1,26 @@
+CRITICAL - 2024-01-16 09:39:20 --> include(C:\laragon\www\projectmahalta\app\Views\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Admin\staffAccount.php on line 24.
+ 1 APPPATH\Views\Admin\staffAccount.php(24): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin/../../Admin/include/navbar.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 24)
+ 2 APPPATH\Views\Admin\staffAccount.php(24): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 6 APPPATH\Controllers\AdminController.php(134): view('Admin\\staffAccount', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
+CRITICAL - 2024-01-16 09:39:37 --> include(/include/navbar.php): Failed to open stream: No such file or directory
+in APPPATH\Views\Admin\staffAccount.php on line 24.
+ 1 APPPATH\Views\Admin\staffAccount.php(24): CodeIgniter\Debug\Exceptions->errorHandler(2, 'include(/include/navbar.php): Failed to open stream: No such file or directory', 'C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php', 24)
+ 2 APPPATH\Views\Admin\staffAccount.php(24): include()
+ 3 SYSTEMPATH\View\View.php(228): include('C:\\laragon\\www\\projectmahalta\\app\\Views\\Admin\\staffAccount.php')
+ 4 SYSTEMPATH\View\View.php(231): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 5 SYSTEMPATH\Common.php(1190): CodeIgniter\View\View->render('Admin\\staffAccount', [], true)
+ 6 APPPATH\Controllers\AdminController.php(134): view('Admin\\staffAccount', [...])
+ 7 SYSTEMPATH\CodeIgniter.php(942): App\Controllers\AdminController->staffAccounts()
+ 8 SYSTEMPATH\CodeIgniter.php(502): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\AdminController))
+ 9 SYSTEMPATH\CodeIgniter.php(361): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+10 FCPATH\index.php(79): CodeIgniter\CodeIgniter->run()
+11 SYSTEMPATH\Commands\Server\rewrite.php(47): require_once('C:\\laragon\\www\\projectmahalta\\public\\index.php')
